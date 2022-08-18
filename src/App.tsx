@@ -10,6 +10,7 @@ import { LoginPage } from './Pages/LoginPage';
 import { CreateAccountPage } from './Pages/CreateAccountPage';
 import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
 import { green, purple } from '@mui/material/colors';
+import { ErrorPage } from './Pages/ErrorPage';
 
 const AppContainer = styled(Box)<{themeMode:string}>`
 
@@ -17,7 +18,7 @@ const AppContainer = styled(Box)<{themeMode:string}>`
   padding: 0;
   background: ${props => props.themeMode === "dark" ? "#292622" : "#f4f1eb"};
   min-height: 100vh;
-  transition: 0.85s;
+  transition: background-color 0.2s ease;
 
 
     // background-image: url("https://plepo.com/wp-content/uploads/2021/05/Q5WPRTV2H1GBKY1D-867x579.png");
@@ -143,7 +144,7 @@ function App() {
               <Route path='/trends' element={<TrendsPage/>}/>
               <Route path='/login' element={<LoginPage/>}/>
               <Route path='/create-account' element={<CreateAccountPage/>}/>
-              <Route path='*' element={<DiaryPage/>}/>
+              <Route path='*' element={<ErrorPage/>}/>
             </Routes>
             </div>
           </div>

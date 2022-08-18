@@ -8,7 +8,7 @@ const AuthPaper = styled(Paper)<{side:String}>`
     width: 500px;
     display: flex;
     justify-content: center;
-    transition: 0.85s;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.85s;
     position: relative;
 
     // perspective: 1000px;
