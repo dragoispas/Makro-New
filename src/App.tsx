@@ -17,18 +17,14 @@ const AppContainer = styled(Box)<{themeMode:string}>`
   padding: 0;
   background: ${props => props.themeMode === "dark" ? "#292622" : "#f4f1eb"};
   min-height: 100vh;
+  transition: 0.85s;
 
-  .background-image {
-    background-image: url("https://plepo.com/wp-content/uploads/2021/05/Q5WPRTV2H1GBKY1D-867x579.png");
-    background-size: contain;
-    height: 100vh;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: -10;
-    opacity: 0.1;
-  }
+
+    // background-image: url("https://plepo.com/wp-content/uploads/2021/05/Q5WPRTV2H1GBKY1D-867x579.png");
+    // background-size: auto;
+
+    // // opacity: 0.1;
+
 `;
 
 export const MaterialUISwitch = styled(Switch)(({ theme }) => ({
