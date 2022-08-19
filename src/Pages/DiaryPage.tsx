@@ -20,7 +20,7 @@ export const DiaryPage:React.FC = () => {
           <Stack gap="30px">
             <CustomCalendar></CustomCalendar>
             <Paper sx={{width: "320px"}}>
-              <Stack sx={{margin: "24px"}} gap="20px">
+              <Stack sx={{margin: "24px", paddingTop:"10px"}} gap="20px">
                 <Typography sx={{fontSize:"0.75rem", opacity: 0.6}}>CALORIE GOAL AND WEIGHT</Typography>
                 <TextField id="outlined-basic" label="Calorie goal" variant="outlined" />
                 <Stack direction={"row"} gap="20px">
