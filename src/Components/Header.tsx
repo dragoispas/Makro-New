@@ -1,20 +1,20 @@
 import styled from "@emotion/styled";
 import { ButtonBase, Container, Typography, Box, Button, Switch } from "@mui/material";
 import { Stack } from "@mui/system";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { MaterialUISwitch } from "../App";
 
 const MenuButton = styled(Typography)<{isActive?:boolean}>`
     width: 70px;
     text-align: center;
+    cursor: pointer;
     // font-weight: bold;
     // font-size: 18px;
     // color: #a56b65;
 
 
     ${({ isActive }) => (isActive ? 'opacity: 90%; font-weight: bold;' : 'opacity: 60%;')}
-    // ${({ isActive }) => (isActive ? 'border-bottom: 1px solid;' : '')}
 
     &:hover{
         // border-bottom: 1px solid;
@@ -30,16 +30,23 @@ interface Props{
 }
 
 export const Header:React.FC<Props> = ({activePage}) => {
+
+    const navigate = useNavigate();
+    const goToDiary= useCallback(() => navigate('/diary', {replace: true}), [navigate]);
+    const goToTrends= useCallback(() => navigate('/trends', {replace: true}), [navigate]);
+    const goToSettings= useCallback(() => navigate('/settings', {replace: true}), [navigate]);
+    const logout= useCallback(() => navigate('/login', {replace: true}), [navigate]);
+
     return(
-        <Stack direction="row" justifyContent={"space-between"} sx={{width:"100vw"}}>
+        <Stack direction="row" justifyContent={"space-between"} sx={{width:"90vw"}} gap={"40px"}>
             <Stack direction="row" gap="60px">
-                <div style={{fontWeight:"bold", margin:"0 30px "}}>MAKRO</div>
-                <Link to="/diary" style={{textDecoration:"none"}}><MenuButton isActive={activePage.includes("diary")}>DIARY</MenuButton></Link>
-                <Link to="/trends" style={{textDecoration:"none"}}><MenuButton isActive={activePage.includes("trends")}>TRENDS</MenuButton></Link>
-                <Link to="/settings" style={{textDecoration:"none"}}><MenuButton isActive={activePage.includes("settings")}>SETTINGS</MenuButton></Link>
+                <Typography>MAKRO</Typography>
+                <MenuButton onClick={()=>goToDiary()} isActive={activePage.includes("diary")}>DIARY</MenuButton>
+                <MenuButton onClick={()=>goToTrends()} isActive={activePage.includes("trends")}>TRENDS</MenuButton>
+                <MenuButton onClick={()=>goToSettings()} isActive={activePage.includes("settings")}>SETTINGS</MenuButton>
     
             </Stack>
-            <Link to="/login" style={{textDecoration:"none"}}><MenuButton isActive={false} style={{marginLeft: "75px", marginRight: "50px"}}><div>LOGOUT</div></MenuButton></Link>
+            <MenuButton onClick={()=>logout()} isActive={false} sx={{margin: "0 20px;"}}>LOGOUT</MenuButton>
         </Stack>
     )
 }

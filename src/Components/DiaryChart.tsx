@@ -100,7 +100,7 @@ export const DiaryChart:React.FC<Props> = ({targetCalories, totalCalories, total
                             strokeWidth={20}
                             styles={buildStyles({
                                 pathColor: "#83b28d",
-                                trailColor: "#ffffff",
+                                trailColor: "#rgba(250,250,250,0.5)",
                                 pathTransition: "0.25s",
                                 strokeLinecap: "butt",
                             })}

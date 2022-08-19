@@ -1,29 +1,49 @@
-import { Box, Paper, Container, Stack, InputBase, TextField } from '@mui/material'
+import { Box, Paper, Container, Stack, InputBase, TextField, Typography, MenuItem } from '@mui/material'
+import { DatePicker, DesktopDatePicker, LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers'
+import moment from 'moment'
 import React, { useState } from 'react'
+import { CustomCalendar } from '../Components/CustomCalendar'
 import { DiaryChart } from '../Components/DiaryChart'
 import { Header } from '../Components/Header'
 import { Search } from '../Components/Search'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 export const DiaryPage:React.FC = () => {
   const [weight, setWeight] = useState<string>("WEIGHT");
+  const [currentDate, setCurrentDate] = useState<string>("12-09-2022");
+
+
   return (
       <>
         <Header activePage='diary'/>
-        <Paper sx={{margin:"60px auto", height:"1000px", width:"800px"}}>
-          <Stack direction={"row"} sx={{paddingLeft:"3px", paddingRight:"3px", justifyContent:"space-between"}}>
-            <InputBase value={"12-10-2022"} inputProps={{style: {cursor:"pointer"}}}></InputBase>
-            <InputBase value={"TARGET: 2000 CAL"} inputProps={{style: {textAlign: 'center', cursor:"pointer"}}}></InputBase>
-            <InputBase onChange={e=> setWeight(e.target.value)} value={weight} inputProps={{style: {textAlign: 'right', cursor:"pointer"}}}></InputBase>
-          </Stack>
-                <Stack sx={{alignItems:"center", position:"relative"}} p="50px">
-                    <Container sx={{width: "500px", height: "60px"}}></Container>
-                    <Search/>
-                    <DiaryChart targetCalories={2000} totalCalories={1500} totalCarbs={200} totalFat={34} totalProtein={178}/>
-                    {/* {getDivider()}
-                    <FoodEntriesBox products={products} deleteFoodEntry={deleteFoodEntry} foodEntries={dayEntry.foodEntries} servingSizes={servingSizes}/> */}
+        <Box sx={{marginTop: "70px", display:"flex", justifyContent:"center", gap: "40px"}}>
+          <Stack gap="30px">
+            <CustomCalendar></CustomCalendar>
+            <Paper sx={{width: "320px"}}>
+              <Stack sx={{margin: "24px"}} gap="20px">
+                <Typography sx={{fontSize:"0.75rem", opacity: 0.6}}>CALORIE GOAL AND WEIGHT</Typography>
+                <TextField id="outlined-basic" label="Calorie goal" variant="outlined" />
+                <Stack direction={"row"} gap="20px">
+                  <TextField id="outlined-basic" label="Weight" variant="outlined" />
+                  <TextField id="outlined-basic" label="Unit" select variant="outlined" sx={{width:"100px"}}>
+                    <MenuItem key={"KG"} value={"KG"}>KG</MenuItem>
+                    <MenuItem key={"LBS"} value={"LBS"}>LBS</MenuItem>
+                  </TextField>
                 </Stack>
-            
-        </Paper>
+              </Stack>
+            </Paper>
+          </Stack>
+        
+          <Paper sx={{height:"1000px", width:"800px"}}>
+            <Stack sx={{alignItems:"center", position:"relative"}} p="50px">
+                <Container sx={{width: "500px", height: "60px"}}></Container>
+                <Search/>
+                <DiaryChart targetCalories={2000} totalCalories={1500} totalCarbs={200} totalFat={34} totalProtein={178}/>
+                {/* {getDivider()}
+                <FoodEntriesBox products={products} deleteFoodEntry={deleteFoodEntry} foodEntries={dayEntry.foodEntries} servingSizes={servingSizes}/> */}
+            </Stack>
+          </Paper>
+        </Box>
       </>
   )
 }
