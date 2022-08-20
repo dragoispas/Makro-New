@@ -4,7 +4,7 @@ import React from "react";
 import DefaultFoodImage from "../Pgotos/DefaultFoodImage.png"
 import useOutsideClick from "./useOutsideClick";
 import { buildStyles, CircularProgressbar, CircularProgressbarWithChildren } from "react-circular-progressbar";
-import { Box, Button, ButtonBase, Divider, Input, InputBase, Paper, Tab,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, TextField, Typography } from "@mui/material";
+import { Box, Button, ButtonBase, Divider, Input, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Paper, Tab,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, TextField, Typography } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { emptyProduct, Product, ProductMap } from "../Api/products/types";
 import { Stack } from "@mui/system";
@@ -12,6 +12,8 @@ import { MiniChart } from "./MiniChart";
 import ReplayIcon from '@mui/icons-material/Replay';
 import { TabPanel } from "./TabPanel";
 import ClearIcon from '@mui/icons-material/Clear';
+import LocalDiningIcon from '@mui/icons-material/LocalDining';
+import { SearchListItem } from "./SearchListItem";
 
 const InputContainer = styled(Paper)<{isActive:boolean}>`
     position: absolute;
@@ -19,16 +21,11 @@ const InputContainer = styled(Paper)<{isActive:boolean}>`
     width: 600px;
     min-height: 60px;
     max-height: 600px;
-    // border: 1px solid;
-    transition: scale 0.25s;
     border-radius: 5px;
+    padding-top: 5px;
 
     ${props => props.isActive ? `box-shadow: 0 0 50px rgba(0,0,0,0.5);` : `box-shadow: none;`}
-    &:hover{
-        // background: rgba(207,223,218,1);
-        // box-shadow: 0 0 10px rgba(0,0,0,0.2); 
-        // border: 2px solid rgba(0,0,0,0.1);
-    }
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,67 +62,17 @@ const ClearButton = styled(ClearIcon)<{inputText:string}>`
     ${props => props.inputText==="" ? `opacity:0%` : `opacity:100%; cursor:pointer;`}
 `;
 
-export const CategoryButton = styled(Typography)<{isActive?:boolean}>`
-    border:none;
-    outline:none;
-    cursor:pointer;
-    background:inherit;
-    // color: black;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 10px;
-
-    ${({ isActive }) => (isActive ? 'opacity: 80%;' : 'opacity: 40%;')}
-    // ${({ isActive }) => (isActive ? 'border-bottom: 2px solid;' : '')}
-
-    &:hover{
-        transition: 0.1s;
-        ${({ isActive }) => (isActive ? 'opacity: 80%;' : 'opacity: 60%;')}
-    }
-
-    &:active{
-        transition: 0.1s;
-        opacity: 60%;
-    }
-
-    transition: 0.25s;
-`;
-
 const SearchContent = styled(Box)<{isActive:boolean}>`
-    ${props => props.isActive ? "" : "pointer-events: none; opacity: 0;"}
+opacity: 0;
+    ${props => props.isActive ? "animation: fade-in 1s forwards;" : "pointer-events: none; opacity: 0;"}
     position: absolute;
-    transition: 0.25s;
     width: 600px;
-
-`;
-
-export const SearchListItem = styled.button`
-    display: flex;
-    gap: 10px;
-    height: 50px;
-    align-items: center;
-    background: inherit;
-    border:none;
-    // border-bottom: 1px solid rgba(0,0,0,0.2);
-    cursor:pointer;
-    padding: 0px 30px;
-    outline:none;
-    &:hover{
-        transition: 0.25s;
-        background:rgba(0,0,0,0.02)
+    @keyframes fade-in {
+        0%    { opacity: 0; }
+        100%  { opacity: 1; }
     }
-`;
-
-const EditFormBox = styled(Box)<{isActive:boolean}>`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: space-around;
-    width: 600px;
-    position: absolute;
-    transition: 0.25s;
-
-    ${props => props.isActive ? "" : "pointer-events: none; opacity: 0;"}
+    animation-delay: 0.15s;
+    animation-duration: 0.35s;
 
 `;
 
@@ -140,6 +87,25 @@ const Overlay = styled(Box)<{isActive:boolean}>`
     left: 0;
     bottom: 0;
     right: 0;
+    z-index:1000;
+`;
+
+export const CustomFoodIcon = styled(LocalDiningIcon)`
+    background: rgba(150,150,150,0.2);
+    border-radius: 50%;
+    padding: 5px;
+    opacity:0.9;
+`;
+
+const AnimatedBox = styled(Box)<{isActive:boolean}>`
+    opacity: 0;
+    @keyframes fade-in {
+        0%    { opacity: 0; }
+        100%  { opacity: 1; }
+    }
+    ${props => props.isActive ? "animation: fade-in 1s;" : ""}
+    animation-delay: 0.25s;
+
 `;
 
 interface Props{
@@ -207,18 +173,18 @@ export const Search:React.FC<Props> = ({}) => {
     const wrapperRef = useRef(null);
     useOutsideClick(() => closeSearch(), wrapperRef);
 
-    const getSearchResults = useMemo(() => {
-        console.log(products)
-        return Object.values(products).map(product => (
-                <React.Fragment key = {product.id}>
-                    <SearchListItem onClick={()=>{setInputText(product.name); setContent("addForm"); setActiveCategory("Add to Diary"); setCurrentProduct(product);}}>
-                        <img src={"aa"} alt="." style={{height: "40px", width: "40px"}}/>
-                        <div style={{fontWeight:"bold"}}>{product.name}</div>
-                    </SearchListItem>
-                </React.Fragment>
-            ));
+    // const getSearchResults = useMemo(() => {
+    //     console.log(products)
+    //     return Object.values(products).map(product => (
+    //             <React.Fragment key = {product.id}>
+    //                 <SearchListItem onClick={()=>{setInputText(product.name); setContent("addForm"); setActiveCategory("Add to Diary"); setCurrentProduct(product);}}>
+    //                     <img src={"aa"} alt="." style={{height: "40px", width: "40px"}}/>
+    //                     <div style={{fontWeight:"bold"}}>{product.name}</div>
+    //                 </SearchListItem>
+    //             </React.Fragment>
+    //         ));
         
-    }, [products])
+    // }, [products])
     
     return (
         <>
@@ -230,7 +196,7 @@ export const Search:React.FC<Props> = ({}) => {
                 <CustomInput value={inputText} onClick={() => setIsInputActive(true)} onChange={e => setInputText(e.target.value)} placeholder="Search food"/>
                 <ClearButton sx={{transform: "translate(-60px, 0px)"}} color="inherit" inputText={inputText} onClick={()=>{setContent("suggestions"); setInputText(""); setActiveCategory("All"); setCurrentProduct({...emptyProduct})}}/>
             </Box>
-            <Box style={{width:"100%", height: searchContentHeight, transition:"0.25s"}}>
+            <Box sx={{width:"100%", height: searchContentHeight, transition:"0.25s"}}>
                 <SearchContent isActive={isInputActive && content==="suggestions"}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider', padding:"0px 20px" }}>
                         <Tabs
@@ -240,23 +206,100 @@ export const Search:React.FC<Props> = ({}) => {
                             scrollButtons={false}
                             aria-label="scrollable prevent tabs example"
                             >
-                            <Tab label="Recent" />
+                            <Tab label="All" />
                             <Tab label="Custom" />
-                            <Tab label="Basic" />
+                            <Tab label="Common" />
                             <Tab label="Branded" />
                         </Tabs>
                     </Box>
                     <TabPanel value={tab} index={0}>
-                        Item One
+                        <List
+                            sx={{
+                                width: '100%',
+                                bgcolor: 'background.paper',
+                                position: 'relative',
+                                overflow: 'auto',
+                                maxHeight: 355,
+                                height: 355,
+                                '& ul': { padding: 0 },
+                            }}
+                            subheader={<li />}
+                            >
+                            <li key={`section-1`}>
+                                <ul>
+                                    <ListSubheader>RECENT</ListSubheader>
+                                    <SearchListItem name="Test item" calories={120}/>
+                                    <SearchListItem name="Test item" calories={120}/>
+                                    <SearchListItem name="Test item" calories={120}/>
+                                    <SearchListItem name="Test item" calories={120}/>
+                                    <ListSubheader>CUSTOM</ListSubheader>
+                                    <SearchListItem name="Test item" calories={120}/>
+                                    <SearchListItem name="Test item" calories={120}/>
+                                    <SearchListItem name="Test item" calories={120}/>
+                                    <SearchListItem name="Test item" calories={120}/>
+                                    <ListSubheader>COMMON</ListSubheader>
+                                    <SearchListItem name="Test item" calories={120}/>
+                                    <SearchListItem name="Test item" calories={120}/>
+                                    <SearchListItem name="Test item" calories={120}/>
+                                    <SearchListItem name="Test item" calories={120}/>
+                                    <ListSubheader>BRANDED</ListSubheader>
+                                    <SearchListItem name="Test item" calories={120}/>
+                                    <SearchListItem name="Test item" calories={120}/>
+                                </ul>
+                            </li>
+                        </List>
+                        <Button sx={{width:"100%", marginTop:"10px"}}>CREATE NEW FOOD</Button>
                     </TabPanel>
                     <TabPanel value={tab} index={1}>
-                        Item Two
+                    <List
+                            sx={{
+                                width: '100%',
+                                bgcolor: 'background.paper',
+                                position: 'relative',
+                                overflow: 'auto',
+                                maxHeight: 355,
+                                height: 355,
+                                '& ul': { padding: 0 },
+                            }}
+                            subheader={<li />}
+                            >
+                            <SearchListItem name="Test item" calories={120}/>
+                        </List>
+                        <Button sx={{width:"100%", marginTop:"10px"}}>CREATE NEW FOOD</Button>
                     </TabPanel>
                     <TabPanel value={tab} index={2}>
-                        Item Three
+                    <List
+                            sx={{
+                                width: '100%',
+                                bgcolor: 'background.paper',
+                                position: 'relative',
+                                overflow: 'auto',
+                                maxHeight: 355,
+                                height: 355,
+                                '& ul': { padding: 0 },
+                            }}
+                            subheader={<li />}
+                            >
+                            <SearchListItem name="Test item" calories={120}/>
+                        </List>
+                        <Button sx={{width:"100%", marginTop:"10px"}}>CREATE NEW FOOD</Button>
                     </TabPanel>
                     <TabPanel value={tab} index={3}>
-                        Item Four
+                    <List
+                            sx={{
+                                width: '100%',
+                                bgcolor: 'background.paper',
+                                position: 'relative',
+                                overflow: 'auto',
+                                maxHeight: 355,
+                                height: 355,
+                                '& ul': { padding: 0 },
+                            }}
+                            subheader={<li />}
+                            >
+                            <SearchListItem name="Test item" calories={120}/>
+                        </List>
+                        <Button sx={{width:"100%", marginTop:"10px"}}>CREATE NEW FOOD</Button>
                     </TabPanel>
                 </SearchContent>
             </Box>

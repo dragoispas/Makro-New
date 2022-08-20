@@ -3,7 +3,6 @@ import { ButtonBase, Container, Typography, Box, Button, Switch } from "@mui/mat
 import { Stack } from "@mui/system";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { MaterialUISwitch } from "../App";
 
 const MenuButton = styled(Typography)<{isActive?:boolean}>`
     width: 70px;

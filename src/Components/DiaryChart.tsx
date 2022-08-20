@@ -11,6 +11,7 @@ const MacroGraph = styled(Box)<{amount:number, macro:string}>`
     background-color:${props => props.macro === "totalProtein" ? "#83b28d" : (props.macro === "totalFat" ? "#EF4444" : "#ef9a44")};
     // background-color: #EF4444;
     // background-color: #ef9a44;
+    opacity: 0.9;
 
     transition: 0.25s;
 `;
@@ -26,7 +27,7 @@ const ChartContainer = styled(Stack)`
         padding: 30px;
         border-radius: 5px;
         // opacity: 80px;
-        width: 200px;
+        width: 175px;
     }
 
     .progressbar{
@@ -37,6 +38,7 @@ const ChartContainer = styled(Stack)`
         display: flex;
         align-items: center;
         justify-content: center;
+        opacity: 0.9;
     }
 
     .progressbar_label{
@@ -93,14 +95,14 @@ interface Props{
 export const DiaryChart:React.FC<Props> = ({targetCalories, totalCalories, totalCarbs, totalFat, totalProtein}) => {
     return(
         <ChartContainer direction={"row"}>
-                <Box className="progressbar_container">
+                <Box className="progressbar_container" sx={{borderRight: 1, borderColor: 'divider'}}>
                     <Box className="progressbar">
                         <CircularProgressbar
                             value={100*totalCalories/targetCalories}
-                            strokeWidth={20}
+                            strokeWidth={19}
                             styles={buildStyles({
-                                pathColor: "#83b28d",
-                                trailColor: "#rgba(250,250,250,0.5)",
+                                pathColor: "#ee5b46",
+                                trailColor: "rgba(150,150,150,0.15)",
                                 pathTransition: "0.25s",
                                 strokeLinecap: "butt",
                             })}
@@ -113,7 +115,6 @@ export const DiaryChart:React.FC<Props> = ({targetCalories, totalCalories, total
                 </Box>
                 {/* <Box style={{width:"100px"}}></Box> */}
                 {/* <Divider wdith="1px" height="200px"></Divider> */}
-                <Divider light/>
                 <Box className="makrocharts_container">
                     <Box className="makrochart_container">
                         <MacroGraph amount={totalCarbs} macro={"totalCarbs"}></MacroGraph>
