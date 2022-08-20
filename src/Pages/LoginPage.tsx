@@ -1,6 +1,7 @@
-import { FormControl, FormHelperText, Input, InputLabel, Paper, Stack, Button, Typography, Box, Alert, styled } from "@mui/material"
+import { FormControl, FormHelperText, Input, InputLabel, Paper, Stack, Button, Typography, Box, Alert, styled, InputAdornment, IconButton } from "@mui/material"
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useCallback, useState } from "react";
+import { VisibilityOff, Visibility } from "@mui/icons-material";
 
 const AuthPaper = styled(Paper)<{side:String}>`
     margin: 60px auto;
@@ -39,6 +40,7 @@ export const LoginPage = () => {
 
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [showPassword, setShowPassword] = useState<boolean>(false);
     const [name, setName] = useState<string>("");
 
     const [usernameError, setUsernameError] = useState<string>("");
@@ -83,6 +85,7 @@ export const LoginPage = () => {
         return <></>
     }
 
+
     
 
     return(
@@ -109,11 +112,22 @@ export const LoginPage = () => {
                         <FormControl sx={{height:"70px"}} error={passwordError!==""} variant="standard">
                             <InputLabel htmlFor="component-error">Password</InputLabel>
                             <Input
-                            type="password"
-                            id="component-error"
+                            type={showPassword ? 'text' : 'password'}
                             value={password}
+                            id="component-error"
                             onChange={e => {setPassword(e.target.value); setPasswordError("");}}
                             aria-describedby="component-error-text"
+                            endAdornment={
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={() => showPassword===false ? setShowPassword(true) : setShowPassword(false)}
+                                    edge="end"
+                                  >
+                                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                                  </IconButton>
+                                </InputAdornment>
+                              }
                             />
                             <FormHelperText id="component-error-text">{passwordError}</FormHelperText>
                         </FormControl>

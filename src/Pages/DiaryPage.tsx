@@ -1,4 +1,4 @@
-import { Box, Paper, Container, Stack, InputBase, TextField, Typography, MenuItem } from '@mui/material'
+import { Box, Paper, Container, Stack, InputBase, TextField, Typography, MenuItem, Button } from '@mui/material'
 import { DatePicker, DesktopDatePicker, LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers'
 import moment from 'moment'
 import React, { useState } from 'react'
@@ -19,23 +19,29 @@ export const DiaryPage:React.FC = () => {
         <Box sx={{marginTop: "70px", display:"flex", justifyContent:"center", gap: "40px"}}>
           <Stack gap="30px">
             <CustomCalendar></CustomCalendar>
-            <Paper sx={{width: "320px"}}>
+            <Paper sx={{width: "320px", paddingBottom:"10px"}}>
               <Stack sx={{margin: "24px", paddingTop:"10px"}} gap="20px">
-                <Typography sx={{fontSize:"0.75rem", opacity: 0.6}}>CALORIE GOAL AND WEIGHT</Typography>
-                <TextField id="outlined-basic" label="Calorie goal" variant="outlined" />
+                <Typography sx={{fontSize:"0.75rem", opacity: 0.6}}>SET CALORIE GOAL AND WEIGHT</Typography>
+                <TextField  id="outlined-basic" label="Calorie goal" variant="outlined" />
                 <Stack direction={"row"} gap="20px">
                   <TextField id="outlined-basic" label="Weight" variant="outlined" />
                   <TextField id="outlined-basic" label="Unit" select variant="outlined" sx={{width:"100px"}}>
                     <MenuItem key={"KG"} value={"KG"}>KG</MenuItem>
                     <MenuItem key={"LBS"} value={"LBS"}>LBS</MenuItem>
                   </TextField>
+                  
                 </Stack>
               </Stack>
+              <Box sx={{display:"flex", padding: "8px"}}>
+                <Button sx={{width:"64px", marginLeft:"auto"}}>Save</Button>
+              </Box>
+
             </Paper>
           </Stack>
         
-          <Paper sx={{height:"1000px", width:"800px"}}>
-            <Stack sx={{alignItems:"center", position:"relative"}} p="50px">
+          <Paper sx={{height:"785px", width:"600px", padding:"24px"}}>
+          <Typography sx={{fontSize:"0.75rem", opacity: 0.6, marginTop:"10px"}}>LOG FOODS</Typography>
+            <Stack sx={{alignItems:"center", paddingTop:"20px"}}>
                 <Container sx={{width: "500px", height: "60px"}}></Container>
                 <Search/>
                 <DiaryChart targetCalories={2000} totalCalories={1500} totalCarbs={200} totalFat={34} totalProtein={178}/>

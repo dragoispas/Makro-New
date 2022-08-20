@@ -10,7 +10,7 @@ export const CustomCalendar:React.FC = () => {
     );
 
     return(
-        <Paper sx={{display: "inline-flex",paddingTop:"10px"}}>
+        <Paper sx={{padding:"10px 0"}}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <StaticDatePicker
             onChange={(newValue) => setDate(newValue)}

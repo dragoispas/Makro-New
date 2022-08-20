@@ -19,7 +19,7 @@ const AppContainer = styled(Box)<{themeMode:string}>`
 
   margin: 0;
   padding: 0;
-  background: ${props => props.themeMode === "dark" ? "#292622" : "#f4f1eb"};
+  background: ${props => props.themeMode === "dark" ? "rgba(0,0,0,0.955)" : "#f4f1eb"};
   min-height: 100vh;
   transition: background-color 0.2s ease;
 
@@ -223,9 +223,10 @@ function App() {
         styleOverrides: {
           root: {
             borderRadius: "10px",
-            boxShadow:"0 0 20px rgba(0,0,0,0.1)",
             backgroundColor:"#050505",
-            transition:"background-color 0.2s ease"
+            boxShadow:"0 0 20px rgba(0,0,0,0.7)",
+            transition:"background-color 0.2s ease",
+            borderColor:"rgba(250,250,250,0.1)"
           }
         }
       },
