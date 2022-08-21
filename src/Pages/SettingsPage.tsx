@@ -1,10 +1,6 @@
-import React from 'react'
-import { Header } from '../Components/Header'
+import React from 'react';
+import { Header } from '../Components/Header';
 
-export const SettingsPage:React.FC = () => {
-  return (
-    <>
-      <Header activePage='settings'/>
-    </>
-  )
-}
+export const SettingsPage: React.FC = () => {
+  return <Header activePage="settings" />;
+};

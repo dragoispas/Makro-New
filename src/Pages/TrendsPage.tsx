@@ -1,10 +1,6 @@
-import React from 'react'
-import { Header } from '../Components/Header'
+import React from 'react';
+import { Header } from '../Components/Header';
 
-export const TrendsPage:React.FC = () => {
-  return (
-    <>
-      <Header activePage='trends'/>
-    </>
-  )
-}
+export const TrendsPage: React.FC = () => {
+  return <Header activePage="trends" />;
+};

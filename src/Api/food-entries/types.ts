@@ -1,4 +1,4 @@
-import { emptyProduct, Product } from "../products/types";
+import { emptyProduct, Product } from '../products/types';
 
 export type FoodEntry = {
   id: number | string;
@@ -21,16 +21,15 @@ export type FoodEntry = {
 };
 
 export const testFoodEntry1 = {
-  id: "test1",
-  dayEntryId: "333",
-  productId: "212",
-  name: "Banana",
+  id: 'test1',
+  dayEntryId: '333',
+  productId: '212',
+  name: 'Banana',
   quantity: 122,
   calories: 44,
   fat: 1,
   carbs: 10,
   protein: 2,
-  servingSize: "g",
+  servingSize: 'g',
   product: emptyProduct
-}
-
+};

@@ -3,8 +3,8 @@
 // the value will hold a quantity in GRAMS
 
 export type ServingSizeMap = {
-  [key:string]: number,
-}
+  [key: string]: number;
+};
 // export type ServingSize = {
 //   id: number;
 //   name: string;

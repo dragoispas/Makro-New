@@ -22,7 +22,7 @@ export async function create(rawData: Partial<Product>): Promise<Product> {
   return response.data;
 }
 
-export async function update(id: number|string, data: Partial<Product>) {
+export async function update(id: number | string, data: Partial<Product>) {
   const response = await axios.put(`/api/product/${id}`, data);
 
   if (!response || !response.data) {
@@ -31,7 +31,6 @@ export async function update(id: number|string, data: Partial<Product>) {
 
   return response.data;
 }
-
 
 export async function remove(id: number) {
   const response = await axios.delete(`/api/product/${id}`);

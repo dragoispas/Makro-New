@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { FoodEntry } from './types';
 
-export async function findOne(id: number|string): Promise<FoodEntry> {
+export async function findOne(id: number | string): Promise<FoodEntry> {
   const response = await axios.get(`/api/food-entry/${id}`);
 
   if (!response || !response.data) {
@@ -21,7 +21,7 @@ export async function create(data: Partial<FoodEntry>) {
   return response.data;
 }
 
-export async function update(id: number|string, data: Partial<FoodEntry>) {
+export async function update(id: number | string, data: Partial<FoodEntry>) {
   const response = await axios.put(`/api/food-entry/${id}`, data);
 
   if (!response || !response.data) {
@@ -31,7 +31,7 @@ export async function update(id: number|string, data: Partial<FoodEntry>) {
   return response.data;
 }
 
-export async function remove(id: number|string) {
+export async function remove(id: number | string) {
   const response = await axios.delete(`/api/food-entry/${id}`);
 
   if (!response || !response.data) {
