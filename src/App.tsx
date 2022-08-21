@@ -195,8 +195,7 @@ function App() {
               spacing={1}
               alignItems="center"
               justifyContent="center"
-              sx={{ position: 'absolute', margin: '0 40vw', width: '20vw', marginTop: '40px' }}
-            >
+              sx={{ position: 'absolute', margin: '0 40vw', width: '20vw', marginTop: '40px' }}>
               <DarkModeIcon />
               <AntSwitch
                 onChange={(e) => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}

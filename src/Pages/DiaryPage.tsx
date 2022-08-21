@@ -46,8 +46,7 @@ export const DiaryPage: React.FC = () => {
                   label="Unit"
                   select
                   variant="outlined"
-                  sx={{ width: '100px' }}
-                >
+                  sx={{ width: '100px' }}>
                   <MenuItem key="KG" value="KG">
                     KG
                   </MenuItem>

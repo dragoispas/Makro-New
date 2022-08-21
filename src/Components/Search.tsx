@@ -227,8 +227,7 @@ export const Search: React.FC<Props> = ({}) => {
             justifyContent: 'center',
             marginBottom: '20px',
             marginLeft: '22px'
-          }}
-        >
+          }}>
           <SearchIcon sx={{ transform: 'translate(41px, 0px)' }} />
           <CustomInput
             value={inputText}
@@ -256,8 +255,7 @@ export const Search: React.FC<Props> = ({}) => {
                 onChange={handleTabChange}
                 variant="scrollable"
                 scrollButtons={false}
-                aria-label="scrollable prevent tabs example"
-              >
+                aria-label="scrollable prevent tabs example">
                 <Tab label="All" />
                 <Tab label="Custom" />
                 <Tab label="Common" />
@@ -275,8 +273,7 @@ export const Search: React.FC<Props> = ({}) => {
                   height: 355,
                   '& ul': { padding: 0 }
                 }}
-                subheader={<li />}
-              >
+                subheader={<li />}>
                 <li key="section-1">
                   <ul>
                     <ListSubheader>RECENT</ListSubheader>
@@ -313,8 +310,7 @@ export const Search: React.FC<Props> = ({}) => {
                   height: 355,
                   '& ul': { padding: 0 }
                 }}
-                subheader={<li />}
-              >
+                subheader={<li />}>
                 <SearchListItem name="Test item" calories={120} />
               </List>
               <Button sx={{ width: '100%', marginTop: '10px' }}>CREATE NEW FOOD</Button>
@@ -330,8 +326,7 @@ export const Search: React.FC<Props> = ({}) => {
                   height: 355,
                   '& ul': { padding: 0 }
                 }}
-                subheader={<li />}
-              >
+                subheader={<li />}>
                 <SearchListItem name="Test item" calories={120} />
               </List>
               <Button sx={{ width: '100%', marginTop: '10px' }}>CREATE NEW FOOD</Button>
@@ -347,8 +342,7 @@ export const Search: React.FC<Props> = ({}) => {
                   height: 355,
                   '& ul': { padding: 0 }
                 }}
-                subheader={<li />}
-              >
+                subheader={<li />}>
                 <SearchListItem name="Test item" calories={120} />
               </List>
               <Button sx={{ width: '100%', marginTop: '10px' }}>CREATE NEW FOOD</Button>
