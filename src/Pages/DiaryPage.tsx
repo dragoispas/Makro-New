@@ -1,31 +1,38 @@
 import {
+  Avatar,
   Box,
-  Paper,
+  Button,
   Container,
-  Stack,
-  InputBase,
-  TextField,
-  Typography,
+  IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
   MenuItem,
-  Button
+  Paper,
+  Stack,
+  TextField,
+  Typography
 } from '@mui/material';
-import {
-  DatePicker,
-  DesktopDatePicker,
-  LocalizationProvider,
-  StaticDatePicker
-} from '@mui/x-date-pickers';
-import moment from 'moment';
 import React, { useState } from 'react';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import DeleteIcon from '@mui/icons-material/Delete';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { CustomCalendar } from '../Components/CustomCalendar';
 import { DiaryChart } from '../Components/DiaryChart';
 import { Header } from '../Components/Header';
-import { Search } from '../Components/Search';
+import Search from '../Components/Search';
 
-export const DiaryPage: React.FC = () => {
+export default function DiaryPage() {
   const [weight, setWeight] = useState<string>('WEIGHT');
   const [currentDate, setCurrentDate] = useState<string>('12-09-2022');
+
+  function getFoodEntries(element: React.ReactElement) {
+    return [0, 1, 2, 4, 5, 6].map((value) =>
+      React.cloneElement(element, {
+        key: value
+      })
+    );
+  }
 
   return (
     <>
@@ -76,6 +83,27 @@ export const DiaryPage: React.FC = () => {
               totalFat={34}
               totalProtein={178}
             />
+            <Box sx={{ width: '100%' }}>
+              <List dense sx={{ height: '350px' }}>
+                {getFoodEntries(
+                  <ListItem
+                    sx={{ borderTop: 1, borderColor: 'divider' }}
+                    secondaryAction={
+                      <IconButton edge="end" aria-label="delete">
+                        <DeleteIcon />
+                      </IconButton>
+                    }>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <RestaurantIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary="Food name" secondary="123 g" />
+                    <ListItemText sx={{ textAlign: 'end' }} primary="123" secondary="cal" />
+                  </ListItem>
+                )}
+              </List>
+            </Box>
             {/* {getDivider()}
                 <FoodEntriesBox products={products} deleteFoodEntry={deleteFoodEntry} foodEntries={dayEntry.foodEntries} servingSizes={servingSizes}/> */}
           </Stack>
@@ -83,21 +111,4 @@ export const DiaryPage: React.FC = () => {
       </Box>
     </>
   );
-};
-// export const CustomHeaderButton = styled.div<{isActive?:boolean}>`
-//     border:none;
-//     outline:none;
-//     background:inherit;
-//     font-weight: bold;
-//     opacity: 50%;
-//     padding: 10px;
-//     cursor: pointer;
-//     transition: 0.25s;
-
-//     ${props => !props.isActive ? "" : "color: #ef9a44; opacity:100%;"}
-
-//     &:hover{
-//         color: #ef9a44;
-//         opacity:100%;
-//     }
-// `;
+}

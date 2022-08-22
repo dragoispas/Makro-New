@@ -4,7 +4,7 @@ import { Box, PaletteMode, Stack, Switch } from '@mui/material';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { DiaryPage } from './Pages/DiaryPage';
+import DiaryPage from './Pages/DiaryPage';
 import { SettingsPage } from './Pages/SettingsPage';
 import { TrendsPage } from './Pages/TrendsPage';
 import { LoginPage } from './Pages/LoginPage';
@@ -189,9 +189,15 @@ function App() {
               direction="row"
               spacing={1}
               alignItems="center"
-              justifyContent="center"
-              sx={{ position: 'absolute', margin: '0 40vw', width: '20vw', marginTop: '40px' }}>
-              <DarkModeIcon />
+              justifyContent="flex-end"
+              sx={{
+                position: 'absolute',
+                right: 0,
+                marginTop: '40px',
+                marginRight: '40px',
+                zIndex: '2000'
+              }}>
+              <DarkModeIcon sx={{ color: themeMode.toString() === 'light' ? 'black' : 'white' }} />
               <AntSwitch
                 onChange={(e) => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}
                 inputProps={{ 'aria-label': 'ant design' }}

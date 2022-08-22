@@ -1,18 +1,18 @@
 import styled from '@emotion/styled';
-import { ButtonBase, Container, Typography, Box, Button, Switch } from '@mui/material';
-import { Stack } from '@mui/system';
-import { useCallback, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Typography } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const MenuButton = styled(Typography)<{ isActive?: boolean }>`
-  width: 70px;
+  width: 100px;
   text-align: center;
   cursor: pointer;
   // font-weight: bold;
   // font-size: 18px;
   // color: #a56b65;
 
-  ${({ isActive }) => (isActive ? 'opacity: 90%; font-weight: bold;' : 'opacity: 60%;')}
+  ${({ isActive }) => (isActive ? 'opacity: 100%;' : 'opacity: 60%;')}
 
   &:hover {
     // border-bottom: 1px solid;
@@ -37,18 +37,31 @@ export const Header: React.FC<Props> = ({ activePage }) => {
   return (
     <Stack direction="row" justifyContent="space-between" sx={{ width: '90vw' }} gap="40px">
       <Stack direction="row" gap="60px">
-        <Typography>MAKRO</Typography>
-        <MenuButton onClick={() => goToDiary()} isActive={activePage.includes('diary')}>
+        <Typography color="text.primary">MAKRO</Typography>
+        <MenuButton
+          color="text.primary"
+          onClick={() => goToDiary()}
+          isActive={activePage.includes('diary')}>
           DIARY
         </MenuButton>
-        <MenuButton onClick={() => goToTrends()} isActive={activePage.includes('trends')}>
+        <MenuButton
+          color="text.primary"
+          onClick={() => goToTrends()}
+          isActive={activePage.includes('trends')}>
           TRENDS
         </MenuButton>
-        <MenuButton onClick={() => goToSettings()} isActive={activePage.includes('settings')}>
+        <MenuButton
+          color="text.primary"
+          onClick={() => goToSettings()}
+          isActive={activePage.includes('settings')}>
           SETTINGS
         </MenuButton>
       </Stack>
-      <MenuButton onClick={() => logout()} isActive={false} sx={{ margin: '0 20px;' }}>
+      <MenuButton
+        color="text.primary"
+        onClick={() => logout()}
+        isActive={false}
+        sx={{ margin: '0 20px;' }}>
         LOGOUT
       </MenuButton>
     </Stack>

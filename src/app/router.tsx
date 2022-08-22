@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import React from 'react';
-import { DiaryPage } from '../Pages/DiaryPage';
+import DiaryPage from '../Pages/DiaryPage';
 import { SettingsPage } from '../Pages/SettingsPage';
 import { TrendsPage } from '../Pages/TrendsPage';
 import { LoginPage } from '../Pages/LoginPage';

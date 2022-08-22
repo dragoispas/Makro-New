@@ -1,12 +1,20 @@
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
-import { CustomFoodIcon } from './Search';
+import styled from '@emotion/styled';
+import LocalDiningIcon from '@mui/icons-material/LocalDining';
+
+export const CustomFoodIcon = styled(LocalDiningIcon)`
+  background: rgba(150, 150, 150, 0.2);
+  border-radius: 50%;
+  padding: 5px;
+  opacity: 0.9;
+`;
 
 interface Props {
   name: string;
   calories: number;
 }
 
-export const SearchListItem: React.FC<Props> = ({ name, calories }) => {
+export function SearchListItem({ name, calories }: Props) {
   return (
     <ListItem disablePadding>
       <ListItemButton>
@@ -18,4 +26,4 @@ export const SearchListItem: React.FC<Props> = ({ name, calories }) => {
       </ListItemButton>
     </ListItem>
   );
-};
+}
