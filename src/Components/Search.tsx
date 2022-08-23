@@ -23,8 +23,8 @@ import { SearchListItem } from './SearchListItem';
 import { TabPanel } from './TabPanel';
 import { emptyProduct, Product, ProductMap } from '../Api/products/types';
 import useOutsideClick from './useOutsideClick';
-import { CircularProgressWithLabel } from './CircularProgressWithLabel';
-import { LinearProgressWithLabel } from './LinearProgressWithLabel';
+import CircularProgressWithLabel from './CircularProgressWithLabel';
+import LinearProgressWithLabel from './LinearProgressWithLabel';
 
 const InputContainer = styled(Paper)<{ isActive: boolean }>`
   position: absolute;

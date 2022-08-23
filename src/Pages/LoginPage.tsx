@@ -1,24 +1,24 @@
 import {
+  Alert,
+  Box,
+  Button,
   FormControl,
   FormHelperText,
+  IconButton,
   Input,
+  InputAdornment,
   InputLabel,
   Paper,
   Stack,
-  Button,
-  Typography,
-  Box,
-  Alert,
   styled,
-  InputAdornment,
-  IconButton
+  Typography
 } from '@mui/material';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useCallback, useState } from 'react';
-import { VisibilityOff, Visibility } from '@mui/icons-material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const AuthPaper = styled(Paper)<{ side: string }>`
-  margin: 60px auto;
+  margin: 30px auto;
   height: 700px;
   width: 500px;
   display: flex;
@@ -217,7 +217,7 @@ export function LoginPage() {
                 setSignUnOpacity(1);
               }, 250);
             }}>
-            Sign up!
+            Sign up for free!
           </Typography>
         </Typography>
       </PaperSide>
@@ -279,6 +279,18 @@ export function LoginPage() {
               setPasswordError('');
             }}
             aria-describedby="component-error-text"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() =>
+                    showPassword === false ? setShowPassword(true) : setShowPassword(false)
+                  }
+                  edge="end">
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
           />
           <FormHelperText id="component-error-text">{passwordError}</FormHelperText>
         </FormControl>

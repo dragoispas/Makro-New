@@ -19,10 +19,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { CustomCalendar } from '../Components/CustomCalendar';
 import { DiaryChart } from '../Components/DiaryChart';
-import { Header } from '../Components/Header';
-import Search from '../Components/Search';
+import { Search } from '../Components/Search';
 
-export default function DiaryPage() {
+export const DiaryPage: React.FC = () => {
   const [weight, setWeight] = useState<string>('WEIGHT');
   const [currentDate, setCurrentDate] = useState<string>('12-09-2022');
 
@@ -36,8 +35,8 @@ export default function DiaryPage() {
 
   return (
     <>
-      <Header activePage="diary" />
-      <Box sx={{ marginTop: '70px', display: 'flex', justifyContent: 'center', gap: '40px' }}>
+      {/* <Header activePage='diary'/> */}
+      <Box sx={{ marginTop: '30px', display: 'flex', justifyContent: 'center', gap: '40px' }}>
         <Stack gap="30px">
           <CustomCalendar />
           <Paper sx={{ width: '320px', paddingBottom: '10px' }}>
@@ -111,4 +110,21 @@ export default function DiaryPage() {
       </Box>
     </>
   );
-}
+};
+// export const CustomHeaderButton = styled.div<{isActive?:boolean}>`
+//     border:none;
+//     outline:none;
+//     background:inherit;
+//     font-weight: bold;
+//     opacity: 50%;
+//     padding: 10px;
+//     cursor: pointer;
+//     transition: 0.25s;
+
+//     ${props => !props.isActive ? "" : "color: #ef9a44; opacity:100%;"}
+
+//     &:hover{
+//         color: #ef9a44;
+//         opacity:100%;
+//     }
+// `;
