@@ -19,6 +19,7 @@ import { AccountCircle } from "@mui/icons-material";
 import { CircularProgressWithLabel } from "./CircularProgressWithLabel";
 import { LinearProgressWithLabel } from "./LinearProgressWithLabel";
 import NumberFormat, { InputAttributes } from "react-number-format";
+import { CircularProgressNoLabel } from "./CircularProgress";
 
 const InputContainer = styled(Paper)<{isActive:boolean}>`
     position: absolute;
@@ -571,9 +572,9 @@ export const Search:React.FC<Props> = ({}) => {
                                         spacing={0}
                                         sx={{width:"100%", position:"absolute"}}
                                         >
-                                            <CircularProgressWithLabel makro={"protein"} style={{opacity:0.3}} size={60} value={100}></CircularProgressWithLabel>
-                                            <CircularProgressWithLabel makro={"fat"} style={{opacity:0.3}}  size={60} value={100}></CircularProgressWithLabel>
-                                            <CircularProgressWithLabel makro={"carbs"} style={{opacity:0.3}}  size={60} value={100}></CircularProgressWithLabel>
+                                            <CircularProgressNoLabel makro={"protein"} style={{opacity:0.3}} size={60} value={100}></CircularProgressNoLabel>
+                                            <CircularProgressNoLabel makro={"fat"} style={{opacity:0.3}} size={60} value={100}></CircularProgressNoLabel>
+                                            <CircularProgressNoLabel makro={"carbs"} style={{opacity:0.3}} size={60} value={100}></CircularProgressNoLabel>
                                         </Stack>
                                         
                                         <CircularProgressWithLabel makro={"protein"} size={60} label={calories!=="" && foodEntryQuantity!=="" && calories!=="0" && foodEntryQuantity!=="0" ?  parseFloat(protein)*parseFloat(foodEntryQuantity) : 0} value={(calories!=="" && foodEntryQuantity!=="" && calories!=="0" && foodEntryQuantity!=="0") ? (getProcentage(parseFloat(protein) * 4, parseFloat(calories))) : 0}></CircularProgressWithLabel>
