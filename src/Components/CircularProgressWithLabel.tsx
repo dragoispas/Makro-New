@@ -1,28 +1,24 @@
-import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress';
+import CircularProgress, {
+  CircularProgressProps,
+} from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-export default function CircularProgressWithLabel({
-  makro,
-  label,
-  value
-}: CircularProgressProps & { value: number; label: number; makro: string }) {
-  const getColor = (makroType: string): string => {
-    if (makroType === 'protein') {
-      return '#83b28d';
-    }
-    if (makroType === 'fat') {
-      return '#EF4444';
-    }
-    if (makroType === 'carbs') {
-      return '#ef9a44';
-    }
-
-    return '#000';
-  };
+export const CircularProgressWithLabel = (
+  props: CircularProgressProps & { value: number, label?: number, makro: string },
+) => {
+    const getColor = () => {
+        if(props.makro==="protein"){
+            return "#83b28d";
+        }else if(props.makro==="fat"){
+            return "#EF4444";
+        }else if(props.makro==="carbs"){
+            return "#ef9a44";
+        }
+      }
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-      <CircularProgress sx={{ color: getColor(makro) }} variant="determinate" value={value} />
+      <CircularProgress sx={{color: getColor()}} variant="determinate" {...props} />
       <Box
         sx={{
           top: 0,
@@ -32,24 +28,34 @@ export default function CircularProgressWithLabel({
           position: 'absolute',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-          <Typography
-            sx={{ height: '12px' }}
+          justifyContent: 'center',
+        }}
+      >
+        {props.label && props.label!==0? <Box sx={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
+            <Typography
+            sx={{height:"12px"}}
             variant="caption"
             component="div"
-            color="text.secondary">{`${Math.round(label)} g`}</Typography>
-          <Typography variant="caption" component="div" color="text.secondary">
-            {makro}
-          </Typography>
-        </Box>
+            color="text.secondary"
+            >{`${Math.round(props.label)} g`}</Typography>
+            <Typography
+            variant="caption"
+            component="div"
+            color="text.secondary"
+            >{props.makro}</Typography>
+            </Box> : <Box sx={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
+            <Typography
+            sx={{height:"12px"}}
+            variant="caption"
+            component="div"
+            color="text.secondary"
+            >{`0 g`}</Typography>
+            <Typography
+            variant="caption"
+            component="div"
+            color="text.secondary"
+            >{props.makro}</Typography>
+            </Box>}
       </Box>
     </Box>
   );
