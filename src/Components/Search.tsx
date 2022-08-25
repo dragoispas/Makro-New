@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Box,
   Button,
+  ClickAwayListener,
   FormControl,
   Input,
   InputAdornment,
@@ -16,15 +17,15 @@ import {
   Typography
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import Stack from '@mui/material/Stack';
+import { Stack } from '@mui/system';
 import ClearIcon from '@mui/icons-material/Clear';
+import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import EditIcon from '@mui/icons-material/Edit';
 import { SearchListItem } from './SearchListItem';
 import { TabPanel } from './TabPanel';
 import { emptyProduct, Product, ProductMap } from '../Api/products/types';
-import useOutsideClick from './useOutsideClick';
-import CircularProgressWithLabel from './CircularProgressWithLabel';
-import LinearProgressWithLabel from './LinearProgressWithLabel';
+import { CircularProgressWithLabel } from './CircularProgressWithLabel';
+import { LinearProgressWithLabel } from './LinearProgressWithLabel';
 
 const InputContainer = styled(Paper)<{ isActive: boolean }>`
   position: absolute;
@@ -103,7 +104,30 @@ const Overlay = styled(Box)<{ isActive: boolean }>`
   z-index: 1000;
 `;
 
-export default function Search() {
+export const CustomFoodIcon = styled(LocalDiningIcon)`
+  background: rgba(150, 150, 150, 0.2);
+  border-radius: 50%;
+  padding: 5px;
+  opacity: 0.9;
+`;
+
+const AnimatedBox = styled(Box)<{ isActive: boolean }>`
+  opacity: 0;
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  ${(props) => (props.isActive ? 'animation: fade-in 1s;' : '')}
+  animation-delay: 0.25s;
+`;
+
+interface Props {}
+
+export const Search: React.FC<Props> = ({}) => {
   const [content, setContent] = useState<string>('search results');
 
   const [inputText, setInputText] = useState<string>('');
@@ -159,8 +183,8 @@ export default function Search() {
    *
    *  TODO : fix an issue where it'll close the search box when clicking on a MUI select
    */
-  const wrapperRef = useRef(null);
-  useOutsideClick(() => closeSearch(), wrapperRef);
+  // const wrapperRef = useRef(null);
+  // useOutsideClick(() => closeSearch(), wrapperRef);
 
   /**
    * Takes all producs and returns react fragments for each of them
@@ -198,349 +222,360 @@ export default function Search() {
   return (
     <>
       <Overlay isActive={isInputActive} />
-      <InputContainer isActive={isInputActive} ref={wrapperRef}>
-        <Box
-          style={{
-            width: '630px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '20px',
-            marginLeft: '22px'
-          }}>
-          {content === 'search results' ? (
-            <SearchIcon sx={{ transform: 'translate(41px, 0px)' }} />
-          ) : (
-            <EditIcon sx={{ transform: 'translate(41px, 0px)' }} />
-          )}
-          <CustomInput
-            value={inputText}
-            onClick={() => setIsInputActive(true)}
-            onChange={(e) => setInputText(e.target.value)}
-            placeholder="Search food"
-          />
-          <ClearButton
-            sx={{ transform: 'translate(-60px, 0px)' }}
-            color="inherit"
-            inputText={inputText}
-            onClick={() => {
-              setContent('search results');
-              setInputText('');
-              setCurrentProduct({ ...emptyProduct });
-            }}
-          />
-        </Box>
-        <Box sx={{ width: '100%', height: searchContentHeight, transition: '0.25s' }}>
-          <SearchContent isActive={isInputActive && content === 'search results'}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider', padding: '0px 20px' }}>
-              <Tabs
-                value={tab}
-                onChange={handleTabChange}
-                variant="scrollable"
-                scrollButtons={false}
-                aria-label="scrollable prevent tabs example">
-                <Tab label="All" />
-                <Tab label="Custom" />
-                <Tab label="Common" />
-                <Tab label="Branded" />
-              </Tabs>
-            </Box>
-            <TabPanel value={tab} index={0}>
-              <List sx={listSx} subheader={<li />}>
-                <li key="section-1">
-                  <ul>
-                    <ListSubheader>RECENT</ListSubheader>
-                    {getSearchListItems}
-                    <ListSubheader>CUSTOM</ListSubheader>
-                    {getSearchListItems}
-                    <ListSubheader>COMMON</ListSubheader>
-                    {getSearchListItems}
-                    <ListSubheader>BRANDED</ListSubheader>
-                    {getSearchListItems}
-                  </ul>
-                </li>
-              </List>
-              <Button sx={{ width: '100%', marginTop: '10px' }}>CREATE NEW FOOD</Button>
-            </TabPanel>
-            <TabPanel value={tab} index={1}>
-              <List sx={listSx} subheader={<li />}>
-                {getSearchListItems}
-              </List>
-              <Button sx={{ width: '100%', marginTop: '10px' }}>CREATE NEW FOOD</Button>
-            </TabPanel>
-            <TabPanel value={tab} index={2}>
-              <List sx={listSx} subheader={<li />}>
-                {getSearchListItems}
-              </List>
-              <Button sx={{ width: '100%', marginTop: '10px' }}>CREATE NEW FOOD</Button>
-            </TabPanel>
-            <TabPanel value={tab} index={3}>
-              <List sx={listSx} subheader={<li />}>
-                {getSearchListItems}
-              </List>
-              <Button sx={{ width: '100%', marginTop: '10px' }}>CREATE NEW FOOD</Button>
-            </TabPanel>
-          </SearchContent>
+      <ClickAwayListener onClickAway={() => closeSearch()}>
+        <InputContainer isActive={isInputActive}>
+          <Box
+            style={{
+              width: '630px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '20px',
+              marginLeft: '22px'
+            }}>
+            {content === 'search results' ? (
+              <SearchIcon sx={{ transform: 'translate(41px, 0px)' }} />
+            ) : (
+              <EditIcon sx={{ transform: 'translate(41px, 0px)' }} />
+            )}
+            <CustomInput
+              value={inputText}
+              onClick={() => setIsInputActive(true)}
+              onChange={(e) => setInputText(e.target.value)}
+              placeholder="Search food"
+            />
+            <ClearButton
+              sx={{ transform: 'translate(-60px, 0px)' }}
+              color="inherit"
+              inputText={inputText}
+              onClick={() => {
+                setContent('search results');
+                setInputText('');
+                setCurrentProduct({ ...emptyProduct });
+              }}
+            />
+          </Box>
 
-          <SearchContent isActive={isInputActive && content === 'selected product'}>
-            <Stack
-              sx={{ height: '455px', margin: '24px' }}
-              direction="column"
-              justifyContent="space-between"
-              alignItems="center"
-              spacing={1}>
-              <Box sx={{ height: '100%', width: '100%', display: 'flex' }}>
-                <Stack
-                  gap={1}
-                  sx={{
-                    width: '180px',
-                    borderRight: 1,
-                    paddingRight: '24px',
-                    borderColor: 'divider',
-                    alignItems: 'flex-start'
-                  }}>
-                  <Typography sx={{ fontWeight: 'bold' }}>Nutrition Facts</Typography>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      width: '175px',
-                      marginBottom: '5px'
-                    }}>
-                    <Typography sx={{ width: '25px' }}>per </Typography>
-                    <FormControl variant="standard">
-                      <Input
-                        inputProps={{ style: { textAlign: 'end' } }}
-                        sx={{ width: '75px' }}
-                        size="small"
-                        id="input-with-icon-adornment"
-                        placeholder="0"
-                      />
-                    </FormControl>
-                    <FormControl size="small">
-                      <Select
-                        variant="standard"
-                        sx={{ width: '75px' }}
-                        labelId="demo-select-small"
-                        id="demo-select-small"
-                        value="g"
-                        onChange={() => console.log()}>
-                        <MenuItem value="g">g</MenuItem>
-                        <MenuItem value="oz">oz</MenuItem>
-                        <MenuItem value="lb">lb</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box>
-                  <FormControl variant="standard">
-                    <Input
-                      inputProps={{ style: { textAlign: 'end' } }}
-                      sx={{ width: '175px' }}
-                      size="small"
-                      id="input-with-icon-adornment"
-                      startAdornment={
-                        <InputAdornment position="start">
-                          <Typography color="text.primary" sx={{ opacity: 1 }}>
-                            Calories
-                          </Typography>
-                        </InputAdornment>
-                      }
-                      endAdornment={<InputAdornment position="end">cal</InputAdornment>}
-                      placeholder="0"
-                    />
-                  </FormControl>
-                  <FormControl variant="standard">
-                    <Input
-                      inputProps={{ style: { textAlign: 'end' } }}
-                      sx={{ width: '175px' }}
-                      size="small"
-                      id="input-with-icon-adornment"
-                      startAdornment={
-                        <InputAdornment position="start">
-                          <Typography color="text.primary">Fat</Typography>
-                        </InputAdornment>
-                      }
-                      endAdornment={<InputAdornment position="end">g</InputAdornment>}
-                      placeholder="0"
-                    />
-                  </FormControl>
-                  <FormControl variant="standard">
-                    <Input
-                      inputProps={{ style: { textAlign: 'end' } }}
-                      sx={{ width: '175px' }}
-                      size="small"
-                      id="input-with-icon-adornment"
-                      startAdornment={<InputAdornment position="end">Sat fat</InputAdornment>}
-                      endAdornment={<InputAdornment position="end">g</InputAdornment>}
-                      placeholder="0"
-                    />
-                  </FormControl>
-                  <FormControl variant="standard">
-                    <Input
-                      inputProps={{ style: { textAlign: 'end' } }}
-                      sx={{ width: '175px' }}
-                      size="small"
-                      id="input-with-icon-adornment"
-                      startAdornment={
-                        <InputAdornment position="start">
-                          <Typography color="text.primary">Carbs</Typography>
-                        </InputAdornment>
-                      }
-                      endAdornment={<InputAdornment position="end">g</InputAdornment>}
-                      placeholder="0"
-                    />
-                  </FormControl>
-                  <FormControl variant="standard">
-                    <Input
-                      inputProps={{ style: { textAlign: 'end' } }}
-                      sx={{ width: '175px' }}
-                      size="small"
-                      id="input-with-icon-adornment"
-                      startAdornment={<InputAdornment position="end">Fiber</InputAdornment>}
-                      endAdornment={<InputAdornment position="end">g</InputAdornment>}
-                      placeholder="0"
-                    />
-                  </FormControl>
-                  <FormControl variant="standard">
-                    <Input
-                      inputProps={{ style: { textAlign: 'end' } }}
-                      sx={{ width: '175px' }}
-                      size="small"
-                      id="input-with-icon-adornment"
-                      startAdornment={<InputAdornment position="end">Sugar</InputAdornment>}
-                      endAdornment={<InputAdornment position="end">g</InputAdornment>}
-                      placeholder="0"
-                    />
-                  </FormControl>
-                  <FormControl variant="standard">
-                    <Input
-                      inputProps={{ style: { textAlign: 'end' } }}
-                      sx={{ width: '175px' }}
-                      size="small"
-                      id="input-with-icon-adornment"
-                      startAdornment={
-                        <InputAdornment position="start">
-                          <Typography color="text.primary">Protein</Typography>
-                        </InputAdornment>
-                      }
-                      endAdornment={<InputAdornment position="end">g</InputAdornment>}
-                      placeholder="0"
-                    />
-                  </FormControl>
-                  <FormControl variant="standard">
-                    <Input
-                      inputProps={{ style: { textAlign: 'end' } }}
-                      sx={{ width: '175px' }}
-                      size="small"
-                      id="input-with-icon-adornment"
-                      startAdornment={<InputAdornment position="end">Sodium</InputAdornment>}
-                      endAdornment={<InputAdornment position="end">mg</InputAdornment>}
-                      placeholder="0"
-                    />
-                  </FormControl>
-                  <FormControl variant="standard">
-                    <Input
-                      inputProps={{ style: { textAlign: 'end' } }}
-                      sx={{ width: '175px' }}
-                      size="small"
-                      id="input-with-icon-adornment"
-                      startAdornment={<InputAdornment position="end">Potassium</InputAdornment>}
-                      endAdornment={<InputAdornment position="end">mg</InputAdornment>}
-                      placeholder="0"
-                    />
-                  </FormControl>
-                </Stack>
-                <Stack gap={1} sx={{ width: '100%', paddingLeft: '24px', alignItems: 'center' }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      width: '300px',
-                      marginBottom: '5px'
-                    }}>
-                    <Typography sx={{ fontWeight: 'bold' }}>Quantity: </Typography>
-                    <FormControl variant="standard">
-                      <Input
-                        inputProps={{ style: { textAlign: 'end' } }}
-                        sx={{ width: '75px' }}
-                        size="small"
-                        id="input-with-icon-adornment"
-                        placeholder="0"
-                        value={foodEntryQuantity}
-                        onChange={(e) => setFoodEntryQuantity(parseFloat(e.target.value))}
-                      />
-                    </FormControl>
-                    <FormControl size="small">
-                      <Select
-                        variant="standard"
-                        sx={{ width: '75px' }}
-                        labelId="demo-select-small"
-                        id="demo-select-small"
-                        value="g"
-                        onChange={() => console.log()}>
-                        <MenuItem value="g">g</MenuItem>
-                        <MenuItem value="oz">oz</MenuItem>
-                        <MenuItem value="lb">lb</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box>
+          <Box sx={{ width: '100%', height: searchContentHeight, transition: '0.25s' }}>
+            <SearchContent isActive={isInputActive && content === 'search results'}>
+              <Box sx={{ borderBottom: 1, borderColor: 'divider', padding: '0px 20px' }}>
+                <Tabs
+                  value={tab}
+                  onChange={handleTabChange}
+                  variant="scrollable"
+                  scrollButtons={false}
+                  aria-label="scrollable prevent tabs example">
+                  <Tab label="All" />
+                  <Tab label="Custom" />
+                  <Tab label="Common" />
+                  <Tab label="Branded" />
+                </Tabs>
+              </Box>
+              <TabPanel value={tab} index={0}>
+                <List sx={listSx} subheader={<li />}>
+                  <li key="section-1">
+                    <ul>
+                      <ListSubheader>RECENT</ListSubheader>
+                      {getSearchListItems}
+                      <ListSubheader>CUSTOM</ListSubheader>
+                      {getSearchListItems}
+                      <ListSubheader>COMMON</ListSubheader>
+                      {getSearchListItems}
+                      <ListSubheader>BRANDED</ListSubheader>
+                      {getSearchListItems}
+                    </ul>
+                  </li>
+                </List>
+                <Button sx={{ width: '100%', marginTop: '10px' }}>CREATE NEW FOOD</Button>
+              </TabPanel>
+              <TabPanel value={tab} index={1}>
+                <List sx={listSx} subheader={<li />}>
+                  {getSearchListItems}
+                </List>
+                <Button sx={{ width: '100%', marginTop: '10px' }}>CREATE NEW FOOD</Button>
+              </TabPanel>
+              <TabPanel value={tab} index={2}>
+                <List sx={listSx} subheader={<li />}>
+                  {getSearchListItems}
+                </List>
+                <Button sx={{ width: '100%', marginTop: '10px' }}>CREATE NEW FOOD</Button>
+              </TabPanel>
+              <TabPanel value={tab} index={3}>
+                <List sx={listSx} subheader={<li />}>
+                  {getSearchListItems}
+                </List>
+                <Button sx={{ width: '100%', marginTop: '10px' }}>CREATE NEW FOOD</Button>
+              </TabPanel>
+            </SearchContent>
 
+            <SearchContent isActive={isInputActive && content === 'selected product'}>
+              <Stack
+                sx={{ height: '455px', margin: '24px' }}
+                direction="column"
+                justifyContent="space-between"
+                alignItems="center"
+                spacing={1}>
+                <Box sx={{ height: '100%', width: '100%', display: 'flex' }}>
                   <Stack
-                    direction="column"
-                    justifyContent="space-around"
-                    alignItems="center"
-                    spacing={0}
+                    gap={1}
                     sx={{
-                      border: 1,
+                      width: '180px',
+                      borderRight: 1,
+                      paddingRight: '24px',
                       borderColor: 'divider',
-                      height: '150px',
-                      width: '280px',
-                      padding: '10px'
+                      alignItems: 'flex-start'
                     }}>
-                    <Typography sx={{ fontWeight: 'bold', marginBottom: '15px' }}>
-                      Summary
-                    </Typography>
+                    <Typography sx={{ fontWeight: 'bold' }}>Nutrition Facts</Typography>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        width: '175px',
+                        marginBottom: '5px'
+                      }}>
+                      <Typography sx={{ width: '25px' }}>per </Typography>
+                      <FormControl variant="standard">
+                        <Input
+                          inputProps={{ style: { textAlign: 'end' } }}
+                          sx={{ width: '75px', paddingRight: '1px' }}
+                          size="small"
+                          id="input-with-icon-adornment"
+                          placeholder="0"
+                        />
+                      </FormControl>
+                      <FormControl size="small">
+                        <Select
+                          MenuProps={{
+                            disablePortal: true,
+                            style: { cursor: 'default' }
+                          }}
+                          variant="standard"
+                          sx={{ width: '75px', paddingLeft: '1px' }}
+                          labelId="demo-select-small"
+                          id="demo-select-small"
+                          value={productServingSize}
+                          onChange={(e) => setProductServingSize(e.target.value)}>
+                          <MenuItem value="g">g</MenuItem>
+                          <MenuItem value="oz">oz</MenuItem>
+                          <MenuItem value="lb">lb</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                    <FormControl variant="standard">
+                      <Input
+                        inputProps={{ style: { textAlign: 'end' } }}
+                        sx={{ width: '175px' }}
+                        size="small"
+                        id="input-with-icon-adornment"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <Typography color="text.primary" sx={{ opacity: 1 }}>
+                              Calories
+                            </Typography>
+                          </InputAdornment>
+                        }
+                        endAdornment={<InputAdornment position="end">cal</InputAdornment>}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormControl variant="standard">
+                      <Input
+                        inputProps={{ style: { textAlign: 'end' } }}
+                        sx={{ width: '175px' }}
+                        size="small"
+                        id="input-with-icon-adornment"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <Typography color="text.primary">Fat</Typography>
+                          </InputAdornment>
+                        }
+                        endAdornment={<InputAdornment position="end">g</InputAdornment>}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormControl variant="standard">
+                      <Input
+                        inputProps={{ style: { textAlign: 'end' } }}
+                        sx={{ width: '175px' }}
+                        size="small"
+                        id="input-with-icon-adornment"
+                        startAdornment={<InputAdornment position="end">Sat fat</InputAdornment>}
+                        endAdornment={<InputAdornment position="end">g</InputAdornment>}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormControl variant="standard">
+                      <Input
+                        inputProps={{ style: { textAlign: 'end' } }}
+                        sx={{ width: '175px' }}
+                        size="small"
+                        id="input-with-icon-adornment"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <Typography color="text.primary">Carbs</Typography>
+                          </InputAdornment>
+                        }
+                        endAdornment={<InputAdornment position="end">g</InputAdornment>}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormControl variant="standard">
+                      <Input
+                        inputProps={{ style: { textAlign: 'end' } }}
+                        sx={{ width: '175px' }}
+                        size="small"
+                        id="input-with-icon-adornment"
+                        startAdornment={<InputAdornment position="end">Fiber</InputAdornment>}
+                        endAdornment={<InputAdornment position="end">g</InputAdornment>}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormControl variant="standard">
+                      <Input
+                        inputProps={{ style: { textAlign: 'end' } }}
+                        sx={{ width: '175px' }}
+                        size="small"
+                        id="input-with-icon-adornment"
+                        startAdornment={<InputAdornment position="end">Sugar</InputAdornment>}
+                        endAdornment={<InputAdornment position="end">g</InputAdornment>}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormControl variant="standard">
+                      <Input
+                        inputProps={{ style: { textAlign: 'end' } }}
+                        sx={{ width: '175px' }}
+                        size="small"
+                        id="input-with-icon-adornment"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <Typography color="text.primary">Protein</Typography>
+                          </InputAdornment>
+                        }
+                        endAdornment={<InputAdornment position="end">g</InputAdornment>}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormControl variant="standard">
+                      <Input
+                        inputProps={{ style: { textAlign: 'end' } }}
+                        sx={{ width: '175px' }}
+                        size="small"
+                        id="input-with-icon-adornment"
+                        startAdornment={<InputAdornment position="end">Sodium</InputAdornment>}
+                        endAdornment={<InputAdornment position="end">mg</InputAdornment>}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormControl variant="standard">
+                      <Input
+                        inputProps={{ style: { textAlign: 'end' } }}
+                        sx={{ width: '175px' }}
+                        size="small"
+                        id="input-with-icon-adornment"
+                        startAdornment={<InputAdornment position="end">Potassium</InputAdornment>}
+                        endAdornment={<InputAdornment position="end">mg</InputAdornment>}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                  </Stack>
+                  <Stack gap={1} sx={{ width: '100%', paddingLeft: '24px', alignItems: 'center' }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        width: '300px',
+                        marginBottom: '5px'
+                      }}>
+                      <Typography sx={{ fontWeight: 'bold' }}>Quantity: </Typography>
+                      <FormControl variant="standard">
+                        <Input
+                          inputProps={{ style: { textAlign: 'end' } }}
+                          sx={{ width: '75px', paddingRight: '1px' }}
+                          size="small"
+                          id="input-with-icon-adornment"
+                          placeholder="0"
+                          value={foodEntryQuantity}
+                          onChange={(e) => setFoodEntryQuantity(parseFloat(e.target.value))}
+                        />
+                      </FormControl>
+                      <FormControl size="small">
+                        <Select
+                          MenuProps={{
+                            disablePortal: true,
+                            style: { cursor: 'default' }
+                          }}
+                          variant="standard"
+                          sx={{ width: '75px', paddingLeft: '1px' }}
+                          labelId="demo-select-small"
+                          id="demo-select-small"
+                          value={foodEntryServingSize}
+                          onChange={(e) => setFoodEntryServingSize(e.target.value)}>
+                          <MenuItem value="g">g</MenuItem>
+                          <MenuItem value="oz">oz</MenuItem>
+                          <MenuItem value="lb">lb</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
 
                     <Stack
-                      direction="row"
-                      justifyContent="space-evenly"
+                      direction="column"
+                      justifyContent="space-around"
                       alignItems="center"
                       spacing={0}
-                      sx={{ width: '100%' }}>
-                      <CircularProgressWithLabel
-                        makro="protein"
-                        size={60}
-                        label={foodEntryQuantity}
-                        value={foodEntryQuantity}
-                      />
-                      <CircularProgressWithLabel
-                        makro="fat"
-                        size={60}
-                        label={foodEntryQuantity}
-                        value={foodEntryQuantity}
-                      />
-                      <CircularProgressWithLabel
-                        makro="carbs"
-                        size={60}
-                        label={foodEntryQuantity}
-                        value={foodEntryQuantity}
-                      />
+                      sx={{
+                        border: 1,
+                        borderColor: 'divider',
+                        height: '150px',
+                        width: '280px',
+                        padding: '10px'
+                      }}>
+                      <Typography sx={{ fontWeight: 'bold', marginBottom: '15px' }}>
+                        Summary
+                      </Typography>
+
+                      <Stack
+                        direction="row"
+                        justifyContent="space-evenly"
+                        alignItems="center"
+                        spacing={0}
+                        sx={{ width: '100%' }}>
+                        <CircularProgressWithLabel
+                          makro="protein"
+                          size={60}
+                          label={foodEntryQuantity}
+                          value={foodEntryQuantity}
+                        />
+                        <CircularProgressWithLabel
+                          makro="fat"
+                          size={60}
+                          label={foodEntryQuantity}
+                          value={foodEntryQuantity}
+                        />
+                        <CircularProgressWithLabel
+                          makro="carbs"
+                          size={60}
+                          label={foodEntryQuantity}
+                          value={foodEntryQuantity}
+                        />
+                      </Stack>
+                      <Box sx={{ width: '230px' }}>
+                        <LinearProgressWithLabel
+                          label={foodEntryQuantity}
+                          value={foodEntryQuantity}
+                        />
+                      </Box>
                     </Stack>
-                    <Box sx={{ width: '230px' }}>
-                      <LinearProgressWithLabel
-                        label={foodEntryQuantity}
-                        value={foodEntryQuantity}
-                      />
-                    </Box>
                   </Stack>
-                </Stack>
-              </Box>
-              <Button sx={{ width: '100%', marginTop: '10px', justifySelf: 'flex-end' }}>
-                ADD TO DIARY
-              </Button>
-            </Stack>
-          </SearchContent>
-        </Box>
-      </InputContainer>
+                </Box>
+                <Button sx={{ width: '100%', marginTop: '10px', justifySelf: 'flex-end' }}>
+                  ADD TO DIARY
+                </Button>
+              </Stack>
+            </SearchContent>
+          </Box>
+        </InputContainer>
+      </ClickAwayListener>
     </>
   );
-}
+};
