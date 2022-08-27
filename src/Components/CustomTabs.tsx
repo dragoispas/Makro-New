@@ -129,7 +129,8 @@ export const CustomizedTabs: React.FC<Props> = ({ themeMode, setThemeMode, isLog
         justifyContent={isLoggedIn ? 'space-between' : 'flex-end'}
         alignItems="center"
         spacing={2}
-        sx={{ margin: '0 50px', height: '70px' }}>
+        sx={{ margin: '0 50px', height: '70px' }}
+      >
         {isLoggedIn ? (
           <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example">
             <StyledTab label="Diary" />

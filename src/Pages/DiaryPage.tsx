@@ -52,7 +52,8 @@ export default function DiaryPage() {
                   label="Unit"
                   select
                   variant="outlined"
-                  sx={{ width: '100px' }}>
+                  sx={{ width: '100px' }}
+                >
                   <MenuItem key="KG" value="KG">
                     KG
                   </MenuItem>
@@ -91,7 +92,8 @@ export default function DiaryPage() {
                       <IconButton edge="end" aria-label="delete">
                         <DeleteIcon />
                       </IconButton>
-                    }>
+                    }
+                  >
                     <ListItemAvatar>
                       <Avatar>
                         <RestaurantIcon />

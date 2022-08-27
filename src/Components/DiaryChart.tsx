@@ -136,7 +136,8 @@ export const DiaryChart: React.FC<Props> = ({
               textAlign: 'start',
               marginLeft: '5px',
               alignItems: 'space-between'
-            }}>
+            }}
+          >
             <div style={{ fontWeight: 'bold', fontSize: '16px', height: '17px' }}>{totalCarbs}</div>
             <div style={{ fontWeight: 'bold', fontSize: '13px', height: '17px', opacity: '50%' }}>
               totalCarbs
@@ -152,7 +153,8 @@ export const DiaryChart: React.FC<Props> = ({
               textAlign: 'start',
               marginLeft: '5px',
               alignItems: 'space-between'
-            }}>
+            }}
+          >
             <div style={{ fontWeight: 'bold', fontSize: '16px', height: '17px' }}>{totalFat}</div>
             <div style={{ fontWeight: 'bold', fontSize: '13px', height: '17px', opacity: '50%' }}>
               totalFat
@@ -168,7 +170,8 @@ export const DiaryChart: React.FC<Props> = ({
               textAlign: 'start',
               marginLeft: '5px',
               alignItems: 'space-between'
-            }}>
+            }}
+          >
             <div style={{ fontWeight: 'bold', fontSize: '16px', height: '17px' }}>
               {totalProtein}
             </div>

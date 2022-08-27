@@ -272,7 +272,8 @@ export const Search: React.FC<Props> = ({}) => {
             console.log(`clicked on ${product.name}`);
             setCurrentProduct(product);
             setContent('selected product');
-          }}>
+          }}
+        >
           <SearchListItem name={product.name} calories={product.calories} />
         </Box>
       </React.Fragment>
@@ -305,7 +306,8 @@ export const Search: React.FC<Props> = ({}) => {
               justifyContent: 'center',
               marginBottom: '20px',
               marginLeft: '22px'
-            }}>
+            }}
+          >
             {content === 'search results' ? (
               <SearchIcon sx={{ transform: 'translate(41px, 0px)' }} />
             ) : (
@@ -338,7 +340,8 @@ export const Search: React.FC<Props> = ({}) => {
                   onChange={handleTabChange}
                   variant="scrollable"
                   scrollButtons={false}
-                  aria-label="scrollable prevent tabs example">
+                  aria-label="scrollable prevent tabs example"
+                >
                   <Tab label="All" />
                   <Tab label="Custom" />
                   <Tab label="Common" />
@@ -365,7 +368,8 @@ export const Search: React.FC<Props> = ({}) => {
                     setContent('selected product');
                     setCurrentProduct(null);
                   }}
-                  sx={{ width: '100%', marginTop: '10px' }}>
+                  sx={{ width: '100%', marginTop: '10px' }}
+                >
                   CREATE NEW FOOD
                 </Button>
               </TabPanel>
@@ -378,7 +382,8 @@ export const Search: React.FC<Props> = ({}) => {
                     setContent('selected product');
                     setCurrentProduct(null);
                   }}
-                  sx={{ width: '100%', marginTop: '10px' }}>
+                  sx={{ width: '100%', marginTop: '10px' }}
+                >
                   CREATE NEW FOOD
                 </Button>
               </TabPanel>
@@ -391,7 +396,8 @@ export const Search: React.FC<Props> = ({}) => {
                     setContent('selected product');
                     setCurrentProduct(null);
                   }}
-                  sx={{ width: '100%', marginTop: '10px' }}>
+                  sx={{ width: '100%', marginTop: '10px' }}
+                >
                   CREATE NEW FOOD
                 </Button>
               </TabPanel>
@@ -404,7 +410,8 @@ export const Search: React.FC<Props> = ({}) => {
                     setContent('selected product');
                     setCurrentProduct(null);
                   }}
-                  sx={{ width: '100%', marginTop: '10px' }}>
+                  sx={{ width: '100%', marginTop: '10px' }}
+                >
                   CREATE NEW FOOD
                 </Button>
               </TabPanel>
@@ -416,7 +423,8 @@ export const Search: React.FC<Props> = ({}) => {
                 direction="column"
                 justifyContent="space-between"
                 alignItems="center"
-                spacing={1}>
+                spacing={1}
+              >
                 <Box sx={{ height: '100%', width: '100%', display: 'flex' }}>
                   <Stack
                     gap={1}
@@ -426,7 +434,8 @@ export const Search: React.FC<Props> = ({}) => {
                       paddingRight: '24px',
                       borderColor: 'divider',
                       alignItems: 'flex-start'
-                    }}>
+                    }}
+                  >
                     <Typography sx={{ fontWeight: 'bold' }}>Nutrition Facts</Typography>
                     <Box
                       sx={{
@@ -434,7 +443,8 @@ export const Search: React.FC<Props> = ({}) => {
                         justifyContent: 'space-between',
                         width: '175px',
                         marginBottom: '5px'
-                      }}>
+                      }}
+                    >
                       <Typography sx={{ width: '25px' }}>per </Typography>
                       <FormControl variant="standard">
                         <TextField
@@ -460,7 +470,8 @@ export const Search: React.FC<Props> = ({}) => {
                           labelId="demo-select-small"
                           id="demo-select-small"
                           value={productServingSize}
-                          onChange={(e) => setProductServingSize(e.target.value)}>
+                          onChange={(e) => setProductServingSize(e.target.value)}
+                        >
                           <MenuItem value="g">g</MenuItem>
                           <MenuItem value="oz">oz</MenuItem>
                           <MenuItem value="lb">lb</MenuItem>
@@ -664,7 +675,8 @@ export const Search: React.FC<Props> = ({}) => {
                         justifyContent: 'center',
                         width: '300px',
                         marginBottom: '5px'
-                      }}>
+                      }}
+                    >
                       <Typography sx={{ fontWeight: 'bold' }}>Quantity: </Typography>
                       <FormControl variant="standard">
                         <TextField
@@ -693,7 +705,8 @@ export const Search: React.FC<Props> = ({}) => {
                           labelId="demo-select-small"
                           id="demo-select-small"
                           value={foodEntryServingSize}
-                          onChange={(e) => setFoodEntryServingSize(e.target.value)}>
+                          onChange={(e) => setFoodEntryServingSize(e.target.value)}
+                        >
                           <MenuItem value="g">g</MenuItem>
                           <MenuItem value="oz">oz</MenuItem>
                           <MenuItem value="lb">lb</MenuItem>
@@ -712,7 +725,8 @@ export const Search: React.FC<Props> = ({}) => {
                         height: '150px',
                         width: '280px',
                         padding: '10px'
-                      }}>
+                      }}
+                    >
                       <Typography sx={{ fontWeight: 'bold', marginBottom: '15px' }}>
                         Summary
                       </Typography>
@@ -722,13 +736,15 @@ export const Search: React.FC<Props> = ({}) => {
                         justifyContent="space-evenly"
                         alignItems="center"
                         spacing={0}
-                        sx={{ width: '100%', position: 'relative' }}>
+                        sx={{ width: '100%', position: 'relative' }}
+                      >
                         <Stack
                           direction="row"
                           justifyContent="space-evenly"
                           alignItems="center"
                           spacing={0}
-                          sx={{ width: '100%', position: 'absolute' }}>
+                          sx={{ width: '100%', position: 'absolute' }}
+                        >
                           <CircularProgressNoLabel
                             makro="protein"
                             style={{ opacity: 0.3 }}

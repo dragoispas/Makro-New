@@ -19,7 +19,8 @@ export const MiniChart: React.FC<Props> = ({ color, label, amount, unit, procent
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
-      }}>
+      }}
+    >
       <CircularProgressbar
         value={procentage}
         strokeWidth={10}
@@ -36,7 +37,8 @@ export const MiniChart: React.FC<Props> = ({ color, label, amount, unit, procent
           flexDirection: 'column',
           justifyContent: 'center',
           textAlign: 'center'
-        }}>
+        }}
+      >
         <div style={{ fontWeight: 'bold', fontSize: '14px', height: '14px' }}>{amount}</div>
         <div style={{ fontWeight: 'bold', fontSize: '11px', height: '14px', opacity: '50%' }}>
           {label}

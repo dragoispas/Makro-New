@@ -12,29 +12,28 @@ interface CustomProps {
   name: string;
 }
 
-const NumberFormatCustom = React.forwardRef<
-  NumberFormat<InputAttributes>,
-  CustomProps
->(function NumberFormatCustom(props, ref) {
-  const { onChange, ...other } = props;
+const NumberFormatCustom = React.forwardRef<NumberFormat<InputAttributes>, CustomProps>(
+  function NumberFormatCustom(props, ref) {
+    const { onChange, ...other } = props;
 
-  return (
-    <NumberFormat
-      {...other}
-      getInputRef={ref}
-      onValueChange={(values) => {
-        onChange({
-          target: {
-            name: props.name,
-            value: values.value,
-          },
-        });
-      }}
-      thousandSeparator
-      isNumericString
-    />
-  );
-});
+    return (
+      <NumberFormat
+        {...other}
+        getInputRef={ref}
+        onValueChange={(values) => {
+          onChange({
+            target: {
+              name: props.name,
+              value: values.value
+            }
+          });
+        }}
+        thousandSeparator
+        isNumericString
+      />
+    );
+  }
+);
 
 interface State {
   textmask: string;
@@ -44,13 +43,13 @@ interface State {
 export default function FormattedInputs() {
   const [values, setValues] = React.useState<State>({
     textmask: '(100) 000-0000',
-    numberformat: '1320',
+    numberformat: '1320'
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value
     });
   };
 
@@ -58,11 +57,10 @@ export default function FormattedInputs() {
     <Box
       sx={{
         '& > :not(style)': {
-          m: 1,
-        },
+          m: 1
+        }
       }}
     >
-      
       <TextField
         label="react-number-format"
         value={values.numberformat}
@@ -70,7 +68,7 @@ export default function FormattedInputs() {
         name="numberformat"
         id="formatted-numberformat-input"
         InputProps={{
-          inputComponent: NumberFormatCustom as any,
+          inputComponent: NumberFormatCustom as any
         }}
         variant="standard"
       />

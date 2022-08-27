@@ -1,15 +1,15 @@
 export type NutritionData = {
-  calories: number,
-  carbs: number,
-  fat: number,
-  protein: number,
+  calories: number;
+  carbs: number;
+  fat: number;
+  protein: number;
 
-  fiber: number,
-  saturatedFat: number,
-  sugar: number,
-  sodium: number,
-  potassium: number,
-}
+  fiber: number;
+  saturatedFat: number;
+  sugar: number;
+  sodium: number;
+  potassium: number;
+};
 
 export type Product = NutritionData & {
   id: number | string;
@@ -20,8 +20,8 @@ export type Product = NutritionData & {
 
 export const emptyProduct: Product = {
   id: '',
-  name: "Banana",
-  servingSizes: ["g"],
+  name: 'Banana',
+  servingSizes: ['g'],
 
   calories: 20,
   carbs: 5,
@@ -33,10 +33,10 @@ export const emptyProduct: Product = {
   sugar: 0,
   sodium: 0,
   potassium: 0,
-  
+
   isNew: true
-}
+};
 
 export type ProductMap = {
-  [id:number|string]: Product
-}
+  [id: number | string]: Product;
+};

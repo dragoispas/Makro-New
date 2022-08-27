@@ -116,7 +116,8 @@ export function LoginPage() {
             transform: 'translate(20px,  365px)',
             boxShadow: 'none'
           }}
-          severity="success">
+          severity="success"
+        >
           Sent you a password reset!
         </Alert>
       );
@@ -133,14 +134,16 @@ export function LoginPage() {
         <Button
           onClick={() => console.log('login with google')}
           variant="outlined"
-          sx={{ margin: '20px 0' }}>
+          sx={{ margin: '20px 0' }}
+        >
           Sign in with Google
         </Button>
 
         <Stack direction="row" justifyContent="center" alignItems="center" sx={{ opacity: '70%' }}>
           <Box sx={{ height: '1px', background: 'lightGrey', width: '140px' }} />
           <Typography
-            sx={{ textAlign: 'center', width: '20px', transform: 'translate(0px, -3px)' }}>
+            sx={{ textAlign: 'center', width: '20px', transform: 'translate(0px, -3px)' }}
+          >
             or
           </Typography>
           <Box sx={{ height: '1px', background: 'lightGrey', width: '140px' }} />
@@ -176,7 +179,8 @@ export function LoginPage() {
                   onClick={() =>
                     showPassword === false ? setShowPassword(true) : setShowPassword(false)
                   }
-                  edge="end">
+                  edge="end"
+                >
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
@@ -193,7 +197,8 @@ export function LoginPage() {
             fontSize: '14px',
             fontWeight: 'bold',
             transform: 'translate(0px, -20px)'
-          }}>
+          }}
+        >
           Forgot password
         </Typography>
         {showAlert()}
@@ -201,11 +206,13 @@ export function LoginPage() {
           onClick={() => login()}
           color="secondary"
           variant="contained"
-          sx={{ margin: '20px 0', width: '100%' }}>
+          sx={{ margin: '20px 0', width: '100%' }}
+        >
           Log in
         </Button>
         <Typography
-          sx={{ textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '5px' }}>
+          sx={{ textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '5px' }}
+        >
           Don't have an account?{' '}
           <Typography
             sx={{ cursor: 'pointer' }}
@@ -216,7 +223,8 @@ export function LoginPage() {
                 setLogInOpacity(0);
                 setSignUnOpacity(1);
               }, 250);
-            }}>
+            }}
+          >
             Sign up for free!
           </Typography>
         </Typography>
@@ -226,7 +234,8 @@ export function LoginPage() {
           Create an account!
         </Typography>
         <Typography
-          sx={{ textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '5px' }}>
+          sx={{ textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '5px' }}
+        >
           Already have one?{' '}
           <Typography
             sx={{ cursor: 'pointer' }}
@@ -237,7 +246,8 @@ export function LoginPage() {
                 setLogInOpacity(1);
                 setSignUnOpacity(0);
               }, 250);
-            }}>
+            }}
+          >
             Log in!
           </Typography>
         </Typography>
@@ -286,7 +296,8 @@ export function LoginPage() {
                   onClick={() =>
                     showPassword === false ? setShowPassword(true) : setShowPassword(false)
                   }
-                  edge="end">
+                  edge="end"
+                >
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
@@ -301,7 +312,8 @@ export function LoginPage() {
         <Stack direction="row" justifyContent="center" alignItems="center" sx={{ opacity: '70%' }}>
           <Box sx={{ height: '1px', background: 'lightGrey', width: '140px' }} />
           <Typography
-            sx={{ textAlign: 'center', width: '20px', transform: 'translate(0px, -3px)' }}>
+            sx={{ textAlign: 'center', width: '20px', transform: 'translate(0px, -3px)' }}
+          >
             or
           </Typography>
           <Box sx={{ height: '1px', background: 'lightGrey', width: '140px' }} />
@@ -309,7 +321,8 @@ export function LoginPage() {
         <Button
           onClick={() => console.log('login with google')}
           variant="outlined"
-          sx={{ margin: '20px 0' }}>
+          sx={{ margin: '20px 0' }}
+        >
           Sign in with Google
         </Button>
       </PaperSide>
