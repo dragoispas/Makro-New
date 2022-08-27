@@ -16,11 +16,6 @@ const AppContainer = styled(Box)<{ themeMode: string }>`
   background: ${(props) => (props.themeMode === 'dark' ? 'rgba(0,0,0,0.955)' : '#f4f1eb')};
   min-height: 100vh;
   transition: background-color 0.2s ease;
-
-  // background-image: url("https://plepo.com/wp-content/uploads/2021/05/Q5WPRTV2H1GBKY1D-867x579.png");
-  // background-size: auto;
-
-  // // opacity: 0.1;
 `;
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
