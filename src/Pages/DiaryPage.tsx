@@ -21,7 +21,7 @@ import { CustomCalendar } from '../Components/CustomCalendar';
 import { DiaryChart } from '../Components/DiaryChart';
 import { Search } from '../Components/Search';
 
-export const DiaryPage: React.FC = () => {
+export default function DiaryPage() {
   const [weight, setWeight] = useState<string>('WEIGHT');
   const [currentDate, setCurrentDate] = useState<string>('12-09-2022');
 
@@ -110,7 +110,7 @@ export const DiaryPage: React.FC = () => {
       </Box>
     </>
   );
-};
+}
 // export const CustomHeaderButton = styled.div<{isActive?:boolean}>`
 //     border:none;
 //     outline:none;

@@ -1,24 +1,26 @@
-import CircularProgress, {
-  CircularProgressProps,
-} from '@mui/material/CircularProgress';
-import Typography from '@mui/material/Typography';
+import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
-export const CircularProgressNoLabel = (
-  props: CircularProgressProps & { value: number, makro: string },
-) => {
-    const getColor = () => {
-        if(props.makro==="protein"){
-            return "#83b28d";
-        }else if(props.makro==="fat"){
-            return "#EF4444";
-        }else if(props.makro==="carbs"){
-            return "#ef9a44";
-        }
-      }
+export default function CircularProgressNoLabel({
+  makro,
+  value
+}: CircularProgressProps & { value: number; makro: string }) {
+  const getColor = (makroType: string): string => {
+    if (makroType === 'protein') {
+      return '#83b28d';
+    }
+    if (makroType === 'fat') {
+      return '#EF4444';
+    }
+    if (makroType === 'carbs') {
+      return '#ef9a44';
+    }
+
+    return '#000';
+  };
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-      <CircularProgress sx={{color: getColor()}} variant="determinate" {...props} />
+      <CircularProgress sx={{ color: getColor(makro) }} variant="determinate" value={value} />
       <Box
         sx={{
           top: 0,
@@ -28,11 +30,9 @@ export const CircularProgressNoLabel = (
           position: 'absolute',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'center'
         }}
-      >
-        
-      </Box>
+      />
     </Box>
   );
 }

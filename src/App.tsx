@@ -3,7 +3,7 @@ import './App.css';
 import { Box, PaletteMode, Stack } from '@mui/material';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
-import { DiaryPage } from './Pages/DiaryPage';
+import DiaryPage from './Pages/DiaryPage';
 import { SettingsPage } from './Pages/SettingsPage';
 import { TrendsPage } from './Pages/TrendsPage';
 import { LoginPage } from './Pages/LoginPage';
