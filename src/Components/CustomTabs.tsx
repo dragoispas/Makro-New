@@ -1,3 +1,22 @@
+/* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable default-case */
+/* eslint-disable no-shadow */
+/* eslint-disable consistent-return */
+/* eslint-disable react/jsx-curly-brace-presence */
+/* eslint-disable react/require-default-props */
+/* eslint-disable no-else-return */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-empty-pattern */
+/* eslint-disable no-use-before-define */
+/* eslint-disable @typescript-eslint/no-empty-interface */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable react/jsx-no-duplicate-props */
+/* eslint-disable react/function-component-definition */
+
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Tabs from '@mui/material/Tabs';
@@ -129,8 +148,7 @@ export const CustomizedTabs: React.FC<Props> = ({ themeMode, setThemeMode, isLog
         justifyContent={isLoggedIn ? 'space-between' : 'flex-end'}
         alignItems="center"
         spacing={2}
-        sx={{ margin: '0 50px', height: '70px' }}
-      >
+        sx={{ margin: '0 50px', height: '70px' }}>
         {isLoggedIn ? (
           <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example">
             <StyledTab label="Diary" />

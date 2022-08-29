@@ -1,3 +1,19 @@
+/* eslint-disable consistent-return */
+/* eslint-disable react/jsx-curly-brace-presence */
+/* eslint-disable react/require-default-props */
+/* eslint-disable no-else-return */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-empty-pattern */
+/* eslint-disable no-use-before-define */
+/* eslint-disable @typescript-eslint/no-empty-interface */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable react/jsx-no-duplicate-props */
+/* eslint-disable react/function-component-definition */
+
 import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -27,8 +43,7 @@ export const CircularProgressWithLabel = (
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'
-        }}
-      >
+        }}>
         {props.label && props.label !== 0 ? (
           <Box
             sx={{
@@ -36,14 +51,12 @@ export const CircularProgressWithLabel = (
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center'
-            }}
-          >
+            }}>
             <Typography
               sx={{ height: '12px' }}
               variant="caption"
               component="div"
-              color="text.secondary"
-            >{`${Math.round(props.label)} g`}</Typography>
+              color="text.secondary">{`${Math.round(props.label)} g`}</Typography>
             <Typography variant="caption" component="div" color="text.secondary">
               {props.makro}
             </Typography>
@@ -55,14 +68,12 @@ export const CircularProgressWithLabel = (
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center'
-            }}
-          >
+            }}>
             <Typography
               sx={{ height: '12px' }}
               variant="caption"
               component="div"
-              color="text.secondary"
-            >{`0 g`}</Typography>
+              color="text.secondary">{`0 g`}</Typography>
             <Typography variant="caption" component="div" color="text.secondary">
               {props.makro}
             </Typography>

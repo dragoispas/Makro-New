@@ -59,8 +59,7 @@ export default function FormattedInputs() {
         '& > :not(style)': {
           m: 1
         }
-      }}
-    >
+      }}>
       <TextField
         label="react-number-format"
         value={values.numberformat}

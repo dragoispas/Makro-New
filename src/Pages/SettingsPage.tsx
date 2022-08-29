@@ -1,3 +1,6 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Button, Paper, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 

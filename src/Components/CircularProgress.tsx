@@ -19,8 +19,13 @@ export default function CircularProgressNoLabel({
     return '#000';
   };
   return (
-    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-      <CircularProgress sx={{ color: getColor(makro) }} variant="determinate" value={value} />
+    <Box sx={{ position: 'relative', display: 'inline-flex', opacity: 0.3 }}>
+      <CircularProgress
+        size={60}
+        sx={{ color: getColor(makro) }}
+        variant="determinate"
+        value={value}
+      />
       <Box
         sx={{
           top: 0,

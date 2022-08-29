@@ -1,3 +1,23 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable default-case */
+/* eslint-disable no-shadow */
+/* eslint-disable consistent-return */
+/* eslint-disable react/jsx-curly-brace-presence */
+/* eslint-disable react/require-default-props */
+/* eslint-disable no-else-return */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-empty-pattern */
+/* eslint-disable no-use-before-define */
+/* eslint-disable @typescript-eslint/no-empty-interface */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable react/jsx-no-duplicate-props */
+/* eslint-disable react/function-component-definition */
+
 import styled from '@emotion/styled';
 import { Box, Divider, Stack, Typography } from '@mui/material';
 import { Container } from '@mui/system';
@@ -136,8 +156,7 @@ export const DiaryChart: React.FC<Props> = ({
               textAlign: 'start',
               marginLeft: '5px',
               alignItems: 'space-between'
-            }}
-          >
+            }}>
             <div style={{ fontWeight: 'bold', fontSize: '16px', height: '17px' }}>{totalCarbs}</div>
             <div style={{ fontWeight: 'bold', fontSize: '13px', height: '17px', opacity: '50%' }}>
               totalCarbs
@@ -153,8 +172,7 @@ export const DiaryChart: React.FC<Props> = ({
               textAlign: 'start',
               marginLeft: '5px',
               alignItems: 'space-between'
-            }}
-          >
+            }}>
             <div style={{ fontWeight: 'bold', fontSize: '16px', height: '17px' }}>{totalFat}</div>
             <div style={{ fontWeight: 'bold', fontSize: '13px', height: '17px', opacity: '50%' }}>
               totalFat
@@ -170,8 +188,7 @@ export const DiaryChart: React.FC<Props> = ({
               textAlign: 'start',
               marginLeft: '5px',
               alignItems: 'space-between'
-            }}
-          >
+            }}>
             <div style={{ fontWeight: 'bold', fontSize: '16px', height: '17px' }}>
               {totalProtein}
             </div>
