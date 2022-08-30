@@ -90,7 +90,7 @@ function App() {
         main: '#ee5b46'
       },
       secondary: {
-        main: '#033631'
+        main: '#39bd79'
       }
     },
     transitions: {},

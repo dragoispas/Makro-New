@@ -10,9 +10,10 @@ export default function LinearProgressWithLabel(
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
       <Box sx={{ minWidth: 35 }}>
-        <Typography variant="body2" color="text.secondary">{`${Math.round(
-          props.label
-        )} cal`}</Typography>
+        <Typography
+          sx={{ userSelect: 'none' }}
+          variant="body2"
+          color="text.secondary">{`${Math.round(props.label)} cal`}</Typography>
       </Box>
       <Box sx={{ width: '100%', mt: 1 }}>
         <LinearProgress variant="determinate" {...props} />

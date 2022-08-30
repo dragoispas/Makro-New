@@ -14,6 +14,11 @@ export const SettingsPage: React.FC = () => {
           <Stack sx={{ height: '100%' }}>
             <Stack p={4}>
               <Typography variant="h6" sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                Preferences
+              </Typography>
+            </Stack>
+            <Stack p={4}>
+              <Typography variant="h6" sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 Support
               </Typography>
             </Stack>

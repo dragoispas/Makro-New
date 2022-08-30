@@ -3,11 +3,6 @@ import {
   Box,
   Button,
   Container,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
   MenuItem,
   Paper,
   Stack,
@@ -15,11 +10,10 @@ import {
   Typography
 } from '@mui/material';
 import React, { useState } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { CustomCalendar } from '../Components/CustomCalendar';
 import { DiaryChart } from '../Components/DiaryChart';
 import { Search } from '../Components/Search';
+import { FoodEntryList } from '../Components/FoodEntryList';
 
 export default function DiaryPage() {
   const [weight, setWeight] = useState<string>('WEIGHT');
@@ -83,25 +77,7 @@ export default function DiaryPage() {
               totalProtein={178}
             />
             <Box sx={{ width: '100%' }}>
-              <List dense sx={{ height: '350px' }}>
-                {getFoodEntries(
-                  <ListItem
-                    sx={{ borderTop: 1, borderColor: 'divider' }}
-                    secondaryAction={
-                      <IconButton edge="end" aria-label="delete">
-                        <DeleteIcon />
-                      </IconButton>
-                    }>
-                    <ListItemAvatar>
-                      <Avatar>
-                        <RestaurantIcon />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="Food name" secondary="123 g" />
-                    <ListItemText sx={{ textAlign: 'end' }} primary="123" secondary="cal" />
-                  </ListItem>
-                )}
-              </List>
+              <FoodEntryList />
             </Box>
             {/* {getDivider()}
                 <FoodEntriesBox products={products} deleteFoodEntry={deleteFoodEntry} foodEntries={dayEntry.foodEntries} servingSizes={servingSizes}/> */}

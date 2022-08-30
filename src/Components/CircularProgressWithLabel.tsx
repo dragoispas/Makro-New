@@ -53,11 +53,15 @@ export const CircularProgressWithLabel = (
               justifyContent: 'center'
             }}>
             <Typography
-              sx={{ height: '12px' }}
+              sx={{ height: '12px', userSelect: 'none' }}
               variant="caption"
               component="div"
               color="text.secondary">{`${Math.round(props.label)} g`}</Typography>
-            <Typography variant="caption" component="div" color="text.secondary">
+            <Typography
+              variant="caption"
+              component="div"
+              color="text.secondary"
+              sx={{ userSelect: 'none' }}>
               {props.makro}
             </Typography>
           </Box>
@@ -70,11 +74,15 @@ export const CircularProgressWithLabel = (
               justifyContent: 'center'
             }}>
             <Typography
-              sx={{ height: '12px' }}
+              sx={{ height: '12px', userSelect: 'none' }}
               variant="caption"
               component="div"
               color="text.secondary">{`0 g`}</Typography>
-            <Typography variant="caption" component="div" color="text.secondary">
+            <Typography
+              variant="caption"
+              component="div"
+              color="text.secondary"
+              sx={{ userSelect: 'none' }}>
               {props.makro}
             </Typography>
           </Box>

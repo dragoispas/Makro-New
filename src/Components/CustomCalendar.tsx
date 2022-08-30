@@ -30,6 +30,7 @@ export const CustomCalendar: React.FC = () => {
         <StaticDatePicker
           onChange={(newValue: React.SetStateAction<Date | null>) => setDate(newValue)}
           value={date}
+          views={['month', 'day']}
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
             <TextField {...params} />
           )}
