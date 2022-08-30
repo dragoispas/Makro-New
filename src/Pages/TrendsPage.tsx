@@ -6,7 +6,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react';
-import { Paper, Stack, Typography } from '@mui/material';
+import { Box, Paper, Stack, Typography } from '@mui/material';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const data = [
@@ -70,38 +70,40 @@ const data = [
 
 export const TrendsPage: React.FC = () => {
   return (
-    <Paper sx={{width:1000, height:500}}>
+    <Box sx={{ marginTop: '30px', display: 'flex', justifyContent: 'center', gap: '40px' }}>
+      <Paper sx={{width:1000, height:500}}>
 
-    {/* <Stack
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
-      spacing={0.5}
-    ></Stack> */}
+      {/* <Stack
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={0.5}
+      ></Stack> */}
 
-      <Typography sx={{fontSize:18,textAlign:"center", width:"100%", marginBottom: 3, paddingTop: 1}}>Weight average over the last 11 weeks</Typography>
-      <ResponsiveContainer width="100%" height="80%">
-        <LineChart
-        style={{transform:"translate(-15px, 10px)"}}
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3" />
-          <XAxis dataKey="name" />
-          <YAxis domain={['dataMin - 2','dataMax + 2']}/>
-          <Tooltip contentStyle={{border:"none", boxShadow:"0 0 20px rgba(0,0,0,0.3)", borderRadius:"10px"}}/>
-          {/* <Legend style={{transform:"translate(15px)"}}/> */}
-          <Line connectNulls type="monotone" dataKey="Weight" stroke="#ee5b46" activeDot={{ r: 6 }} strokeWidth={2} />
-          {/* <Line type="monotone" dataKey="Expected" stroke="#39bd79" strokeWidth={2} /> */}
-        </LineChart>
-      </ResponsiveContainer>
-    </Paper>
+        <Typography sx={{fontSize:18,textAlign:"center", width:"100%", marginBottom: 3, paddingTop: 1}}>Weight average over the last 11 weeks</Typography>
+        <ResponsiveContainer width="100%" height="80%">
+          <LineChart
+          style={{transform:"translate(-15px, 10px)"}}
+            width={500}
+            height={300}
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3" />
+            <XAxis dataKey="name" />
+            <YAxis domain={['dataMin - 2','dataMax + 2']}/>
+            <Tooltip contentStyle={{border:"none", boxShadow:"0 0 20px rgba(0,0,0,0.3)", borderRadius:"10px"}}/>
+            {/* <Legend style={{transform:"translate(15px)"}}/> */}
+            <Line connectNulls type="monotone" dataKey="Weight" stroke="#ee5b46" activeDot={{ r: 6 }} strokeWidth={2} />
+            {/* <Line type="monotone" dataKey="Expected" stroke="#39bd79" strokeWidth={2} /> */}
+          </LineChart>
+        </ResponsiveContainer>
+      </Paper>
+    </Box>
   );
 };
