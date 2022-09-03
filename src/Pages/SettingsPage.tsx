@@ -3,7 +3,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 
-export const SettingsPage: React.FC = () => {
+export function SettingsPage() {
   const [email, setEmail] = useState<string>('robert.pham@gmail.com');
   return (
     <>
@@ -44,4 +44,4 @@ export const SettingsPage: React.FC = () => {
       </Box>
     </>
   );
-};
+}

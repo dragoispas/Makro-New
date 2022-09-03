@@ -81,8 +81,6 @@ export default function DiaryPage() {
             <Box sx={{ width: '100%' }}>
               <FoodEntryList />
             </Box>
-            {/* {getDivider()}
-                <FoodEntriesBox products={products} deleteFoodEntry={deleteFoodEntry} foodEntries={dayEntry.foodEntries} servingSizes={servingSizes}/> */}
           </Stack>
         </Paper>
       </Box>

@@ -7,6 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import { PaletteMode, Stack, Switch } from '@mui/material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../app/store';
+import { setThemeMode } from '../modules/auth/generalSlice';
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
   width: 28,
@@ -90,14 +93,11 @@ const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props
   }),
 );
 
-interface Props {
-  themeMode: PaletteMode;
-  setThemeMode: (newMode: PaletteMode) => void;
-  isLoggedIn: boolean;
-}
-
-export function CustomizedTabs({ themeMode, setThemeMode, isLoggedIn }: Props) {
+export function CustomizedTabs() {
   const [value, setValue] = React.useState(0);
+  const themeMode = useSelector(({ general }: RootState) => general.themeMode);
+  const user = useSelector(({ auth }: RootState) => auth.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = useCallback((event: React.SyntheticEvent, newValue: number) => {
@@ -105,7 +105,7 @@ export function CustomizedTabs({ themeMode, setThemeMode, isLoggedIn }: Props) {
 
     switch (newValue) {
       case 0:
-        navigate('/diary', { replace: true });
+        navigate('/', { replace: true });
         break;
       case 1:
         navigate('/trends', { replace: true });
@@ -118,18 +118,16 @@ export function CustomizedTabs({ themeMode, setThemeMode, isLoggedIn }: Props) {
     }
   }, [navigate]);
 
-  const logout = React.useCallback(() => navigate('/login', { replace: true }), [navigate]);
-
   return (
     <Box sx={{ width: '100%' }}>
       <Stack
         direction="row"
-        justifyContent={isLoggedIn ? 'space-between' : 'flex-end'}
+        justifyContent={user ? 'space-between' : 'flex-end'}
         alignItems="center"
         spacing={2}
         sx={{ margin: '0 50px', height: '70px' }}
       >
-        {isLoggedIn ? (
+        {user ? (
           <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example">
             <StyledTab label="Diary" />
             <StyledTab label="Trends" />
@@ -139,7 +137,7 @@ export function CustomizedTabs({ themeMode, setThemeMode, isLoggedIn }: Props) {
         <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
           <DarkModeIcon sx={{ color: themeMode.toString() === 'light' ? 'black' : 'white' }} />
           <AntSwitch
-            onChange={(e) => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}
+            onChange={(e) => dispatch(setThemeMode(themeMode === 'light' ? 'dark' : 'light'))}
             inputProps={{ 'aria-label': 'ant design' }}
           />
         </Stack>

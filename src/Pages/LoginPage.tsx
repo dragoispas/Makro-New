@@ -20,6 +20,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../modules/auth/authSlice';
 
 const AuthPaper = styled(Paper)<{ side: string }>`
   margin: 30px auto;
@@ -66,29 +69,21 @@ export function LoginPage() {
 
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleLogin = useCallback(() => navigate('/diary', { replace: true }), [navigate]);
 
-  const login = () => {
-    if (
-      username === ''
-      || username.includes(' ')
-      || !(username.includes('@') && username.includes('.'))
-      || password === ''
-    ) {
-      if (
-        username === ''
-        || username.includes(' ')
-        || !(username.includes('@') && username.includes('.'))
-      ) {
-        setUsernameError('Invalid email!');
-      }
-      if (password === '') {
-        setPasswordError('Invalid password!');
-      }
-    } else {
-      handleLogin();
-    }
+  const onLoginClick = async () => {
+    const response = await axios.post('/api/auth/login', {
+      username, password,
+    });
+    dispatch(setUser(response.data.user));
+  };
+
+  const onCreateAccountClick = async () => {
+    const response = await axios.post('/api/auth/register', {
+      username, password, name,
+    });
+    dispatch(setUser(response.data.user));
   };
 
   const resetPassword = () => {
@@ -204,7 +199,7 @@ export function LoginPage() {
         </Typography>
         {showAlert()}
         <Button
-          onClick={() => login()}
+          onClick={onLoginClick}
           color="secondary"
           variant="contained"
           sx={{ margin: '20px 0', width: '100%' }}
@@ -311,7 +306,7 @@ export function LoginPage() {
           <FormHelperText id="component-error-text">{passwordError}</FormHelperText>
         </FormControl>
         {showAlert()}
-        <Button color="secondary" variant="contained" sx={{ margin: '20px 0', width: '100%' }}>
+        <Button onClick={onCreateAccountClick} color="secondary" variant="contained" sx={{ margin: '20px 0', width: '100%' }}>
           Create account
         </Button>
         <Stack direction="row" justifyContent="center" alignItems="center" sx={{ opacity: '70%' }}>
