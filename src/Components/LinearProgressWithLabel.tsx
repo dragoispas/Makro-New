@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 export default function LinearProgressWithLabel(
-  props: LinearProgressProps & { value: number; label: number }
+  props: LinearProgressProps & { value: number; label: number },
 ) {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
@@ -13,7 +13,10 @@ export default function LinearProgressWithLabel(
         <Typography
           sx={{ userSelect: 'none' }}
           variant="body2"
-          color="text.secondary">{`${Math.round(props.label)} cal`}</Typography>
+          color="text.secondary"
+        >
+          {`${Math.round(props.label)} cal`}
+        </Typography>
       </Box>
       <Box sx={{ width: '100%', mt: 1 }}>
         <LinearProgress variant="determinate" {...props} />

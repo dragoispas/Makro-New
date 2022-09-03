@@ -1,7 +1,6 @@
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable react/function-component-definition */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Box, Button, Paper, Stack, Typography } from '@mui/material';
+import {
+  Box, Button, Paper, Stack, Typography,
+} from '@mui/material';
 import React, { useState } from 'react';
 
 export const SettingsPage: React.FC = () => {
@@ -9,7 +8,10 @@ export const SettingsPage: React.FC = () => {
   return (
     <>
       {/* <Header activePage='settings'/> */}
-      <Box sx={{ marginTop: '30px', display: 'flex', justifyContent: 'center', gap: '40px' }}>
+      <Box sx={{
+        marginTop: '30px', display: 'flex', justifyContent: 'center', gap: '40px',
+      }}
+      >
         <Paper sx={{ width: '600px', height: '800px' }}>
           <Stack sx={{ height: '100%' }}>
             <Stack p={4}>
@@ -27,7 +29,7 @@ export const SettingsPage: React.FC = () => {
                 Account
               </Typography>
               <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography sx={{ opacity: 0.5 }}>{`Email: `}</Typography>
+                <Typography sx={{ opacity: 0.5 }}>{'Email: '}</Typography>
                 <Typography sx={{ fontWeight: 'bold' }}>{email}</Typography>
               </Box>
               <Button color="inherit">Update Email</Button>

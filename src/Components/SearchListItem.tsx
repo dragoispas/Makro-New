@@ -1,4 +1,6 @@
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import {
+  ListItem, ListItemButton, ListItemIcon, ListItemText, Typography,
+} from '@mui/material';
 import styled from '@emotion/styled';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 
@@ -22,7 +24,11 @@ export function SearchListItem({ name, calories }: Props) {
           <CustomFoodIcon />
         </ListItemIcon>
         <ListItemText primary={name} />
-        <Typography>{calories} kcal</Typography>
+        <Typography>
+          {calories}
+          {' '}
+          kcal
+        </Typography>
       </ListItemButton>
     </ListItem>
   );

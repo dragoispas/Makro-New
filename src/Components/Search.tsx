@@ -1,9 +1,3 @@
-/* eslint-disable no-empty-pattern */
-/* eslint-disable no-use-before-define */
-/* eslint-disable @typescript-eslint/no-empty-interface */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/jsx-no-duplicate-props */
-/* eslint-disable react/function-component-definition */
 import styled from '@emotion/styled';
 import React, { useEffect, useMemo, useState } from 'react';
 import {
@@ -21,16 +15,15 @@ import {
   Tab,
   Tabs,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { Stack } from '@mui/system';
 import ClearIcon from '@mui/icons-material/Clear';
-import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import EditIcon from '@mui/icons-material/Edit';
 import NumberFormat, { InputAttributes } from 'react-number-format';
 import { SearchListItem } from './SearchListItem';
-import { CircularProgressWithLabel } from './CircularProgressWithLabel';
+import CircularProgressWithLabel from './CircularProgressWithLabel';
 import LinearProgressWithLabel from './LinearProgressWithLabel';
 import { TabPanel } from './TabPanel';
 import { emptyProduct, Product, ProductMap } from '../Api/products/types';
@@ -45,7 +38,7 @@ const InputContainer = styled(Paper)<{ isActive: boolean }>`
   border-radius: 5px;
   padding-top: 5px;
 
-  ${(props) => (props.isActive ? `box-shadow: 0 0 50px rgba(0,0,0,0.5);` : `box-shadow: none;`)}
+  ${(props) => (props.isActive ? 'box-shadow: 0 0 50px rgba(0,0,0,0.5);' : 'box-shadow: none;')}
 
   display: flex;
   align-items: center;
@@ -78,13 +71,12 @@ const ClearButton = styled(ClearIcon)<{ isActive: boolean }>`
     background: rgba(150, 150, 150, 0.15);
   }
 
-  ${(props) => (props.isActive ? `opacity:100%; cursor:pointer;` : `opacity:0%`)}
+  ${(props) => (props.isActive ? 'opacity:100%; cursor:pointer;' : 'opacity:0%')}
 `;
 
 const SearchContent = styled(Box)<{ isActive: boolean }>`
   opacity: 0;
-  ${(props) =>
-    props.isActive ? 'animation: fade-in 1s forwards;' : 'pointer-events: none; opacity: 0;'}
+  ${(props) => (props.isActive ? 'animation: fade-in 1s forwards;' : 'pointer-events: none; opacity: 0;')}
   position: absolute;
   width: 600px;
   @keyframes fade-in {
@@ -113,34 +105,13 @@ const Overlay = styled(Box)<{ isActive: boolean }>`
   z-index: 1000;
 `;
 
-export const CustomFoodIcon = styled(LocalDiningIcon)`
-  background: rgba(150, 150, 150, 0.2);
-  border-radius: 50%;
-  padding: 5px;
-  opacity: 0.9;
-`;
-
-const AnimatedBox = styled(Box)<{ isActive: boolean }>`
-  opacity: 0;
-  @keyframes fade-in {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  ${(props) => (props.isActive ? 'animation: fade-in 1s;' : '')}
-  animation-delay: 0.25s;
-`;
-
 interface CustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void;
   name: string;
 }
 
 const NumberFormatCustom = React.forwardRef<NumberFormat<InputAttributes>, CustomProps>(
-  function NumberFormatCustom(props, ref) {
+  (props, ref) => {
     const { onChange, ...other } = props;
 
     return (
@@ -151,20 +122,18 @@ const NumberFormatCustom = React.forwardRef<NumberFormat<InputAttributes>, Custo
           onChange({
             target: {
               name: props.name,
-              value: values.value
-            }
+              value: values.value,
+            },
           });
         }}
         // thousandSeparator
         isNumericString
       />
     );
-  }
+  },
 );
 
-interface Props {}
-
-export const Search: React.FC<Props> = ({}) => {
+export function Search() {
   const [content, setContent] = useState<string>('search results');
 
   const [inputText, setInputText] = useState<string>('');
@@ -176,7 +145,7 @@ export const Search: React.FC<Props> = ({}) => {
   const [products, setProducts] = useState<ProductMap>({
     test1: emptyProduct,
     test2: emptyProduct,
-    test3: emptyProduct
+    test3: emptyProduct,
   });
 
   const [productQuantity, setProductQuantity] = useState<string>('');
@@ -197,16 +166,13 @@ export const Search: React.FC<Props> = ({}) => {
   const [sodium, setSodium] = useState<string>('');
   const [potassium, setPotassium] = useState<string>('');
 
-  const getProcentage = (x: number, y: number) => {
-    return (x * 100) / y;
-  };
+  const getPercentage = (x: number, y: number) => (x * 100) / y;
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
   };
 
   useEffect(() => {
-    console.log(`CUUUUUUUUUUUUUUUUU${currentProduct}`);
     if (currentProduct) {
       setCalories(currentProduct.calories !== 0 ? currentProduct.calories.toString() : '');
       setFat(currentProduct.fat !== 0 ? currentProduct.fat.toString() : '');
@@ -241,6 +207,11 @@ export const Search: React.FC<Props> = ({}) => {
     }
   }, [content, isInputActive]);
 
+  const resetForms = () => {
+    setFoodEntryQuantity('');
+    setProductQuantity('100');
+  };
+
   /**
    * Closes the search, goes back to results and drops the selected product
    */
@@ -250,11 +221,6 @@ export const Search: React.FC<Props> = ({}) => {
     setContent('search results');
     setCurrentProduct(null);
     resetForms();
-  };
-
-  const resetForms = () => {
-    setFoodEntryQuantity('');
-    setProductQuantity('100');
   };
 
   /**
@@ -268,22 +234,19 @@ export const Search: React.FC<Props> = ({}) => {
   /**
    * Takes all producs and returns react fragments for each of them
    */
-  const getSearchListItems = useMemo(() => {
-    console.log(products);
-    return Object.values(products).map((product) => (
-      <React.Fragment key={product.id}>
-        <Box
-          onClick={() => {
-            setInputText(product.name);
-            console.log(`clicked on ${product.name}`);
-            setCurrentProduct(product);
-            setContent('selected product');
-          }}>
-          <SearchListItem name={product.name} calories={product.calories} />
-        </Box>
-      </React.Fragment>
-    ));
-  }, [products]);
+  const getSearchListItems = useMemo(() => Object.values(products).map((product) => (
+    <React.Fragment key={product.id}>
+      <Box
+        onClick={() => {
+          setInputText(product.name);
+          setCurrentProduct(product);
+          setContent('selected product');
+        }}
+      >
+        <SearchListItem name={product.name} calories={product.calories} />
+      </Box>
+    </React.Fragment>
+  )), [products]);
 
   /**
    * Style applied to all <List> components
@@ -295,7 +258,7 @@ export const Search: React.FC<Props> = ({}) => {
     overflow: 'auto',
     maxHeight: 355,
     height: 355,
-    '& ul': { padding: 0 }
+    '& ul': { padding: 0 },
   };
 
   return (
@@ -310,8 +273,9 @@ export const Search: React.FC<Props> = ({}) => {
               alignItems: 'center',
               justifyContent: 'center',
               marginBottom: '20px',
-              marginLeft: '22px'
-            }}>
+              marginLeft: '22px',
+            }}
+          >
             {content === 'search results' ? (
               <SearchIcon sx={{ transform: 'translate(41px, 0px)' }} />
             ) : (
@@ -344,7 +308,8 @@ export const Search: React.FC<Props> = ({}) => {
                   onChange={handleTabChange}
                   variant="scrollable"
                   scrollButtons={false}
-                  aria-label="scrollable prevent tabs example">
+                  aria-label="scrollable prevent tabs example"
+                >
                   <Tab label="All" />
                   <Tab label="Custom" />
                   <Tab label="Common" />
@@ -371,7 +336,8 @@ export const Search: React.FC<Props> = ({}) => {
                     setContent('selected product');
                     setCurrentProduct(null);
                   }}
-                  sx={{ width: '100%', marginTop: '10px' }}>
+                  sx={{ width: '100%', marginTop: '10px' }}
+                >
                   CREATE NEW FOOD
                 </Button>
               </TabPanel>
@@ -384,7 +350,8 @@ export const Search: React.FC<Props> = ({}) => {
                     setContent('selected product');
                     setCurrentProduct(null);
                   }}
-                  sx={{ width: '100%', marginTop: '10px' }}>
+                  sx={{ width: '100%', marginTop: '10px' }}
+                >
                   CREATE NEW FOOD
                 </Button>
               </TabPanel>
@@ -397,7 +364,8 @@ export const Search: React.FC<Props> = ({}) => {
                     setContent('selected product');
                     setCurrentProduct(null);
                   }}
-                  sx={{ width: '100%', marginTop: '10px' }}>
+                  sx={{ width: '100%', marginTop: '10px' }}
+                >
                   CREATE NEW FOOD
                 </Button>
               </TabPanel>
@@ -410,7 +378,8 @@ export const Search: React.FC<Props> = ({}) => {
                     setContent('selected product');
                     setCurrentProduct(null);
                   }}
-                  sx={{ width: '100%', marginTop: '10px' }}>
+                  sx={{ width: '100%', marginTop: '10px' }}
+                >
                   CREATE NEW FOOD
                 </Button>
               </TabPanel>
@@ -422,7 +391,8 @@ export const Search: React.FC<Props> = ({}) => {
                 direction="column"
                 justifyContent="space-between"
                 alignItems="center"
-                spacing={1}>
+                spacing={1}
+              >
                 <Box sx={{ height: '100%', width: '100%', display: 'flex' }}>
                   <Stack
                     gap={1}
@@ -431,21 +401,23 @@ export const Search: React.FC<Props> = ({}) => {
                       borderRight: 1,
                       paddingRight: '24px',
                       borderColor: 'divider',
-                      alignItems: 'flex-start'
-                    }}>
+                      alignItems: 'flex-start',
+                    }}
+                  >
                     <Typography sx={{ fontWeight: 'bold' }}>Nutrition Facts</Typography>
                     <Box
                       sx={{
                         display: 'flex',
                         justifyContent: 'space-between',
                         width: '175px',
-                        marginBottom: '5px'
-                      }}>
+                        marginBottom: '5px',
+                      }}
+                    >
                       <Typography sx={{ width: '25px' }}>per </Typography>
                       <FormControl variant="standard">
                         <TextField
                           InputProps={{ inputComponent: NumberFormatCustom as any }}
-                          inputProps={{ style: { textAlign: 'end' } }}
+                          // inputProps={{ style: { textAlign: 'end' } }}
                           sx={{ width: '75px', paddingRight: '1px' }}
                           size="small"
                           id="input-with-icon-adornment"
@@ -459,14 +431,15 @@ export const Search: React.FC<Props> = ({}) => {
                         <Select
                           MenuProps={{
                             disablePortal: true,
-                            style: { cursor: 'default' }
+                            style: { cursor: 'default' },
                           }}
                           variant="standard"
                           sx={{ width: '75px', paddingLeft: '1px' }}
                           labelId="demo-select-small"
                           id="demo-select-small"
                           value={productServingSize}
-                          onChange={(e) => setProductServingSize(e.target.value)}>
+                          onChange={(e) => setProductServingSize(e.target.value)}
+                        >
                           <MenuItem value="g">g</MenuItem>
                           <MenuItem value="oz">oz</MenuItem>
                           <MenuItem value="lb">lb</MenuItem>
@@ -482,9 +455,9 @@ export const Search: React.FC<Props> = ({}) => {
                               <Typography color="text.primary">Calories</Typography>
                             </InputAdornment>
                           ),
-                          endAdornment: <InputAdornment position="end">cal</InputAdornment>
+                          endAdornment: <InputAdornment position="end">cal</InputAdornment>,
                         }}
-                        inputProps={{ style: { textAlign: 'end' } }}
+                        // inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -503,9 +476,9 @@ export const Search: React.FC<Props> = ({}) => {
                               <Typography color="text.primary">Fat</Typography>
                             </InputAdornment>
                           ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>
+                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        inputProps={{ style: { textAlign: 'end' } }}
+                        // inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -524,9 +497,9 @@ export const Search: React.FC<Props> = ({}) => {
                               <Typography color="text.secondary">Sat Fat</Typography>
                             </InputAdornment>
                           ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>
+                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        inputProps={{ style: { textAlign: 'end' } }}
+                        // inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -545,9 +518,9 @@ export const Search: React.FC<Props> = ({}) => {
                               <Typography color="text.primary">Carbs</Typography>
                             </InputAdornment>
                           ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>
+                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        inputProps={{ style: { textAlign: 'end' } }}
+                        // inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -566,9 +539,9 @@ export const Search: React.FC<Props> = ({}) => {
                               <Typography color="text.secondary">Fiber</Typography>
                             </InputAdornment>
                           ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>
+                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        inputProps={{ style: { textAlign: 'end' } }}
+                        // inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -587,9 +560,9 @@ export const Search: React.FC<Props> = ({}) => {
                               <Typography color="text.secondary">Sugar</Typography>
                             </InputAdornment>
                           ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>
+                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        inputProps={{ style: { textAlign: 'end' } }}
+                        // inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -608,9 +581,9 @@ export const Search: React.FC<Props> = ({}) => {
                               <Typography color="text.primary">Protein</Typography>
                             </InputAdornment>
                           ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>
+                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        inputProps={{ style: { textAlign: 'end' } }}
+                        // inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -629,9 +602,9 @@ export const Search: React.FC<Props> = ({}) => {
                               <Typography color="text.secondary">Sodium</Typography>
                             </InputAdornment>
                           ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>
+                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        inputProps={{ style: { textAlign: 'end' } }}
+                        // inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -650,9 +623,9 @@ export const Search: React.FC<Props> = ({}) => {
                               <Typography color="text.secondary">Potassium</Typography>
                             </InputAdornment>
                           ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>
+                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        inputProps={{ style: { textAlign: 'end' } }}
+                        // inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -669,16 +642,17 @@ export const Search: React.FC<Props> = ({}) => {
                         display: 'flex',
                         justifyContent: 'center',
                         width: '300px',
-                        marginBottom: '5px'
-                      }}>
+                        marginBottom: '5px',
+                      }}
+                    >
                       <Typography sx={{ fontWeight: 'bold' }}>Quantity: </Typography>
                       <FormControl variant="standard">
                         <TextField
                           InputProps={{
                             style: { textAlign: 'end' },
-                            inputComponent: NumberFormatCustom as any
+                            inputComponent: NumberFormatCustom as any,
                           }}
-                          inputProps={{ style: { textAlign: 'end' } }}
+                          // inputProps={{ style: { textAlign: 'end' } }}
                           sx={{ width: '75px', paddingRight: '1px' }}
                           size="small"
                           id="input-with-icon-adornment"
@@ -692,14 +666,15 @@ export const Search: React.FC<Props> = ({}) => {
                         <Select
                           MenuProps={{
                             disablePortal: true,
-                            style: { cursor: 'default' }
+                            style: { cursor: 'default' },
                           }}
                           variant="standard"
                           sx={{ width: '75px', paddingLeft: '1px' }}
                           labelId="demo-select-small"
                           id="demo-select-small"
                           value={foodEntryServingSize}
-                          onChange={(e) => setFoodEntryServingSize(e.target.value)}>
+                          onChange={(e) => setFoodEntryServingSize(e.target.value)}
+                        >
                           <MenuItem value="g">g</MenuItem>
                           <MenuItem value="oz">oz</MenuItem>
                           <MenuItem value="lb">lb</MenuItem>
@@ -717,8 +692,9 @@ export const Search: React.FC<Props> = ({}) => {
                         borderColor: 'divider',
                         height: '150px',
                         width: '280px',
-                        padding: '10px'
-                      }}>
+                        padding: '10px',
+                      }}
+                    >
                       <Typography sx={{ fontWeight: 'bold', marginBottom: '15px' }}>
                         Summary
                       </Typography>
@@ -728,13 +704,15 @@ export const Search: React.FC<Props> = ({}) => {
                         justifyContent="space-evenly"
                         alignItems="center"
                         spacing={0}
-                        sx={{ width: '100%', position: 'relative' }}>
+                        sx={{ width: '100%', position: 'relative' }}
+                      >
                         <Stack
                           direction="row"
                           justifyContent="space-evenly"
                           alignItems="center"
                           spacing={0}
-                          sx={{ width: '100%', position: 'absolute', height: '100%' }}>
+                          sx={{ width: '100%', position: 'absolute', height: '100%' }}
+                        >
                           <CircularProgressNoLabel
                             makro="protein"
                             style={{ opacity: 0.3 }}
@@ -759,19 +737,19 @@ export const Search: React.FC<Props> = ({}) => {
                           makro="protein"
                           size={60}
                           label={
-                            calories !== '' &&
-                            foodEntryQuantity !== '' &&
-                            calories !== '0' &&
-                            foodEntryQuantity !== '0'
+                            calories !== ''
+                            && foodEntryQuantity !== ''
+                            && calories !== '0'
+                            && foodEntryQuantity !== '0'
                               ? parseFloat(protein) * parseFloat(foodEntryQuantity)
                               : 0
                           }
                           value={
-                            calories !== '' &&
-                            foodEntryQuantity !== '' &&
-                            calories !== '0' &&
-                            foodEntryQuantity !== '0'
-                              ? getProcentage(parseFloat(protein) * 4, parseFloat(calories))
+                            calories !== ''
+                            && foodEntryQuantity !== ''
+                            && calories !== '0'
+                            && foodEntryQuantity !== '0'
+                              ? getPercentage(parseFloat(protein) * 4, parseFloat(calories))
                               : 0
                           }
                         />
@@ -779,19 +757,19 @@ export const Search: React.FC<Props> = ({}) => {
                           makro="fat"
                           size={60}
                           label={
-                            calories !== '' &&
-                            foodEntryQuantity !== '' &&
-                            calories !== '0' &&
-                            foodEntryQuantity !== '0'
+                            calories !== ''
+                            && foodEntryQuantity !== ''
+                            && calories !== '0'
+                            && foodEntryQuantity !== '0'
                               ? parseFloat(fat) * parseFloat(foodEntryQuantity)
                               : 0
                           }
                           value={
-                            calories !== '' &&
-                            foodEntryQuantity !== '' &&
-                            calories !== '0' &&
-                            foodEntryQuantity !== '0'
-                              ? getProcentage(parseFloat(fat) * 9, parseFloat(calories))
+                            calories !== ''
+                            && foodEntryQuantity !== ''
+                            && calories !== '0'
+                            && foodEntryQuantity !== '0'
+                              ? getPercentage(parseFloat(fat) * 9, parseFloat(calories))
                               : 0
                           }
                         />
@@ -799,19 +777,19 @@ export const Search: React.FC<Props> = ({}) => {
                           makro="carbs"
                           size={60}
                           label={
-                            calories !== '' &&
-                            foodEntryQuantity !== '' &&
-                            calories !== '0' &&
-                            foodEntryQuantity !== '0'
+                            calories !== ''
+                            && foodEntryQuantity !== ''
+                            && calories !== '0'
+                            && foodEntryQuantity !== '0'
                               ? parseFloat(carbs) * parseFloat(foodEntryQuantity)
                               : 0
                           }
                           value={
-                            calories !== '' &&
-                            foodEntryQuantity !== '' &&
-                            calories !== '0' &&
-                            foodEntryQuantity !== '0'
-                              ? getProcentage(parseFloat(carbs) * 4, parseFloat(calories))
+                            calories !== ''
+                            && foodEntryQuantity !== ''
+                            && calories !== '0'
+                            && foodEntryQuantity !== '0'
+                              ? getPercentage(parseFloat(carbs) * 4, parseFloat(calories))
                               : 0
                           }
                         />
@@ -819,18 +797,18 @@ export const Search: React.FC<Props> = ({}) => {
                       <Box sx={{ width: '230px' }}>
                         <LinearProgressWithLabel
                           label={
-                            calories !== '' &&
-                            foodEntryQuantity !== '' &&
-                            calories !== '0' &&
-                            foodEntryQuantity !== '0'
+                            calories !== ''
+                            && foodEntryQuantity !== ''
+                            && calories !== '0'
+                            && foodEntryQuantity !== '0'
                               ? parseFloat(calories) * parseFloat(foodEntryQuantity)
                               : 0
                           }
                           value={
-                            calories !== '' &&
-                            foodEntryQuantity !== '' &&
-                            calories !== '0' &&
-                            foodEntryQuantity !== '0'
+                            calories !== ''
+                            && foodEntryQuantity !== ''
+                            && calories !== '0'
+                            && foodEntryQuantity !== '0'
                               ? 60
                               : 0
                           }
@@ -849,4 +827,4 @@ export const Search: React.FC<Props> = ({}) => {
       </ClickAwayListener>
     </>
   );
-};
+}

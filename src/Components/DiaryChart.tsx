@@ -1,41 +1,18 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable react/jsx-no-useless-fragment */
-/* eslint-disable default-case */
-/* eslint-disable no-shadow */
-/* eslint-disable consistent-return */
-/* eslint-disable react/jsx-curly-brace-presence */
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-else-return */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/function-component-definition */
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-empty-pattern */
-/* eslint-disable no-use-before-define */
-/* eslint-disable @typescript-eslint/no-empty-interface */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/jsx-no-duplicate-props */
-/* eslint-disable react/function-component-definition */
-
 import styled from '@emotion/styled';
-import { Box, Divider, Stack, Typography } from '@mui/material';
-import { Container } from '@mui/system';
+import { Box, Stack } from '@mui/material';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
+const macroColors = {
+  totalProtein: '#83b28d',
+  totalFat: '#EF4444',
+  totalCarbs: '#ef9a44',
+};
 const MacroGraph = styled(Box)<{ amount: number; macro: string }>`
   border-radius: 2px;
   height: 32px;
   width: ${(props) => props.amount * 0.8 + 3}px;
   max-width: 300px;
-  background-color: ${(props) =>
-    props.macro === 'totalProtein'
-      ? '#83b28d'
-      : props.macro === 'totalFat'
-      ? '#EF4444'
-      : '#ef9a44'};
-  // background-color: #EF4444;
-  // background-color: #ef9a44;
+  background-color: ${(props) => macroColors[props.macro as keyof typeof macroColors]};
   opacity: 0.9;
 
   transition: 0.25s;
@@ -117,13 +94,13 @@ interface Props {
   totalProtein: number;
 }
 
-export const DiaryChart: React.FC<Props> = ({
+export function DiaryChart({
   targetCalories,
   totalCalories,
   totalCarbs,
   totalFat,
-  totalProtein
-}) => {
+  totalProtein,
+}: Props) {
   return (
     <ChartContainer direction="row">
       <Box className="progressbar_container" sx={{ borderRight: 1, borderColor: 'divider' }}>
@@ -135,7 +112,7 @@ export const DiaryChart: React.FC<Props> = ({
               pathColor: '#ee5b46',
               trailColor: 'rgba(150,150,150,0.15)',
               pathTransition: '0.25s',
-              strokeLinecap: 'butt'
+              strokeLinecap: 'butt',
             })}
           />
           <Box className="progressbar_label">
@@ -155,10 +132,14 @@ export const DiaryChart: React.FC<Props> = ({
               flexDirection: 'column',
               textAlign: 'start',
               marginLeft: '5px',
-              alignItems: 'space-between'
-            }}>
+              alignItems: 'space-between',
+            }}
+          >
             <div style={{ fontWeight: 'bold', fontSize: '16px', height: '17px' }}>{totalCarbs}</div>
-            <div style={{ fontWeight: 'bold', fontSize: '13px', height: '17px', opacity: '50%' }}>
+            <div style={{
+              fontWeight: 'bold', fontSize: '13px', height: '17px', opacity: '50%',
+            }}
+            >
               totalCarbs
             </div>
           </Box>
@@ -171,10 +152,14 @@ export const DiaryChart: React.FC<Props> = ({
               flexDirection: 'column',
               textAlign: 'start',
               marginLeft: '5px',
-              alignItems: 'space-between'
-            }}>
+              alignItems: 'space-between',
+            }}
+          >
             <div style={{ fontWeight: 'bold', fontSize: '16px', height: '17px' }}>{totalFat}</div>
-            <div style={{ fontWeight: 'bold', fontSize: '13px', height: '17px', opacity: '50%' }}>
+            <div style={{
+              fontWeight: 'bold', fontSize: '13px', height: '17px', opacity: '50%',
+            }}
+            >
               totalFat
             </div>
           </Box>
@@ -187,12 +172,16 @@ export const DiaryChart: React.FC<Props> = ({
               flexDirection: 'column',
               textAlign: 'start',
               marginLeft: '5px',
-              alignItems: 'space-between'
-            }}>
+              alignItems: 'space-between',
+            }}
+          >
             <div style={{ fontWeight: 'bold', fontSize: '16px', height: '17px' }}>
               {totalProtein}
             </div>
-            <div style={{ fontWeight: 'bold', fontSize: '13px', height: '17px', opacity: '50%' }}>
+            <div style={{
+              fontWeight: 'bold', fontSize: '13px', height: '17px', opacity: '50%',
+            }}
+            >
               totalProtein
             </div>
           </Box>
@@ -200,4 +189,4 @@ export const DiaryChart: React.FC<Props> = ({
       </Box>
     </ChartContainer>
   );
-};
+}

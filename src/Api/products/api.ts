@@ -13,7 +13,7 @@ export async function findAll(searchTerm: string): Promise<Product[]> {
 
 export async function create(rawData: Partial<Product>): Promise<Product> {
   const { id, ...data } = rawData;
-  const response = await axios.post(`/api/product`, data);
+  const response = await axios.post('/api/product', data);
 
   if (!response || !response.data) {
     throw new Error('Unexpected response');

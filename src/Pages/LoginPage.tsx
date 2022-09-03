@@ -15,7 +15,7 @@ import {
   Paper,
   Stack,
   styled,
-  Typography
+  Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useState } from 'react';
@@ -33,8 +33,7 @@ const AuthPaper = styled(Paper)<{ side: string }>`
   // perspective: 1000px;
   // transform-style: preserve-3d;
 
-  ${(props) =>
-    props.side === 'signUp' ? 'transform: rotateY(180deg);' : 'transform: rotateY(0eg);'}
+  ${(props) => (props.side === 'signUp' ? 'transform: rotateY(180deg);' : 'transform: rotateY(0eg);')}
 `;
 
 const PaperSide = styled(Stack)<{ isActive: boolean; opacity: number; isFlipped?: boolean }>`
@@ -72,15 +71,15 @@ export function LoginPage() {
 
   const login = () => {
     if (
-      username === '' ||
-      username.includes(' ') ||
-      !(username.includes('@') && username.includes('.')) ||
-      password === ''
+      username === ''
+      || username.includes(' ')
+      || !(username.includes('@') && username.includes('.'))
+      || password === ''
     ) {
       if (
-        username === '' ||
-        username.includes(' ') ||
-        !(username.includes('@') && username.includes('.'))
+        username === ''
+        || username.includes(' ')
+        || !(username.includes('@') && username.includes('.'))
       ) {
         setUsernameError('Invalid email!');
       }
@@ -95,9 +94,9 @@ export function LoginPage() {
   const resetPassword = () => {
     // todo: throttle on entire function
     if (
-      username === '' ||
-      username.includes(' ') ||
-      !(username.includes('@') && username.includes('.'))
+      username === ''
+      || username.includes(' ')
+      || !(username.includes('@') && username.includes('.'))
     ) {
       setUsernameError('Invalid email!');
     } else {
@@ -118,9 +117,10 @@ export function LoginPage() {
             background: 'inherit',
             height: '30px',
             transform: 'translate(20px,  365px)',
-            boxShadow: 'none'
+            boxShadow: 'none',
           }}
-          severity="success">
+          severity="success"
+        >
           Sent you a password reset!
         </Alert>
       );
@@ -137,14 +137,16 @@ export function LoginPage() {
         <Button
           onClick={() => console.log('login with google')}
           variant="outlined"
-          sx={{ margin: '20px 0' }}>
+          sx={{ margin: '20px 0' }}
+        >
           Sign in with Google
         </Button>
 
         <Stack direction="row" justifyContent="center" alignItems="center" sx={{ opacity: '70%' }}>
           <Box sx={{ height: '1px', background: 'lightGrey', width: '140px' }} />
           <Typography
-            sx={{ textAlign: 'center', width: '20px', transform: 'translate(0px, -3px)' }}>
+            sx={{ textAlign: 'center', width: '20px', transform: 'translate(0px, -3px)' }}
+          >
             or
           </Typography>
           <Box sx={{ height: '1px', background: 'lightGrey', width: '140px' }} />
@@ -173,18 +175,17 @@ export function LoginPage() {
               setPasswordError('');
             }}
             aria-describedby="component-error-text"
-            endAdornment={
+            endAdornment={(
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={() =>
-                    showPassword === false ? setShowPassword(true) : setShowPassword(false)
-                  }
-                  edge="end">
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            }
+            )}
           />
           <FormHelperText id="component-error-text">{passwordError}</FormHelperText>
         </FormControl>
@@ -196,8 +197,9 @@ export function LoginPage() {
             textAlign: 'right',
             fontSize: '14px',
             fontWeight: 'bold',
-            transform: 'translate(0px, -20px)'
-          }}>
+            transform: 'translate(0px, -20px)',
+          }}
+        >
           Forgot password
         </Typography>
         {showAlert()}
@@ -205,12 +207,17 @@ export function LoginPage() {
           onClick={() => login()}
           color="secondary"
           variant="contained"
-          sx={{ margin: '20px 0', width: '100%' }}>
+          sx={{ margin: '20px 0', width: '100%' }}
+        >
           Log in
         </Button>
         <Typography
-          sx={{ textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '5px' }}>
-          Don't have an account?{' '}
+          sx={{
+            textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '5px',
+          }}
+        >
+          Don't have an account?
+          {' '}
           <Typography
             sx={{ cursor: 'pointer' }}
             color="primary"
@@ -220,7 +227,8 @@ export function LoginPage() {
                 setLogInOpacity(0);
                 setSignUnOpacity(1);
               }, 250);
-            }}>
+            }}
+          >
             Sign up for free!
           </Typography>
         </Typography>
@@ -230,8 +238,12 @@ export function LoginPage() {
           Create an account!
         </Typography>
         <Typography
-          sx={{ textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '5px' }}>
-          Already have one?{' '}
+          sx={{
+            textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '5px',
+          }}
+        >
+          Already have one?
+          {' '}
           <Typography
             sx={{ cursor: 'pointer' }}
             color="primary"
@@ -241,7 +253,8 @@ export function LoginPage() {
                 setLogInOpacity(1);
                 setSignUnOpacity(0);
               }, 250);
-            }}>
+            }}
+          >
             Log in!
           </Typography>
         </Typography>
@@ -283,18 +296,17 @@ export function LoginPage() {
               setPasswordError('');
             }}
             aria-describedby="component-error-text"
-            endAdornment={
+            endAdornment={(
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={() =>
-                    showPassword === false ? setShowPassword(true) : setShowPassword(false)
-                  }
-                  edge="end">
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            }
+            )}
           />
           <FormHelperText id="component-error-text">{passwordError}</FormHelperText>
         </FormControl>
@@ -305,7 +317,8 @@ export function LoginPage() {
         <Stack direction="row" justifyContent="center" alignItems="center" sx={{ opacity: '70%' }}>
           <Box sx={{ height: '1px', background: 'lightGrey', width: '140px' }} />
           <Typography
-            sx={{ textAlign: 'center', width: '20px', transform: 'translate(0px, -3px)' }}>
+            sx={{ textAlign: 'center', width: '20px', transform: 'translate(0px, -3px)' }}
+          >
             or
           </Typography>
           <Box sx={{ height: '1px', background: 'lightGrey', width: '140px' }} />
@@ -313,7 +326,8 @@ export function LoginPage() {
         <Button
           onClick={() => console.log('login with google')}
           variant="outlined"
-          sx={{ margin: '20px 0' }}>
+          sx={{ margin: '20px 0' }}
+        >
           Sign in with Google
         </Button>
       </PaperSide>

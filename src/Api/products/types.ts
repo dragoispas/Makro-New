@@ -34,7 +34,7 @@ export const emptyProduct: Product = {
   sodium: 0,
   potassium: 0,
 
-  isNew: true
+  isNew: true,
 };
 
 export type ProductMap = {

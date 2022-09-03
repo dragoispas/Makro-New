@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 
 export default function CircularProgressNoLabel({
   makro,
-  value
+  value,
 }: CircularProgressProps & { value: number; makro: string }) {
   const getColor = (makroType: string): string => {
     if (makroType === 'protein') {
@@ -35,7 +35,7 @@ export default function CircularProgressNoLabel({
           position: 'absolute',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
       />
     </Box>

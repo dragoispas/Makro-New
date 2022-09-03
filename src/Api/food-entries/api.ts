@@ -12,7 +12,7 @@ export async function findOne(id: number | string): Promise<FoodEntry> {
 }
 
 export async function create(data: Partial<FoodEntry>) {
-  const response = await axios.post(`/api/food-entry`, data);
+  const response = await axios.post('/api/food-entry', data);
 
   if (!response || !response.data) {
     throw new Error('Unexpected response');

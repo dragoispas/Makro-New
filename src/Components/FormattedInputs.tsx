@@ -13,7 +13,7 @@ interface CustomProps {
 }
 
 const NumberFormatCustom = React.forwardRef<NumberFormat<InputAttributes>, CustomProps>(
-  function NumberFormatCustom(props, ref) {
+  (props, ref) => {
     const { onChange, ...other } = props;
 
     return (
@@ -24,15 +24,15 @@ const NumberFormatCustom = React.forwardRef<NumberFormat<InputAttributes>, Custo
           onChange({
             target: {
               name: props.name,
-              value: values.value
-            }
+              value: values.value,
+            },
           });
         }}
         thousandSeparator
         isNumericString
       />
     );
-  }
+  },
 );
 
 interface State {
@@ -43,13 +43,13 @@ interface State {
 export default function FormattedInputs() {
   const [values, setValues] = React.useState<State>({
     textmask: '(100) 000-0000',
-    numberformat: '1320'
+    numberformat: '1320',
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -57,9 +57,10 @@ export default function FormattedInputs() {
     <Box
       sx={{
         '& > :not(style)': {
-          m: 1
-        }
-      }}>
+          m: 1,
+        },
+      }}
+    >
       <TextField
         label="react-number-format"
         value={values.numberformat}
@@ -67,7 +68,7 @@ export default function FormattedInputs() {
         name="numberformat"
         id="formatted-numberformat-input"
         InputProps={{
-          inputComponent: NumberFormatCustom as any
+          inputComponent: NumberFormatCustom as any,
         }}
         variant="standard"
       />

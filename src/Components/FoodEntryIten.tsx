@@ -1,6 +1,8 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable import/prefer-default-export */
-import { ListItem, IconButton, ListItemAvatar, Avatar, ListItemText } from '@mui/material';
+import {
+  ListItem, IconButton, ListItemAvatar, Avatar, ListItemText,
+} from '@mui/material';
 import { Stack } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
@@ -15,13 +17,14 @@ export const FoodEntryItem: React.FC = () => {
         borderColor: 'divider',
         position: 'relative',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
       }}
-      secondaryAction={
+      secondaryAction={(
         <IconButton edge="end" aria-label="delete">
           <DeleteIcon />
         </IconButton>
-      }>
+      )}
+    >
       <ListItemAvatar>
         <Avatar>
           <RestaurantIcon />
@@ -42,8 +45,9 @@ export const FoodEntryItem: React.FC = () => {
           margin: '0 38%',
           height: '100%',
           opacity: makrosOpacity,
-          transition: '0.15s'
-        }}>
+          transition: '0.15s',
+        }}
+      >
         <ListItemText
           sx={{ textAlign: 'center', userSelect: 'none' }}
           primaryTypographyProps={{ sx: { color: '#83b28d' } }}

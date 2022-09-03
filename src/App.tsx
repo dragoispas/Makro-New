@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
 import DiaryPage from './Pages/DiaryPage';
 import { SettingsPage } from './Pages/SettingsPage';
-import { TrendsPage } from './Pages/TrendsPage';
+import TrendsPage from './Pages/TrendsPage';
 import { LoginPage } from './Pages/LoginPage';
 import { ErrorPage } from './Pages/ErrorPage';
 import { CustomizedTabs } from './Components/CustomTabs';
@@ -31,11 +31,11 @@ function App() {
     palette: {
       mode: 'light',
       primary: {
-        main: '#ee5b46'
+        main: '#ee5b46',
       },
       secondary: {
-        main: '#033631'
-      }
+        main: '#033631',
+      },
     },
     typography: {
       fontFamily: [
@@ -48,8 +48,8 @@ function App() {
         'sans-serif',
         '"Apple Color Emoji"',
         '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"'
-      ].join(',')
+        '"Segoe UI Symbol"',
+      ].join(','),
     },
 
     components: {
@@ -59,39 +59,39 @@ function App() {
             borderRadius: '10px',
             boxShadow: 'none',
             '&:hover': {
-              boxShadow: 'none'
-            }
-          }
-        }
+              boxShadow: 'none',
+            },
+          },
+        },
       },
       MuiPaper: {
         styleOverrides: {
           root: {
             borderRadius: '10px',
             boxShadow: '0 0 20px rgba(0,0,0,0.1)',
-            transition: 'background-color 0.2s ease'
-          }
-        }
+            transition: 'background-color 0.2s ease',
+          },
+        },
       },
       MuiTypography: {
         styleOverrides: {
           root: {
-            transition: 'color 0.2s ease'
-          }
-        }
-      }
-    }
+            transition: 'color 0.2s ease',
+          },
+        },
+      },
+    },
   });
 
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
       primary: {
-        main: '#ee5b46'
+        main: '#ee5b46',
       },
       secondary: {
-        main: '#39bd79'
-      }
+        main: '#39bd79',
+      },
     },
     transitions: {},
     typography: {
@@ -105,8 +105,8 @@ function App() {
         'sans-serif',
         '"Apple Color Emoji"',
         '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"'
-      ].join(',')
+        '"Segoe UI Symbol"',
+      ].join(','),
     },
 
     components: {
@@ -116,10 +116,10 @@ function App() {
             borderRadius: '10px',
             boxShadow: 'none',
             '&:hover': {
-              boxShadow: 'none'
-            }
-          }
-        }
+              boxShadow: 'none',
+            },
+          },
+        },
       },
       MuiPaper: {
         styleOverrides: {
@@ -128,18 +128,18 @@ function App() {
             backgroundColor: '#050505',
             boxShadow: '0 0 20px rgba(0,0,0,0.7)',
             transition: 'background-color 0.2s ease',
-            borderColor: 'rgba(250,250,250,0.1)'
-          }
-        }
+            borderColor: 'rgba(250,250,250,0.1)',
+          },
+        },
       },
       MuiTypography: {
         styleOverrides: {
           root: {
-            transition: 'color 0.2s ease'
-          }
-        }
-      }
-    }
+            transition: 'color 0.2s ease',
+          },
+        },
+      },
+    },
   });
   return (
     // <div className="App">

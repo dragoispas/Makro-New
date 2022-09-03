@@ -1,22 +1,3 @@
-/* eslint-disable react/jsx-no-useless-fragment */
-/* eslint-disable default-case */
-/* eslint-disable no-shadow */
-/* eslint-disable consistent-return */
-/* eslint-disable react/jsx-curly-brace-presence */
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-else-return */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/function-component-definition */
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-empty-pattern */
-/* eslint-disable no-use-before-define */
-/* eslint-disable @typescript-eslint/no-empty-interface */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/jsx-no-duplicate-props */
-/* eslint-disable react/function-component-definition */
-
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Tabs from '@mui/material/Tabs';
@@ -25,6 +6,7 @@ import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import { PaletteMode, Stack, Switch } from '@mui/material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import { useCallback } from 'react';
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
   width: 28,
@@ -33,11 +15,11 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
   display: 'flex',
   '&:active': {
     '& .MuiSwitch-thumb': {
-      width: 15
+      width: 15,
     },
     '& .MuiSwitch-switchBase.Mui-checked': {
-      transform: 'translateX(9px)'
-    }
+      transform: 'translateX(9px)',
+    },
   },
   '& .MuiSwitch-switchBase': {
     padding: 2,
@@ -46,9 +28,9 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
       color: '#fff',
       '& + .MuiSwitch-track': {
         opacity: 1,
-        backgroundColor: theme.palette.mode === 'dark' ? '#primary' : '#1890ff'
-      }
-    }
+        backgroundColor: theme.palette.mode === 'dark' ? '#primary' : '#1890ff',
+      },
+    },
   },
   '& .MuiSwitch-thumb': {
     boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
@@ -56,15 +38,15 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
     height: 12,
     borderRadius: 6,
     transition: theme.transitions.create(['width'], {
-      duration: 200
-    })
+      duration: 200,
+    }),
   },
   '& .MuiSwitch-track': {
     borderRadius: 16 / 2,
     opacity: 1,
     backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(0,0,0,.25)',
-    boxSizing: 'border-box'
-  }
+    boxSizing: 'border-box',
+  },
 }));
 
 interface StyledTabsProps {
@@ -79,13 +61,13 @@ export const StyledTabs = styled((props: StyledTabsProps) => (
   '& .MuiTabs-indicator': {
     display: 'flex',
     justifyContent: 'center',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   '& .MuiTabs-indicatorSpan': {
     // maxWidth: 40,
     width: '100%',
-    backgroundColor: '#ee5b46'
-  }
+    backgroundColor: '#ee5b46',
+  },
 });
 
 interface StyledTabProps {
@@ -100,12 +82,12 @@ const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props
     marginRight: theme.spacing(1),
     color: 'text.primary',
     '&.Mui-selected': {
-      color: 'primary'
+      color: 'primary',
     },
     '&.Mui-focusVisible': {
-      backgroundColor: 'rgba(100, 95, 228, 0.32)'
-    }
-  })
+      backgroundColor: 'rgba(100, 95, 228, 0.32)',
+    },
+  }),
 );
 
 interface Props {
@@ -114,31 +96,28 @@ interface Props {
   isLoggedIn: boolean;
 }
 
-export const CustomizedTabs: React.FC<Props> = ({ themeMode, setThemeMode, isLoggedIn }) => {
+export function CustomizedTabs({ themeMode, setThemeMode, isLoggedIn }: Props) {
   const [value, setValue] = React.useState(0);
+  const navigate = useNavigate();
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = useCallback((event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+
     switch (newValue) {
       case 0:
-        goToDiary();
+        navigate('/diary', { replace: true });
         break;
       case 1:
-        goToTrends();
+        navigate('/trends', { replace: true });
         break;
       case 2:
-        goToSettings();
+        navigate('/settings', { replace: true });
+        break;
+      default:
         break;
     }
-  };
+  }, [navigate]);
 
-  const navigate = useNavigate();
-  const goToDiary = React.useCallback(() => navigate('/diary', { replace: true }), [navigate]);
-  const goToTrends = React.useCallback(() => navigate('/trends', { replace: true }), [navigate]);
-  const goToSettings = React.useCallback(
-    () => navigate('/settings', { replace: true }),
-    [navigate]
-  );
   const logout = React.useCallback(() => navigate('/login', { replace: true }), [navigate]);
 
   return (
@@ -148,16 +127,15 @@ export const CustomizedTabs: React.FC<Props> = ({ themeMode, setThemeMode, isLog
         justifyContent={isLoggedIn ? 'space-between' : 'flex-end'}
         alignItems="center"
         spacing={2}
-        sx={{ margin: '0 50px', height: '70px' }}>
+        sx={{ margin: '0 50px', height: '70px' }}
+      >
         {isLoggedIn ? (
           <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example">
             <StyledTab label="Diary" />
             <StyledTab label="Trends" />
             <StyledTab label="Settings" />
           </StyledTabs>
-        ) : (
-          <></>
-        )}
+        ) : null}
         <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
           <DarkModeIcon sx={{ color: themeMode.toString() === 'light' ? 'black' : 'white' }} />
           <AntSwitch
@@ -171,4 +149,4 @@ export const CustomizedTabs: React.FC<Props> = ({ themeMode, setThemeMode, isLog
       </Stack>
     </Box>
   );
-};
+}

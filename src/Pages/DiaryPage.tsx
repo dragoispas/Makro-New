@@ -7,10 +7,10 @@ import {
   Paper,
   Stack,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
-import { CustomCalendar } from '../Components/CustomCalendar';
+import CustomCalendar from '../Components/CustomCalendar';
 import { DiaryChart } from '../Components/DiaryChart';
 import { Search } from '../Components/Search';
 import { FoodEntryList } from '../Components/FoodEntryList';
@@ -20,17 +20,18 @@ export default function DiaryPage() {
   const [currentDate, setCurrentDate] = useState<string>('12-09-2022');
 
   function getFoodEntries(element: React.ReactElement) {
-    return [0, 1, 2, 4, 5, 6].map((value) =>
-      React.cloneElement(element, {
-        key: value
-      })
-    );
+    return [0, 1, 2, 4, 5, 6].map((value) => React.cloneElement(element, {
+      key: value,
+    }));
   }
 
   return (
     <>
       {/* <Header activePage='diary'/> */}
-      <Box sx={{ marginTop: '30px', display: 'flex', justifyContent: 'center', gap: '40px' }}>
+      <Box sx={{
+        marginTop: '30px', display: 'flex', justifyContent: 'center', gap: '40px',
+      }}
+      >
         <Stack gap="30px">
           <CustomCalendar />
           <Paper sx={{ width: '320px', paddingBottom: '10px' }}>
@@ -46,7 +47,8 @@ export default function DiaryPage() {
                   label="Unit"
                   select
                   variant="outlined"
-                  sx={{ width: '100px' }}>
+                  sx={{ width: '100px' }}
+                >
                   <MenuItem key="KG" value="KG">
                     KG
                   </MenuItem>

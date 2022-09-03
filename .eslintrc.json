@@ -8,7 +8,6 @@
     "plugin:react/recommended",
     "airbnb",
     "eslint:recommended",
-    "plugin:prettier/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript"
@@ -25,8 +24,9 @@
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
     "import/extensions": "off",
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "import/prefer-default-export": "off",
     "no-param-reassign": "off"
   }
 }

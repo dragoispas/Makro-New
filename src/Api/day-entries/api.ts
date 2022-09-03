@@ -30,7 +30,7 @@ export async function getDayEntryByDate(date: string): Promise<DayEntry> {
 }
 
 export async function create(data: Partial<DayEntry>): Promise<DayEntry> {
-  const response = await axios.post(`/api/day-entry`, data);
+  const response = await axios.post('/api/day-entry', data);
 
   if (!response || !response.data) {
     throw new Error('Unexpected response');
