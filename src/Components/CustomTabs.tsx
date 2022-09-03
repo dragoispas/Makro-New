@@ -4,12 +4,15 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
-import { PaletteMode, Stack, Switch } from '@mui/material';
+import {
+  Button, PaletteMode, Stack, Switch,
+} from '@mui/material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../app/store';
+import { AppDispatch, RootState } from '../app/store';
 import { setThemeMode } from '../modules/auth/generalSlice';
+import { logout } from '../modules/auth/authSlice';
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
   width: 28,
@@ -135,6 +138,7 @@ export function CustomizedTabs() {
           </StyledTabs>
         ) : null}
         <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
+          <Button color="inherit" onClick={() => (dispatch as AppDispatch)(logout())}>Logout</Button>
           <DarkModeIcon sx={{ color: themeMode.toString() === 'light' ? 'black' : 'white' }} />
           <AntSwitch
             onChange={(e) => dispatch(setThemeMode(themeMode === 'light' ? 'dark' : 'light'))}

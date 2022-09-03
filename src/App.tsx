@@ -3,10 +3,10 @@ import './App.css';
 import { Box, Stack, CircularProgress } from '@mui/material';
 import { styled, ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { darkTheme, lightTheme } from './app/themes';
 import { RootState } from './app/store';
+import type { AppDispatch } from './app/store';
 import { retrieveCurrentUser } from './modules/auth/authSlice';
 import AppRouter from './app/router';
 import { CustomizedTabs } from './Components/CustomTabs';
@@ -25,7 +25,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (dispatch as ThunkDispatch<any, any, any>)(retrieveCurrentUser());
+    (dispatch as AppDispatch)(retrieveCurrentUser());
   }, []);
 
   return (

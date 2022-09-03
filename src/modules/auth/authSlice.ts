@@ -32,9 +32,12 @@ export const logout = () => async (dispatch: AppDispatch) => {
 
 export const retrieveCurrentUser = () => async (dispatch: AppDispatch) => {
   dispatch(setLoading(true));
-  const response = await axios.get('/api/auth/profile');
-  dispatch(setUser(response.data));
-  dispatch(setLoading(false));
+  try {
+    const response = await axios.get('/api/auth/profile');
+    dispatch(setUser(response.data));
+  } finally {
+    dispatch(setLoading(false));
+  }
 };
 
 export default authSlice.reducer;
