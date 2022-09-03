@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import styled from '@emotion/styled';
 import React, { useEffect, useMemo, useState } from 'react';
 import {
@@ -417,7 +418,7 @@ export function Search() {
                       <FormControl variant="standard">
                         <TextField
                           InputProps={{ inputComponent: NumberFormatCustom as any }}
-                          // inputProps={{ style: { textAlign: 'end' } }}
+                          inputProps={{ style: { textAlign: 'end' } }}
                           sx={{ width: '75px', paddingRight: '1px' }}
                           size="small"
                           id="input-with-icon-adornment"
@@ -457,7 +458,7 @@ export function Search() {
                           ),
                           endAdornment: <InputAdornment position="end">cal</InputAdornment>,
                         }}
-                        // inputProps={{ style: { textAlign: 'end' } }}
+                        inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -478,7 +479,7 @@ export function Search() {
                           ),
                           endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        // inputProps={{ style: { textAlign: 'end' } }}
+                        inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -499,7 +500,7 @@ export function Search() {
                           ),
                           endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        // inputProps={{ style: { textAlign: 'end' } }}
+                        inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -520,7 +521,7 @@ export function Search() {
                           ),
                           endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        // inputProps={{ style: { textAlign: 'end' } }}
+                        inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -541,7 +542,7 @@ export function Search() {
                           ),
                           endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        // inputProps={{ style: { textAlign: 'end' } }}
+                        inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -562,7 +563,7 @@ export function Search() {
                           ),
                           endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        // inputProps={{ style: { textAlign: 'end' } }}
+                        inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -583,7 +584,7 @@ export function Search() {
                           ),
                           endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        // inputProps={{ style: { textAlign: 'end' } }}
+                        inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -604,7 +605,7 @@ export function Search() {
                           ),
                           endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        // inputProps={{ style: { textAlign: 'end' } }}
+                        inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -625,7 +626,7 @@ export function Search() {
                           ),
                           endAdornment: <InputAdornment position="end">g</InputAdornment>,
                         }}
-                        // inputProps={{ style: { textAlign: 'end' } }}
+                        inputProps={{ style: { textAlign: 'end' } }}
                         sx={{ width: '175px' }}
                         size="small"
                         id="input-with-icon-adornment"
@@ -652,7 +653,7 @@ export function Search() {
                             style: { textAlign: 'end' },
                             inputComponent: NumberFormatCustom as any,
                           }}
-                          // inputProps={{ style: { textAlign: 'end' } }}
+                          inputProps={{ style: { textAlign: 'end' } }}
                           sx={{ width: '75px', paddingRight: '1px' }}
                           size="small"
                           id="input-with-icon-adornment"

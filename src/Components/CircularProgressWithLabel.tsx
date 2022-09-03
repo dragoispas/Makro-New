@@ -24,7 +24,7 @@ export default function CircularProgressWithLabel(
   };
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-      <CircularProgress sx={{ color: getColor(makro) }} variant="determinate" value={value} />
+      <CircularProgress size={60} sx={{ color: getColor(makro) }} variant="determinate" value={value} />
       <Box
         sx={{
           top: 0,
