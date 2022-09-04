@@ -12,14 +12,14 @@ export type NutritionData = {
 };
 
 export type Product = NutritionData & {
-  id: number | string;
+  id: number;
   name: string;
   servingSizes: string[];
   isNew?: boolean;
 };
 
 export const emptyProduct: Product = {
-  id: '',
+  id: 0,
   name: 'Banana',
   servingSizes: ['g'],
 

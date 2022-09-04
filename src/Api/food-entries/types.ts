@@ -1,9 +1,9 @@
 import { Product } from '../products/types';
 
 export type FoodEntry = {
-  id: number | string;
-  dayEntryId: number | string;
-  productId: number | string;
+  id: number;
+  dayEntryId: number;
+  productId?: number | null;
   name: string;
 
   quantity: number;
@@ -12,6 +12,12 @@ export type FoodEntry = {
   fat: number;
   carbs: number;
   protein: number;
+
+  fiber: number;
+  saturatedFat: number;
+  sugar: number;
+  sodium: number;
+  potassium: number;
 
   servingSize: string;
 

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { User } from './domain';
 import type { AppDispatch } from '../../app/store';
-import { setLoading } from './generalSlice';
+import { setLoading } from '../general/generalSlice';
 
 export interface AuthState {
   user: User | null;

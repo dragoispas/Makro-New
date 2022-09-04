@@ -1,14 +1,19 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable import/prefer-default-export */
 import {
-  ListItem, IconButton, ListItemAvatar, Avatar, ListItemText,
+  Avatar, IconButton, ListItem, ListItemAvatar, ListItemText,
 } from '@mui/material';
 import { Stack } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { useState } from 'react';
+import { FoodEntry } from '../Api/food-entries/types';
 
-export const FoodEntryItem: React.FC = () => {
+interface FoodEntryItemProps {
+  foodEntry: FoodEntry
+}
+
+export const FoodEntryItem = ({ foodEntry }: FoodEntryItemProps) => {
   const [makrosOpacity, setMakrosOpacity] = useState<number>(0);
   return (
     <ListItem

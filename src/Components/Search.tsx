@@ -23,12 +23,16 @@ import { Stack } from '@mui/system';
 import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
 import NumberFormat, { InputAttributes } from 'react-number-format';
+import { useSelector } from 'react-redux';
 import { SearchListItem } from './SearchListItem';
 import CircularProgressWithLabel from './CircularProgressWithLabel';
 import LinearProgressWithLabel from './LinearProgressWithLabel';
 import { TabPanel } from './TabPanel';
 import { emptyProduct, Product, ProductMap } from '../Api/products/types';
 import CircularProgressNoLabel from './CircularProgress';
+import { createFoodEntry } from '../Api/food-entries/api';
+import { RootState } from '../app/store';
+import { createProduct } from '../Api/products/api';
 
 const InputContainer = styled(Paper)<{ isActive: boolean }>`
   position: absolute;
@@ -135,6 +139,8 @@ const NumberFormatCustom = React.forwardRef<NumberFormat<InputAttributes>, Custo
 );
 
 export function Search() {
+  const dayEntry = useSelector((state: RootState) => state.diary.dayEntry);
+
   const [content, setContent] = useState<string>('search results');
 
   const [inputText, setInputText] = useState<string>('');
@@ -149,7 +155,7 @@ export function Search() {
     test3: emptyProduct,
   });
 
-  const [productQuantity, setProductQuantity] = useState<string>('');
+  const [productQuantity, setProductQuantity] = useState<string>('100');
   const [productServingSize, setProductServingSize] = useState<string>('g');
 
   const [foodEntryQuantity, setFoodEntryQuantity] = useState<string>('');
@@ -159,7 +165,7 @@ export function Search() {
 
   const [calories, setCalories] = useState<string>('');
   const [fat, setFat] = useState<string>('');
-  const [satFat, setSatFat] = useState<string>('');
+  const [saturatedFat, setSaturatedFat] = useState<string>('');
   const [carbs, setCarbs] = useState<string>('');
   const [fiber, setFiber] = useState<string>('');
   const [sugar, setSugar] = useState<string>('');
@@ -177,7 +183,7 @@ export function Search() {
     if (currentProduct) {
       setCalories(currentProduct.calories !== 0 ? currentProduct.calories.toString() : '');
       setFat(currentProduct.fat !== 0 ? currentProduct.fat.toString() : '');
-      setSatFat(currentProduct.saturatedFat !== 0 ? currentProduct.saturatedFat.toString() : '');
+      setSaturatedFat(currentProduct.saturatedFat !== 0 ? currentProduct.saturatedFat.toString() : '');
       setCarbs(currentProduct.carbs !== 0 ? currentProduct.carbs.toString() : '');
       setFiber(currentProduct.fiber !== 0 ? currentProduct.fiber.toString() : '');
       setSugar(currentProduct.sugar !== 0 ? currentProduct.sugar.toString() : '');
@@ -187,7 +193,7 @@ export function Search() {
     } else {
       setCalories('');
       setFat('');
-      setSatFat('');
+      setSaturatedFat('');
       setCarbs('');
       setFiber('');
       setSugar('');
@@ -211,6 +217,52 @@ export function Search() {
   const resetForms = () => {
     setFoodEntryQuantity('');
     setProductQuantity('100');
+  };
+
+  const onSaveClick = async () => {
+    if (!dayEntry) {
+      return;
+    }
+
+    let newProduct;
+
+    if (!currentProduct) {
+      newProduct = await createProduct({
+        name: inputText,
+        calories: parseFloat(calories) / parseFloat(productQuantity),
+        carbs: parseFloat(carbs) / parseFloat(productQuantity),
+        fat: parseFloat(fat) / parseFloat(productQuantity),
+        protein: parseFloat(protein) / parseFloat(productQuantity),
+
+        fiber: parseFloat(fiber) / parseFloat(productQuantity),
+        saturatedFat: parseFloat(saturatedFat) / parseFloat(productQuantity),
+        sugar: parseFloat(sugar) / parseFloat(productQuantity),
+        sodium: parseFloat(sodium) / parseFloat(productQuantity),
+        potassium: parseFloat(potassium) / parseFloat(productQuantity),
+      });
+    }
+
+    await createFoodEntry({
+      dayEntryId: dayEntry.id,
+      name: inputText,
+      productId: currentProduct?.id ?? newProduct?.id,
+      servingSize: foodEntryServingSize,
+      quantity: parseFloat(foodEntryQuantity),
+
+      // @TODO: add servingSize within the formulas - somehow
+      // eslint-disable-next-line max-len
+      calories: (parseFloat(foodEntryQuantity) * parseFloat(calories)) / parseFloat(productQuantity),
+      fat: (parseFloat(foodEntryQuantity) * parseFloat(fat)) / parseFloat(productQuantity),
+      carbs: (parseFloat(foodEntryQuantity) * parseFloat(carbs)) / parseFloat(productQuantity),
+      protein: (parseFloat(foodEntryQuantity) * parseFloat(protein)) / parseFloat(productQuantity),
+      fiber: (parseFloat(foodEntryQuantity) * parseFloat(fiber)) / parseFloat(productQuantity),
+      // eslint-disable-next-line max-len
+      saturatedFat: (parseFloat(foodEntryQuantity) * parseFloat(saturatedFat)) / parseFloat(productQuantity),
+      sugar: (parseFloat(foodEntryQuantity) * parseFloat(sugar)) / parseFloat(productQuantity),
+      sodium: (parseFloat(foodEntryQuantity) * parseFloat(sodium)) / parseFloat(productQuantity),
+      // eslint-disable-next-line max-len
+      potassium: (parseFloat(foodEntryQuantity) * parseFloat(potassium)) / parseFloat(productQuantity),
+    });
   };
 
   /**
@@ -506,8 +558,8 @@ export function Search() {
                         id="input-with-icon-adornment"
                         placeholder="0"
                         variant="standard"
-                        value={satFat}
-                        onChange={(e) => setSatFat(e.target.value)}
+                        value={saturatedFat}
+                        onChange={(e) => setSaturatedFat(e.target.value)}
                       />
                     </FormControl>
                     <FormControl variant="standard">
@@ -818,7 +870,7 @@ export function Search() {
                     </Stack>
                   </Stack>
                 </Box>
-                <Button sx={{ width: '100%', marginTop: '10px', justifySelf: 'flex-end' }}>
+                <Button onClick={onSaveClick} sx={{ width: '100%', marginTop: '10px', justifySelf: 'flex-end' }}>
                   ADD TO DIARY
                 </Button>
               </Stack>

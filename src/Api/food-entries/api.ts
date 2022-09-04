@@ -11,7 +11,7 @@ export async function findOne(id: number | string): Promise<FoodEntry> {
   return response.data;
 }
 
-export async function create(data: Partial<FoodEntry>) {
+export async function createFoodEntry(data: Partial<FoodEntry>) {
   const response = await axios.post('/api/food-entry', data);
 
   if (!response || !response.data) {

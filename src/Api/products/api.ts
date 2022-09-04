@@ -11,7 +11,7 @@ export async function findAll(searchTerm: string): Promise<Product[]> {
   return response.data;
 }
 
-export async function create(rawData: Partial<Product>): Promise<Product> {
+export async function createProduct(rawData: Partial<Product>): Promise<Product> {
   const { id, ...data } = rawData;
   const response = await axios.post('/api/product', data);
 

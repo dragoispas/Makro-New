@@ -11,7 +11,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
-import { setThemeMode } from '../modules/auth/generalSlice';
+import { setThemeMode } from '../modules/general/generalSlice';
 import { logout } from '../modules/auth/authSlice';
 
 const AntSwitch = styled(Switch)(({ theme }) => ({

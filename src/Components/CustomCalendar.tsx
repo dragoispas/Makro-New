@@ -2,16 +2,34 @@ import { Paper, TextField, TextFieldProps } from '@mui/material';
 import { LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+import type { RootState } from '../app/store';
+import { getDayEntryByDate } from '../Api/day-entries/api';
+import { setDayEntry } from '../modules/diary/diarySlice';
 
 export default function CustomCalendar() {
-  const [date, setDate] = React.useState<Date | null>(new Date('2014-08-18T21:11:54'));
+  const dispatch = useDispatch();
+  const dayEntry = useSelector((state: RootState) => state.diary.dayEntry);
+
+  if (!dayEntry) {
+    return null;
+  }
+
+  const onDatePickerChange = (newValue: Date | null) => {
+    if (newValue) {
+      getDayEntryByDate(newValue).then((newDayEntry) => {
+        dispatch(setDayEntry(newDayEntry));
+      });
+    }
+  };
 
   return (
     <Paper sx={{ padding: '10px 0' }}>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <StaticDatePicker
-          onChange={(newValue: React.SetStateAction<Date | null>) => setDate(newValue)}
-          value={date}
+          onChange={onDatePickerChange}
+          value={moment(dayEntry.date, 'YYYY-MM-DD').toDate()}
           views={['month', 'day']}
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
             <TextField {...params} />
