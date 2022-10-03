@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/jsx-no-duplicate-props */
 import styled from '@emotion/styled';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -6,20 +7,24 @@ import {
   Button,
   ClickAwayListener,
   FormControl,
+  FormControlLabel,
+  IconButton,
   Input,
   InputAdornment,
+  Link,
   List,
   ListSubheader,
   MenuItem,
   Paper,
   Select,
+  Switch,
   Tab,
   Tabs,
   TextField,
   Typography,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { Stack } from '@mui/system';
+import { fontSize, Stack, typography } from '@mui/system';
 import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
 import NumberFormat, { InputAttributes } from 'react-number-format';
@@ -84,6 +89,7 @@ const SearchContent = styled(Box)<{ isActive: boolean }>`
   ${(props) => (props.isActive ? 'animation: fade-in 1s forwards;' : 'pointer-events: none; opacity: 0;')}
   position: absolute;
   width: 600px;
+  height: 300px;
   @keyframes fade-in {
     0% {
       opacity: 0;
@@ -108,6 +114,26 @@ const Overlay = styled(Box)<{ isActive: boolean }>`
   bottom: 0;
   right: 0;
   z-index: 1000;
+`;
+
+const NutritionDataStack = styled(Stack)<{ isActive: boolean, themeMode: string }>`
+transition: 0.15s;
+  &:hover {
+    border: 1;
+    border-color: rgba(0,0,0,0);
+    box-shadow: 0px 1px 4px rgba(0,0,0,0.5);
+    ${(props) => (props.themeMode === 'dark' ? 'box-shadow: 0px 1px 5px rgba(0,0,0,0.7); background:rgba(250,250,250,0.04);' : '')}
+    ${(props) => (props.themeMode === 'light' ? 'box-shadow: 0px 1px 4px rgba(0,0,0,0.5);' : '')}
+  }
+
+  ${(props) => (props.isActive && props.themeMode === 'light' ? `border: 1;
+  border-color: rgba(0,0,0,0);
+  box-shadow: 0px 1px 4px rgba(0,0,0,0.5);` : '')}
+
+  ${(props) => (props.isActive && props.themeMode === 'dark' ? `border: 1;
+  border-color: rgba(0,0,0,0);
+  background:rgba(250,250,250,0.04);
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.7);` : '')}
 `;
 
 interface CustomProps {
@@ -173,6 +199,15 @@ export function Search() {
   const [sodium, setSodium] = useState<string>('');
   const [potassium, setPotassium] = useState<string>('');
 
+  const [isEditable, setIsEditable] = useState<boolean>(false);
+  const [isAdvanced, setIsAdvanced] = useState<boolean>(false);
+
+  const { themeMode } = useSelector((state: RootState) => state.general);
+
+  useEffect(() => {
+    setIsEditable(currentProduct === null);
+  }, [currentProduct]);
+
   const getPercentage = (x: number, y: number) => (x * 100) / y;
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -208,7 +243,7 @@ export function Search() {
    */
   useEffect(() => {
     if (isInputActive) {
-      setSearchContentHeight('500px');
+      setSearchContentHeight('530px');
     } else {
       setSearchContentHeight('0px');
     }
@@ -309,8 +344,8 @@ export function Search() {
     bgcolor: 'background.paper',
     position: 'relative',
     overflow: 'auto',
-    maxHeight: 355,
-    height: 355,
+    maxHeight: 385,
+    height: 385,
     '& ul': { padding: 0 },
   };
 
@@ -440,262 +475,346 @@ export function Search() {
 
             <SearchContent isActive={isInputActive && content === 'selected product'}>
               <Stack
-                sx={{ height: '455px', margin: '24px' }}
+                sx={{ margin: '10px 24px' }}
                 direction="column"
+                height="500px"
                 justifyContent="space-between"
                 alignItems="center"
                 spacing={1}
               >
-                <Box sx={{ height: '100%', width: '100%', display: 'flex' }}>
+                <Box sx={{ flex: 1, display: 'flex' }}>
+                  <ClickAwayListener onClickAway={() => setIsEditable(false)}>
+                    <NutritionDataStack
+                      themeMode={themeMode}
+                      onClick={() => setIsEditable(true)}
+                      isActive={isEditable}
+                      gap={1}
+                      sx={{
+                        width: '180px',
+                        alignSelf: 'start',
+                        // borderRight: 1,
+                        padding: '24px',
+                        // borderColor: 'divider',
+                        alignItems: 'flex-start',
+                        // boxShadow: '0px 1px 4px rgba(0,0,0,0.3)',
+                        borderRadius: '10px',
+                        border: 1,
+                        borderColor: 'divider',
+                      }}
+                    >
+                      <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        sx={{ width: '100%' }}
+                      >
+                        <Typography variant="h3" sx={{ fontSize: '15px', fontWeight: 'bold' }}>Nutrition Facts</Typography>
+                      </Stack>
+                      {
+                      isEditable ? (
+                        <>
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              width: '175px',
+                              marginBottom: '5px',
+                            }}
+                          >
+                            <Typography sx={{ width: '25px' }}>per </Typography>
+                            <FormControl variant="standard">
+                              <TextField
+                                InputProps={{ inputComponent: NumberFormatCustom as any }}
+                                inputProps={{ style: { textAlign: 'end' } }}
+                                sx={{ width: '75px', paddingRight: '1px' }}
+                                size="small"
+                                id="input-with-icon-adornment"
+                                placeholder="0"
+                                value={productQuantity}
+                                onChange={(e) => setProductQuantity(e.target.value)}
+                                variant="standard"
+                              />
+                            </FormControl>
+                            <FormControl size="small">
+                              <Select
+                                MenuProps={{
+                                  disablePortal: true,
+                                  style: { cursor: 'default' },
+                                }}
+                                variant="standard"
+                                sx={{ width: '75px', paddingLeft: '1px' }}
+                                labelId="demo-select-small"
+                                id="demo-select-small"
+                                value={productServingSize}
+                                onChange={(e) => setProductServingSize(e.target.value)}
+                              >
+                                <MenuItem value="g">g</MenuItem>
+                                <MenuItem value="oz">oz</MenuItem>
+                                <MenuItem value="lb">lb</MenuItem>
+                              </Select>
+                            </FormControl>
+                          </Box>
+                          <FormControl variant="standard">
+                            <TextField
+                              InputProps={{
+                                inputComponent: NumberFormatCustom as any,
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <Typography color="text.primary">Calories</Typography>
+                                  </InputAdornment>
+                                ),
+                                endAdornment: <InputAdornment position="end">cal</InputAdornment>,
+                              }}
+                              inputProps={{ style: { textAlign: 'end' } }}
+                              sx={{ width: '175px' }}
+                              size="small"
+                              id="input-with-icon-adornment"
+                              placeholder="0"
+                              variant="standard"
+                              value={calories}
+                              onChange={(e) => setCalories(e.target.value)}
+                            />
+                          </FormControl>
+                          <FormControl variant="standard">
+                            <TextField
+                              InputProps={{
+                                inputComponent: NumberFormatCustom as any,
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <Typography color="text.primary">Fat</Typography>
+                                  </InputAdornment>
+                                ),
+                                endAdornment: <InputAdornment position="end">g</InputAdornment>,
+                              }}
+                              inputProps={{ style: { textAlign: 'end' } }}
+                              sx={{ width: '175px' }}
+                              size="small"
+                              id="input-with-icon-adornment"
+                              placeholder="0"
+                              variant="standard"
+                              value={fat}
+                              onChange={(e) => setFat(e.target.value)}
+                            />
+                          </FormControl>
+                          {
+                            isAdvanced && (
+                              <FormControl variant="standard">
+                                <TextField
+                                  InputProps={{
+                                    inputComponent: NumberFormatCustom as any,
+                                    startAdornment: (
+                                      <InputAdornment position="end">
+                                        <Typography color="text.secondary">Sat Fat</Typography>
+                                      </InputAdornment>
+                                    ),
+                                    endAdornment: <InputAdornment position="end">g</InputAdornment>,
+                                  }}
+                                  inputProps={{ style: { textAlign: 'end' } }}
+                                  sx={{ width: '175px' }}
+                                  size="small"
+                                  id="input-with-icon-adornment"
+                                  placeholder="0"
+                                  variant="standard"
+                                  value={saturatedFat}
+                                  onChange={(e) => setSaturatedFat(e.target.value)}
+                                />
+                              </FormControl>
+                            )
+                          }
+                          <FormControl variant="standard">
+                            <TextField
+                              InputProps={{
+                                inputComponent: NumberFormatCustom as any,
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <Typography color="text.primary">Carbs</Typography>
+                                  </InputAdornment>
+                                ),
+                                endAdornment: <InputAdornment position="end">g</InputAdornment>,
+                              }}
+                              inputProps={{ style: { textAlign: 'end' } }}
+                              sx={{ width: '175px' }}
+                              size="small"
+                              id="input-with-icon-adornment"
+                              placeholder="0"
+                              variant="standard"
+                              value={carbs}
+                              onChange={(e) => setCarbs(e.target.value)}
+                            />
+                          </FormControl>
+                          {
+                            isAdvanced && (
+                              <>
+                                <FormControl variant="standard">
+                                  <TextField
+                                    InputProps={{
+                                      inputComponent: NumberFormatCustom as any,
+                                      startAdornment: (
+                                        <InputAdornment position="end">
+                                          <Typography color="text.secondary">Fiber</Typography>
+                                        </InputAdornment>
+                                      ),
+                                      endAdornment: <InputAdornment position="end">g</InputAdornment>,
+                                    }}
+                                    inputProps={{ style: { textAlign: 'end' } }}
+                                    sx={{ width: '175px' }}
+                                    size="small"
+                                    id="input-with-icon-adornment"
+                                    placeholder="0"
+                                    variant="standard"
+                                    value={fiber}
+                                    onChange={(e) => setFiber(e.target.value)}
+                                  />
+                                </FormControl>
+                                <FormControl variant="standard">
+                                  <TextField
+                                    InputProps={{
+                                      inputComponent: NumberFormatCustom as any,
+                                      startAdornment: (
+                                        <InputAdornment position="end">
+                                          <Typography color="text.secondary">Sugar</Typography>
+                                        </InputAdornment>
+                                      ),
+                                      endAdornment: <InputAdornment position="end">g</InputAdornment>,
+                                    }}
+                                    inputProps={{ style: { textAlign: 'end' } }}
+                                    sx={{ width: '175px' }}
+                                    size="small"
+                                    id="input-with-icon-adornment"
+                                    placeholder="0"
+                                    variant="standard"
+                                    value={sugar}
+                                    onChange={(e) => setSugar(e.target.value)}
+                                  />
+                                </FormControl>
+                              </>
+                            )
+                          }
+                          <FormControl variant="standard">
+                            <TextField
+                              InputProps={{
+                                inputComponent: NumberFormatCustom as any,
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <Typography color="text.primary">Protein</Typography>
+                                  </InputAdornment>
+                                ),
+                                endAdornment: <InputAdornment position="end">g</InputAdornment>,
+                              }}
+                              inputProps={{ style: { textAlign: 'end' } }}
+                              sx={{ width: '175px' }}
+                              size="small"
+                              id="input-with-icon-adornment"
+                              placeholder="0"
+                              variant="standard"
+                              value={protein}
+                              onChange={(e) => setProtein(e.target.value)}
+                            />
+                          </FormControl>
+                          {
+                            isAdvanced && (
+                              <>
+                                <FormControl variant="standard">
+                                  <TextField
+                                    InputProps={{
+                                      inputComponent: NumberFormatCustom as any,
+                                      startAdornment: (
+                                        <InputAdornment position="end">
+                                          <Typography color="text.secondary">Sodium</Typography>
+                                        </InputAdornment>
+                                      ),
+                                      endAdornment: <InputAdornment position="end">g</InputAdornment>,
+                                    }}
+                                    inputProps={{ style: { textAlign: 'end' } }}
+                                    sx={{ width: '175px' }}
+                                    size="small"
+                                    id="input-with-icon-adornment"
+                                    placeholder="0"
+                                    variant="standard"
+                                    value={sodium}
+                                    onChange={(e) => setSodium(e.target.value)}
+                                  />
+                                </FormControl>
+                                <FormControl variant="standard">
+                                  <TextField
+                                    InputProps={{
+                                      inputComponent: NumberFormatCustom as any,
+                                      startAdornment: (
+                                        <InputAdornment position="end">
+                                          <Typography color="text.secondary">Potassium</Typography>
+                                        </InputAdornment>
+                                      ),
+                                      endAdornment: <InputAdornment position="end">g</InputAdornment>,
+                                    }}
+                                    inputProps={{ style: { textAlign: 'end' } }}
+                                    sx={{ width: '175px' }}
+                                    size="small"
+                                    id="input-with-icon-adornment"
+                                    placeholder="0"
+                                    variant="standard"
+                                    value={potassium}
+                                    onChange={(e) => setPotassium(e.target.value)}
+                                  />
+                                </FormControl>
+                              </>
+                            )
+                          }
+
+                          <Link
+                            component="button"
+                            variant="body2"
+                            onClick={() => setIsAdvanced((prevIsAdvanced) => !prevIsAdvanced)}
+                          >
+                            Toggle Advanced Mode
+                          </Link>
+                        </>
+                      ) : (
+                        <>
+                          <Typography>
+                            per 100 g
+                          </Typography>
+                          <Typography>
+                            Carbs
+                            {' '}
+                            {carbs}
+                            g
+                          </Typography>
+                          <Typography>
+                            Fat
+                            {' '}
+                            {fat}
+                            g
+                          </Typography>
+                          <Typography>
+                            Protein
+                            {' '}
+                            {protein}
+                            g
+                          </Typography>
+                          <Typography>
+                            Calories
+                            {' '}
+                            {calories}
+                          </Typography>
+                        </>
+                      )
+                    }
+
+                    </NutritionDataStack>
+                  </ClickAwayListener>
                   <Stack
                     gap={1}
                     sx={{
-                      width: '180px',
-                      borderRight: 1,
-                      paddingRight: '24px',
-                      borderColor: 'divider',
-                      alignItems: 'flex-start',
+                      width: '100%', paddingLeft: '24px', alignItems: 'flex-start', flex: 1,
                     }}
                   >
-                    <Typography sx={{ fontWeight: 'bold' }}>Nutrition Facts</Typography>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        width: '175px',
-                        marginBottom: '5px',
-                      }}
-                    >
-                      <Typography sx={{ width: '25px' }}>per </Typography>
-                      <FormControl variant="standard">
-                        <TextField
-                          InputProps={{ inputComponent: NumberFormatCustom as any }}
-                          inputProps={{ style: { textAlign: 'end' } }}
-                          sx={{ width: '75px', paddingRight: '1px' }}
-                          size="small"
-                          id="input-with-icon-adornment"
-                          placeholder="0"
-                          value={productQuantity}
-                          onChange={(e) => setProductQuantity(e.target.value)}
-                          variant="standard"
-                        />
-                      </FormControl>
-                      <FormControl size="small">
-                        <Select
-                          MenuProps={{
-                            disablePortal: true,
-                            style: { cursor: 'default' },
-                          }}
-                          variant="standard"
-                          sx={{ width: '75px', paddingLeft: '1px' }}
-                          labelId="demo-select-small"
-                          id="demo-select-small"
-                          value={productServingSize}
-                          onChange={(e) => setProductServingSize(e.target.value)}
-                        >
-                          <MenuItem value="g">g</MenuItem>
-                          <MenuItem value="oz">oz</MenuItem>
-                          <MenuItem value="lb">lb</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Box>
-                    <FormControl variant="standard">
-                      <TextField
-                        InputProps={{
-                          inputComponent: NumberFormatCustom as any,
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <Typography color="text.primary">Calories</Typography>
-                            </InputAdornment>
-                          ),
-                          endAdornment: <InputAdornment position="end">cal</InputAdornment>,
-                        }}
-                        inputProps={{ style: { textAlign: 'end' } }}
-                        sx={{ width: '175px' }}
-                        size="small"
-                        id="input-with-icon-adornment"
-                        placeholder="0"
-                        variant="standard"
-                        value={calories}
-                        onChange={(e) => setCalories(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormControl variant="standard">
-                      <TextField
-                        InputProps={{
-                          inputComponent: NumberFormatCustom as any,
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <Typography color="text.primary">Fat</Typography>
-                            </InputAdornment>
-                          ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
-                        }}
-                        inputProps={{ style: { textAlign: 'end' } }}
-                        sx={{ width: '175px' }}
-                        size="small"
-                        id="input-with-icon-adornment"
-                        placeholder="0"
-                        variant="standard"
-                        value={fat}
-                        onChange={(e) => setFat(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormControl variant="standard">
-                      <TextField
-                        InputProps={{
-                          inputComponent: NumberFormatCustom as any,
-                          startAdornment: (
-                            <InputAdornment position="end">
-                              <Typography color="text.secondary">Sat Fat</Typography>
-                            </InputAdornment>
-                          ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
-                        }}
-                        inputProps={{ style: { textAlign: 'end' } }}
-                        sx={{ width: '175px' }}
-                        size="small"
-                        id="input-with-icon-adornment"
-                        placeholder="0"
-                        variant="standard"
-                        value={saturatedFat}
-                        onChange={(e) => setSaturatedFat(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormControl variant="standard">
-                      <TextField
-                        InputProps={{
-                          inputComponent: NumberFormatCustom as any,
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <Typography color="text.primary">Carbs</Typography>
-                            </InputAdornment>
-                          ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
-                        }}
-                        inputProps={{ style: { textAlign: 'end' } }}
-                        sx={{ width: '175px' }}
-                        size="small"
-                        id="input-with-icon-adornment"
-                        placeholder="0"
-                        variant="standard"
-                        value={carbs}
-                        onChange={(e) => setCarbs(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormControl variant="standard">
-                      <TextField
-                        InputProps={{
-                          inputComponent: NumberFormatCustom as any,
-                          startAdornment: (
-                            <InputAdornment position="end">
-                              <Typography color="text.secondary">Fiber</Typography>
-                            </InputAdornment>
-                          ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
-                        }}
-                        inputProps={{ style: { textAlign: 'end' } }}
-                        sx={{ width: '175px' }}
-                        size="small"
-                        id="input-with-icon-adornment"
-                        placeholder="0"
-                        variant="standard"
-                        value={fiber}
-                        onChange={(e) => setFiber(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormControl variant="standard">
-                      <TextField
-                        InputProps={{
-                          inputComponent: NumberFormatCustom as any,
-                          startAdornment: (
-                            <InputAdornment position="end">
-                              <Typography color="text.secondary">Sugar</Typography>
-                            </InputAdornment>
-                          ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
-                        }}
-                        inputProps={{ style: { textAlign: 'end' } }}
-                        sx={{ width: '175px' }}
-                        size="small"
-                        id="input-with-icon-adornment"
-                        placeholder="0"
-                        variant="standard"
-                        value={sugar}
-                        onChange={(e) => setSugar(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormControl variant="standard">
-                      <TextField
-                        InputProps={{
-                          inputComponent: NumberFormatCustom as any,
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <Typography color="text.primary">Protein</Typography>
-                            </InputAdornment>
-                          ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
-                        }}
-                        inputProps={{ style: { textAlign: 'end' } }}
-                        sx={{ width: '175px' }}
-                        size="small"
-                        id="input-with-icon-adornment"
-                        placeholder="0"
-                        variant="standard"
-                        value={protein}
-                        onChange={(e) => setProtein(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormControl variant="standard">
-                      <TextField
-                        InputProps={{
-                          inputComponent: NumberFormatCustom as any,
-                          startAdornment: (
-                            <InputAdornment position="end">
-                              <Typography color="text.secondary">Sodium</Typography>
-                            </InputAdornment>
-                          ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
-                        }}
-                        inputProps={{ style: { textAlign: 'end' } }}
-                        sx={{ width: '175px' }}
-                        size="small"
-                        id="input-with-icon-adornment"
-                        placeholder="0"
-                        variant="standard"
-                        value={sodium}
-                        onChange={(e) => setSodium(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormControl variant="standard">
-                      <TextField
-                        InputProps={{
-                          inputComponent: NumberFormatCustom as any,
-                          startAdornment: (
-                            <InputAdornment position="end">
-                              <Typography color="text.secondary">Potassium</Typography>
-                            </InputAdornment>
-                          ),
-                          endAdornment: <InputAdornment position="end">g</InputAdornment>,
-                        }}
-                        inputProps={{ style: { textAlign: 'end' } }}
-                        sx={{ width: '175px' }}
-                        size="small"
-                        id="input-with-icon-adornment"
-                        placeholder="0"
-                        variant="standard"
-                        value={potassium}
-                        onChange={(e) => setPotassium(e.target.value)}
-                      />
-                    </FormControl>
-                  </Stack>
-                  <Stack gap={1} sx={{ width: '100%', paddingLeft: '24px', alignItems: 'center' }}>
+                    <Typography sx={{ fontSize: '20px' }}>Add to Diary: </Typography>
                     <Box
                       sx={{
                         display: 'flex',
                         justifyContent: 'center',
-                        width: '300px',
                         marginBottom: '5px',
+                        padding: '24px 0px',
                       }}
                     >
                       <Typography sx={{ fontWeight: 'bold' }}>Quantity: </Typography>
@@ -743,14 +862,14 @@ export function Search() {
                       sx={{
                         border: 1,
                         borderColor: 'divider',
-                        height: '150px',
+                        height: '100px',
                         width: '280px',
-                        padding: '10px',
+                        padding: '10px 0px',
                       }}
                     >
-                      <Typography sx={{ fontWeight: 'bold', marginBottom: '15px' }}>
+                      {/* <Typography sx={{ fontWeight: 'bold', marginBottom: '15px' }}>
                         Summary
-                      </Typography>
+                      </Typography> */}
 
                       <Stack
                         direction="row"
@@ -870,7 +989,7 @@ export function Search() {
                     </Stack>
                   </Stack>
                 </Box>
-                <Button onClick={onSaveClick} sx={{ width: '100%', marginTop: '10px', justifySelf: 'flex-end' }}>
+                <Button onClick={onSaveClick} sx={{ width: '100%', marginTop: '10px', justifySelf: 'flex-end' }} variant="outlined" disabled={foodEntryQuantity === ''}>
                   ADD TO DIARY
                 </Button>
               </Stack>

@@ -1,9 +1,11 @@
-/* eslint-disable linebreak-style */
 import React from 'react';
-import { Box, Paper, Typography } from '@mui/material';
+import {
+  Box, Fab, Paper, Typography, Stack,
+} from '@mui/material';
 import {
   CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts';
+import CreateChartModal from '../Components/CreateChartModal';
 
 const data = [
   {
@@ -65,10 +67,15 @@ const data = [
 
 export default function TrendsPage() {
   return (
-    <Box sx={{
-      marginTop: '30px', display: 'flex', justifyContent: 'center', gap: '40px',
-    }}
+
+    <Stack
+      direction="column"
+      justifyContent="flex-start"
+      alignItems="center"
+      spacing={8}
+      sx={{ marginTop: '40px' }}
     >
+
       <Paper sx={{ width: 1000, height: 500 }}>
 
         <Typography sx={{
@@ -100,6 +107,8 @@ export default function TrendsPage() {
           </LineChart>
         </ResponsiveContainer>
       </Paper>
-    </Box>
+      <CreateChartModal />
+
+    </Stack>
   );
 }
