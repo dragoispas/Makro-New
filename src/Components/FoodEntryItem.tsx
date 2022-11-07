@@ -10,13 +10,27 @@ import { useState } from 'react';
 import { FoodEntry } from '../Api/food-entries/types';
 
 interface FoodEntryItemProps {
-  foodEntry: FoodEntry
+  foodEntry: FoodEntry;
+  onDelete: (id:number|string) => any;
 }
 
-export const FoodEntryItem = ({ foodEntry }: FoodEntryItemProps) => {
+export const FoodEntryItem = ({ foodEntry, onDelete }: FoodEntryItemProps) => {
   const [makrosOpacity, setMakrosOpacity] = useState<number>(0);
+
+  const getProtein = () => {
+    if (foodEntry.servingSize === 'g') {
+      return foodEntry.protein * foodEntry.quantity;
+    } if (foodEntry.servingSize === 'oz') {
+      return Math.round(foodEntry.protein * foodEntry.quantity * 28.3495);
+    } if (foodEntry.servingSize === 'lb') {
+      return Math.round(foodEntry.protein * foodEntry.quantity * 453.592);
+    }
+    return -1;
+  };
   return (
     <ListItem
+      onMouseOver={() => setMakrosOpacity(1)}
+      onMouseLeave={() => setMakrosOpacity(0)}
       sx={{
         borderTop: 1,
         borderColor: 'divider',
@@ -26,7 +40,7 @@ export const FoodEntryItem = ({ foodEntry }: FoodEntryItemProps) => {
       }}
       secondaryAction={(
         <IconButton edge="end" aria-label="delete">
-          <DeleteIcon />
+          <DeleteIcon onClick={() => onDelete(foodEntry.id)} />
         </IconButton>
       )}
     >
@@ -35,11 +49,9 @@ export const FoodEntryItem = ({ foodEntry }: FoodEntryItemProps) => {
           <RestaurantIcon />
         </Avatar>
       </ListItemAvatar>
-      <ListItemText primary="Food name" secondary="123 g" />
-      <ListItemText sx={{ textAlign: 'end' }} primary="123" secondary="cal" />
+      <ListItemText primary={foodEntry.name} secondary={`${foodEntry.quantity} ${foodEntry.servingSize}`} />
+      <ListItemText sx={{ textAlign: 'end' }} primary={foodEntry.calories} secondary="cal" />
       <Stack
-        onMouseOver={() => setMakrosOpacity(1)}
-        onMouseLeave={() => setMakrosOpacity(0)}
         direction="row"
         justifyContent="center"
         alignItems="center"
@@ -57,7 +69,7 @@ export const FoodEntryItem = ({ foodEntry }: FoodEntryItemProps) => {
           sx={{ textAlign: 'center', userSelect: 'none' }}
           primaryTypographyProps={{ sx: { color: '#83b28d' } }}
           secondaryTypographyProps={{ sx: { color: '#83b28d' } }}
-          primary="123"
+          primary={getProtein()}
           secondary="protein"
         />
         <ListItemText

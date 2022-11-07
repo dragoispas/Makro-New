@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -20,20 +21,59 @@ const style = {
   padding: '24px',
 };
 
-const top100Films = [
-  { name: 'weight', category: 'BODY' },
-  { name: 'waist', category: 'BODY' },
-  { name: 'arm', category: 'BODY' },
-  { name: 'calories', category: 'MACRO' },
-  { name: 'protein', category: 'MACRO' },
-  { name: 'fat', category: 'MACRO' },
-  { name: 'carbs', category: 'MACRO' },
+type ChartItem = {
+  name: string;
+  category: string;
+  currentID: string;
+  selected: boolean;
+}
+
+const chartItemsList:ChartItem[] = [
+  {
+    name: 'weight', category: 'BODY', currentID: 'tags-standard-option-0', selected: false,
+  },
+  {
+    name: 'waist', category: 'BODY', currentID: 'tags-standard-option-1', selected: false,
+  },
+  {
+    name: 'arm', category: 'BODY', currentID: 'tags-standard-option-2', selected: false,
+  },
+  {
+    name: 'calories', category: 'MACRO', currentID: 'tags-standard-option-3', selected: false,
+  },
+  {
+    name: 'protein', category: 'MACRO', currentID: 'tags-standard-option-4', selected: false,
+  },
+  {
+    name: 'fat', category: 'MACRO', currentID: 'tags-standard-option-5', selected: false,
+  },
+  {
+    name: 'carbs', category: 'MACRO', currentID: 'tags-standard-option-6', selected: false,
+  },
 ];
 
 export default function CreateChartModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [chartType, setChartType] = React.useState<string>('Line');
+
+  const [chartItems, setChartItems] = React.useState<ChartItem[]>(chartItemsList);
+
+  const updateChartItems = (id:string) => {
+    const newState = chartItems.map((item) => {
+      // 👇️ if id equals 2, update country property
+      if (item.currentID === id) {
+        return { ...item, selected: !item.selected };
+      }
+
+      // 👇️ otherwise return object as is
+      return item;
+    });
+
+    setChartItems(newState);
+  };
 
   return (
     <div>
@@ -58,9 +98,9 @@ export default function CreateChartModal() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              // value={age}
+              value={chartType}
               label="Age"
-              // onChange={handleChange}
+              onChange={(e) => setChartType(e.target.value)}
             >
               <MenuItem value="Line">Line</MenuItem>
               <MenuItem value="Bar">Bar</MenuItem>
@@ -68,14 +108,18 @@ export default function CreateChartModal() {
             </Select>
           </FormControl>
           <Autocomplete
+            // onChange={(e) => updateChartItems(e.currentTarget.id)}
+            // onChange={(e) => console.log(e)}
             sx={{ marginTop: '20px' }}
             groupBy={(option) => option.category}
             multiple
             id="tags-standard"
-            options={top100Films}
+            options={chartItems}
             getOptionLabel={(option) => option.name}
+            // getOptionDisabled={(option) => option.selected === false}
             renderInput={(params) => (
               <TextField
+                onChange={(e) => console.log(e.target.value)} // ????
                 {...params}
                 variant="outlined"
                 label="Items"

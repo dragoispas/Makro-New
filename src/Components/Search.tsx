@@ -206,7 +206,14 @@ export function Search() {
 
   useEffect(() => {
     setIsEditable(currentProduct === null);
+    console.log(currentProduct);
   }, [currentProduct]);
+
+  useEffect(() => {
+    if (content === 'selected product' && inputText !== currentProduct?.name) {
+      setCurrentProduct(null);
+    }
+  }, [inputText]);
 
   const getPercentage = (x: number, y: number) => (x * 100) / y;
 

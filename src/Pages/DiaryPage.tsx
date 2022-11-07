@@ -2,7 +2,7 @@ import {
   Box, Container, Paper, Stack, Typography,
 } from '@mui/material';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomCalendar from '../Components/CustomCalendar';
 import { DiaryChart } from '../Components/DiaryChart';
 import { Search } from '../Components/Search';
@@ -10,15 +10,22 @@ import { FoodEntryList } from '../Components/FoodEntryList';
 import { getDayEntryByDate } from '../Api/day-entries/api';
 import { setDayEntry } from '../modules/diary/diarySlice';
 import DayEntryDetails from '../Components/DayEntryDetails';
+import { RootState } from '../app/store';
 
 export default function DiaryPage() {
   const dispatch = useDispatch();
+  const dayEntryy = useSelector((state: RootState) => state.diary.dayEntry);
 
   useEffect(() => {
     getDayEntryByDate(new Date()).then((dayEntry) => {
       dispatch(setDayEntry(dayEntry));
     });
   }, []);
+
+  useEffect(() => {
+    console.log(dayEntryy);
+    console.log(dayEntryy?.foodEntries);
+  }, [dayEntryy]);
 
   return (
     <Box sx={{
