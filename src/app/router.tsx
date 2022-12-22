@@ -1,6 +1,5 @@
-import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
-import React, { useState } from 'react';
-import { PaletteMode, Stack } from '@mui/material';
+import { Route, Routes } from 'react-router-dom';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import DiaryPage from '../Pages/DiaryPage';
@@ -8,7 +7,6 @@ import { SettingsPage } from '../Pages/SettingsPage';
 import TrendsPage from '../Pages/TrendsPage';
 import { LoginPage } from '../Pages/LoginPage';
 import { ErrorPage } from '../Pages/ErrorPage';
-import { CustomizedTabs } from '../Components/CustomTabs';
 import { RootState } from './store';
 
 export default function AppRouter() {

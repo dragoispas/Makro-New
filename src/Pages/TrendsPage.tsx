@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Box, Fab, Paper, Typography, Stack,
-} from '@mui/material';
+import { Paper, Stack, Typography } from '@mui/material';
 import {
   CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts';

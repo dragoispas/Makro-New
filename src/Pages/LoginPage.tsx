@@ -1,7 +1,3 @@
-/* eslint-disable react/jsx-no-useless-fragment */
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable no-console */
-/* eslint-disable react/no-unescaped-entities */
 import {
   Alert,
   Box,
@@ -17,8 +13,7 @@ import {
   styled,
   Typography,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -70,7 +65,6 @@ export function LoginPage() {
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const onLoginClick = async () => {
     const response = await axios.post('/api/auth/login', {
@@ -130,7 +124,6 @@ export function LoginPage() {
           Welcome to Makro!
         </Typography>
         <Button
-          onClick={() => console.log('login with google')}
           variant="outlined"
           sx={{ margin: '20px 0' }}
         >
@@ -211,8 +204,7 @@ export function LoginPage() {
             textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '5px',
           }}
         >
-          Don't have an account?
-          {' '}
+          {'Don\'t have an account? '}
           <Typography
             sx={{ cursor: 'pointer' }}
             color="primary"
@@ -329,7 +321,6 @@ export function LoginPage() {
           <Box sx={{ height: '1px', background: 'lightGrey', width: '140px' }} />
         </Stack>
         <Button
-          onClick={() => console.log('login with google')}
           variant="outlined"
           sx={{ margin: '20px 0' }}
         >
