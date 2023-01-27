@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../modules/auth/authSlice';
 import generalReducer from '../modules/general/generalSlice';
 import diaryReducer from '../modules/diary/diarySlice';
+import searchModalReducer from '../modules/search/searchModalSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     general: generalReducer,
     diary: diaryReducer,
+    searchModal: searchModalReducer,
   },
 });
 

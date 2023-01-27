@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import { Box, Stack, CircularProgress } from '@mui/material';
+import {
+  Box, Stack, CircularProgress, Snackbar, Alert, Button,
+} from '@mui/material';
 import { styled, ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { createImportSpecifier } from 'typescript';
 import { darkTheme, lightTheme } from './app/themes';
 import { RootState } from './app/store';
 import type { AppDispatch } from './app/store';
 import { retrieveCurrentUser } from './modules/auth/authSlice';
 import AppRouter from './app/router';
 import { CustomizedTabs } from './Components/CustomTabs';
+import { SnackbarAlert } from './Components/SnackbarAlert';
 
 const AppContainer = styled(Box)<{ themeMode: string }>`
   margin: 0;
@@ -31,6 +35,7 @@ function App() {
   return (
     <AppContainer themeMode={themeMode.toString()}>
       <ThemeProvider theme={themeMode.toString() === 'light' ? lightTheme : darkTheme}>
+        <SnackbarAlert />
         <div className="background-image" />
         <Router>
           <CustomizedTabs />

@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomCalendar from '../Components/CustomCalendar';
 import { DiaryChart } from '../Components/DiaryChart';
-import { Search } from '../Components/Search';
+import { SearchModal } from '../Components/SearchModal/SearchModal';
 import { FoodEntryList } from '../Components/FoodEntryList';
 import { getDayEntryByDate } from '../Api/day-entries/api';
 import { setDayEntry } from '../modules/diary/diarySlice';
@@ -42,8 +42,7 @@ export default function DiaryPage() {
           LOG FOODS
         </Typography>
         <Stack sx={{ alignItems: 'center', paddingTop: '20px' }}>
-          <Container sx={{ width: '500px', height: '60px' }} />
-          <Search />
+          <SearchModal />
           <DiaryChart
             targetCalories={2000}
             totalCalories={1500}
