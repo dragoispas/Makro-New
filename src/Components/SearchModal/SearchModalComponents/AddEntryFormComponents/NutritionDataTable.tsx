@@ -93,7 +93,7 @@ export function NutritionDataTable() {
             <TableHead>
               <TableRow>
                 <TableCell padding="none" sx={{ paddingLeft: '10px', width: '90px' }}>Calories</TableCell>
-                <TableCell align="right"><InputBase value={calories} onChange={(e) => dispatch(setCalories(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem', fontWeight: '500' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right"><InputBase key="calories" value={calories} onChange={(e) => dispatch(setCalories(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem', fontWeight: '500' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -104,7 +104,7 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '10px', width: '90px' }} component="th" scope="row">
                   Total Fat(g)
                 </TableCell>
-                <TableCell align="right"><InputBase value={fat === '0' ? '' : fat} onChange={(e) => dispatch(setFat(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right"><InputBase key="fat" value={fat === '0' ? '' : fat} onChange={(e) => dispatch(setFat(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
               </TableRow>
               <TableRow
                 key="Fat"
@@ -113,7 +113,7 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
                   Sat Fat(g)
                 </TableCell>
-                <TableCell align="right"><InputBase value={satFat === '0' ? '' : satFat} onChange={(e) => dispatch(setSatFat(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right"><InputBase key="satFat" value={satFat === '0' ? '' : satFat} onChange={(e) => dispatch(setSatFat(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
               </TableRow>
               <TableRow
                 key="Fat"
@@ -122,7 +122,7 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '10px', width: '90px' }} component="th" scope="row">
                   Carbs(g)
                 </TableCell>
-                <TableCell align="right"><InputBase value={carbs === '0' ? '' : carbs} onChange={(e) => dispatch(setCarbs(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right"><InputBase key="carbs" value={carbs === '0' ? '' : carbs} onChange={(e) => dispatch(setCarbs(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
               </TableRow>
               <TableRow
                 key="Fat"
@@ -131,7 +131,7 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
                   Fiber(g)
                 </TableCell>
-                <TableCell align="right"><InputBase value={fiber === '0' ? '' : fiber} onChange={(e) => dispatch(setFiber(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right"><InputBase key="fiber" value={fiber === '0' ? '' : fiber} onChange={(e) => dispatch(setFiber(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
               </TableRow>
               <TableRow
                 key="Fat"
@@ -140,7 +140,7 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
                   Sugar(g)
                 </TableCell>
-                <TableCell align="right"><InputBase value={sugar === '0' ? '' : sugar} onChange={(e) => dispatch(setSugar(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right"><InputBase key="sugar" value={sugar === '0' ? '' : sugar} onChange={(e) => dispatch(setSugar(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
               </TableRow>
               <TableRow
                 key="Fat"
@@ -149,7 +149,7 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '10px', width: '90px' }} component="th" scope="row">
                   Protein(g)
                 </TableCell>
-                <TableCell align="right"><InputBase value={protein === '0' ? '' : protein} onChange={(e) => dispatch(setProtein(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right"><InputBase key="protein" value={protein === '0' ? '' : protein} onChange={(e) => dispatch(setProtein(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
               </TableRow>
               <TableRow
                 key="Fat"
@@ -158,7 +158,7 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
                   Sodium(mg)
                 </TableCell>
-                <TableCell align="right"><InputBase value={sodium === '0' ? '' : sodium} onChange={(e) => dispatch(setSodium(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right"><InputBase key="sodium" value={sodium === '0' ? '' : sodium} onChange={(e) => dispatch(setSodium(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
               </TableRow>
               <TableRow
                 key="Fat"
@@ -167,7 +167,7 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
                   Potassium(mg)
                 </TableCell>
-                <TableCell align="right"><InputBase value={potassium === '0' ? '' : potassium} onChange={(e) => dispatch(setPotassium(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right"><InputBase key="potassium" value={potassium === '0' ? '' : potassium} onChange={(e) => dispatch(setPotassium(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
               </TableRow>
             </TableBody>
           </Table>

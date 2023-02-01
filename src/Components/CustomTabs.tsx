@@ -5,55 +5,30 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import {
-  Button, PaletteMode, Stack, Switch,
+  Button, PaletteMode, Paper, Stack, Switch,
 } from '@mui/material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import { AppDispatch, RootState } from '../app/store';
 import { setThemeMode } from '../modules/general/generalSlice';
 import { logout } from '../modules/auth/authSlice';
 
-const AntSwitch = styled(Switch)(({ theme }) => ({
-  width: 28,
-  height: 16,
-  padding: 0,
-  display: 'flex',
-  '&:active': {
-    '& .MuiSwitch-thumb': {
-      width: 15,
-    },
-    '& .MuiSwitch-switchBase.Mui-checked': {
-      transform: 'translateX(9px)',
-    },
-  },
-  '& .MuiSwitch-switchBase': {
-    padding: 2,
-    '&.Mui-checked': {
-      transform: 'translateX(12px)',
-      color: '#fff',
-      '& + .MuiSwitch-track': {
-        opacity: 1,
-        backgroundColor: theme.palette.mode === 'dark' ? '#primary' : '#1890ff',
-      },
-    },
-  },
-  '& .MuiSwitch-thumb': {
-    boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    transition: theme.transitions.create(['width'], {
-      duration: 200,
-    }),
-  },
-  '& .MuiSwitch-track': {
-    borderRadius: 16 / 2,
-    opacity: 1,
-    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(0,0,0,.25)',
-    boxSizing: 'border-box',
-  },
-}));
+const ThemeSwitch = styled(Paper)<{themeMode:string}>`
+  height: 35px;
+  width: 35px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: ${(props) => (props.themeMode === 'light' ? '3px solid rgba(255,255,255,0.01)' : '3px solid rgba(255,255,255,1)')};
+  ${(props) => (props.themeMode === 'dark' ? '' : 'box-shadow: 0px 0px 10px rgba(255,255,255,0.5)')};
+  opacity: 0.9;
+  background-color: ${(props) => (props.themeMode === 'light' ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.1)')};
+  display: flex;
+  justify-content: center;
+  align-items: center
+`;
 
 interface StyledTabsProps {
   children?: React.ReactNode;
@@ -139,11 +114,10 @@ export function CustomizedTabs() {
         ) : null}
         <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
           <Button color="inherit" onClick={() => (dispatch as AppDispatch)(logout())}>Logout</Button>
-          <DarkModeIcon sx={{ color: themeMode.toString() === 'light' ? 'black' : 'white' }} />
-          <AntSwitch
-            onChange={(e) => dispatch(setThemeMode(themeMode === 'light' ? 'dark' : 'light'))}
-            inputProps={{ 'aria-label': 'ant design' }}
-          />
+          <ThemeSwitch themeMode={themeMode === 'light' ? 'dark' : 'light'} onClick={() => dispatch(setThemeMode(themeMode === 'light' ? 'dark' : 'light'))}>
+            <DarkModeIcon sx={{ position: 'absolute', transition: '0.1s', opacity: themeMode === 'light' ? 1 : 0 }} />
+            <LightModeIcon sx={{ position: 'absolute', transition: '0.1s', opacity: themeMode === 'light' ? 0 : 1 }} />
+          </ThemeSwitch>
         </Stack>
 
         {/* <Avatar sx={{ bgcolor: deepPurple[500] }}>DI</Avatar> */}

@@ -18,7 +18,7 @@ const Content = styled(Box)`
   height: 520px;
 `;
 
-const NutritionDataStack = styled(Stack)<{ isActive: boolean, themeMode: string }>`
+const NutritionDataStack = styled(Stack)<{ isactive: boolean, themeMode: string }>`
 transition: 0.15s;
   &:hover {
     border: 1;
@@ -28,11 +28,11 @@ transition: 0.15s;
     ${(props) => (props.themeMode === 'light' ? 'box-shadow: 0px 1px 4px rgba(0,0,0,0.5);' : '')}
   }
 
-  ${(props) => (props.isActive && props.themeMode === 'light' ? `border: 1;
+  ${(props) => (props.isactive && props.themeMode === 'light' ? `border: 1;
   border-color: rgba(0,0,0,0);
   box-shadow: 0px 1px 4px rgba(0,0,0,0.5);` : '')}
 
-  ${(props) => (props.isActive && props.themeMode === 'dark' ? `border: 1;
+  ${(props) => (props.isactive && props.themeMode === 'dark' ? `border: 1;
   border-color: rgba(0,0,0,0);
   background:rgba(250,250,250,0.04);
   box-shadow: 0px 1px 5px rgba(0,0,0,0.7);` : '')}

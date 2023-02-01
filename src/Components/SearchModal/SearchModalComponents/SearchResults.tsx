@@ -8,12 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ProductMap, emptyProduct } from '../../../Api/products/types';
 import { RootState } from '../../../app/store';
 import {
-  setInput, setProduct, setContent, setSearchTab,
+  setInput, setProduct, setContent, setSearchTab, setAmount,
 } from '../../../modules/search/searchModalSlice';
 import { SearchListItem } from '../../SearchListItem';
 import { TabPanel } from '../../TabPanel';
 
-// ${(props) => (props.isActive ? 'animation: fade-in 1s forwards;' :
+// ${(props) => (props.isactive ? 'animation: fade-in 1s forwards;' :
 // 'pointer-events: none; opacity: 0;')}
 const Content = styled(Box)`
   width: 600px;
@@ -53,6 +53,7 @@ export function SearchResults() {
           dispatch(setInput(prod.name));
           dispatch(setProduct(prod));
           dispatch(setContent('addEditForm'));
+          dispatch(setAmount(''));
         }}
       >
         <SearchListItem name={prod.name} calories={prod.calories} />
@@ -112,6 +113,7 @@ export function SearchResults() {
       <Button
         onClick={() => {
           dispatch(setContent('addEditForm'));
+          dispatch(setAmount(''));
         }}
         sx={{ width: '100%', marginTop: '5px' }}
       >

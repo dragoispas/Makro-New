@@ -14,18 +14,18 @@ import { RootState } from '../app/store';
 
 export default function DiaryPage() {
   const dispatch = useDispatch();
-  const dayEntryy = useSelector((state: RootState) => state.diary.dayEntry);
+  const dayEntry = useSelector((state: RootState) => state.diary.dayEntry);
 
   useEffect(() => {
-    getDayEntryByDate(new Date()).then((dayEntry) => {
-      dispatch(setDayEntry(dayEntry));
+    getDayEntryByDate(new Date()).then((dayEntryy) => {
+      dispatch(setDayEntry(dayEntryy));
     });
   }, []);
 
   useEffect(() => {
-    console.log(dayEntryy);
-    console.log(dayEntryy?.foodEntries);
-  }, [dayEntryy]);
+    console.log(dayEntry);
+    console.log(dayEntry?.foodEntries);
+  }, [dayEntry]);
 
   return (
     <Box sx={{
@@ -44,7 +44,7 @@ export default function DiaryPage() {
         <Stack sx={{ alignItems: 'center', paddingTop: '20px' }}>
           <SearchModal />
           <DiaryChart
-            targetCalories={2000}
+            targetCalories={dayEntry ? dayEntry.caloriesTarget : 2000}
             totalCalories={1500}
             totalCarbs={200}
             totalFat={34}

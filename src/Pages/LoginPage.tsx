@@ -39,7 +39,7 @@ const AuthPaper = styled(Paper)<{ side: string }>`
   ${(props) => (props.side === 'signUp' ? 'transform: rotateY(180deg);' : 'transform: rotateY(0eg);')}
 `;
 
-const PaperSide = styled(Stack)<{ isActive: boolean; opacity: number; isFlipped?: boolean }>`
+const PaperSide = styled(Stack)<{ isactive: boolean; opacity: number; isFlipped?: boolean }>`
   width: 300px;
   gap: 20px;
   padding-top: 70px;
@@ -50,7 +50,7 @@ const PaperSide = styled(Stack)<{ isActive: boolean; opacity: number; isFlipped?
   opacity: ${(props) => props.opacity};
   position: absolute;
   ${(props) => (props.isFlipped ? 'transform: rotateY(-180deg);' : '')}
-  ${(props) => (props.isActive ? '' : 'pointer-events: none;')}
+  ${(props) => (props.isactive ? '' : 'pointer-events: none;')}
 `;
 
 export function LoginPage() {
@@ -125,7 +125,7 @@ export function LoginPage() {
 
   return (
     <AuthPaper side={side}>
-      <PaperSide isActive={side === 'logIn'} opacity={logInOpacity}>
+      <PaperSide isactive={Boolean(side === 'logIn')} opacity={logInOpacity}>
         <Typography sx={{ fontWeight: 'bold', fontSize: '20px', textAlign: 'center' }}>
           Welcome to Makro!
         </Typography>
@@ -233,7 +233,7 @@ export function LoginPage() {
           </Typography>
         </Typography>
       </PaperSide>
-      <PaperSide isActive={side === 'signUp'} opacity={signUpOpacity} isFlipped>
+      <PaperSide isactive={Boolean(side === 'signUp')} opacity={signUpOpacity} isFlipped>
         <Typography sx={{ fontWeight: 'bold', fontSize: '20px', textAlign: 'center' }}>
           Create an account!
         </Typography>

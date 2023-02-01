@@ -46,7 +46,7 @@ import {
 import { AddEditForm } from './SearchModalComponents/AddEditForm';
 import { SearchResults } from './SearchModalComponents/SearchResults';
 
-const InputContainer = styled(Paper)<{ isActive: boolean }>`
+const InputContainer = styled(Paper)<{ isactive: boolean }>`
   position: absolute;
   width: 600px;
   height: 600px;
@@ -54,7 +54,7 @@ const InputContainer = styled(Paper)<{ isActive: boolean }>`
   padding-top: 5px;
   transition: 0.25s;
 
-  ${(props) => (props.isActive ? 'box-shadow: 0 0 50px rgba(0,0,0,0.3); z-index: 1000;' : 'box-shadow: none;')}
+  ${(props) => (props.isactive ? 'box-shadow: 0 0 50px rgba(0,0,0,0.3); z-index: 1000;' : 'box-shadow: none;')}
 
   display: flex;
   align-items: center;
@@ -62,10 +62,10 @@ const InputContainer = styled(Paper)<{ isActive: boolean }>`
   flex-direction: column;
 `;
 
-const Overlay = styled(Box)<{ isActive: boolean }>`
+const Overlay = styled(Box)<{ isactive: boolean }>`
   transition: 0.25s;
-  background: ${(props) => (props.isActive ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0)')};
-  pointer-events: ${(props) => (props.isActive ? '' : 'none')};
+  background: ${(props) => (props.isactive ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0)')};
+  pointer-events: ${(props) => (props.isactive ? '' : 'none')};
   position: fixed;
   // width: 100vw;
   // height: 100vh;
@@ -113,10 +113,10 @@ export function SearchModal() {
   };
   return (
     <>
-      <Overlay isActive={active} />
+      <Overlay isactive={Boolean(active)} />
       <Box sx={{ height: '60px' }} />
       <ClickAwayListener onClickAway={() => dispatch(closeSearchModal())}>
-        <InputContainer isActive={active}>
+        <InputContainer isactive={Boolean(active)}>
           <SearchBar />
           {getContent()}
         </InputContainer>

@@ -16,10 +16,10 @@ import AppRouter from './app/router';
 import { CustomizedTabs } from './Components/CustomTabs';
 import IntegrationNotistack from './Components/Notifications';
 
-const AppContainer = styled(Box)<{ themeMode: string }>`
+const AppContainer = styled(Box)<{ thememode: string }>`
   margin: 0;
   padding: 0;
-  background: ${(props) => (props.themeMode === 'dark' ? 'rgba(0, 0, 0, .955)' : '#f4f1eb')};
+  background: ${(props) => (props.thememode === 'dark' ? 'rgba(0, 0, 0, .955)' : '#f4f1eb')};
   min-height: 100vh;
   transition: background-color 0.2s ease;
 `;
@@ -35,7 +35,7 @@ function App() {
   }, []);
 
   return (
-    <AppContainer themeMode={themeMode.toString()}>
+    <AppContainer thememode={themeMode.toString()}>
       <ThemeProvider theme={themeMode.toString() === 'light' ? lightTheme : darkTheme}>
         {/* <SnackbarProvider maxSnack={3}> */}
         <IntegrationNotistack />

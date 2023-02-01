@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import { SnackbarProvider, VariantType, useSnackbar } from 'notistack';
 import { Box } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
+import { IconButton } from '@mui/material';
 import { RootState } from '../app/store';
 import { setNotification } from '../modules/general/generalSlice';
 
