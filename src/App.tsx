@@ -7,13 +7,14 @@ import { styled, ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { createImportSpecifier } from 'typescript';
+import { useSnackbar, VariantType, SnackbarProvider } from 'notistack';
 import { darkTheme, lightTheme } from './app/themes';
 import { RootState } from './app/store';
 import type { AppDispatch } from './app/store';
 import { retrieveCurrentUser } from './modules/auth/authSlice';
 import AppRouter from './app/router';
 import { CustomizedTabs } from './Components/CustomTabs';
-import { SnackbarAlert } from './Components/SnackbarAlert';
+import IntegrationNotistack from './Components/Notifications';
 
 const AppContainer = styled(Box)<{ themeMode: string }>`
   margin: 0;
@@ -25,6 +26,7 @@ const AppContainer = styled(Box)<{ themeMode: string }>`
 
 function App() {
   const { isLoading, themeMode } = useSelector((state: RootState) => state.general);
+  // const { enqueueSnackbar } = useSnackbar();
 
   const dispatch = useDispatch();
 
@@ -35,7 +37,8 @@ function App() {
   return (
     <AppContainer themeMode={themeMode.toString()}>
       <ThemeProvider theme={themeMode.toString() === 'light' ? lightTheme : darkTheme}>
-        <SnackbarAlert />
+        {/* <SnackbarProvider maxSnack={3}> */}
+        <IntegrationNotistack />
         <div className="background-image" />
         <Router>
           <CustomizedTabs />
@@ -52,6 +55,7 @@ function App() {
             </div>
           </Stack>
         </Router>
+        {/* </SnackbarProvider> */}
       </ThemeProvider>
     </AppContainer>
   );

@@ -2,6 +2,7 @@ import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import React, { useState } from 'react';
 import { PaletteMode, Stack } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { useSnackbar } from 'notistack';
 import DiaryPage from '../Pages/DiaryPage';
 import { SettingsPage } from '../Pages/SettingsPage';
 import TrendsPage from '../Pages/TrendsPage';

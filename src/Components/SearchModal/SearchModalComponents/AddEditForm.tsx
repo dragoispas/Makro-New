@@ -1,12 +1,7 @@
 /* eslint-disable max-len */
 import { Stack, Box, styled } from '@mui/system';
-import { isEditable } from '@testing-library/user-event/dist/utils';
-import React, { useState } from 'react';
-
-import NumberFormat, { InputAttributes } from 'react-number-format';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
   TextField, MenuItem, Button, Select, SelectChangeEvent, FormControl, InputLabel, Typography,
 } from '@mui/material';
@@ -14,27 +9,13 @@ import { createFoodEntry } from '../../../Api/food-entries/api';
 import { createProduct } from '../../../Api/products/api';
 import { RootState } from '../../../app/store';
 import { setAmount, setContent, setUnit } from '../../../modules/search/searchModalSlice';
-import CircularProgressNoLabel from '../../CircularProgress';
-import CircularProgressWithLabel from '../../CircularProgressWithLabel';
-import LinearProgressWithLabel from '../../LinearProgressWithLabel';
-import { TabPanel } from '../../TabPanel';
 import { NutritionDataTable } from './AddEntryFormComponents/NutritionDataTable';
-import { setErrorMessage } from '../../../modules/general/generalSlice';
+import { setNotification } from '../../../modules/general/generalSlice';
+import { NumberFormatCustom } from '../../Helpers/Formatter';
 
 const Content = styled(Box)`
-  // opacity: 0;
   width: 600px;
   height: 520px;
-  // @keyframes fade-in {
-  //   0% {
-  //     opacity: 0;
-  //   }
-  //   100% {
-  //     opacity: 1;
-  //   }
-  // }
-  // animation-delay: 0.15s;
-  // animation-duration: 0.35s;
 `;
 
 const NutritionDataStack = styled(Stack)<{ isActive: boolean, themeMode: string }>`
@@ -56,33 +37,6 @@ transition: 0.15s;
   background:rgba(250,250,250,0.04);
   box-shadow: 0px 1px 5px rgba(0,0,0,0.7);` : '')}
 `;
-interface CustomProps {
-    onChange: (event: { target: { name: string; value: string } }) => void;
-    name: string;
-  }
-
-const NumberFormatCustom = React.forwardRef<NumberFormat<InputAttributes>, CustomProps>(
-  (props, ref) => {
-    const { onChange, ...other } = props;
-
-    return (
-      <NumberFormat
-        {...other}
-        getInputRef={ref}
-        onValueChange={(values) => {
-          onChange({
-            target: {
-              name: props.name,
-              value: values.value,
-            },
-          });
-        }}
-          // thousandSeparator
-        isNumericString
-      />
-    );
-  },
-);
 
 export function AddEditForm() {
   const dispatch = useDispatch();
@@ -92,6 +46,7 @@ export function AddEditForm() {
   const product = useSelector((state: RootState) => state.searchModal.product);
 
   const amount = useSelector((state: RootState) => state.searchModal.amount);
+  const [amountInputError, setAmountInputError] = useState<string>(' ');
   const unit = useSelector((state: RootState) => state.searchModal.unit);
 
   const [calories, setCalories] = useState<string>('');
@@ -110,8 +65,17 @@ export function AddEditForm() {
 
   const getPercentage = (x: number, y: number) => (x * 100) / y;
 
+  useEffect(() => {
+    setAmountInputError(' ');
+  }, [amount]);
+
   const onSaveClick = async () => {
     if (!dayEntry) {
+      return;
+    }
+
+    if (!amount) {
+      setAmountInputError('required');
       return;
     }
 
@@ -157,7 +121,7 @@ export function AddEditForm() {
       });
     } catch (error) {
       console.log(error);
-      dispatch(setErrorMessage('Nu merge, asta e Boss'));
+      dispatch(setNotification({ message: 'Dumnezeu nu e cu tine', variant: 'error' }));
     }
   };
 
@@ -169,9 +133,23 @@ export function AddEditForm() {
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <Typography>{product?.name}</Typography>
-          <TextField id="standard-basic" label="Amount" variant="standard" size="medium" sx={{ width: '200px' }} value={amount} onChange={(e) => dispatch(setAmount(e.target.value))} />
+
           <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
-            <InputLabel id="demo-simple-select-filled-label">Unit</InputLabel>
+            <TextField
+              error={amountInputError !== ' '}
+              helperText={amountInputError}
+              InputProps={{
+                inputComponent: NumberFormatCustom as any,
+              }}
+              id="standard-basic"
+              label="Amount"
+              variant="standard"
+              size="medium"
+              sx={{ width: '200px' }}
+              value={amount}
+              onChange={(e) => dispatch(setAmount(e.target.value))}
+            />
+            {/* <InputLabel variant="standard" id="demo-simple-select-filled-label" /> */}
             <Select
               sx={{ width: '200px' }}
               size="medium"
@@ -196,7 +174,7 @@ export function AddEditForm() {
       </Box>
 
       <Button
-        onClick={() => onSaveClick()}
+        onClick={onSaveClick}
         sx={{ width: '100%', marginTop: '5px' }}
       >
         ADD TO DIARY

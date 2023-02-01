@@ -1,17 +1,23 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { PaletteMode } from '@mui/material';
+import { VariantType } from 'notistack';
+
+export type Notification = {
+  message: string,
+  variant?: VariantType
+}
 
 export interface GeneralState {
   isLoading: boolean;
   themeMode: PaletteMode;
-  errorMessage: string | null;
+  notification: Notification | null;
 }
 
 const initialState: GeneralState = {
   isLoading: true,
   themeMode: 'light',
-  errorMessage: null,
+  notification: null,
 };
 
 export const generalSlice = createSlice({
@@ -24,12 +30,12 @@ export const generalSlice = createSlice({
     setThemeMode: (state, action: PayloadAction<PaletteMode>) => {
       state.themeMode = action.payload;
     },
-    setErrorMessage: (state, action: PayloadAction<string | null>) => {
-      state.errorMessage = action.payload;
+    setNotification: (state, action: PayloadAction<Notification | null>) => {
+      state.notification = action.payload;
     },
   },
 });
 
-export const { setLoading, setThemeMode, setErrorMessage } = generalSlice.actions;
+export const { setLoading, setThemeMode, setNotification } = generalSlice.actions;
 
 export default generalSlice.reducer;

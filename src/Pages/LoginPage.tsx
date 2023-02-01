@@ -110,7 +110,7 @@ export function LoginPage() {
           sx={{
             position: 'absolute',
             background: 'inherit',
-            height: '30px',
+            height: '40px',
             transform: 'translate(20px,  365px)',
             boxShadow: 'none',
           }}
@@ -120,14 +120,14 @@ export function LoginPage() {
         </Alert>
       );
     }
-    return <></>;
+    return null;
   };
 
   return (
     <AuthPaper side={side}>
       <PaperSide isActive={side === 'logIn'} opacity={logInOpacity}>
         <Typography sx={{ fontWeight: 'bold', fontSize: '20px', textAlign: 'center' }}>
-          Welcoeme to Makro!
+          Welcome to Makro!
         </Typography>
         <Button
           onClick={() => console.log('login with google')}
@@ -221,7 +221,12 @@ export function LoginPage() {
               setTimeout(() => {
                 setLogInOpacity(0);
                 setSignUnOpacity(1);
+                setShowPassword(false);
               }, 250);
+              setUsername('');
+              setPassword('');
+              setName('');
+              setUsernameError('');
             }}
           >
             Sign up for free!
@@ -247,7 +252,12 @@ export function LoginPage() {
               setTimeout(() => {
                 setLogInOpacity(1);
                 setSignUnOpacity(0);
+                setShowPassword(false);
               }, 250);
+              setUsername('');
+              setPassword('');
+              setName('');
+              setUsernameError('');
             }}
           >
             Log in!
@@ -283,7 +293,7 @@ export function LoginPage() {
         <FormControl sx={{ height: '70px' }} error={passwordError !== ''} variant="standard">
           <InputLabel htmlFor="component-error">Password</InputLabel>
           <Input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             id="component-error"
             value={password}
             onChange={(e) => {
