@@ -3,6 +3,7 @@ import {
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useSnackbar } from 'notistack';
 import { RootState } from '../app/store';
 import { updateDateEntry } from '../Api/day-entries/api';
 
@@ -11,6 +12,7 @@ export default function DayEntryDetails() {
   const [weightUnit, setWeightUnit] = useState<string>('');
   const [caloriesTarget, setCaloriesTarget] = useState<string>('');
   const dayEntry = useSelector((state: RootState) => state.diary.dayEntry);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (dayEntry) {
@@ -22,11 +24,16 @@ export default function DayEntryDetails() {
 
   const onSaveClick = async () => {
     if (dayEntry) {
-      await updateDateEntry(dayEntry.id, {
-        weight: parseInt(weight, 10),
-        weightUnit,
-        caloriesTarget: parseInt(caloriesTarget, 10),
-      });
+      try {
+        await updateDateEntry(dayEntry.id, {
+          weight: parseInt(weight, 10),
+          weightUnit,
+          caloriesTarget: parseInt(caloriesTarget, 10),
+        });
+        enqueueSnackbar('No hai ca s-a salvat cu succes', { variant: 'success' });
+      } catch (error) {
+        enqueueSnackbar('O picat serverul', { variant: 'error' });
+      }
     }
   };
 

@@ -14,7 +14,7 @@ export type FoodEntry = {
   protein: number;
 
   fiber: number;
-  saturatedFat: number;
+  satFat: number;
   sugar: number;
   sodium: number;
   potassium: number;

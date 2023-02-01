@@ -70,7 +70,7 @@ export function NutritionDataTable() {
     if (product) {
       setCalories(product.calories.toString());
       setFat(product.fat.toString());
-      setSatFat(product.saturatedFat.toString());
+      setSatFat(product.satFat.toString());
       setCarbs(product.carbs.toString());
       setFiber(product.fiber.toString());
       setSugar(product.sugar.toString());

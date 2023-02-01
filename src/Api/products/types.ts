@@ -5,7 +5,7 @@ export type NutritionData = {
   protein: number;
 
   fiber: number;
-  saturatedFat: number;
+  satFat: number;
   sugar: number;
   sodium: number;
   potassium: number;
@@ -29,7 +29,7 @@ export const emptyProduct: Product = {
   protein: 0.01,
 
   fiber: 0,
-  saturatedFat: 0,
+  satFat: 0,
   sugar: 0,
   sodium: 0,
   potassium: 0,

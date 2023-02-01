@@ -19,7 +19,7 @@ export const FoodEntryItem = ({ foodEntry, onDelete }: FoodEntryItemProps) => {
 
   const getProtein = () => {
     if (foodEntry.servingSize === 'g') {
-      return foodEntry.protein * foodEntry.quantity;
+      return foodEntry.protein;
     } if (foodEntry.servingSize === 'oz') {
       return Math.round(foodEntry.protein * foodEntry.quantity * 28.3495);
     } if (foodEntry.servingSize === 'lb') {
@@ -27,6 +27,27 @@ export const FoodEntryItem = ({ foodEntry, onDelete }: FoodEntryItemProps) => {
     }
     return -1;
   };
+  const getCarbs = () => {
+    if (foodEntry.servingSize === 'g') {
+      return foodEntry.carbs;
+    } if (foodEntry.servingSize === 'oz') {
+      return Math.round(foodEntry.carbs * foodEntry.quantity * 28.3495);
+    } if (foodEntry.servingSize === 'lb') {
+      return Math.round(foodEntry.carbs * foodEntry.quantity * 453.592);
+    }
+    return -1;
+  };
+  const getFat = () => {
+    if (foodEntry.servingSize === 'g') {
+      return foodEntry.fat;
+    } if (foodEntry.servingSize === 'oz') {
+      return Math.round(foodEntry.fat * foodEntry.quantity * 28.3495);
+    } if (foodEntry.servingSize === 'lb') {
+      return Math.round(foodEntry.fat * foodEntry.quantity * 453.592);
+    }
+    return -1;
+  };
+
   return (
     <ListItem
       onMouseOver={() => setMakrosOpacity(1)}
@@ -76,14 +97,14 @@ export const FoodEntryItem = ({ foodEntry, onDelete }: FoodEntryItemProps) => {
           sx={{ textAlign: 'center', userSelect: 'none' }}
           primaryTypographyProps={{ sx: { color: '#EF4444' } }}
           secondaryTypographyProps={{ sx: { color: '#EF4444' } }}
-          primary="123"
+          primary={getFat()}
           secondary="fat"
         />
         <ListItemText
           sx={{ textAlign: 'center', userSelect: 'none' }}
           primaryTypographyProps={{ sx: { color: '#ef9a44' } }}
           secondaryTypographyProps={{ sx: { color: '#ef9a44' } }}
-          primary="123"
+          primary={getCarbs()}
           secondary="carbs"
         />
       </Stack>

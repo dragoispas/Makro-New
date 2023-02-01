@@ -92,7 +92,7 @@ export function SearchModal() {
     if (product) {
       dispatch(setCalories(product.calories.toString()));
       dispatch(setFat(product.fat.toString()));
-      dispatch(setSatFat(product.saturatedFat.toString()));
+      dispatch(setSatFat(product.satFat.toString()));
       dispatch(setCarbs(product.carbs.toString()));
       dispatch(setFiber(product.fiber.toString()));
       dispatch(setSugar(product.sugar.toString()));
