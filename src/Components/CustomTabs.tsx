@@ -16,15 +16,14 @@ import { setThemeMode } from '../modules/general/generalSlice';
 import { logout } from '../modules/auth/authSlice';
 
 const ThemeSwitch = styled(Paper)<{themeMode:string}>`
-  height: 35px;
-  width: 35px;
+  height: 40px;
+  width: 40px;
   border-radius: 50px;
   cursor: pointer;
   transition: 0.3s;
-  border: ${(props) => (props.themeMode === 'light' ? '3px solid rgba(255,255,255,0.01)' : '3px solid rgba(255,255,255,1)')};
-  ${(props) => (props.themeMode === 'dark' ? '' : 'box-shadow: 0px 0px 10px rgba(255,255,255,0.5)')};
-  opacity: 0.9;
-  background-color: ${(props) => (props.themeMode === 'light' ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.1)')};
+  background-color: inherit;
+  ${(props) => (props.themeMode === 'dark' ? 'box-shadow: 0px 0px 10px rgba(0,0,0,0.5)' : 'box-shadow: 0px 0px 10px rgba(255,255,255,0.5)')};
+  opacity: 0.8;
   display: flex;
   justify-content: center;
   align-items: center
