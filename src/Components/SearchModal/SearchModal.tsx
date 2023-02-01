@@ -50,7 +50,7 @@ const InputContainer = styled(Paper)<{ isactive: boolean }>`
   position: absolute;
   width: 600px;
   height: 600px;
-  border-radius: 5px;
+  border-radius: 10px;
   padding-top: 5px;
   transition: 0.25s;
 

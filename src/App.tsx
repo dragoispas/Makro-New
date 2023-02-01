@@ -14,7 +14,6 @@ import type { AppDispatch } from './app/store';
 import { retrieveCurrentUser } from './modules/auth/authSlice';
 import AppRouter from './app/router';
 import { CustomizedTabs } from './Components/CustomTabs';
-import IntegrationNotistack from './Components/Notifications';
 
 const AppContainer = styled(Box)<{ thememode: string }>`
   margin: 0;
@@ -37,14 +36,14 @@ function App() {
   return (
     <AppContainer thememode={themeMode.toString()}>
       <ThemeProvider theme={themeMode.toString() === 'light' ? lightTheme : darkTheme}>
-        {/* <SnackbarProvider maxSnack={3}> */}
-        <IntegrationNotistack />
-        <div className="background-image" />
-        <Router>
-          <CustomizedTabs />
-          <Stack>
-            <div style={{ margin: 'auto', padding: '20px' }}>
-              {
+        <SnackbarProvider maxSnack={3}>
+          {/* <IntegrationNotistack /> */}
+          <div className="background-image" />
+          <Router>
+            <CustomizedTabs />
+            <Stack>
+              <div style={{ margin: 'auto', padding: '20px' }}>
+                {
                 // eslint-disable-next-line no-constant-condition
                 isLoading ? (
                   <Box sx={{ display: 'flex' }}>
@@ -52,10 +51,10 @@ function App() {
                   </Box>
                 ) : <AppRouter />
               }
-            </div>
-          </Stack>
-        </Router>
-        {/* </SnackbarProvider> */}
+              </div>
+            </Stack>
+          </Router>
+        </SnackbarProvider>
       </ThemeProvider>
     </AppContainer>
   );

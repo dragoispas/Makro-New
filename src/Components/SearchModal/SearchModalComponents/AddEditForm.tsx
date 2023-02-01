@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   TextField, MenuItem, Button, Select, SelectChangeEvent, FormControl, InputLabel, Typography,
 } from '@mui/material';
+import { useSnackbar } from 'notistack';
 import { createFoodEntry } from '../../../Api/food-entries/api';
 import { createProduct } from '../../../Api/products/api';
 import { RootState } from '../../../app/store';
 import { setAmount, setContent, setUnit } from '../../../modules/search/searchModalSlice';
 import { NutritionDataTable } from './AddEntryFormComponents/NutritionDataTable';
-import { setNotification } from '../../../modules/general/generalSlice';
 import { NumberFormatCustom } from '../../Helpers/Formatter';
 
 const Content = styled(Box)`
@@ -62,6 +62,8 @@ export function AddEditForm() {
   const [productQuantity, setProductQuantity] = useState<string>('');
   const [foodEntryQuantity, setFoodEntryQuantity] = useState<string>('');
   const [foodEntryServingSize, setFoodEntryServingSize] = useState<string>('g');
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const getPercentage = (x: number, y: number) => (x * 100) / y;
 
@@ -121,7 +123,7 @@ export function AddEditForm() {
       });
     } catch (error) {
       console.log(error);
-      dispatch(setNotification({ message: 'Dumnezeu nu e cu tine', variant: 'error' }));
+      enqueueSnackbar('Dumnezeu nu e cu tine', { variant: 'error' });
     }
   };
 
