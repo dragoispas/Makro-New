@@ -1,21 +1,19 @@
 import * as React from 'react';
+import { useCallback } from 'react';
 import { styled } from '@mui/material/styles';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
-import {
-  Button, PaletteMode, Paper, Stack, Switch,
-} from '@mui/material';
+import { Button, Paper, Stack } from '@mui/material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { AppDispatch, RootState } from '../app/store';
 import { setThemeMode } from '../modules/general/generalSlice';
 import { logout } from '../modules/auth/authSlice';
 
-const ThemeSwitch = styled(Paper)<{themeMode:string}>`
+const ThemeSwitch = styled(Paper, { shouldForwardProp: (prop) => prop !== 'themeMode' })<{ themeMode:string }>`
   height: 40px;
   width: 40px;
   border-radius: 50px;
@@ -44,7 +42,6 @@ export const StyledTabs = styled((props: StyledTabsProps) => (
     backgroundColor: 'transparent',
   },
   '& .MuiTabs-indicatorSpan': {
-    // maxWidth: 40,
     width: '100%',
     backgroundColor: '#ee5b46',
   },
@@ -118,9 +115,6 @@ export function CustomizedTabs() {
             <LightModeIcon sx={{ position: 'absolute', transition: '0.1s', opacity: themeMode === 'light' ? 0 : 1 }} />
           </ThemeSwitch>
         </Stack>
-
-        {/* <Avatar sx={{ bgcolor: deepPurple[500] }}>DI</Avatar> */}
-        {/* <Box sx={{ p: 3 }} /> */}
       </Stack>
     </Box>
   );

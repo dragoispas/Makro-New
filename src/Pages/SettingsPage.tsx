@@ -4,7 +4,7 @@ import {
 import React, { useState } from 'react';
 
 export function SettingsPage() {
-  const [email, setEmail] = useState<string>('');
+  const [email] = useState<string>('');
   return (
     <Box sx={{
       marginTop: '30px', display: 'flex', justifyContent: 'center', gap: '40px',

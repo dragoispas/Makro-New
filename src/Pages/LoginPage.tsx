@@ -10,13 +10,13 @@ import {
   InputLabel,
   Paper,
   Stack,
-  styled,
   Typography,
 } from '@mui/material';
 import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import styled from '@emotion/styled';
 import { setUser } from '../modules/auth/authSlice';
 
 const AuthPaper = styled(Paper)<{ side: string }>`
@@ -28,24 +28,21 @@ const AuthPaper = styled(Paper)<{ side: string }>`
   transition: color 0.2s ease, background-color 0.2s ease, transform 0.85s;
   position: relative;
 
-  // perspective: 1000px;
-  // transform-style: preserve-3d;
-
   ${(props) => (props.side === 'signUp' ? 'transform: rotateY(180deg);' : 'transform: rotateY(0eg);')}
 `;
 
-const PaperSide = styled(Stack)<{ isactive: boolean; opacity: number; isFlipped?: boolean }>`
+const PaperSide = styled(Stack, {
+  shouldForwardProp: (prop) => !['isActive', 'opacity', 'isFlipped'].includes(prop),
+})<{ isActive: boolean; opacity: number; isFlipped?: boolean }>`
   width: 300px;
   gap: 20px;
   padding-top: 70px;
   height: 700px;
 
-  // transform-style: preserve-3d;
-
   opacity: ${(props) => props.opacity};
   position: absolute;
   ${(props) => (props.isFlipped ? 'transform: rotateY(-180deg);' : '')}
-  ${(props) => (props.isactive ? '' : 'pointer-events: none;')}
+  ${(props) => (props.isActive ? '' : 'pointer-events: none;')}
 `;
 
 export function LoginPage() {
@@ -97,7 +94,6 @@ export function LoginPage() {
   };
 
   const showAlert = () => {
-    // setIsAlertVisible(true);
     if (isAlertVisible) {
       return (
         <Alert
@@ -119,7 +115,7 @@ export function LoginPage() {
 
   return (
     <AuthPaper side={side}>
-      <PaperSide isactive={Boolean(side === 'logIn')} opacity={logInOpacity}>
+      <PaperSide isActive={side === 'logIn'} opacity={logInOpacity}>
         <Typography sx={{ fontWeight: 'bold', fontSize: '20px', textAlign: 'center' }}>
           Welcome to Makro!
         </Typography>
@@ -199,12 +195,14 @@ export function LoginPage() {
         >
           Log in
         </Button>
-        <Typography
-          sx={{
-            textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '5px',
-          }}
-        >
-          {'Don\'t have an account? '}
+        <Stack direction="row" spacing={1} justifyContent="center">
+          <Typography
+            sx={{
+              textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '5px',
+            }}
+          >
+            {'Don\'t have an account?'}
+          </Typography>
           <Typography
             sx={{ cursor: 'pointer' }}
             color="primary"
@@ -223,19 +221,20 @@ export function LoginPage() {
           >
             Sign up for free!
           </Typography>
-        </Typography>
+        </Stack>
       </PaperSide>
-      <PaperSide isactive={Boolean(side === 'signUp')} opacity={signUpOpacity} isFlipped>
+      <PaperSide isActive={side === 'signUp'} opacity={signUpOpacity} isFlipped>
         <Typography sx={{ fontWeight: 'bold', fontSize: '20px', textAlign: 'center' }}>
           Create an account!
         </Typography>
-        <Typography
-          sx={{
-            textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '5px',
-          }}
-        >
-          Already have one?
-          {' '}
+        <Stack direction="row" spacing={1} justifyContent="center">
+          <Typography
+            sx={{
+              textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '5px',
+            }}
+          >
+            Already have one?
+          </Typography>
           <Typography
             sx={{ cursor: 'pointer' }}
             color="primary"
@@ -254,7 +253,7 @@ export function LoginPage() {
           >
             Log in!
           </Typography>
-        </Typography>
+        </Stack>
 
         <FormControl sx={{ height: '70px' }} error={nameError !== ''} variant="standard">
           <InputLabel htmlFor="component-error">Name</InputLabel>

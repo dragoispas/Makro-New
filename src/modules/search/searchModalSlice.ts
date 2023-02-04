@@ -54,33 +54,11 @@ export const generalSlice = createSlice({
     setProduct: (state, action: PayloadAction<Product | null>) => {
       state.product = action.payload;
     },
-    setActive: (state, action: PayloadAction<boolean>) => {
-      state.active = action.payload;
-    },
     setInput: (state, action: PayloadAction<string | undefined>) => {
       state.input = action.payload;
     },
     setSearchTab: (state, action: PayloadAction<number>) => {
       state.searchTab = action.payload;
-    },
-    resetSearchModal: (state) => {
-      state.content = 'searchResults';
-      state.product = null;
-      state.input = '';
-      state.searchTab = 0;
-
-      state.amount = undefined;
-      state.unit = 'g';
-
-      state.calories = undefined;
-      state.fat = undefined;
-      state.satFat = undefined;
-      state.carbs = undefined;
-      state.fiber = undefined;
-      state.sugar = undefined;
-      state.protein = undefined;
-      state.sodium = undefined;
-      state.potassium = undefined;
     },
     openSearchModal: (state) => {
       if (!state.active) {
@@ -144,11 +122,7 @@ export const generalSlice = createSlice({
 });
 
 export const {
-  // eslint-disable-next-line max-len
-  setContent, setProduct, setActive, setInput, setSearchTab, resetSearchModal, openSearchModal, closeSearchModal, setAmount, setUnit, setCalories, setFat, setSatFat, setCarbs, setFiber, setSugar, setProtein, setSodium, setPotassium,
+  setContent, setProduct, setInput, setSearchTab, openSearchModal, closeSearchModal, setAmount, setUnit, setCalories, setFat, setSatFat, setCarbs, setFiber, setSugar, setProtein, setSodium, setPotassium,
 } = generalSlice.actions;
 
 export default generalSlice.reducer;
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.');
-}

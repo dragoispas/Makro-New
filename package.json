@@ -22,6 +22,7 @@
     "@types/node": "^16.11.48",
     "axios": "^0.27.2",
     "dayjs": "^1.11.5",
+    "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "notistack": "^2.0.8",
     "react": "^18.2.0",
@@ -68,6 +69,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.191",
     "@types/react": "^18.0.17",
     "@types/react-calendar": "^3.5.2",
     "@types/react-dom": "^18.0.6",
@@ -75,7 +77,6 @@
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
     "eslint": "^8.14.0",
-    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",

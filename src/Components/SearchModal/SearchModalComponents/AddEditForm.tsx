@@ -1,15 +1,14 @@
-/* eslint-disable max-len */
-import { Stack, Box, styled } from '@mui/system';
+import { Box, styled } from '@mui/system';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  TextField, MenuItem, Button, Select, SelectChangeEvent, FormControl, InputLabel, Typography,
+  Button, FormControl, MenuItem, Select, TextField, Typography,
 } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { createFoodEntry } from '../../../Api/food-entries/api';
 import { createProduct } from '../../../Api/products/api';
 import { RootState } from '../../../app/store';
-import { setAmount, setContent, setUnit } from '../../../modules/search/searchModalSlice';
+import { setAmount, setUnit } from '../../../modules/search/searchModalSlice';
 import { NutritionDataTable } from './AddEntryFormComponents/NutritionDataTable';
 import { NumberFormatCustom } from '../../Helpers/Formatter';
 
@@ -18,30 +17,9 @@ const Content = styled(Box)`
   height: 520px;
 `;
 
-const NutritionDataStack = styled(Stack)<{ isactive: boolean, themeMode: string }>`
-transition: 0.15s;
-  &:hover {
-    border: 1;
-    border-color: rgba(0,0,0,0);
-    box-shadow: 0px 1px 4px rgba(0,0,0,0.5);
-    ${(props) => (props.themeMode === 'dark' ? 'box-shadow: 0px 1px 5px rgba(0,0,0,0.7); background:rgba(250,250,250,0.04);' : '')}
-    ${(props) => (props.themeMode === 'light' ? 'box-shadow: 0px 1px 4px rgba(0,0,0,0.5);' : '')}
-  }
-
-  ${(props) => (props.isactive && props.themeMode === 'light' ? `border: 1;
-  border-color: rgba(0,0,0,0);
-  box-shadow: 0px 1px 4px rgba(0,0,0,0.5);` : '')}
-
-  ${(props) => (props.isactive && props.themeMode === 'dark' ? `border: 1;
-  border-color: rgba(0,0,0,0);
-  background:rgba(250,250,250,0.04);
-  box-shadow: 0px 1px 5px rgba(0,0,0,0.7);` : '')}
-`;
-
 export function AddEditForm() {
   const dispatch = useDispatch();
   const dayEntry = useSelector((state: RootState) => state.diary.dayEntry);
-  const { themeMode } = useSelector((state: RootState) => state.general);
   const input = useSelector((state: RootState) => state.searchModal.input);
   const product = useSelector((state: RootState) => state.searchModal.product);
 
@@ -60,8 +38,6 @@ export function AddEditForm() {
   const potassium = useSelector((state: RootState) => state.searchModal.potassium);
 
   const { enqueueSnackbar } = useSnackbar();
-
-  const getPercentage = (x: number, y: number) => (x * 100) / y;
 
   useEffect(() => {
     setAmountInputError(' ');
@@ -134,7 +110,7 @@ export function AddEditForm() {
               error={amountInputError !== ' '}
               helperText={amountInputError}
               InputProps={{
-                inputComponent: NumberFormatCustom as any,
+                inputComponent: NumberFormatCustom as never,
               }}
               id="standard-basic"
               label="Amount"
@@ -144,7 +120,6 @@ export function AddEditForm() {
               value={amount}
               onChange={(e) => dispatch(setAmount(e.target.value))}
             />
-            {/* <InputLabel variant="standard" id="demo-simple-select-filled-label" /> */}
             <Select
               sx={{ width: '200px' }}
               size="medium"

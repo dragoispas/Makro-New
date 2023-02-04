@@ -1,7 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { PaletteMode } from '@mui/material';
-import { VariantType } from 'notistack';
 
 export interface GeneralState {
   isLoading: boolean;

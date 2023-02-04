@@ -1,20 +1,18 @@
 import styled from '@emotion/styled';
 import {
-  Tabs, Tab, List, ListSubheader, Button,
+  Button, List, ListSubheader, Tab, Tabs,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProductMap, emptyProduct } from '../../../Api/products/types';
+import { emptyProduct, ProductMap } from '../../../Api/products/types';
 import { RootState } from '../../../app/store';
 import {
-  setInput, setProduct, setContent, setSearchTab, setAmount,
+  setAmount, setContent, setInput, setProduct, setSearchTab,
 } from '../../../modules/search/searchModalSlice';
 import { SearchListItem } from '../../SearchListItem';
 import { TabPanel } from '../../TabPanel';
 
-// ${(props) => (props.isactive ? 'animation: fade-in 1s forwards;' :
-// 'pointer-events: none; opacity: 0;')}
 const Content = styled(Box)`
   width: 600px;
   height: 520px;
@@ -33,10 +31,9 @@ const listSx = {
 export function SearchResults() {
   const dispatch = useDispatch();
 
-  // const [tab, setTab] = React.useState(0);
   const searchTab = useSelector((state: RootState) => state.searchModal.searchTab);
 
-  const [products, setProducts] = useState<ProductMap>({
+  const [products] = useState<ProductMap>({
     test1: emptyProduct,
     test2: emptyProduct,
     test3: emptyProduct,

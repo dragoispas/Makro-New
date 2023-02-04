@@ -1,13 +1,21 @@
 import styled from '@emotion/styled';
 import {
-  Typography, TableContainer, Table, TableHead, TableRow, TableCell, InputBase, TableBody,
+  InputBase, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../app/store';
 import {
-  setCalories, setFat, setSatFat, setCarbs, setFiber, setSugar, setProtein, setSodium, setPotassium,
+  setCalories,
+  setCarbs,
+  setFat,
+  setFiber,
+  setPotassium,
+  setProtein,
+  setSatFat,
+  setSodium,
+  setSugar,
 } from '../../../../modules/search/searchModalSlice';
 
 const OuterBorder = styled(Box)`

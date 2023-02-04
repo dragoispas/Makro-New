@@ -1,9 +1,7 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable import/prefer-default-export */
 import { Box, Typography } from '@mui/material';
+import { PropsWithChildren } from 'react';
 
-interface TabPanelProps {
-  children?: React.ReactNode;
+interface TabPanelProps extends PropsWithChildren {
   index: number;
   value: number;
 }

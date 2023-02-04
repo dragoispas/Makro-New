@@ -19,7 +19,6 @@ const MacroGraph = styled(Box)<{ amount: number; macro: string }>`
 `;
 
 const ChartContainer = styled(Stack)`
-  // display: flex;
   align-items: center;
   justify-content: center;
   margin: 20px auto;
@@ -28,7 +27,6 @@ const ChartContainer = styled(Stack)`
   .progressbar_container {
     padding: 30px;
     border-radius: 5px;
-    // opacity: 80px;
     width: 175px;
   }
 
@@ -67,7 +65,6 @@ const ChartContainer = styled(Stack)`
   .makrocharts_container {
     padding: 30px;
     border-radius: 5px;
-    // opacity: 80%;
 
     display: flex;
     flex-direction: column;
@@ -83,8 +80,6 @@ const ChartContainer = styled(Stack)`
     justify-content: center;
   }
 `;
-
-// red color: EF4444
 
 interface Props {
   targetCalories: number;

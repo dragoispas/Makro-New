@@ -6,6 +6,7 @@ interface CustomProps {
     name: string;
   }
 
+// eslint-disable-next-line react/display-name
 export const NumberFormatCustom = React.forwardRef<NumberFormat<InputAttributes>, CustomProps>(
   (props, ref) => {
     const { onChange, ...other } = props;
@@ -22,7 +23,6 @@ export const NumberFormatCustom = React.forwardRef<NumberFormat<InputAttributes>
             },
           });
         }}
-        // thousandSeparator
         isNumericString
       />
     );

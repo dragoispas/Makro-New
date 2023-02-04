@@ -1,15 +1,11 @@
 import { Box, styled } from '@mui/system';
-import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Input } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { RootState } from '../../../app/store';
-import {
-  setProduct, setActive, setInput, resetSearchModal, openSearchModal, setContent,
-} from '../../../modules/search/searchModalSlice';
+import { openSearchModal, setContent, setInput } from '../../../modules/search/searchModalSlice';
 
 const CustomInput = styled(Input)`
   width: 550px;

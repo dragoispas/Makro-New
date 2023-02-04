@@ -6,7 +6,6 @@
   },
   "extends": [
     "plugin:react/recommended",
-    "airbnb",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
@@ -28,7 +27,11 @@
     "jsx-a11y/anchor-is-valid": "off",
     "import/extensions": "off",
     "import/prefer-default-export": "off",
-    "no-param-reassign": "off",
-    "linebreak-style": "off"
+    "no-console": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

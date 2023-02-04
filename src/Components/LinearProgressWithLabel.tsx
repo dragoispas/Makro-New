@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import * as React from 'react';
 import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';

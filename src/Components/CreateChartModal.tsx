@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -61,6 +60,7 @@ export default function CreateChartModal() {
 
   const [chartItems, setChartItems] = React.useState<ChartItem[]>(chartItemsList);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const updateChartItems = (id:string) => {
     const newState = chartItems.map((item) => {
       // 👇️ if id equals 2, update country property

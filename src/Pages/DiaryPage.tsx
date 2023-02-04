@@ -1,5 +1,5 @@
 import {
-  Box, Container, Paper, Stack, Typography,
+  Box, Paper, Stack, Typography,
 } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

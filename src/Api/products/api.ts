@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Product } from './types';
+import { omit } from "lodash";
 
 export async function findAll(searchTerm: string): Promise<Product[]> {
   const response = await axios.get(`/api/product/search/${searchTerm}`);
@@ -10,10 +11,8 @@ export async function findAll(searchTerm: string): Promise<Product[]> {
 
   return response.data;
 }
-
-export async function createProduct(rawData: Partial<Product>): Promise<Product> {
-  const { id, ...data } = rawData;
-  const response = await axios.post('/api/product', data);
+export async function createProduct(data: Partial<Product>): Promise<Product> {
+  const response = await axios.post('/api/product', omit(data, ['id']));
 
   if (!response || !response.data) {
     throw new Error('Unexpected response');

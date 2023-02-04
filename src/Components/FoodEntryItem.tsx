@@ -1,5 +1,3 @@
-/* eslint-disable react/function-component-definition */
-/* eslint-disable import/prefer-default-export */
 import {
   Avatar, IconButton, ListItem, ListItemAvatar, ListItemText,
 } from '@mui/material';
@@ -11,10 +9,10 @@ import { FoodEntry } from '../Api/food-entries/types';
 
 interface FoodEntryItemProps {
   foodEntry: FoodEntry;
-  onDelete: (id:number|string) => any;
+  onDelete: (id: number | string) => void;
 }
 
-export const FoodEntryItem = ({ foodEntry, onDelete }: FoodEntryItemProps) => {
+export function FoodEntryItem({ foodEntry, onDelete }: FoodEntryItemProps) {
   const [makrosOpacity, setMakrosOpacity] = useState<number>(0);
 
   const getProtein = () => {
@@ -110,4 +108,4 @@ export const FoodEntryItem = ({ foodEntry, onDelete }: FoodEntryItemProps) => {
       </Stack>
     </ListItem>
   );
-};
+}
