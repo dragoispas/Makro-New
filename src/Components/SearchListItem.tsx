@@ -1,7 +1,6 @@
 import {
-  ListItem, ListItemButton, ListItemIcon, ListItemText, Typography,
+  ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, styled
 } from '@mui/material';
-import styled from '@emotion/styled';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 
 export const CustomFoodIcon = styled(LocalDiningIcon)`

@@ -1,5 +1,4 @@
-import styled from '@emotion/styled';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, styled } from "@mui/material";
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
 const macroColors = {

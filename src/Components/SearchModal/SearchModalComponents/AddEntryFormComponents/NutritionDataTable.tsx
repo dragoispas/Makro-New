@@ -1,6 +1,5 @@
-import styled from '@emotion/styled';
 import {
-  InputBase, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
+  InputBase, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, styled
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { useEffect } from 'react';

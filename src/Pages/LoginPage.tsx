@@ -11,12 +11,12 @@ import {
   Paper,
   Stack,
   Typography,
+  styled
 } from '@mui/material';
 import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import styled from '@emotion/styled';
 import { setUser } from '../modules/auth/authSlice';
 
 const AuthPaper = styled(Paper)<{ side: string }>`
@@ -32,7 +32,7 @@ const AuthPaper = styled(Paper)<{ side: string }>`
 `;
 
 const PaperSide = styled(Stack, {
-  shouldForwardProp: (prop) => !['isActive', 'opacity', 'isFlipped'].includes(prop),
+  shouldForwardProp: (prop: string) => !['isActive', 'opacity', 'isFlipped'].includes(prop),
 })<{ isActive: boolean; opacity: number; isFlipped?: boolean }>`
   width: 300px;
   gap: 20px;

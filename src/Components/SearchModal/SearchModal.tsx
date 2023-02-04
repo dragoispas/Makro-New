@@ -1,6 +1,5 @@
-import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
-import { Box, ClickAwayListener, Paper } from '@mui/material';
+import { Box, ClickAwayListener, Paper, styled } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { SearchBar } from './SearchModalComponents/SearchBar';
