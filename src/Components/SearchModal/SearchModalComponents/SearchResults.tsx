@@ -1,7 +1,6 @@
 import {
-  Button, List, ListSubheader, Tab, Tabs, styled
+  Button, Box, List, ListSubheader, Tab, Tabs, styled
 } from '@mui/material';
-import { Box } from '@mui/system';
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { emptyProduct, ProductMap } from '../../../Api/products/types';

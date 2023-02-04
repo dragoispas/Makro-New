@@ -1,7 +1,6 @@
 import {
-  Avatar, IconButton, ListItem, ListItemAvatar, ListItemText,
+  Avatar, IconButton, ListItem, ListItemAvatar, ListItemText, Stack
 } from '@mui/material';
-import { Stack } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { useState } from 'react';

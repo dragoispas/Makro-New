@@ -1,8 +1,7 @@
-import { Box, styled } from '@mui/system';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Button, FormControl, MenuItem, Select, TextField, Typography,
+  Button, Box, FormControl, MenuItem, Select, TextField, Typography, styled
 } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { createFoodEntry } from '../../../Api/food-entries/api';

@@ -1,7 +1,6 @@
-import { Box, styled } from '@mui/system';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Input } from '@mui/material';
+import { Box, Input, styled } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { RootState } from '../../../app/store';

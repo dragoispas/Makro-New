@@ -1,7 +1,6 @@
 import {
-  InputBase, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, styled
+  InputBase, Table, TableBody, Box, TableCell, TableContainer, TableHead, TableRow, Typography, styled
 } from '@mui/material';
-import { Box } from '@mui/system';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../app/store';
