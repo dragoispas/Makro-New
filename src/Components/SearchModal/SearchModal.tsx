@@ -41,7 +41,7 @@ import { createProduct } from '../../Api/products/api';
 import { SearchBar } from './SearchModalComponents/SearchBar';
 import {
   closeSearchModal,
-  setActive, setCalories, setCarbs, setContent, setFat, setFiber, setInput, setPotassium, setProduct, setProtein, setSatFat, setSodium, setSugar,
+  setProduct, setProductCopy,
 } from '../../modules/search/searchModalSlice';
 import { AddEditForm } from './SearchModalComponents/AddEditForm';
 import { SearchResults } from './SearchModalComponents/SearchResults';
@@ -90,15 +90,17 @@ export function SearchModal() {
 
   useEffect(() => {
     if (product) {
-      dispatch(setCalories(product.calories.toString()));
-      dispatch(setFat(product.fat.toString()));
-      dispatch(setSatFat(product.satFat.toString()));
-      dispatch(setCarbs(product.carbs.toString()));
-      dispatch(setFiber(product.fiber.toString()));
-      dispatch(setSugar(product.sugar.toString()));
-      dispatch(setProtein(product.protein.toString()));
-      dispatch(setSodium(product.sodium.toString()));
-      dispatch(setPotassium(product.potassium.toString()));
+      dispatch(setProductCopy({
+        calories: product.calories,
+        fat: product.fat,
+        satFat: product.satFat,
+        carbs: product.carbs,
+        fiber: product.fiber,
+        sugar: product.sugar,
+        protein: product.protein,
+        sodium: product.sodium,
+        potassium: product.potassium,
+      }));
     }
   }, [product]);
 

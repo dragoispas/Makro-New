@@ -12,6 +12,8 @@ import { RootState } from '../../../app/store';
 import { setAmount, setContent, setUnit } from '../../../modules/search/searchModalSlice';
 import { NutritionDataTable } from './AddEntryFormComponents/NutritionDataTable';
 import { NumberFormatCustom } from '../../Helpers/Formatter';
+import { findOne } from '../../../Api/day-entries/api';
+import { setDayEntry } from '../../../modules/diary/diarySlice';
 
 const Content = styled(Box)`
   width: 600px;
@@ -49,15 +51,7 @@ export function AddEditForm() {
   const [amountInputError, setAmountInputError] = useState<string>(' ');
   const unit = useSelector((state: RootState) => state.searchModal.unit);
 
-  const calories = useSelector((state: RootState) => state.searchModal.calories);
-  const fat = useSelector((state: RootState) => state.searchModal.fat);
-  const satFat = useSelector((state: RootState) => state.searchModal.satFat);
-  const carbs = useSelector((state: RootState) => state.searchModal.carbs);
-  const fiber = useSelector((state: RootState) => state.searchModal.fiber);
-  const sugar = useSelector((state: RootState) => state.searchModal.sugar);
-  const protein = useSelector((state: RootState) => state.searchModal.protein);
-  const sodium = useSelector((state: RootState) => state.searchModal.sodium);
-  const potassium = useSelector((state: RootState) => state.searchModal.potassium);
+  const productCopy = useSelector((state: RootState) => state.searchModal.productCopy);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -82,16 +76,16 @@ export function AddEditForm() {
     if (!product) {
       newProduct = await createProduct({
         name: input,
-        calories: parseFloat(calories ?? '0'),
-        carbs: parseFloat(carbs ?? '0'),
-        fat: parseFloat(fat ?? '0'),
-        protein: parseFloat(protein ?? '0'),
+        calories: productCopy.calories ?? 0,
+        fat: productCopy.fat ?? 0,
+        carbs: productCopy.carbs ?? 0,
+        protein: productCopy.protein ?? 0,
 
-        fiber: parseFloat(fiber ?? '0'),
-        satFat: parseFloat(satFat ?? '0'),
-        sugar: parseFloat(sugar ?? '0'),
-        sodium: parseFloat(sodium ?? '0'),
-        potassium: parseFloat(potassium ?? '0'),
+        fiber: productCopy.fiber ?? 0,
+        satFat: productCopy.satFat ?? 0,
+        sugar: productCopy.sugar ?? 0,
+        sodium: productCopy.sodium ?? 0,
+        potassium: productCopy.potassium ?? 0,
       });
     }
 
@@ -101,18 +95,22 @@ export function AddEditForm() {
         name: input,
         productId: product?.id ?? newProduct?.id,
         servingSize: unit,
-        quantity: parseFloat(amount),
+        quantity: amount,
 
-        calories: parseFloat(calories || '0'),
-        fat: parseFloat(fat || '0'),
-        carbs: parseFloat(carbs || '0'),
-        protein: parseFloat(protein || '0'),
-        fiber: parseFloat(fiber || '0'),
-        satFat: parseFloat(satFat || '0'),
-        sugar: parseFloat(sugar || '0'),
-        sodium: parseFloat(sodium || '0'),
-        potassium: parseFloat(potassium || '0'),
+        calories: productCopy.calories ?? 0,
+        fat: productCopy.fat ?? 0,
+        carbs: productCopy.carbs ?? 0,
+        protein: productCopy.protein ?? 0,
+
+        fiber: productCopy.fiber ?? 0,
+        satFat: productCopy.satFat ?? 0,
+        sugar: productCopy.sugar ?? 0,
+        sodium: productCopy.sodium ?? 0,
+        potassium: productCopy.potassium ?? 0,
       });
+
+      const newDayEntry = await findOne(Number(dayEntry?.id));
+      dispatch(setDayEntry(newDayEntry));
       enqueueSnackbar('Dumnezeu este cu tine', { variant: 'success' });
     } catch (error) {
       console.log(error);
@@ -142,7 +140,7 @@ export function AddEditForm() {
               size="medium"
               sx={{ width: '200px' }}
               value={amount}
-              onChange={(e) => dispatch(setAmount(e.target.value))}
+              onChange={(e) => dispatch(setAmount(parseFloat(e.target.value)))}
             />
             {/* <InputLabel variant="standard" id="demo-simple-select-filled-label" /> */}
             <Select

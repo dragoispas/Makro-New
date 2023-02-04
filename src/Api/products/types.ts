@@ -23,12 +23,12 @@ export const emptyProduct: Product = {
   name: 'Banana',
   servingSizes: ['g'],
 
-  calories: 20,
-  carbs: 5,
-  fat: 0,
-  protein: 0.01,
+  calories: 0.89,
+  carbs: 0.23,
+  fat: 0.003,
+  protein: 0.011,
 
-  fiber: 0,
+  fiber: 0.026,
   satFat: 0,
   sugar: 0,
   sodium: 0,

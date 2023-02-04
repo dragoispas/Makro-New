@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../modules/auth/authSlice';
 import generalReducer from '../modules/general/generalSlice';
+// eslint-disable-next-line import/no-cycle
 import diaryReducer from '../modules/diary/diarySlice';
 import searchModalReducer from '../modules/search/searchModalSlice';
 

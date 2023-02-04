@@ -1,6 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import { getDayEntryByDate } from '../../Api/day-entries/api';
+import { findOne, getDayEntryByDate } from '../../Api/day-entries/api';
 import { DayEntry } from '../../Api/day-entries/types';
 // eslint-disable-next-line import/no-cycle
 import { AppDispatch } from '../../app/store';
@@ -23,23 +23,15 @@ export const diarySlice = createSlice({
   },
 });
 
-// export const retrieveDayByDate = (date: Date) => async (dispatch: AppDispatch) => {
-//   try {
-//     dispatch(setErrorMessage(null));
-
-//     const response = await getDayEntryByDate(date);
-
-//     if (response === null) {
-//       dispatch(setErrorMessage('An error has occurred while contacting the API.'));
-//     }
-
-//     // eslint-disable-next-line no-use-before-define
-//     dispatch(setDayEntry(response));
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
 export const { setDayEntry } = diarySlice.actions;
+
+export const retrieveDayByDate = (date: Date) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await getDayEntryByDate(date);
+    dispatch(setDayEntry(response));
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export default diarySlice.reducer;

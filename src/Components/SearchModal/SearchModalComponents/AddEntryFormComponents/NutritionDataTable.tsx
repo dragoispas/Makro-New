@@ -1,29 +1,40 @@
+/* eslint-disable max-len */
 import styled from '@emotion/styled';
 import {
-  Typography, TableContainer, Table, TableHead, TableRow, TableCell, InputBase, TableBody,
+  Typography,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  InputBase,
+  TableBody,
+  TextField,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../app/store';
 import {
-  setCalories, setFat, setSatFat, setCarbs, setFiber, setSugar, setProtein, setSodium, setPotassium,
+  setProductCopy,
 } from '../../../../modules/search/searchModalSlice';
+import { NumberFormatCustom } from '../../../Helpers/Formatter';
+import { getRounded } from '../../../Helpers/parsers';
 
-const OuterBorder = styled(Box)`
+const OuterBorder = styled(Box)<{themeMode:string}>`
     height: 412px;
     width: 210px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid rgba(0, 0, 0, 0.6);
+    border: ${(props) => (props.themeMode === 'light' ? '1px solid rgba(0, 0, 0, 0.5)' : '1px solid rgba(255, 255, 255, 0.7)')};
     &:hover {
-        border-color: rgba(0, 0, 0, 0.9);
+        border-color: ${(props) => (props.themeMode === 'light' ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)')};
     }
     border-radius: 5px;
 `;
 
-const TableWrapper = styled(Box)`
+const TableWrapper = styled(Box)<{themeMode:string}>`
 display: flex;
 flex-direction: column;
 justify-content: space-around;
@@ -32,68 +43,92 @@ align-items: center;
     width: 210px;
     border: 1px solid;
     transition: 0.15s;
-    border: 1px solid white;
+    border: ${(props) => (props.themeMode === 'light' ? '1px solid white' : '1px solid black')};
     &:hover {
-        border-color: rgba(0, 0, 0, 0.9);
+        border-color: ${(props) => (props.themeMode === 'light' ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)')};
     }
     border-radius: 5px;
     
 `;
 
 export function NutritionDataTable() {
+  const themeMode = useSelector(({ general }: RootState) => general.themeMode);
+
   const dispatch = useDispatch();
   const amount = useSelector((state: RootState) => state.searchModal.amount);
+  // const [previousAmount, setPreviousAmount] = useState<number>(amount);
   const unit = useSelector((state: RootState) => state.searchModal.unit);
   const product = useSelector((state: RootState) => state.searchModal.product);
 
-  const calories = useSelector((state: RootState) => state.searchModal.calories);
-  const fat = useSelector((state: RootState) => state.searchModal.fat);
-  const satFat = useSelector((state: RootState) => state.searchModal.satFat);
-  const carbs = useSelector((state: RootState) => state.searchModal.carbs);
-  const fiber = useSelector((state: RootState) => state.searchModal.fiber);
-  const sugar = useSelector((state: RootState) => state.searchModal.sugar);
-  const protein = useSelector((state: RootState) => state.searchModal.protein);
-  const sodium = useSelector((state: RootState) => state.searchModal.sodium);
-  const potassium = useSelector((state: RootState) => state.searchModal.potassium);
+  const productCopy = useSelector((state: RootState) => state.searchModal.productCopy);
 
-  const getAmount = () => {
-    if (amount) {
-      if (amount === '') {
-        return '100';
-      }
-      return amount;
-    }
-    return '100';
-  };
+  // const getAmount = () => {
+  //   if (amount) {
+  //     return amount;
+  //   }
+  //   return 100;
+  // };
+
+  // useEffect(() => {
+  //   dispatch(setProductCopy({
+  //     calories: productCopy.calories,
+  //     fat: productCopy.fat,
+  //     satFat: productCopy.satFat,
+  //     carbs: productCopy.carbs,
+  //     fiber: productCopy.fiber,
+  //     sugar: productCopy.sugar,
+  //     protein: productCopy.protein,
+  //     sodium: productCopy.sodium,
+  //     potassium: productCopy.potassium,
+  //   }));
+  //   // Object.entries(productCopy).map(([key, value]) => {
+  //   //   console.log(key, value);
+  //   //   return productCopy[key];
+  //   // });
+  // }, [amount]);
 
   useEffect(() => {
     if (product) {
-      setCalories(product.calories.toString());
-      setFat(product.fat.toString());
-      setSatFat(product.satFat.toString());
-      setCarbs(product.carbs.toString());
-      setFiber(product.fiber.toString());
-      setSugar(product.sugar.toString());
-      setProtein(product.protein.toString());
-      setSodium(product.sodium.toString());
-      setPotassium(product.potassium.toString());
+      dispatch(setProductCopy({
+        calories: product.calories,
+        fat: product.fat,
+        satFat: product.satFat,
+        carbs: product.carbs,
+        fiber: product.fiber,
+        sugar: product.sugar,
+        protein: product.protein,
+        sodium: product.sodium,
+        potassium: product.potassium,
+      }));
     }
   }, [product]);
 
   return (
-    <OuterBorder>
-      <TableWrapper>
+    <OuterBorder themeMode={themeMode.toString()}>
+      <TableWrapper themeMode={themeMode.toString()}>
         <Typography sx={{ margin: '5px', fontWeight: '500', fontSize: '0.875rem' }}>Nutrition Facts</Typography>
         <Box sx={{ display: 'flex', justifyContent: 'space-around', width: '180px' }}>
           <Typography sx={{ fontSize: '0.875rem', fontWeight: '500' }}>Serving size</Typography>
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: '500' }}>{`${getAmount()} ${unit}`}</Typography>
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: '500' }}>{`${amount} ${unit}`}</Typography>
         </Box>
         <TableContainer component={Box} sx={{ width: '200px' }}>
           <Table sx={{ minWidth: 200 }} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
                 <TableCell padding="none" sx={{ paddingLeft: '10px', width: '90px' }}>Calories</TableCell>
-                <TableCell align="right"><InputBase key="calories" value={calories} onChange={(e) => dispatch(setCalories(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem', fontWeight: '500' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    type="number"
+                    key="calories"
+                    value={getRounded(productCopy.calories)}
+                    onChange={(e) => dispatch(setProductCopy({ ...productCopy, calories: parseFloat(e.target.value) }))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: '0.875rem', fontWeight: '500' }}
+                    inputProps={{ style: { textAlign: 'right' } }}
+                    inputComponent={NumberFormatCustom as any}
+                  />
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -104,7 +139,18 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '10px', width: '90px' }} component="th" scope="row">
                   Total Fat(g)
                 </TableCell>
-                <TableCell align="right"><InputBase key="fat" value={fat === '0' ? '' : fat} onChange={(e) => dispatch(setFat(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="fat"
+                    value={getRounded(productCopy.fat)}
+                    onChange={(e) => dispatch(setProductCopy({ ...productCopy, fat: parseFloat(e.target.value) }))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: '0.875rem', color: product && product?.fat !== productCopy.fat / amount ? '#ee5b46' : '' }}
+                    inputProps={{ style: { textAlign: 'right' } }}
+                    inputComponent={NumberFormatCustom as any}
+                  />
+                </TableCell>
               </TableRow>
               <TableRow
                 key="Fat"
@@ -113,7 +159,19 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
                   Sat Fat(g)
                 </TableCell>
-                <TableCell align="right"><InputBase key="satFat" value={satFat === '0' ? '' : satFat} onChange={(e) => dispatch(setSatFat(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="satFat"
+                    value={getRounded(productCopy.satFat)}
+                    onChange={(e) => dispatch(setProductCopy({ ...productCopy, satFat: parseFloat(e.target.value) }))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: '0.875rem', color: product && product?.satFat !== productCopy.satFat / amount ? '#ee5b46' : '' }}
+                    inputProps={{ style: { textAlign: 'right' } }}
+                    inputComponent={NumberFormatCustom as any}
+                  />
+
+                </TableCell>
               </TableRow>
               <TableRow
                 key="Fat"
@@ -122,7 +180,19 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '10px', width: '90px' }} component="th" scope="row">
                   Carbs(g)
                 </TableCell>
-                <TableCell align="right"><InputBase key="carbs" value={carbs === '0' ? '' : carbs} onChange={(e) => dispatch(setCarbs(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="carbs"
+                    value={getRounded(productCopy.carbs)}
+                    onChange={(e) => dispatch(setProductCopy({ ...productCopy, carbs: parseFloat(e.target.value) }))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: '0.875rem', color: product && product?.carbs !== productCopy.carbs / amount ? '#ee5b46' : '' }}
+                    inputProps={{ style: { textAlign: 'right' } }}
+                    inputComponent={NumberFormatCustom as any}
+                  />
+
+                </TableCell>
               </TableRow>
               <TableRow
                 key="Fat"
@@ -131,7 +201,19 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
                   Fiber(g)
                 </TableCell>
-                <TableCell align="right"><InputBase key="fiber" value={fiber === '0' ? '' : fiber} onChange={(e) => dispatch(setFiber(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="fiber"
+                    value={getRounded(productCopy.fiber)}
+                    onChange={(e) => dispatch(setProductCopy({ ...productCopy, fiber: parseFloat(e.target.value) }))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: '0.875rem', color: product && product?.fiber !== productCopy.fiber / amount ? '#ee5b46' : '' }}
+                    inputProps={{ style: { textAlign: 'right' } }}
+                    inputComponent={NumberFormatCustom as any}
+                  />
+
+                </TableCell>
               </TableRow>
               <TableRow
                 key="Fat"
@@ -140,7 +222,19 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
                   Sugar(g)
                 </TableCell>
-                <TableCell align="right"><InputBase key="sugar" value={sugar === '0' ? '' : sugar} onChange={(e) => dispatch(setSugar(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="sugar"
+                    value={getRounded(productCopy.sugar)}
+                    onChange={(e) => dispatch(setProductCopy({ ...productCopy, sugar: parseFloat(e.target.value) }))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: '0.875rem', color: product && getRounded(product?.sugar) !== getRounded(productCopy.sugar / amount) ? '#ee5b46' : '' }}
+                    inputProps={{ style: { textAlign: 'right' } }}
+                    inputComponent={NumberFormatCustom as any}
+                  />
+
+                </TableCell>
               </TableRow>
               <TableRow
                 key="Fat"
@@ -149,7 +243,19 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '10px', width: '90px' }} component="th" scope="row">
                   Protein(g)
                 </TableCell>
-                <TableCell align="right"><InputBase key="protein" value={protein === '0' ? '' : protein} onChange={(e) => dispatch(setProtein(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="protein"
+                    value={getRounded(productCopy.protein)}
+                    onChange={(e) => dispatch(setProductCopy({ ...productCopy, protein: parseFloat(e.target.value) }))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: '0.875rem', color: product && product?.protein !== productCopy.protein / amount ? '#ee5b46' : '' }}
+                    inputProps={{ style: { textAlign: 'right' } }}
+                    inputComponent={NumberFormatCustom as any}
+                  />
+
+                </TableCell>
               </TableRow>
               <TableRow
                 key="Fat"
@@ -158,7 +264,19 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
                   Sodium(mg)
                 </TableCell>
-                <TableCell align="right"><InputBase key="sodium" value={sodium === '0' ? '' : sodium} onChange={(e) => dispatch(setSodium(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="sodium"
+                    value={getRounded(productCopy.sodium)}
+                    onChange={(e) => dispatch(setProductCopy({ ...productCopy, sodium: parseFloat(e.target.value) }))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: '0.875rem', color: product && product?.sodium !== productCopy.sodium / amount ? '#ee5b46' : '' }}
+                    inputProps={{ style: { textAlign: 'right' } }}
+                    inputComponent={NumberFormatCustom as any}
+                  />
+
+                </TableCell>
               </TableRow>
               <TableRow
                 key="Fat"
@@ -167,7 +285,19 @@ export function NutritionDataTable() {
                 <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
                   Potassium(mg)
                 </TableCell>
-                <TableCell align="right"><InputBase key="potassium" value={potassium === '0' ? '' : potassium} onChange={(e) => dispatch(setPotassium(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="potassium"
+                    value={getRounded(productCopy.potassium)}
+                    onChange={(e) => dispatch(setProductCopy({ ...productCopy, potassium: parseFloat(e.target.value) }))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: '0.875rem', color: product && product?.potassium !== productCopy.potassium / amount ? '#ee5b46' : '' }}
+                    inputProps={{ style: { textAlign: 'right' } }}
+                    inputComponent={NumberFormatCustom as any}
+                  />
+
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>

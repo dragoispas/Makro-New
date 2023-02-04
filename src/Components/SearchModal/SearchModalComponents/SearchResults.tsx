@@ -50,10 +50,9 @@ export function SearchResults() {
     <React.Fragment key={prod.id}>
       <Box
         onClick={() => {
-          dispatch(setInput(prod.name));
           dispatch(setProduct(prod));
           dispatch(setContent('addEditForm'));
-          dispatch(setAmount(''));
+          dispatch(setAmount(100));
         }}
       >
         <SearchListItem name={prod.name} calories={prod.calories} />
@@ -113,7 +112,7 @@ export function SearchResults() {
       <Button
         onClick={() => {
           dispatch(setContent('addEditForm'));
-          dispatch(setAmount(''));
+          dispatch(setAmount(100));
         }}
         sx={{ width: '100%', marginTop: '5px' }}
       >

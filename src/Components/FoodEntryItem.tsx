@@ -16,6 +16,7 @@ interface FoodEntryItemProps {
 
 export const FoodEntryItem = ({ foodEntry, onDelete }: FoodEntryItemProps) => {
   const [makrosOpacity, setMakrosOpacity] = useState<number>(0);
+  const [deleted, setDeleted] = useState<boolean>(false);
 
   const getProtein = () => {
     if (foodEntry.servingSize === 'g') {
@@ -58,10 +59,18 @@ export const FoodEntryItem = ({ foodEntry, onDelete }: FoodEntryItemProps) => {
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
+        transition: '0.25s',
+        // transform: deleted ? 'scale(0)' : '',
+        opacity: deleted ? 0.5 : 1,
       }}
       secondaryAction={(
         <IconButton edge="end" aria-label="delete">
-          <DeleteIcon onClick={() => onDelete(foodEntry.id)} />
+          <DeleteIcon onClick={() => {
+            onDelete(foodEntry.id);
+            setDeleted(true);
+            setTimeout(() => setDeleted(false), 1000);
+          }}
+          />
         </IconButton>
       )}
     >

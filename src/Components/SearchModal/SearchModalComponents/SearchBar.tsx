@@ -74,7 +74,7 @@ export function SearchBar() {
       {content === 'searchResults' ? (
         <SearchIcon sx={{ transform: 'translate(-248px, 0px)', position: 'absolute' }} />
       ) : (
-        <BackButton onClick={() => dispatch(setContent('searchResults'))} sx={{ transform: 'translate(-248px, 1px)', position: 'absolute', zIndex: '2000' }} />
+        <BackButton onClick={() => { dispatch(setContent('searchResults')); dispatch(resetSearchModal()); }} sx={{ transform: 'translate(-248px, 1px)', position: 'absolute', zIndex: '2000' }} />
       )}
       <CustomInput
         value={input}
