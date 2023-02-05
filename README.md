@@ -23,19 +23,10 @@
 {
   //...
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "eslint.probe": [
-      "javascript",
-      "javascriptreact",
-      "vue"
-  ],
+  "eslint.probe": ["javascript", "javascriptreact"],
   "editor.formatOnSave": false,
   // Runs Prettier, then ESLint
-  "editor.codeActionsOnSave": [
-    "source.formatDocument",
-    "source.fixAll.eslint"
-  ],
-  "vetur.validation.template": false
+  "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"],
   // ...
 }
 ```
-

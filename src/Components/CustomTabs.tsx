@@ -7,11 +7,12 @@ import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 import { Button, Paper, Stack } from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import { AppDispatch, RootState } from "../app/store";
+import { RootState } from "../app/store";
 import { setThemeMode } from "../modules/general/generalSlice";
 import { logout } from "../modules/auth/authSlice";
+import { useAppDispatch } from "../core/hooks/useAppDispatch";
 
 const ThemeSwitch = styled(Paper, {
   shouldForwardProp: (prop) => prop !== "themeMode",
@@ -78,7 +79,7 @@ export function CustomizedTabs() {
   const [value, setValue] = React.useState(0);
   const themeMode = useSelector(({ general }: RootState) => general.themeMode);
   const user = useSelector(({ auth }: RootState) => auth.user);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleChange = useCallback(
@@ -119,7 +120,7 @@ export function CustomizedTabs() {
           </StyledTabs>
         ) : null}
         <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
-          <Button color="inherit" onClick={() => (dispatch as AppDispatch)(logout())}>
+          <Button color="inherit" onClick={() => dispatch(logout())}>
             Logout
           </Button>
           <ThemeSwitch
