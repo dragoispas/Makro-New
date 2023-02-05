@@ -1,6 +1,6 @@
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
-import { DayEntry } from '../../Api/day-entries/types';
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { DayEntry } from "../../Api/day-entries/types";
 
 export interface DiaryState {
   dayEntry: DayEntry | null;
@@ -11,7 +11,7 @@ const initialState: DiaryState = {
 };
 
 export const diarySlice = createSlice({
-  name: 'diary',
+  name: "diary",
   initialState,
   reducers: {
     setDayEntry: (state, action: PayloadAction<DayEntry | null>) => {

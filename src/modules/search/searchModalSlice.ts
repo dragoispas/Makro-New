@@ -1,6 +1,6 @@
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
-import { Product } from '../../Api/products/types';
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { Product } from "../../Api/products/types";
 
 export interface SearchModalState {
   content: string | null;
@@ -31,7 +31,7 @@ const initialState: SearchModalState = {
   searchTab: 0,
 
   amount: undefined,
-  unit: 'g',
+  unit: "g",
 
   calories: undefined,
   fat: undefined,
@@ -45,7 +45,7 @@ const initialState: SearchModalState = {
 };
 
 export const generalSlice = createSlice({
-  name: 'searchModal',
+  name: "searchModal",
   initialState,
   reducers: {
     setContent: (state, action: PayloadAction<string | null>) => {
@@ -62,18 +62,18 @@ export const generalSlice = createSlice({
     },
     openSearchModal: (state) => {
       if (!state.active) {
-        state.content = 'searchResults';
+        state.content = "searchResults";
         state.active = true;
       }
     },
     closeSearchModal: (state) => {
-      state.content = 'searchResults';
+      state.content = "searchResults";
       state.product = null;
       state.active = false;
       state.searchTab = 0;
 
       state.amount = undefined;
-      state.unit = 'g';
+      state.unit = "g";
 
       state.calories = undefined;
       state.fat = undefined;
@@ -122,7 +122,23 @@ export const generalSlice = createSlice({
 });
 
 export const {
-  setContent, setProduct, setInput, setSearchTab, openSearchModal, closeSearchModal, setAmount, setUnit, setCalories, setFat, setSatFat, setCarbs, setFiber, setSugar, setProtein, setSodium, setPotassium,
+  setContent,
+  setProduct,
+  setInput,
+  setSearchTab,
+  openSearchModal,
+  closeSearchModal,
+  setAmount,
+  setUnit,
+  setCalories,
+  setFat,
+  setSatFat,
+  setCarbs,
+  setFiber,
+  setSugar,
+  setProtein,
+  setSodium,
+  setPotassium,
 } = generalSlice.actions;
 
 export default generalSlice.reducer;

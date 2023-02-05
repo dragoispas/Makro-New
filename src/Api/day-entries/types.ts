@@ -1,4 +1,4 @@
-import { FoodEntry } from '../food-entries/types';
+import { FoodEntry } from "../food-entries/types";
 
 export type DayEntry = {
   id: number;

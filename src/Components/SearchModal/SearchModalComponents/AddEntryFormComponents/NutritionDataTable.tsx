@@ -1,9 +1,18 @@
 import {
-  InputBase, Table, TableBody, Box, TableCell, TableContainer, TableHead, TableRow, Typography, styled
-} from '@mui/material';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../../app/store';
+  InputBase,
+  Table,
+  TableBody,
+  Box,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  styled,
+} from "@mui/material";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../app/store";
 import {
   setCalories,
   setCarbs,
@@ -14,36 +23,35 @@ import {
   setSatFat,
   setSodium,
   setSugar,
-} from '../../../../modules/search/searchModalSlice';
+} from "../../../../modules/search/searchModalSlice";
 
 const OuterBorder = styled(Box)`
-    height: 412px;
-    width: 210px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid rgba(0, 0, 0, 0.6);
-    &:hover {
-        border-color: rgba(0, 0, 0, 0.9);
-    }
-    border-radius: 5px;
+  height: 412px;
+  width: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  &:hover {
+    border-color: rgba(0, 0, 0, 0.9);
+  }
+  border-radius: 5px;
 `;
 
 const TableWrapper = styled(Box)`
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-align-items: center;
-    height: 410px;
-    width: 210px;
-    border: 1px solid;
-    transition: 0.15s;
-    border: 1px solid white;
-    &:hover {
-        border-color: rgba(0, 0, 0, 0.9);
-    }
-    border-radius: 5px;
-    
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 410px;
+  width: 210px;
+  border: 1px solid;
+  transition: 0.15s;
+  border: 1px solid white;
+  &:hover {
+    border-color: rgba(0, 0, 0, 0.9);
+  }
+  border-radius: 5px;
 `;
 
 export function NutritionDataTable() {
@@ -64,12 +72,12 @@ export function NutritionDataTable() {
 
   const getAmount = () => {
     if (amount) {
-      if (amount === '') {
-        return '100';
+      if (amount === "") {
+        return "100";
       }
       return amount;
     }
-    return '100';
+    return "100";
   };
 
   useEffect(() => {
@@ -89,91 +97,209 @@ export function NutritionDataTable() {
   return (
     <OuterBorder>
       <TableWrapper>
-        <Typography sx={{ margin: '5px', fontWeight: '500', fontSize: '0.875rem' }}>Nutrition Facts</Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'space-around', width: '180px' }}>
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: '500' }}>Serving size</Typography>
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: '500' }}>{`${getAmount()} ${unit}`}</Typography>
+        <Typography sx={{ margin: "5px", fontWeight: "500", fontSize: "0.875rem" }}>
+          Nutrition Facts
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            width: "180px",
+          }}
+        >
+          <Typography sx={{ fontSize: "0.875rem", fontWeight: "500" }}>Serving size</Typography>
+          <Typography
+            sx={{ fontSize: "0.875rem", fontWeight: "500" }}
+          >{`${getAmount()} ${unit}`}</Typography>
         </Box>
-        <TableContainer component={Box} sx={{ width: '200px' }}>
+        <TableContainer component={Box} sx={{ width: "200px" }}>
           <Table sx={{ minWidth: 200 }} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCell padding="none" sx={{ paddingLeft: '10px', width: '90px' }}>Calories</TableCell>
-                <TableCell align="right"><InputBase key="calories" value={calories} onChange={(e) => dispatch(setCalories(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem', fontWeight: '500' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell padding="none" sx={{ paddingLeft: "10px", width: "90px" }}>
+                  Calories
+                </TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="calories"
+                    value={calories}
+                    onChange={(e) => dispatch(setCalories(e.target.value))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: "0.875rem", fontWeight: "500" }}
+                    inputProps={{ style: { textAlign: "right" } }}
+                  />
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow
-                key="Fat"
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell padding="none" sx={{ paddingLeft: '10px', width: '90px' }} component="th" scope="row">
+              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell
+                  padding="none"
+                  sx={{ paddingLeft: "10px", width: "90px" }}
+                  component="th"
+                  scope="row"
+                >
                   Total Fat(g)
                 </TableCell>
-                <TableCell align="right"><InputBase key="fat" value={fat === '0' ? '' : fat} onChange={(e) => dispatch(setFat(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="fat"
+                    value={fat === "0" ? "" : fat}
+                    onChange={(e) => dispatch(setFat(e.target.value))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: "0.875rem" }}
+                    inputProps={{ style: { textAlign: "right" } }}
+                  />
+                </TableCell>
               </TableRow>
-              <TableRow
-                key="Fat"
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
+              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell
+                  padding="none"
+                  sx={{ paddingLeft: "20px", width: "90px" }}
+                  component="th"
+                  scope="row"
+                >
                   Sat Fat(g)
                 </TableCell>
-                <TableCell align="right"><InputBase key="satFat" value={satFat === '0' ? '' : satFat} onChange={(e) => dispatch(setSatFat(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="satFat"
+                    value={satFat === "0" ? "" : satFat}
+                    onChange={(e) => dispatch(setSatFat(e.target.value))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: "0.875rem" }}
+                    inputProps={{ style: { textAlign: "right" } }}
+                  />
+                </TableCell>
               </TableRow>
-              <TableRow
-                key="Fat"
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell padding="none" sx={{ paddingLeft: '10px', width: '90px' }} component="th" scope="row">
+              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell
+                  padding="none"
+                  sx={{ paddingLeft: "10px", width: "90px" }}
+                  component="th"
+                  scope="row"
+                >
                   Carbs(g)
                 </TableCell>
-                <TableCell align="right"><InputBase key="carbs" value={carbs === '0' ? '' : carbs} onChange={(e) => dispatch(setCarbs(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="carbs"
+                    value={carbs === "0" ? "" : carbs}
+                    onChange={(e) => dispatch(setCarbs(e.target.value))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: "0.875rem" }}
+                    inputProps={{ style: { textAlign: "right" } }}
+                  />
+                </TableCell>
               </TableRow>
-              <TableRow
-                key="Fat"
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
+              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell
+                  padding="none"
+                  sx={{ paddingLeft: "20px", width: "90px" }}
+                  component="th"
+                  scope="row"
+                >
                   Fiber(g)
                 </TableCell>
-                <TableCell align="right"><InputBase key="fiber" value={fiber === '0' ? '' : fiber} onChange={(e) => dispatch(setFiber(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="fiber"
+                    value={fiber === "0" ? "" : fiber}
+                    onChange={(e) => dispatch(setFiber(e.target.value))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: "0.875rem" }}
+                    inputProps={{ style: { textAlign: "right" } }}
+                  />
+                </TableCell>
               </TableRow>
-              <TableRow
-                key="Fat"
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
+              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell
+                  padding="none"
+                  sx={{ paddingLeft: "20px", width: "90px" }}
+                  component="th"
+                  scope="row"
+                >
                   Sugar(g)
                 </TableCell>
-                <TableCell align="right"><InputBase key="sugar" value={sugar === '0' ? '' : sugar} onChange={(e) => dispatch(setSugar(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="sugar"
+                    value={sugar === "0" ? "" : sugar}
+                    onChange={(e) => dispatch(setSugar(e.target.value))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: "0.875rem" }}
+                    inputProps={{ style: { textAlign: "right" } }}
+                  />
+                </TableCell>
               </TableRow>
-              <TableRow
-                key="Fat"
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell padding="none" sx={{ paddingLeft: '10px', width: '90px' }} component="th" scope="row">
+              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell
+                  padding="none"
+                  sx={{ paddingLeft: "10px", width: "90px" }}
+                  component="th"
+                  scope="row"
+                >
                   Protein(g)
                 </TableCell>
-                <TableCell align="right"><InputBase key="protein" value={protein === '0' ? '' : protein} onChange={(e) => dispatch(setProtein(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="protein"
+                    value={protein === "0" ? "" : protein}
+                    onChange={(e) => dispatch(setProtein(e.target.value))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: "0.875rem" }}
+                    inputProps={{ style: { textAlign: "right" } }}
+                  />
+                </TableCell>
               </TableRow>
-              <TableRow
-                key="Fat"
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
+              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell
+                  padding="none"
+                  sx={{ paddingLeft: "20px", width: "90px" }}
+                  component="th"
+                  scope="row"
+                >
                   Sodium(mg)
                 </TableCell>
-                <TableCell align="right"><InputBase key="sodium" value={sodium === '0' ? '' : sodium} onChange={(e) => dispatch(setSodium(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="sodium"
+                    value={sodium === "0" ? "" : sodium}
+                    onChange={(e) => dispatch(setSodium(e.target.value))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: "0.875rem" }}
+                    inputProps={{ style: { textAlign: "right" } }}
+                  />
+                </TableCell>
               </TableRow>
-              <TableRow
-                key="Fat"
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell padding="none" sx={{ paddingLeft: '20px', width: '90px' }} component="th" scope="row">
+              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell
+                  padding="none"
+                  sx={{ paddingLeft: "20px", width: "90px" }}
+                  component="th"
+                  scope="row"
+                >
                   Potassium(mg)
                 </TableCell>
-                <TableCell align="right"><InputBase key="potassium" value={potassium === '0' ? '' : potassium} onChange={(e) => dispatch(setPotassium(e.target.value))} placeholder="0" size="small" sx={{ fontSize: '0.875rem' }} inputProps={{ style: { textAlign: 'right' } }} /></TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key="potassium"
+                    value={potassium === "0" ? "" : potassium}
+                    onChange={(e) => dispatch(setPotassium(e.target.value))}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: "0.875rem" }}
+                    inputProps={{ style: { textAlign: "right" } }}
+                  />
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>

@@ -1,6 +1,6 @@
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
-import { PaletteMode } from '@mui/material';
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { PaletteMode } from "@mui/material";
 
 export interface GeneralState {
   isLoading: boolean;
@@ -10,12 +10,12 @@ export interface GeneralState {
 
 const initialState: GeneralState = {
   isLoading: true,
-  themeMode: 'light',
+  themeMode: "light",
   notification: null,
 };
 
 export const generalSlice = createSlice({
-  name: 'general',
+  name: "general",
   initialState,
   reducers: {
     setLoading: (state, action: PayloadAction<boolean>) => {

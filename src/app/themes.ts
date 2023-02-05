@@ -1,38 +1,38 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 export const lightTheme = createTheme({
   palette: {
-    mode: 'light',
+    mode: "light",
     primary: {
-      main: '#ee5b46',
+      main: "#ee5b46",
     },
     secondary: {
-      main: '#033631',
+      main: "#033631",
     },
   },
   typography: {
     fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
+      "-apple-system",
+      "BlinkMacSystemFont",
       '"Segoe UI"',
-      'Roboto',
+      "Roboto",
       '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
+      "Arial",
+      "sans-serif",
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(','),
+    ].join(","),
   },
 
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: '10px',
-          boxShadow: 'none',
-          '&:hover': {
-            boxShadow: 'none',
+          borderRadius: "10px",
+          boxShadow: "none",
+          "&:hover": {
+            boxShadow: "none",
           },
         },
       },
@@ -40,16 +40,16 @@ export const lightTheme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          borderRadius: '10px',
-          boxShadow: '0 0 20px rgba(0,0,0,0.1)',
-          transition: 'background-color 0.2s ease',
+          borderRadius: "10px",
+          boxShadow: "0 0 20px rgba(0,0,0,0.1)",
+          transition: "background-color 0.2s ease",
         },
       },
     },
     MuiTypography: {
       styleOverrides: {
         root: {
-          transition: 'color 0.2s ease',
+          transition: "color 0.2s ease",
         },
       },
     },
@@ -58,38 +58,38 @@ export const lightTheme = createTheme({
 
 export const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
     primary: {
-      main: '#ee5b46',
+      main: "#ee5b46",
     },
     secondary: {
-      main: '#39bd79',
+      main: "#39bd79",
     },
   },
   transitions: {},
   typography: {
     fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
+      "-apple-system",
+      "BlinkMacSystemFont",
       '"Segoe UI"',
-      'Roboto',
+      "Roboto",
       '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
+      "Arial",
+      "sans-serif",
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(','),
+    ].join(","),
   },
 
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: '10px',
-          boxShadow: 'none',
-          '&:hover': {
-            boxShadow: 'none',
+          borderRadius: "10px",
+          boxShadow: "none",
+          "&:hover": {
+            boxShadow: "none",
           },
         },
       },
@@ -97,18 +97,18 @@ export const darkTheme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          borderRadius: '10px',
-          backgroundColor: '#050505',
-          boxShadow: '0 0 20px rgba(0,0,0,0.7)',
-          transition: 'background-color 0.2s ease',
-          borderColor: 'rgba(250,250,250,0.1)',
+          borderRadius: "10px",
+          backgroundColor: "#050505",
+          boxShadow: "0 0 20px rgba(0,0,0,0.7)",
+          transition: "background-color 0.2s ease",
+          borderColor: "rgba(250,250,250,0.1)",
         },
       },
     },
     MuiTypography: {
       styleOverrides: {
         root: {
-          transition: 'color 0.2s ease',
+          transition: "color 0.2s ease",
         },
       },
     },

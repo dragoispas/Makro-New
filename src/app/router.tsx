@@ -13,7 +13,6 @@ export default function AppRouter() {
 
   if (user) {
     return (
-
       <Routes>
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/trends" element={<TrendsPage />} />

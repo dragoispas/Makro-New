@@ -1,30 +1,37 @@
-import * as React from 'react';
-import { useCallback } from 'react';
-import { styled } from '@mui/material/styles';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import { useNavigate } from 'react-router-dom';
-import { Button, Paper, Stack } from '@mui/material';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { useDispatch, useSelector } from 'react-redux';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import { AppDispatch, RootState } from '../app/store';
-import { setThemeMode } from '../modules/general/generalSlice';
-import { logout } from '../modules/auth/authSlice';
+import * as React from "react";
+import { useCallback } from "react";
+import { styled } from "@mui/material/styles";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import { useNavigate } from "react-router-dom";
+import { Button, Paper, Stack } from "@mui/material";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { useDispatch, useSelector } from "react-redux";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import { AppDispatch, RootState } from "../app/store";
+import { setThemeMode } from "../modules/general/generalSlice";
+import { logout } from "../modules/auth/authSlice";
 
-const ThemeSwitch = styled(Paper, { shouldForwardProp: (prop) => prop !== 'themeMode' })<{ themeMode:string }>`
+const ThemeSwitch = styled(Paper, {
+  shouldForwardProp: (prop) => prop !== "themeMode",
+})<{
+  themeMode: string;
+}>`
   height: 40px;
   width: 40px;
   border-radius: 50px;
   cursor: pointer;
   transition: 0.3s;
   background-color: inherit;
-  ${(props) => (props.themeMode === 'dark' ? 'box-shadow: 0px 0px 10px rgba(0,0,0,0.5)' : 'box-shadow: 0px 0px 10px rgba(255,255,255,0.5)')};
+  ${(props) =>
+    props.themeMode === "dark"
+      ? "box-shadow: 0px 0px 10px rgba(0,0,0,0.5)"
+      : "box-shadow: 0px 0px 10px rgba(255,255,255,0.5)"};
   opacity: 0.8;
   display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
 `;
 
 interface StyledTabsProps {
@@ -36,14 +43,14 @@ interface StyledTabsProps {
 export const StyledTabs = styled((props: StyledTabsProps) => (
   <Tabs {...props} TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }} />
 ))({
-  '& .MuiTabs-indicator': {
-    display: 'flex',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
+  "& .MuiTabs-indicator": {
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "transparent",
   },
-  '& .MuiTabs-indicatorSpan': {
-    width: '100%',
-    backgroundColor: '#ee5b46',
+  "& .MuiTabs-indicatorSpan": {
+    width: "100%",
+    backgroundColor: "#ee5b46",
   },
 });
 
@@ -53,18 +60,18 @@ interface StyledTabProps {
 
 const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props} />)(
   ({ theme }) => ({
-    textTransform: 'none',
+    textTransform: "none",
     fontWeight: theme.typography.fontWeightRegular,
-    fontSize: '18px',
+    fontSize: "18px",
     marginRight: theme.spacing(1),
-    color: 'text.primary',
-    '&.Mui-selected': {
-      color: 'primary',
+    color: "text.primary",
+    "&.Mui-selected": {
+      color: "primary",
     },
-    '&.Mui-focusVisible': {
-      backgroundColor: 'rgba(100, 95, 228, 0.32)',
+    "&.Mui-focusVisible": {
+      backgroundColor: "rgba(100, 95, 228, 0.32)",
     },
-  }),
+  })
 );
 
 export function CustomizedTabs() {
@@ -74,32 +81,35 @@ export function CustomizedTabs() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleChange = useCallback((event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  const handleChange = useCallback(
+    (event: React.SyntheticEvent, newValue: number) => {
+      setValue(newValue);
 
-    switch (newValue) {
-      case 0:
-        navigate('/', { replace: true });
-        break;
-      case 1:
-        navigate('/trends', { replace: true });
-        break;
-      case 2:
-        navigate('/settings', { replace: true });
-        break;
-      default:
-        break;
-    }
-  }, [navigate]);
+      switch (newValue) {
+        case 0:
+          navigate("/", { replace: true });
+          break;
+        case 1:
+          navigate("/trends", { replace: true });
+          break;
+        case 2:
+          navigate("/settings", { replace: true });
+          break;
+        default:
+          break;
+      }
+    },
+    [navigate]
+  );
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: "100%" }}>
       <Stack
         direction="row"
-        justifyContent={user ? 'space-between' : 'flex-end'}
+        justifyContent={user ? "space-between" : "flex-end"}
         alignItems="center"
         spacing={2}
-        sx={{ margin: '0 50px', height: '70px' }}
+        sx={{ margin: "0 50px", height: "70px" }}
       >
         {user ? (
           <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example">
@@ -109,10 +119,27 @@ export function CustomizedTabs() {
           </StyledTabs>
         ) : null}
         <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
-          <Button color="inherit" onClick={() => (dispatch as AppDispatch)(logout())}>Logout</Button>
-          <ThemeSwitch themeMode={themeMode === 'light' ? 'dark' : 'light'} onClick={() => dispatch(setThemeMode(themeMode === 'light' ? 'dark' : 'light'))}>
-            <DarkModeIcon sx={{ position: 'absolute', transition: '0.1s', opacity: themeMode === 'light' ? 1 : 0 }} />
-            <LightModeIcon sx={{ position: 'absolute', transition: '0.1s', opacity: themeMode === 'light' ? 0 : 1 }} />
+          <Button color="inherit" onClick={() => (dispatch as AppDispatch)(logout())}>
+            Logout
+          </Button>
+          <ThemeSwitch
+            themeMode={themeMode === "light" ? "dark" : "light"}
+            onClick={() => dispatch(setThemeMode(themeMode === "light" ? "dark" : "light"))}
+          >
+            <DarkModeIcon
+              sx={{
+                position: "absolute",
+                transition: "0.1s",
+                opacity: themeMode === "light" ? 1 : 0,
+              }}
+            />
+            <LightModeIcon
+              sx={{
+                position: "absolute",
+                transition: "0.1s",
+                opacity: themeMode === "light" ? 0 : 1,
+              }}
+            />
           </ThemeSwitch>
         </Stack>
       </Stack>

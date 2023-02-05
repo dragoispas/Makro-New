@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { Box, ClickAwayListener, Paper, styled } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../app/store';
-import { SearchBar } from './SearchModalComponents/SearchBar';
+import React, { useEffect } from "react";
+import { Box, ClickAwayListener, Paper, styled } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import { SearchBar } from "./SearchModalComponents/SearchBar";
 import {
   closeSearchModal,
   setCalories,
@@ -15,9 +15,9 @@ import {
   setSatFat,
   setSodium,
   setSugar,
-} from '../../modules/search/searchModalSlice';
-import { AddEditForm } from './SearchModalComponents/AddEditForm';
-import { SearchResults } from './SearchModalComponents/SearchResults';
+} from "../../modules/search/searchModalSlice";
+import { AddEditForm } from "./SearchModalComponents/AddEditForm";
+import { SearchResults } from "./SearchModalComponents/SearchResults";
 
 const InputContainer = styled(Paper)<{ isActive: boolean }>`
   position: absolute;
@@ -27,7 +27,8 @@ const InputContainer = styled(Paper)<{ isActive: boolean }>`
   padding-top: 5px;
   transition: 0.25s;
 
-  ${(props) => (props.isActive ? 'box-shadow: 0 0 50px rgba(0,0,0,0.3); z-index: 1000;' : 'box-shadow: none;')}
+  ${(props) =>
+    props.isActive ? "box-shadow: 0 0 50px rgba(0,0,0,0.3); z-index: 1000;" : "box-shadow: none;"}
 
   display: flex;
   align-items: center;
@@ -36,8 +37,8 @@ const InputContainer = styled(Paper)<{ isActive: boolean }>`
 
 const Overlay = styled(Box)<{ isActive: boolean }>`
   transition: 0.25s;
-  background: ${(props) => (props.isActive ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0)')};
-  pointer-events: ${(props) => (props.isActive ? '' : 'none')};
+  background: ${(props) => (props.isActive ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0)")};
+  pointer-events: ${(props) => (props.isActive ? "" : "none")};
   position: fixed;
   top: 0;
   left: 0;
@@ -53,7 +54,7 @@ export function SearchModal() {
   const product = useSelector((state: RootState) => state.searchModal.product);
 
   useEffect(() => {
-    if (content !== 'addEditForm') {
+    if (content !== "addEditForm") {
       dispatch(setProduct(null));
     }
   }, [content]);
@@ -74,7 +75,7 @@ export function SearchModal() {
 
   const getContent = () => {
     if (active) {
-      if (content === 'searchResults') {
+      if (content === "searchResults") {
         return <SearchResults />;
       }
       return <AddEditForm />;
@@ -84,7 +85,7 @@ export function SearchModal() {
   return (
     <>
       <Overlay isActive={Boolean(active)} />
-      <Box sx={{ height: '60px' }} />
+      <Box sx={{ height: "60px" }} />
       <ClickAwayListener onClickAway={() => dispatch(closeSearchModal())}>
         <InputContainer isActive={Boolean(active)}>
           <SearchBar />

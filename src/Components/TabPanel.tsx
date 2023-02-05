@@ -1,5 +1,5 @@
-import { Box, Typography } from '@mui/material';
-import { PropsWithChildren } from 'react';
+import { Box, Typography } from "@mui/material";
+import { PropsWithChildren } from "react";
 
 interface TabPanelProps extends PropsWithChildren {
   index: number;
@@ -7,9 +7,7 @@ interface TabPanelProps extends PropsWithChildren {
 }
 
 export function TabPanel(props: TabPanelProps) {
-  const {
-    children, value, index, ...other
-  } = props;
+  const { children, value, index, ...other } = props;
 
   return (
     <div

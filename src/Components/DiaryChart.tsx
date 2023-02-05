@@ -1,10 +1,10 @@
 import { Box, Stack, styled } from "@mui/material";
-import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 
 const macroColors = {
-  totalProtein: '#83b28d',
-  totalFat: '#EF4444',
-  totalCarbs: '#ef9a44',
+  totalProtein: "#83b28d",
+  totalFat: "#EF4444",
+  totalCarbs: "#ef9a44",
 };
 const MacroGraph = styled(Box)<{ amount: number; macro: string }>`
   border-radius: 2px;
@@ -97,16 +97,16 @@ export function DiaryChart({
 }: Props) {
   return (
     <ChartContainer direction="row">
-      <Box className="progressbar_container" sx={{ borderRight: 1, borderColor: 'divider' }}>
+      <Box className="progressbar_container" sx={{ borderRight: 1, borderColor: "divider" }}>
         <Box className="progressbar">
           <CircularProgressbar
             value={(100 * totalCalories) / targetCalories}
             strokeWidth={19}
             styles={buildStyles({
-              pathColor: '#ee5b46',
-              trailColor: 'rgba(150,150,150,0.15)',
-              pathTransition: '0.25s',
-              strokeLinecap: 'butt',
+              pathColor: "#ee5b46",
+              trailColor: "rgba(150,150,150,0.15)",
+              pathTransition: "0.25s",
+              strokeLinecap: "butt",
             })}
           />
           <Box className="progressbar_label">
@@ -122,17 +122,21 @@ export function DiaryChart({
           <MacroGraph amount={totalCarbs} macro="totalCarbs" />
           <Box
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              textAlign: 'start',
-              marginLeft: '5px',
-              alignItems: 'space-between',
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "start",
+              marginLeft: "5px",
+              alignItems: "space-between",
             }}
           >
-            <div style={{ fontWeight: 'bold', fontSize: '16px', height: '17px' }}>{totalCarbs}</div>
-            <div style={{
-              fontWeight: 'bold', fontSize: '13px', height: '17px', opacity: '50%',
-            }}
+            <div style={{ fontWeight: "bold", fontSize: "16px", height: "17px" }}>{totalCarbs}</div>
+            <div
+              style={{
+                fontWeight: "bold",
+                fontSize: "13px",
+                height: "17px",
+                opacity: "50%",
+              }}
             >
               totalCarbs
             </div>
@@ -142,17 +146,21 @@ export function DiaryChart({
           <MacroGraph amount={totalFat} macro="totalFat" />
           <Box
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              textAlign: 'start',
-              marginLeft: '5px',
-              alignItems: 'space-between',
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "start",
+              marginLeft: "5px",
+              alignItems: "space-between",
             }}
           >
-            <div style={{ fontWeight: 'bold', fontSize: '16px', height: '17px' }}>{totalFat}</div>
-            <div style={{
-              fontWeight: 'bold', fontSize: '13px', height: '17px', opacity: '50%',
-            }}
+            <div style={{ fontWeight: "bold", fontSize: "16px", height: "17px" }}>{totalFat}</div>
+            <div
+              style={{
+                fontWeight: "bold",
+                fontSize: "13px",
+                height: "17px",
+                opacity: "50%",
+              }}
             >
               totalFat
             </div>
@@ -162,19 +170,23 @@ export function DiaryChart({
           <MacroGraph amount={totalProtein} macro="totalProtein" />
           <Box
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              textAlign: 'start',
-              marginLeft: '5px',
-              alignItems: 'space-between',
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "start",
+              marginLeft: "5px",
+              alignItems: "space-between",
             }}
           >
-            <div style={{ fontWeight: 'bold', fontSize: '16px', height: '17px' }}>
+            <div style={{ fontWeight: "bold", fontSize: "16px", height: "17px" }}>
               {totalProtein}
             </div>
-            <div style={{
-              fontWeight: 'bold', fontSize: '13px', height: '17px', opacity: '50%',
-            }}
+            <div
+              style={{
+                fontWeight: "bold",
+                fontSize: "13px",
+                height: "17px",
+                opacity: "50%",
+              }}
             >
               totalProtein
             </div>

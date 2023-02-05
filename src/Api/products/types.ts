@@ -20,8 +20,8 @@ export type Product = NutritionData & {
 
 export const emptyProduct: Product = {
   id: 0,
-  name: 'Banana',
-  servingSizes: ['g'],
+  name: "Banana",
+  servingSizes: ["g"],
 
   calories: 20,
   carbs: 5,

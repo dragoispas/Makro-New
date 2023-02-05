@@ -1,7 +1,12 @@
 import {
-  ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, styled
-} from '@mui/material';
-import LocalDiningIcon from '@mui/icons-material/LocalDining';
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+  styled,
+} from "@mui/material";
+import LocalDiningIcon from "@mui/icons-material/LocalDining";
 
 export const CustomFoodIcon = styled(LocalDiningIcon)`
   background: rgba(150, 150, 150, 0.2);
@@ -23,11 +28,7 @@ export function SearchListItem({ name, calories }: Props) {
           <CustomFoodIcon />
         </ListItemIcon>
         <ListItemText primary={name} />
-        <Typography>
-          {calories}
-          {' '}
-          kcal
-        </Typography>
+        <Typography>{calories} kcal</Typography>
       </ListItemButton>
     </ListItem>
   );

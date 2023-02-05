@@ -1,15 +1,22 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  Button, Box, FormControl, MenuItem, Select, TextField, Typography, styled
-} from '@mui/material';
-import { useSnackbar } from 'notistack';
-import { createFoodEntry } from '../../../Api/food-entries/api';
-import { createProduct } from '../../../Api/products/api';
-import { RootState } from '../../../app/store';
-import { setAmount, setUnit } from '../../../modules/search/searchModalSlice';
-import { NutritionDataTable } from './AddEntryFormComponents/NutritionDataTable';
-import { NumberFormatCustom } from '../../Helpers/Formatter';
+  Button,
+  Box,
+  FormControl,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+  styled,
+} from "@mui/material";
+import { useSnackbar } from "notistack";
+import { createFoodEntry } from "../../../Api/food-entries/api";
+import { createProduct } from "../../../Api/products/api";
+import { RootState } from "../../../app/store";
+import { setAmount, setUnit } from "../../../modules/search/searchModalSlice";
+import { NutritionDataTable } from "./AddEntryFormComponents/NutritionDataTable";
+import { NumberFormatCustom } from "../../Helpers/Formatter";
 
 const Content = styled(Box)`
   width: 600px;
@@ -23,7 +30,7 @@ export function AddEditForm() {
   const product = useSelector((state: RootState) => state.searchModal.product);
 
   const amount = useSelector((state: RootState) => state.searchModal.amount);
-  const [amountInputError, setAmountInputError] = useState<string>(' ');
+  const [amountInputError, setAmountInputError] = useState<string>(" ");
   const unit = useSelector((state: RootState) => state.searchModal.unit);
 
   const calories = useSelector((state: RootState) => state.searchModal.calories);
@@ -39,7 +46,7 @@ export function AddEditForm() {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    setAmountInputError(' ');
+    setAmountInputError(" ");
   }, [amount]);
 
   const onSaveClick = async () => {
@@ -48,7 +55,7 @@ export function AddEditForm() {
     }
 
     if (!amount) {
-      setAmountInputError('required');
+      setAmountInputError("required");
       return;
     }
 
@@ -57,16 +64,16 @@ export function AddEditForm() {
     if (!product) {
       newProduct = await createProduct({
         name: input,
-        calories: parseFloat(calories ?? '0'),
-        carbs: parseFloat(carbs ?? '0'),
-        fat: parseFloat(fat ?? '0'),
-        protein: parseFloat(protein ?? '0'),
+        calories: parseFloat(calories ?? "0"),
+        carbs: parseFloat(carbs ?? "0"),
+        fat: parseFloat(fat ?? "0"),
+        protein: parseFloat(protein ?? "0"),
 
-        fiber: parseFloat(fiber ?? '0'),
-        satFat: parseFloat(satFat ?? '0'),
-        sugar: parseFloat(sugar ?? '0'),
-        sodium: parseFloat(sodium ?? '0'),
-        potassium: parseFloat(potassium ?? '0'),
+        fiber: parseFloat(fiber ?? "0"),
+        satFat: parseFloat(satFat ?? "0"),
+        sugar: parseFloat(sugar ?? "0"),
+        sodium: parseFloat(sodium ?? "0"),
+        potassium: parseFloat(potassium ?? "0"),
       });
     }
 
@@ -78,35 +85,39 @@ export function AddEditForm() {
         servingSize: unit,
         quantity: parseFloat(amount),
 
-        calories: parseFloat(calories || '0'),
-        fat: parseFloat(fat || '0'),
-        carbs: parseFloat(carbs || '0'),
-        protein: parseFloat(protein || '0'),
-        fiber: parseFloat(fiber || '0'),
-        satFat: parseFloat(satFat || '0'),
-        sugar: parseFloat(sugar || '0'),
-        sodium: parseFloat(sodium || '0'),
-        potassium: parseFloat(potassium || '0'),
+        calories: parseFloat(calories || "0"),
+        fat: parseFloat(fat || "0"),
+        carbs: parseFloat(carbs || "0"),
+        protein: parseFloat(protein || "0"),
+        fiber: parseFloat(fiber || "0"),
+        satFat: parseFloat(satFat || "0"),
+        sugar: parseFloat(sugar || "0"),
+        sodium: parseFloat(sodium || "0"),
+        potassium: parseFloat(potassium || "0"),
       });
-      enqueueSnackbar('Dumnezeu este cu tine', { variant: 'success' });
+      enqueueSnackbar("Dumnezeu este cu tine", { variant: "success" });
     } catch (error) {
       console.log(error);
-      enqueueSnackbar('Dumnezeu nu e cu tine', { variant: 'error' });
+      enqueueSnackbar("Dumnezeu nu e cu tine", { variant: "error" });
     }
   };
 
   return (
     <Content>
-      <Box sx={{
-        height: '470px', display: 'flex', alignItems: 'center', justifyContent: 'space-around',
-      }}
+      <Box
+        sx={{
+          height: "470px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-around",
+        }}
       >
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <Typography>{product?.name}</Typography>
 
           <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
             <TextField
-              error={amountInputError !== ' '}
+              error={amountInputError !== " "}
               helperText={amountInputError}
               InputProps={{
                 inputComponent: NumberFormatCustom as never,
@@ -115,21 +126,21 @@ export function AddEditForm() {
               label="Amount"
               variant="standard"
               size="medium"
-              sx={{ width: '200px' }}
+              sx={{ width: "200px" }}
               value={amount}
               onChange={(e) => dispatch(setAmount(e.target.value))}
             />
             <Select
-              sx={{ width: '200px' }}
+              sx={{ width: "200px" }}
               size="medium"
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
               value={unit}
-              onChange={(e) => dispatch(setUnit((e.target.value)))}
+              onChange={(e) => dispatch(setUnit(e.target.value))}
               label="Unit"
               MenuProps={{
                 disablePortal: true,
-                style: { cursor: 'default' },
+                style: { cursor: "default" },
               }}
             >
               <MenuItem value="g">grams</MenuItem>
@@ -137,15 +148,11 @@ export function AddEditForm() {
               <MenuItem value="lbs">pounds</MenuItem>
             </Select>
           </FormControl>
-
         </Box>
         <NutritionDataTable />
       </Box>
 
-      <Button
-        onClick={onSaveClick}
-        sx={{ width: '100%', marginTop: '5px' }}
-      >
+      <Button onClick={onSaveClick} sx={{ width: "100%", marginTop: "5px" }}>
         ADD TO DIARY
       </Button>
     </Content>

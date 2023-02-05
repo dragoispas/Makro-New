@@ -1,15 +1,17 @@
+import { Button, Box, List, ListSubheader, Tab, Tabs, styled } from "@mui/material";
+import React, { useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { emptyProduct, ProductMap } from "../../../Api/products/types";
+import { RootState } from "../../../app/store";
 import {
-  Button, Box, List, ListSubheader, Tab, Tabs, styled
-} from '@mui/material';
-import React, { useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { emptyProduct, ProductMap } from '../../../Api/products/types';
-import { RootState } from '../../../app/store';
-import {
-  setAmount, setContent, setInput, setProduct, setSearchTab,
-} from '../../../modules/search/searchModalSlice';
-import { SearchListItem } from '../../SearchListItem';
-import { TabPanel } from '../../TabPanel';
+  setAmount,
+  setContent,
+  setInput,
+  setProduct,
+  setSearchTab,
+} from "../../../modules/search/searchModalSlice";
+import { SearchListItem } from "../../SearchListItem";
+import { TabPanel } from "../../TabPanel";
 
 const Content = styled(Box)`
   width: 600px;
@@ -17,13 +19,13 @@ const Content = styled(Box)`
 `;
 
 const listSx = {
-  width: '100%',
-  bgcolor: 'background.paper',
-  position: 'relative',
-  overflow: 'auto',
+  width: "100%",
+  bgcolor: "background.paper",
+  position: "relative",
+  overflow: "auto",
   maxHeight: 385,
   height: 385,
-  '& ul': { padding: 0 },
+  "& ul": { padding: 0 },
 };
 
 export function SearchResults() {
@@ -41,25 +43,29 @@ export function SearchResults() {
     dispatch(setSearchTab(newValue));
   };
 
-  const getSearchListItems = useMemo(() => Object.values(products).map((prod) => (
-    <React.Fragment key={prod.id}>
-      <Box
-        onClick={() => {
-          dispatch(setInput(prod.name));
-          dispatch(setProduct(prod));
-          dispatch(setContent('addEditForm'));
-          dispatch(setAmount(''));
-        }}
-      >
-        <SearchListItem name={prod.name} calories={prod.calories} />
-      </Box>
-    </React.Fragment>
-  )), [products]);
+  const getSearchListItems = useMemo(
+    () =>
+      Object.values(products).map((prod) => (
+        <React.Fragment key={prod.id}>
+          <Box
+            onClick={() => {
+              dispatch(setInput(prod.name));
+              dispatch(setProduct(prod));
+              dispatch(setContent("addEditForm"));
+              dispatch(setAmount(""));
+            }}
+          >
+            <SearchListItem name={prod.name} calories={prod.calories} />
+          </Box>
+        </React.Fragment>
+      )),
+    [products]
+  );
 
   return (
     <Content>
-      <Box sx={{ height: '470px' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider', padding: '0px 20px' }}>
+      <Box sx={{ height: "470px" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider", padding: "0px 20px" }}>
           <Tabs
             value={searchTab}
             onChange={handleTabChange}
@@ -107,10 +113,10 @@ export function SearchResults() {
       </Box>
       <Button
         onClick={() => {
-          dispatch(setContent('addEditForm'));
-          dispatch(setAmount(''));
+          dispatch(setContent("addEditForm"));
+          dispatch(setAmount(""));
         }}
-        sx={{ width: '100%', marginTop: '5px' }}
+        sx={{ width: "100%", marginTop: "5px" }}
       >
         CREATE NEW FOOD
       </Button>

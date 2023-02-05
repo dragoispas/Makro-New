@@ -1,23 +1,29 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 import {
-  Autocomplete, Fab, FormControl, InputLabel, MenuItem, Select, TextField,
-} from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+  Autocomplete,
+  Fab,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 const style = {
-  position: 'absolute' as const,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -60%)',
-  borderRadius: '10px',
+  position: "absolute" as const,
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -60%)",
+  borderRadius: "10px",
   width: 400,
-  bgcolor: 'background.paper',
+  bgcolor: "background.paper",
   boxShadow: 24,
-  padding: '24px',
+  padding: "24px",
 };
 
 type ChartItem = {
@@ -25,29 +31,50 @@ type ChartItem = {
   category: string;
   currentID: string;
   selected: boolean;
-}
+};
 
-const chartItemsList:ChartItem[] = [
+const chartItemsList: ChartItem[] = [
   {
-    name: 'weight', category: 'BODY', currentID: 'tags-standard-option-0', selected: false,
+    name: "weight",
+    category: "BODY",
+    currentID: "tags-standard-option-0",
+    selected: false,
   },
   {
-    name: 'waist', category: 'BODY', currentID: 'tags-standard-option-1', selected: false,
+    name: "waist",
+    category: "BODY",
+    currentID: "tags-standard-option-1",
+    selected: false,
   },
   {
-    name: 'arm', category: 'BODY', currentID: 'tags-standard-option-2', selected: false,
+    name: "arm",
+    category: "BODY",
+    currentID: "tags-standard-option-2",
+    selected: false,
   },
   {
-    name: 'calories', category: 'MACRO', currentID: 'tags-standard-option-3', selected: false,
+    name: "calories",
+    category: "MACRO",
+    currentID: "tags-standard-option-3",
+    selected: false,
   },
   {
-    name: 'protein', category: 'MACRO', currentID: 'tags-standard-option-4', selected: false,
+    name: "protein",
+    category: "MACRO",
+    currentID: "tags-standard-option-4",
+    selected: false,
   },
   {
-    name: 'fat', category: 'MACRO', currentID: 'tags-standard-option-5', selected: false,
+    name: "fat",
+    category: "MACRO",
+    currentID: "tags-standard-option-5",
+    selected: false,
   },
   {
-    name: 'carbs', category: 'MACRO', currentID: 'tags-standard-option-6', selected: false,
+    name: "carbs",
+    category: "MACRO",
+    currentID: "tags-standard-option-6",
+    selected: false,
   },
 ];
 
@@ -56,12 +83,12 @@ export default function CreateChartModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [chartType, setChartType] = React.useState<string>('Line');
+  const [chartType, setChartType] = React.useState<string>("Line");
 
   const [chartItems, setChartItems] = React.useState<ChartItem[]>(chartItemsList);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const updateChartItems = (id:string) => {
+  const updateChartItems = (id: string) => {
     const newState = chartItems.map((item) => {
       // 👇️ if id equals 2, update country property
       if (item.currentID === id) {
@@ -87,9 +114,14 @@ export default function CreateChartModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography sx={{
-            fontSize: '0.75rem', opacity: 0.6, marginTop: '10px', marginBottom: '30px', color: 'text.primary',
-          }}
+          <Typography
+            sx={{
+              fontSize: "0.75rem",
+              opacity: 0.6,
+              marginTop: "10px",
+              marginBottom: "30px",
+              color: "text.primary",
+            }}
           >
             CHART DETAILS
           </Typography>
@@ -110,7 +142,7 @@ export default function CreateChartModal() {
           <Autocomplete
             // onChange={(e) => updateChartItems(e.currentTarget.id)}
             // onChange={(e) => console.log(e)}
-            sx={{ marginTop: '20px' }}
+            sx={{ marginTop: "20px" }}
             groupBy={(option) => option.category}
             multiple
             id="tags-standard"
@@ -128,12 +160,8 @@ export default function CreateChartModal() {
             )}
           />
 
-          <Box sx={{ display: 'flex', marginTop: '20px' }}>
-            <Button
-              sx={{ width: '64px', marginLeft: 'auto' }}
-            >
-              Save
-            </Button>
+          <Box sx={{ display: "flex", marginTop: "20px" }}>
+            <Button sx={{ width: "64px", marginLeft: "auto" }}>Save</Button>
           </Box>
         </Box>
       </Modal>

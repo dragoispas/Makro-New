@@ -1,9 +1,9 @@
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { User } from './domain';
-import type { AppDispatch } from '../../app/store';
-import { setLoading } from '../general/generalSlice';
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { User } from "./domain";
+import type { AppDispatch } from "../../app/store";
+import { setLoading } from "../general/generalSlice";
 
 export interface AuthState {
   user: User | null;
@@ -14,7 +14,7 @@ const initialState: AuthState = {
 };
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<User | null>) => {
@@ -26,14 +26,14 @@ export const authSlice = createSlice({
 export const { setUser } = authSlice.actions;
 
 export const logout = () => async (dispatch: AppDispatch) => {
-  await axios.post('/api/auth/logout');
+  await axios.post("/api/auth/logout");
   dispatch(setUser(null));
 };
 
 export const retrieveCurrentUser = () => async (dispatch: AppDispatch) => {
   dispatch(setLoading(true));
   try {
-    const response = await axios.get('/api/auth/profile');
+    const response = await axios.get("/api/auth/profile");
     dispatch(setUser(response.data));
   } finally {
     dispatch(setLoading(false));

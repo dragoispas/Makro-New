@@ -1,4 +1,4 @@
-import { Product } from '../products/types';
+import { Product } from "../products/types";
 
 export type FoodEntry = {
   id: number;

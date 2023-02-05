@@ -1,10 +1,10 @@
-import React from 'react';
-import NumberFormat, { InputAttributes } from 'react-number-format';
+import React from "react";
+import NumberFormat, { InputAttributes } from "react-number-format";
 
 interface CustomProps {
-    onChange: (event: { target: { name: string; value: string } }) => void;
-    name: string;
-  }
+  onChange: (event: { target: { name: string; value: string } }) => void;
+  name: string;
+}
 
 // eslint-disable-next-line react/display-name
 export const NumberFormatCustom = React.forwardRef<NumberFormat<InputAttributes>, CustomProps>(
@@ -26,5 +26,5 @@ export const NumberFormatCustom = React.forwardRef<NumberFormat<InputAttributes>
         isNumericString
       />
     );
-  },
+  }
 );
