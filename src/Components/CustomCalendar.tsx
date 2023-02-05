@@ -1,6 +1,6 @@
 import { Paper, TextField, TextFieldProps } from "@mui/material";
 import { LocalizationProvider, StaticDatePicker } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
@@ -26,7 +26,7 @@ export default function CustomCalendar() {
 
   return (
     <Paper sx={{ padding: "10px 0" }}>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <LocalizationProvider dateAdapter={AdapterMoment}>
         <StaticDatePicker
           onChange={onDatePickerChange}
           value={moment(dayEntry.date, "YYYY-MM-DD").toDate()}
