@@ -13,18 +13,7 @@ import {
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../app/store";
-import {
-  setCalories,
-  setCarbs,
-  setFat,
-  setFiber,
-  setNutritionValue,
-  setPotassium,
-  setProtein,
-  setSatFat,
-  setSodium,
-  setSugar,
-} from "../../../../modules/search/searchModalSlice";
+import { setNutritionValue } from "../../../../modules/search/searchModalSlice";
 
 const OuterBorder = styled(Box)`
   height: 412px;
@@ -72,34 +61,11 @@ export function NutritionDataTable() {
   const potassium = useSelector((state: RootState) => state.searchModal.potassium);
   const nutritionValues = useSelector((state: RootState) => state.searchModal);
 
-  const getAmount = () => {
-    if (amount) {
-      if (amount === "") {
-        return "100";
-      }
-      return amount;
-    }
-    return "100";
-  };
-
-  useEffect(() => {
-    if (product) {
-      setCalories(product.calories.toString());
-      setFat(product.fat.toString());
-      setSatFat(product.satFat.toString());
-      setCarbs(product.carbs.toString());
-      setFiber(product.fiber.toString());
-      setSugar(product.sugar.toString());
-      setProtein(product.protein.toString());
-      setSodium(product.sodium.toString());
-      setPotassium(product.potassium.toString());
-    }
-  }, [product]);
-
   type NutritionField = {
     name: string;
     label: string;
     mandatory?: boolean;
+    unit?: string;
   };
 
   const nutritionFields: NutritionField[] = [
@@ -112,36 +78,44 @@ export function NutritionDataTable() {
       name: "fat",
       label: "Total Fat",
       mandatory: true,
+      unit: "g",
     },
     {
       name: "satFat",
       label: "Sat Fat",
+      unit: "g",
     },
     {
       name: "carbs",
       label: "Carbs",
       mandatory: true,
+      unit: "g",
     },
     {
       name: "fiber",
       label: "Fiber",
+      unit: "g",
     },
     {
       name: "sugar",
       label: "Sugar",
+      unit: "g",
     },
     {
       name: "protein",
       label: "Protein",
       mandatory: true,
+      unit: "g",
     },
     {
       name: "sodium",
       label: "Sodium",
+      unit: "mg",
     },
     {
       name: "potassium",
       label: "Potassium",
+      unit: "mg",
     },
   ];
 
@@ -151,30 +125,19 @@ export function NutritionDataTable() {
         <Typography sx={{ margin: "5px", fontWeight: "500", fontSize: "0.875rem" }}>
           Nutrition Facts
         </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-around",
-            width: "180px",
-          }}
-        >
-          <Typography sx={{ fontSize: "0.875rem", fontWeight: "500" }}>Serving size</Typography>
-          <Typography
-            sx={{ fontSize: "0.875rem", fontWeight: "500" }}
-          >{`${getAmount()} ${unit}`}</Typography>
-        </Box>
+
         <TableContainer component={Box} sx={{ width: "200px" }}>
           <Table sx={{ minWidth: 200 }} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCell padding="none" sx={{ paddingLeft: "10px", width: "90px" }}>
-                  Calories
+                <TableCell padding="none" sx={{ paddingLeft: "2px", width: "90px" }}>
+                  Serving size
                 </TableCell>
                 <TableCell align="right">
                   <InputBase
                     key="calories"
                     value={calories}
-                    onChange={(e) => dispatch(setCalories(e.target.value))}
+                    // onChange={(e) => dispatch(setCalories(e.target.value))}
                     placeholder="0"
                     size="small"
                     sx={{ fontSize: "0.875rem", fontWeight: "500" }}
@@ -194,11 +157,12 @@ export function NutritionDataTable() {
                   >
                     <TableCell
                       padding="none"
-                      sx={{ paddingLeft: field.mandatory ? "10px" : "", width: "90px" }}
+                      sx={{ paddingLeft: field.mandatory ? "2px" : "10px", width: "90px" }}
                       component="th"
                       scope="row"
                     >
-                      {field.label}(g)
+                      {field.label}
+                      {field.unit && `(${field.unit})`}
                     </TableCell>
                     <TableCell align="right">
                       <InputBase
