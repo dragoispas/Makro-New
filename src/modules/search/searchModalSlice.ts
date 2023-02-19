@@ -14,7 +14,7 @@ export interface SearchModalState {
 
   calories: string | undefined;
   fat: string | undefined;
-  satFat: string | undefined;
+  satFat?: string;
   carbs: string | undefined;
   fiber: string | undefined;
   sugar: string | undefined;
@@ -91,6 +91,14 @@ export const generalSlice = createSlice({
     setUnit: (state, action: PayloadAction<string>) => {
       state.unit = action.payload;
     },
+    setNutritionValue: (state, action: PayloadAction<{ name: string; value: number | string }>) => {
+      const { name, value } = action.payload;
+
+      return {
+        ...state,
+        [name]: value,
+      };
+    },
     setFat: (state, action: PayloadAction<string | undefined>) => {
       state.fat = action.payload;
     },
@@ -139,6 +147,7 @@ export const {
   setProtein,
   setSodium,
   setPotassium,
+  setNutritionValue,
 } = generalSlice.actions;
 
 export default generalSlice.reducer;

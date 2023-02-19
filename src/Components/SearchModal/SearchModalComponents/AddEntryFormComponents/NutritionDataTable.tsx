@@ -18,6 +18,7 @@ import {
   setCarbs,
   setFat,
   setFiber,
+  setNutritionValue,
   setPotassium,
   setProtein,
   setSatFat,
@@ -69,6 +70,7 @@ export function NutritionDataTable() {
   const protein = useSelector((state: RootState) => state.searchModal.protein);
   const sodium = useSelector((state: RootState) => state.searchModal.sodium);
   const potassium = useSelector((state: RootState) => state.searchModal.potassium);
+  const nutritionValues = useSelector((state: RootState) => state.searchModal);
 
   const getAmount = () => {
     if (amount) {
@@ -93,6 +95,55 @@ export function NutritionDataTable() {
       setPotassium(product.potassium.toString());
     }
   }, [product]);
+
+  type NutritionField = {
+    name: string;
+    label: string;
+    mandatory?: boolean;
+  };
+
+  const nutritionFields: NutritionField[] = [
+    {
+      name: "calories",
+      label: "Calories",
+      mandatory: true,
+    },
+    {
+      name: "fat",
+      label: "Total Fat",
+      mandatory: true,
+    },
+    {
+      name: "satFat",
+      label: "Sat Fat",
+    },
+    {
+      name: "carbs",
+      label: "Carbs",
+      mandatory: true,
+    },
+    {
+      name: "fiber",
+      label: "Fiber",
+    },
+    {
+      name: "sugar",
+      label: "Sugar",
+    },
+    {
+      name: "protein",
+      label: "Protein",
+      mandatory: true,
+    },
+    {
+      name: "sodium",
+      label: "Sodium",
+    },
+    {
+      name: "potassium",
+      label: "Potassium",
+    },
+  ];
 
   return (
     <OuterBorder>
@@ -133,174 +184,38 @@ export function NutritionDataTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell
-                  padding="none"
-                  sx={{ paddingLeft: "10px", width: "90px" }}
-                  component="th"
-                  scope="row"
-                >
-                  Total Fat(g)
-                </TableCell>
-                <TableCell align="right">
-                  <InputBase
-                    key="fat"
-                    value={fat === "0" ? "" : fat}
-                    onChange={(e) => dispatch(setFat(e.target.value))}
-                    placeholder="0"
-                    size="small"
-                    sx={{ fontSize: "0.875rem" }}
-                    inputProps={{ style: { textAlign: "right" } }}
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell
-                  padding="none"
-                  sx={{ paddingLeft: "20px", width: "90px" }}
-                  component="th"
-                  scope="row"
-                >
-                  Sat Fat(g)
-                </TableCell>
-                <TableCell align="right">
-                  <InputBase
-                    key="satFat"
-                    value={satFat === "0" ? "" : satFat}
-                    onChange={(e) => dispatch(setSatFat(e.target.value))}
-                    placeholder="0"
-                    size="small"
-                    sx={{ fontSize: "0.875rem" }}
-                    inputProps={{ style: { textAlign: "right" } }}
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell
-                  padding="none"
-                  sx={{ paddingLeft: "10px", width: "90px" }}
-                  component="th"
-                  scope="row"
-                >
-                  Carbs(g)
-                </TableCell>
-                <TableCell align="right">
-                  <InputBase
-                    key="carbs"
-                    value={carbs === "0" ? "" : carbs}
-                    onChange={(e) => dispatch(setCarbs(e.target.value))}
-                    placeholder="0"
-                    size="small"
-                    sx={{ fontSize: "0.875rem" }}
-                    inputProps={{ style: { textAlign: "right" } }}
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell
-                  padding="none"
-                  sx={{ paddingLeft: "20px", width: "90px" }}
-                  component="th"
-                  scope="row"
-                >
-                  Fiber(g)
-                </TableCell>
-                <TableCell align="right">
-                  <InputBase
-                    key="fiber"
-                    value={fiber === "0" ? "" : fiber}
-                    onChange={(e) => dispatch(setFiber(e.target.value))}
-                    placeholder="0"
-                    size="small"
-                    sx={{ fontSize: "0.875rem" }}
-                    inputProps={{ style: { textAlign: "right" } }}
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell
-                  padding="none"
-                  sx={{ paddingLeft: "20px", width: "90px" }}
-                  component="th"
-                  scope="row"
-                >
-                  Sugar(g)
-                </TableCell>
-                <TableCell align="right">
-                  <InputBase
-                    key="sugar"
-                    value={sugar === "0" ? "" : sugar}
-                    onChange={(e) => dispatch(setSugar(e.target.value))}
-                    placeholder="0"
-                    size="small"
-                    sx={{ fontSize: "0.875rem" }}
-                    inputProps={{ style: { textAlign: "right" } }}
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell
-                  padding="none"
-                  sx={{ paddingLeft: "10px", width: "90px" }}
-                  component="th"
-                  scope="row"
-                >
-                  Protein(g)
-                </TableCell>
-                <TableCell align="right">
-                  <InputBase
-                    key="protein"
-                    value={protein === "0" ? "" : protein}
-                    onChange={(e) => dispatch(setProtein(e.target.value))}
-                    placeholder="0"
-                    size="small"
-                    sx={{ fontSize: "0.875rem" }}
-                    inputProps={{ style: { textAlign: "right" } }}
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell
-                  padding="none"
-                  sx={{ paddingLeft: "20px", width: "90px" }}
-                  component="th"
-                  scope="row"
-                >
-                  Sodium(mg)
-                </TableCell>
-                <TableCell align="right">
-                  <InputBase
-                    key="sodium"
-                    value={sodium === "0" ? "" : sodium}
-                    onChange={(e) => dispatch(setSodium(e.target.value))}
-                    placeholder="0"
-                    size="small"
-                    sx={{ fontSize: "0.875rem" }}
-                    inputProps={{ style: { textAlign: "right" } }}
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow key="Fat" sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell
-                  padding="none"
-                  sx={{ paddingLeft: "20px", width: "90px" }}
-                  component="th"
-                  scope="row"
-                >
-                  Potassium(mg)
-                </TableCell>
-                <TableCell align="right">
-                  <InputBase
-                    key="potassium"
-                    value={potassium === "0" ? "" : potassium}
-                    onChange={(e) => dispatch(setPotassium(e.target.value))}
-                    placeholder="0"
-                    size="small"
-                    sx={{ fontSize: "0.875rem" }}
-                    inputProps={{ style: { textAlign: "right" } }}
-                  />
-                </TableCell>
-              </TableRow>
+              {nutritionFields.map((field) => {
+                const fieldValue = nutritionValues[field.name as keyof typeof nutritionValues];
+
+                return (
+                  <TableRow
+                    key={field.name}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      padding="none"
+                      sx={{ paddingLeft: field.mandatory ? "10px" : "", width: "90px" }}
+                      component="th"
+                      scope="row"
+                    >
+                      {field.label}(g)
+                    </TableCell>
+                    <TableCell align="right">
+                      <InputBase
+                        key={field.name}
+                        value={fieldValue === "0" ? "" : fieldValue}
+                        onChange={(e) =>
+                          dispatch(setNutritionValue({ name: field.name, value: e.target.value }))
+                        }
+                        placeholder="0"
+                        size="small"
+                        sx={{ fontSize: "0.875rem" }}
+                        inputProps={{ style: { textAlign: "right" } }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>
