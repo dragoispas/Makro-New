@@ -21,6 +21,16 @@ export interface SearchModalState {
   protein: number | undefined;
   sodium: number | undefined;
   potassium: number | undefined;
+
+  calculatedCalories: number | undefined;
+  calculatedFat: number | undefined;
+  calculatedSatFat?: number;
+  calculatedCarbs: number | undefined;
+  calculatedFiber: number | undefined;
+  calculatedSugar: number | undefined;
+  calculatedProtein: number | undefined;
+  calculatedSodium: number | undefined;
+  calculatedPotassium: number | undefined;
 }
 
 const initialState: SearchModalState = {
@@ -42,6 +52,16 @@ const initialState: SearchModalState = {
   protein: undefined,
   sodium: undefined,
   potassium: undefined,
+
+  calculatedCalories: undefined,
+  calculatedFat: undefined,
+  calculatedSatFat: undefined,
+  calculatedCarbs: undefined,
+  calculatedFiber: undefined,
+  calculatedSugar: undefined,
+  calculatedProtein: undefined,
+  calculatedSodium: undefined,
+  calculatedPotassium: undefined,
 };
 
 export const generalSlice = createSlice({

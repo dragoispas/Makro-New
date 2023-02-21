@@ -62,8 +62,28 @@ export function NutritionDataTable() {
   const potassium = useSelector((state: RootState) => state.searchModal.potassium);
   const nutritionValues = useSelector((state: RootState) => state.searchModal);
 
+  const amountInGrams = () => {
+    if (amount) {
+      if (unit === "oz") {
+        return amount * 28.3495;
+      }
+      if (unit === "lbs") {
+        return amount * 453.592;
+      }
+    }
+    return amount ? amount : 0;
+  };
+
+  const getTableAmount = () => {
+    if (unit !== "g") {
+      return `${amount ? amount : 0} ${unit} (${amountInGrams()} g)`;
+    }
+    return `${amount ? amount : 0} g`;
+  };
+
   type NutritionField = {
     name: string;
+    calculated: number;
     label: string;
     mandatory?: boolean;
     unit?: string;
@@ -72,49 +92,58 @@ export function NutritionDataTable() {
   const nutritionFields: NutritionField[] = [
     {
       name: "calories",
+      calculated: 0,
       label: "Calories",
       mandatory: true,
     },
     {
       name: "fat",
+      calculated: 0,
       label: "Total Fat",
       mandatory: true,
       unit: "g",
     },
     {
       name: "satFat",
+      calculated: 0,
       label: "Sat Fat",
       unit: "g",
     },
     {
       name: "carbs",
+      calculated: 0,
       label: "Carbs",
       mandatory: true,
       unit: "g",
     },
     {
       name: "fiber",
+      calculated: 0,
       label: "Fiber",
       unit: "g",
     },
     {
       name: "sugar",
+      calculated: 0,
       label: "Sugar",
       unit: "g",
     },
     {
       name: "protein",
+      calculated: 0,
       label: "Protein",
       mandatory: true,
       unit: "g",
     },
     {
       name: "sodium",
+      calculated: 0,
       label: "Sodium",
       unit: "mg",
     },
     {
       name: "potassium",
+      calculated: 0,
       label: "Potassium",
       unit: "mg",
     },
@@ -123,11 +152,7 @@ export function NutritionDataTable() {
   return (
     <OuterBorder>
       <TableWrapper>
-        <Typography sx={{ margin: "5px", fontWeight: "500", fontSize: "0.875rem" }}>
-          Nutrition Facts
-        </Typography>
-
-        <TableContainer component={Box} sx={{ width: "280px" }}>
+        <TableContainer component={Box} sx={{ width: "300px" }}>
           <Table sx={{ minWidth: 200 }} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
@@ -135,19 +160,10 @@ export function NutritionDataTable() {
                   Serving size
                 </TableCell>
                 <TableCell align="right">
-                  <InputBase
-                    key="100g"
-                    value={`100 g`}
-                    // onChange={(e) => dispatch(setCalories(e.target.value))}
-                    placeholder="0"
-                    size="small"
-                    sx={{ fontSize: "0.875rem", fontWeight: "500" }}
-                    inputProps={{ style: { textAlign: "center" } }}
-                    inputComponent={NumberFormatCustom as any}
-                  />
+                  <Typography align="center">100 g</Typography>
                 </TableCell>
                 <TableCell align="right">
-                  <InputBase
+                  {/* <InputBase
                     key="amount"
                     value={amount}
                     // onChange={(e) => dispatch(setCalories(e.target.value))}
@@ -156,7 +172,10 @@ export function NutritionDataTable() {
                     sx={{ fontSize: "0.875rem", fontWeight: "500" }}
                     inputProps={{ style: { textAlign: "center" } }}
                     inputComponent={NumberFormatCustom as any}
-                  />
+                  /> */}
+                  <Typography align="center" sx={{ width: "90px" }}>
+                    {getTableAmount()}
+                  </Typography>
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -193,18 +212,16 @@ export function NutritionDataTable() {
                       />
                     </TableCell>
                     <TableCell align="right">
-                      <InputBase
+                      {/* <InputBase
                         key={field.name}
-                        value={fieldValue === "0" ? "" : fieldValue}
-                        onChange={(e) =>
-                          dispatch(setNutritionValue({ name: field.name, value: e.target.value }))
-                        }
+                        value={field.calculated}
                         placeholder="0"
                         size="small"
                         sx={{ fontSize: "0.875rem" }}
                         inputProps={{ style: { textAlign: "center" } }}
                         inputComponent={NumberFormatCustom as any}
-                      />
+                      /> */}
+                      <Typography align="center">{field.calculated}</Typography>
                     </TableCell>
                   </TableRow>
                 );
