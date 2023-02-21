@@ -64,16 +64,16 @@ export function AddEditForm() {
     if (!product) {
       newProduct = await createProduct({
         name: input,
-        calories: parseFloat(calories ?? "0"),
-        carbs: parseFloat(carbs ?? "0"),
-        fat: parseFloat(fat ?? "0"),
-        protein: parseFloat(protein ?? "0"),
+        calories: calories,
+        carbs: carbs,
+        fat: fat,
+        protein: protein,
 
-        fiber: parseFloat(fiber ?? "0"),
-        satFat: parseFloat(satFat ?? "0"),
-        sugar: parseFloat(sugar ?? "0"),
-        sodium: parseFloat(sodium ?? "0"),
-        potassium: parseFloat(potassium ?? "0"),
+        fiber: fiber,
+        satFat: satFat,
+        sugar: sugar,
+        sodium: sodium,
+        potassium: potassium,
       });
     }
 
@@ -83,17 +83,17 @@ export function AddEditForm() {
         name: input,
         productId: product?.id ?? newProduct?.id,
         servingSize: unit,
-        quantity: parseFloat(amount),
+        quantity: amount,
 
-        calories: parseFloat(calories || "0"),
-        fat: parseFloat(fat || "0"),
-        carbs: parseFloat(carbs || "0"),
-        protein: parseFloat(protein || "0"),
-        fiber: parseFloat(fiber || "0"),
-        satFat: parseFloat(satFat || "0"),
-        sugar: parseFloat(sugar || "0"),
-        sodium: parseFloat(sodium || "0"),
-        potassium: parseFloat(potassium || "0"),
+        calories: calories,
+        carbs: carbs,
+        fat: fat,
+        protein: protein,
+        fiber: fiber,
+        satFat: satFat,
+        sugar: sugar,
+        sodium: sodium,
+        potassium: potassium,
       });
       enqueueSnackbar("Dumnezeu este cu tine", { variant: "success" });
     } catch (error) {
@@ -128,7 +128,7 @@ export function AddEditForm() {
               size="medium"
               sx={{ width: "200px" }}
               value={amount}
-              onChange={(e) => dispatch(setAmount(e.target.value))}
+              onChange={(e) => dispatch(setAmount(parseFloat(e.target.value)))}
             />
             <Select
               sx={{ width: "200px" }}

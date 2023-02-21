@@ -52,7 +52,7 @@ export function SearchResults() {
               dispatch(setInput(prod.name));
               dispatch(setProduct(prod));
               dispatch(setContent("addEditForm"));
-              dispatch(setAmount(""));
+              dispatch(setAmount(undefined));
             }}
           >
             <SearchListItem name={prod.name} calories={prod.calories} />
@@ -114,7 +114,7 @@ export function SearchResults() {
       <Button
         onClick={() => {
           dispatch(setContent("addEditForm"));
-          dispatch(setAmount(""));
+          dispatch(setAmount(undefined));
         }}
         sx={{ width: "100%", marginTop: "5px" }}
       >

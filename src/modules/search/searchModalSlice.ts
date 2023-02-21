@@ -9,18 +9,18 @@ export interface SearchModalState {
   input: string | undefined;
   searchTab: number;
 
-  amount: string | undefined;
+  amount: number | undefined;
   unit: string;
 
-  calories: string | undefined;
-  fat: string | undefined;
-  satFat?: string;
-  carbs: string | undefined;
-  fiber: string | undefined;
-  sugar: string | undefined;
-  protein: string | undefined;
-  sodium: string | undefined;
-  potassium: string | undefined;
+  calories: number | undefined;
+  fat: number | undefined;
+  satFat?: number;
+  carbs: number | undefined;
+  fiber: number | undefined;
+  sugar: number | undefined;
+  protein: number | undefined;
+  sodium: number | undefined;
+  potassium: number | undefined;
 }
 
 const initialState: SearchModalState = {
@@ -85,7 +85,7 @@ export const generalSlice = createSlice({
       state.sodium = undefined;
       state.potassium = undefined;
     },
-    setAmount: (state, action: PayloadAction<string | undefined>) => {
+    setAmount: (state, action: PayloadAction<number | undefined>) => {
       state.amount = action.payload;
     },
     setUnit: (state, action: PayloadAction<string>) => {
@@ -99,31 +99,31 @@ export const generalSlice = createSlice({
         [name]: value,
       };
     },
-    setFat: (state, action: PayloadAction<string | undefined>) => {
+    setFat: (state, action: PayloadAction<number | undefined>) => {
       state.fat = action.payload;
     },
-    setCalories: (state, action: PayloadAction<string | undefined>) => {
+    setCalories: (state, action: PayloadAction<number | undefined>) => {
       state.calories = action.payload;
     },
-    setSatFat: (state, action: PayloadAction<string | undefined>) => {
+    setSatFat: (state, action: PayloadAction<number | undefined>) => {
       state.satFat = action.payload;
     },
-    setCarbs: (state, action: PayloadAction<string | undefined>) => {
+    setCarbs: (state, action: PayloadAction<number | undefined>) => {
       state.carbs = action.payload;
     },
-    setFiber: (state, action: PayloadAction<string | undefined>) => {
+    setFiber: (state, action: PayloadAction<number | undefined>) => {
       state.fiber = action.payload;
     },
-    setSugar: (state, action: PayloadAction<string | undefined>) => {
+    setSugar: (state, action: PayloadAction<number | undefined>) => {
       state.sugar = action.payload;
     },
-    setProtein: (state, action: PayloadAction<string | undefined>) => {
+    setProtein: (state, action: PayloadAction<number | undefined>) => {
       state.protein = action.payload;
     },
-    setSodium: (state, action: PayloadAction<string | undefined>) => {
+    setSodium: (state, action: PayloadAction<number | undefined>) => {
       state.sodium = action.payload;
     },
-    setPotassium: (state, action: PayloadAction<string | undefined>) => {
+    setPotassium: (state, action: PayloadAction<number | undefined>) => {
       state.potassium = action.payload;
     },
   },

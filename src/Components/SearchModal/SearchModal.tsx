@@ -61,15 +61,15 @@ export function SearchModal() {
 
   useEffect(() => {
     if (product) {
-      dispatch(setCalories(product.calories.toString()));
-      dispatch(setFat(product.fat.toString()));
-      dispatch(setSatFat(product.satFat.toString()));
-      dispatch(setCarbs(product.carbs.toString()));
-      dispatch(setFiber(product.fiber.toString()));
-      dispatch(setSugar(product.sugar.toString()));
-      dispatch(setProtein(product.protein.toString()));
-      dispatch(setSodium(product.sodium.toString()));
-      dispatch(setPotassium(product.potassium.toString()));
+      dispatch(setCalories(product.calories));
+      dispatch(setFat(product.fat));
+      dispatch(setSatFat(product.satFat));
+      dispatch(setCarbs(product.carbs));
+      dispatch(setFiber(product.fiber));
+      dispatch(setSugar(product.sugar));
+      dispatch(setProtein(product.protein));
+      dispatch(setSodium(product.sodium));
+      dispatch(setPotassium(product.potassium));
     }
   }, [product]);
 
