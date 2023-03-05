@@ -18,10 +18,33 @@ import { setAmount, setUnit } from "../../../modules/search/searchModalSlice";
 import { NutritionDataTable } from "./AddEntryFormComponents/NutritionDataTable";
 import { NumberFormatCustom } from "../../Helpers/Formatter";
 
+const Scrollable = styled(Box)`
+  overflow: auto;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 const Content = styled(Box)`
   width: 600px;
   height: 520px;
 `;
+
+const unitBaseOptions = [
+  {
+    value: "g",
+    label: "grams",
+  },
+  {
+    value: "oz",
+    label: "ounces",
+  },
+  {
+    value: "lbs",
+    label: "pounds",
+  },
+];
 
 export function AddEditForm() {
   const dispatch = useDispatch();
@@ -109,47 +132,53 @@ export function AddEditForm() {
           height: "470px",
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-around",
+          justifyContent: "center",
+          flexDirection: "column",
         }}
       >
-        <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <Typography>{product?.name}</Typography>
-
-          <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
-            <TextField
-              error={amountInputError !== " "}
-              helperText={amountInputError}
-              InputProps={{
-                inputComponent: NumberFormatCustom as never,
-              }}
-              id="standard-basic"
-              label="Amount"
-              variant="standard"
-              size="medium"
-              sx={{ width: "200px" }}
-              value={amount}
-              onChange={(e) => dispatch(setAmount(parseFloat(e.target.value)))}
-            />
-            <Select
-              sx={{ width: "200px" }}
-              size="medium"
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={unit}
-              onChange={(e) => dispatch(setUnit(e.target.value))}
-              label="Unit"
-              MenuProps={{
-                disablePortal: true,
-                style: { cursor: "default" },
-              }}
-            >
-              <MenuItem value="g">grams</MenuItem>
-              <MenuItem value="oz">ounces</MenuItem>
-              <MenuItem value="lbs">pounds</MenuItem>
-            </Select>
-          </FormControl>
+        <Typography>{product?.name}</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            gap: "20px",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <TextField
+            error={amountInputError !== " "}
+            helperText={amountInputError}
+            InputProps={{
+              inputComponent: NumberFormatCustom as never,
+            }}
+            id="standard-basic"
+            label="Amount"
+            variant="standard"
+            size="medium"
+            value={amount}
+            onChange={(e) => dispatch(setAmount(parseFloat(e.target.value)))}
+          />
+          <TextField
+            select
+            label="Unit"
+            defaultValue="EUR"
+            helperText=" "
+            variant="standard"
+            value={unit}
+            SelectProps={{ MenuProps: { disablePortal: true, style: { cursor: "default" } } }}
+          >
+            {unitBaseOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
         </Box>
-        <NutritionDataTable />
+        <Scrollable>
+          <Box sx={{ height: "200px" }}>
+            <NutritionDataTable />
+          </Box>
+        </Scrollable>
       </Box>
 
       <Button onClick={onSaveClick} sx={{ width: "100%", marginTop: "5px" }}>

@@ -16,40 +16,12 @@ import { RootState } from "../../../../app/store";
 import { setNutritionValue } from "../../../../modules/search/searchModalSlice";
 import { NumberFormatCustom } from "../../../Helpers/Formatter";
 
-const OuterBorder = styled(Box)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  // height: 412px;
-  // width: 210px;
-  // border: 1px solid rgba(0, 0, 0, 0.6);
-  // &:hover {
-  //   border-color: rgba(0, 0, 0, 0.9);
-  // }
-  // border-radius: 5px;
-`;
-
-const TableWrapper = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  // height: 410px;
-  // width: 210px;
-  border: 1px solid;
-  transition: 0.15s;
-  border: 1px solid white;
-  &:hover {
-    border-color: rgba(0, 0, 0, 0.9);
-  }
-  border-radius: 5px;
-`;
-
 export function NutritionDataTable() {
   const dispatch = useDispatch();
   const amount = useSelector((state: RootState) => state.searchModal.amount);
   const unit = useSelector((state: RootState) => state.searchModal.unit);
   const product = useSelector((state: RootState) => state.searchModal.product);
+  const themeMode = useSelector(({ general }: RootState) => general.themeMode);
 
   const calories = useSelector((state: RootState) => state.searchModal.calories);
   const fat = useSelector((state: RootState) => state.searchModal.fat);
@@ -150,20 +122,27 @@ export function NutritionDataTable() {
   ];
 
   return (
-    <OuterBorder>
-      <TableWrapper>
-        <TableContainer component={Box} sx={{ width: "300px" }}>
-          <Table sx={{ minWidth: 200 }} size="small" aria-label="a dense table">
-            <TableHead>
-              <TableRow>
-                <TableCell padding="none" sx={{ paddingLeft: "2px" }}>
-                  Serving size
-                </TableCell>
-                <TableCell align="right">
-                  <Typography align="center">100 g</Typography>
-                </TableCell>
-                <TableCell align="right">
-                  {/* <InputBase
+    // <Box>
+    <TableContainer component={Box}>
+      <Table
+        size="small"
+        aria-label="a dense table"
+        sx={{
+          padding: "10px",
+          background: themeMode === "dark" ? "rgba(0, 0, 0, .955)" : "#f4f1eb",
+          borderRadius: "10px",
+        }}
+      >
+        <TableHead>
+          <TableRow>
+            <TableCell padding="none" sx={{ paddingLeft: "2px" }}>
+              Serving size
+            </TableCell>
+            <TableCell align="right">
+              <Typography align="center">100 g</Typography>
+            </TableCell>
+            <TableCell align="right">
+              {/* <InputBase
                     key="amount"
                     value={amount}
                     // onChange={(e) => dispatch(setCalories(e.target.value))}
@@ -173,63 +152,59 @@ export function NutritionDataTable() {
                     inputProps={{ style: { textAlign: "center" } }}
                     inputComponent={NumberFormatCustom as any}
                   /> */}
-                  <Typography align="center" sx={{ width: "90px" }}>
-                    {getTableAmount()}
-                  </Typography>
+              <Typography align="center" sx={{ width: "90px" }}>
+                {getTableAmount()}
+              </Typography>
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {nutritionFields.map((field) => {
+            const fieldValue = nutritionValues[field.name as keyof typeof nutritionValues];
+
+            return (
+              <TableRow key={field.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell
+                  padding="none"
+                  sx={{ paddingLeft: field.mandatory ? "2px" : "10px" }}
+                  component="th"
+                  scope="row"
+                >
+                  {field.label}
+                  {field.unit && `(${field.unit})`}
+                </TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key={field.name}
+                    value={fieldValue ?? 0}
+                    onChange={(e) =>
+                      dispatch(setNutritionValue({ name: field.name, value: e.target.value }))
+                    }
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: "0.875rem" }}
+                    inputProps={{ style: { textAlign: "center" } }}
+                    inputComponent={NumberFormatCustom as any}
+                  />
+                </TableCell>
+                <TableCell align="right">
+                  <InputBase
+                    key={field.name}
+                    value={field.calculated}
+                    placeholder="0"
+                    size="small"
+                    sx={{ fontSize: "0.875rem" }}
+                    inputProps={{ style: { textAlign: "center" } }}
+                    inputComponent={NumberFormatCustom as any}
+                  />
+                  {/* <Typography align="center">{calculatedFieldValue ?? 0}</Typography> */}
                 </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {nutritionFields.map((field) => {
-                const fieldValue = nutritionValues[field.name as keyof typeof nutritionValues];
-
-                return (
-                  <TableRow
-                    key={field.name}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell
-                      padding="none"
-                      sx={{ paddingLeft: field.mandatory ? "2px" : "10px" }}
-                      component="th"
-                      scope="row"
-                    >
-                      {field.label}
-                      {field.unit && `(${field.unit})`}
-                    </TableCell>
-                    <TableCell align="right">
-                      <InputBase
-                        key={field.name}
-                        value={fieldValue === "0" ? "" : fieldValue}
-                        onChange={(e) =>
-                          dispatch(setNutritionValue({ name: field.name, value: e.target.value }))
-                        }
-                        placeholder="0"
-                        size="small"
-                        sx={{ fontSize: "0.875rem" }}
-                        inputProps={{ style: { textAlign: "center" } }}
-                        inputComponent={NumberFormatCustom as any}
-                      />
-                    </TableCell>
-                    <TableCell align="right">
-                      {/* <InputBase
-                        key={field.name}
-                        value={field.calculated}
-                        placeholder="0"
-                        size="small"
-                        sx={{ fontSize: "0.875rem" }}
-                        inputProps={{ style: { textAlign: "center" } }}
-                        inputComponent={NumberFormatCustom as any}
-                      /> */}
-                      <Typography align="center">{field.calculated}</Typography>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </TableWrapper>
-    </OuterBorder>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
+    // </Box>
   );
 }
