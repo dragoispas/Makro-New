@@ -16,6 +16,12 @@ import { RootState } from "../../../../app/store";
 import { setNutritionValue } from "../../../../modules/search/searchModalSlice";
 import { NumberFormatCustom } from "../../../Helpers/Formatter";
 
+const Scrollable = styled(TableContainer)`
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 export function NutritionDataTable() {
   const dispatch = useDispatch();
   const amount = useSelector((state: RootState) => state.searchModal.amount);
@@ -123,16 +129,8 @@ export function NutritionDataTable() {
 
   return (
     // <Box>
-    <TableContainer component={Box}>
-      <Table
-        size="small"
-        aria-label="a dense table"
-        sx={{
-          padding: "10px",
-          background: themeMode === "dark" ? "rgba(0, 0, 0, .955)" : "#f4f1eb",
-          borderRadius: "10px",
-        }}
-      >
+    <Scrollable sx={{ maxHeight: "100%" }}>
+      <Table stickyHeader aria-label="sticky table" size="small">
         <TableHead>
           <TableRow>
             <TableCell padding="none" sx={{ paddingLeft: "2px" }}>
@@ -152,7 +150,7 @@ export function NutritionDataTable() {
                     inputProps={{ style: { textAlign: "center" } }}
                     inputComponent={NumberFormatCustom as any}
                   /> */}
-              <Typography align="center" sx={{ width: "90px" }}>
+              <Typography align="center" sx={{ textAlign: "center" }}>
                 {getTableAmount()}
               </Typography>
             </TableCell>
@@ -204,7 +202,6 @@ export function NutritionDataTable() {
           })}
         </TableBody>
       </Table>
-    </TableContainer>
-    // </Box>
+    </Scrollable>
   );
 }

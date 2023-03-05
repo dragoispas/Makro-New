@@ -165,6 +165,7 @@ export function AddEditForm() {
             helperText=" "
             variant="standard"
             value={unit}
+            onChange={(e) => dispatch(setUnit(e.target.value))}
             SelectProps={{ MenuProps: { disablePortal: true, style: { cursor: "default" } } }}
           >
             {unitBaseOptions.map((option) => (
@@ -174,11 +175,11 @@ export function AddEditForm() {
             ))}
           </TextField>
         </Box>
-        <Scrollable>
-          <Box sx={{ height: "200px" }}>
-            <NutritionDataTable />
-          </Box>
-        </Scrollable>
+        {/* <Scrollable> */}
+        <Box sx={{ height: "200px" }}>
+          <NutritionDataTable />
+        </Box>
+        {/* </Scrollable> */}
       </Box>
 
       <Button onClick={onSaveClick} sx={{ width: "100%", marginTop: "5px" }}>
