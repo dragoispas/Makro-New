@@ -9,18 +9,40 @@ import {
   TableRow,
   Typography,
   styled,
+  ToggleButton,
 } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../app/store";
 import { setNutritionValue } from "../../../../modules/search/searchModalSlice";
 import { NumberFormatCustom } from "../../../Helpers/Formatter";
+import { tableCellClasses } from "@mui/material/TableCell";
 
 const Scrollable = styled(TableContainer)`
   ::-webkit-scrollbar {
     display: none;
   }
 `;
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 export function NutritionDataTable() {
   const dispatch = useDispatch();
@@ -129,18 +151,17 @@ export function NutritionDataTable() {
 
   return (
     // <Box>
-    <Scrollable sx={{ maxHeight: "100%" }}>
-      <Table stickyHeader aria-label="sticky table" size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell padding="none" sx={{ paddingLeft: "2px" }}>
-              Serving size
-            </TableCell>
-            <TableCell align="right">
-              <Typography align="center">100 g</Typography>
-            </TableCell>
-            <TableCell align="right">
-              {/* <InputBase
+    <Box sx={{ height: "200px" }}>
+      <Scrollable sx={{ maxHeight: "100%", borderRadius: "10px 10px 0px 0px" }}>
+        <Table stickyHeader aria-label="sticky table" size="small">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell padding="none" sx={{ paddingLeft: "12px" }}></StyledTableCell>
+              <StyledTableCell align="right">
+                <Typography align="center">100 g</Typography>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {/* <InputBase
                     key="amount"
                     value={amount}
                     // onChange={(e) => dispatch(setCalories(e.target.value))}
@@ -150,58 +171,72 @@ export function NutritionDataTable() {
                     inputProps={{ style: { textAlign: "center" } }}
                     inputComponent={NumberFormatCustom as any}
                   /> */}
-              <Typography align="center" sx={{ textAlign: "center" }}>
-                {getTableAmount()}
-              </Typography>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {nutritionFields.map((field) => {
-            const fieldValue = nutritionValues[field.name as keyof typeof nutritionValues];
+                <Typography align="center" sx={{ textAlign: "center" }}>
+                  {getTableAmount()}
+                </Typography>
+              </StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {nutritionFields.map((field) => {
+              const fieldValue = nutritionValues[field.name as keyof typeof nutritionValues];
 
-            return (
-              <TableRow key={field.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell
-                  padding="none"
-                  sx={{ paddingLeft: field.mandatory ? "2px" : "10px" }}
-                  component="th"
-                  scope="row"
+              return (
+                <StyledTableRow
+                  key={field.name}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  {field.label}
-                  {field.unit && `(${field.unit})`}
-                </TableCell>
-                <TableCell align="right">
-                  <InputBase
-                    key={field.name}
-                    value={fieldValue ?? 0}
-                    onChange={(e) =>
-                      dispatch(setNutritionValue({ name: field.name, value: e.target.value }))
-                    }
-                    placeholder="0"
-                    size="small"
-                    sx={{ fontSize: "0.875rem" }}
-                    inputProps={{ style: { textAlign: "center" } }}
-                    inputComponent={NumberFormatCustom as any}
-                  />
-                </TableCell>
-                <TableCell align="right">
-                  <InputBase
-                    key={field.name}
-                    value={field.calculated}
-                    placeholder="0"
-                    size="small"
-                    sx={{ fontSize: "0.875rem" }}
-                    inputProps={{ style: { textAlign: "center" } }}
-                    inputComponent={NumberFormatCustom as any}
-                  />
-                  {/* <Typography align="center">{calculatedFieldValue ?? 0}</Typography> */}
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Scrollable>
+                  <StyledTableCell
+                    padding="none"
+                    sx={{ paddingLeft: field.mandatory ? "12px" : "20px" }}
+                    component="th"
+                    scope="row"
+                  >
+                    {field.label}
+                    {field.unit && `(${field.unit})`}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <InputBase
+                      key={field.name}
+                      value={fieldValue ?? 0}
+                      onChange={(e) =>
+                        dispatch(setNutritionValue({ name: field.name, value: e.target.value }))
+                      }
+                      placeholder="0"
+                      size="small"
+                      sx={{ fontSize: "0.875rem" }}
+                      inputProps={{ style: { textAlign: "center" } }}
+                      inputComponent={NumberFormatCustom as any}
+                    />
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <InputBase
+                      key={field.name}
+                      value={field.calculated}
+                      placeholder="0"
+                      size="small"
+                      sx={{ fontSize: "0.875rem" }}
+                      inputProps={{ style: { textAlign: "center" } }}
+                      inputComponent={NumberFormatCustom as any}
+                    />
+                    {/* <Typography align="center">{calculatedFieldValue ?? 0}</Typography> */}
+                  </StyledTableCell>
+                </StyledTableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Scrollable>
+      <Box
+        sx={{
+          background: "#ee5b46",
+          color: "White",
+          borderRadius: "0px 0px 10px 10px",
+          padding: "5px",
+        }}
+      >
+        Toggle
+      </Box>
+    </Box>
   );
 }

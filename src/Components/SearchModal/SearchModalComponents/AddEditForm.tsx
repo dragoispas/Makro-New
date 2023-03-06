@@ -176,9 +176,9 @@ export function AddEditForm() {
           </TextField>
         </Box>
         {/* <Scrollable> */}
-        <Box sx={{ height: "200px" }}>
-          <NutritionDataTable />
-        </Box>
+
+        <NutritionDataTable />
+
         {/* </Scrollable> */}
       </Box>
 
