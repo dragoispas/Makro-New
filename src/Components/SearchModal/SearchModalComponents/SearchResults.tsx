@@ -15,7 +15,7 @@ import { TabPanel } from "../../TabPanel";
 
 const Content = styled(Box)`
   width: 600px;
-  height: 520px;
+  height: 620px;
 `;
 
 const listSx = {
@@ -23,8 +23,8 @@ const listSx = {
   bgcolor: "background.paper",
   position: "relative",
   overflow: "auto",
-  maxHeight: 385,
-  height: 385,
+  maxHeight: 485,
+  height: 485,
   "& ul": { padding: 0 },
 };
 
@@ -64,7 +64,7 @@ export function SearchResults() {
 
   return (
     <Content>
-      <Box sx={{ height: "470px" }}>
+      <Box sx={{ height: "570px" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider", padding: "0px 20px" }}>
           <Tabs
             value={searchTab}

@@ -18,6 +18,19 @@ import { setAmount, setUnit } from "../../../modules/search/searchModalSlice";
 import { NutritionDataTable } from "./AddEntryFormComponents/NutritionDataTable";
 import { NumberFormatCustom } from "../../Helpers/Formatter";
 
+const AddEntryFormBox = styled(Box)<{ themeMode: string }>`
+  display: flex;
+  gap: 20px;
+  alignitems: center;
+  justify-content: center;
+  background: ${(props) =>
+    props.themeMode === "dark" ? "rgba(238, 91, 70, 0.7)" : "rgba(238, 91, 70, 0.7)"};
+  width: 100%;
+  padding: 10px 0px;
+  margin: 10px 0;
+  border-radius: 10px;
+`;
+
 const Scrollable = styled(Box)`
   overflow: auto;
 
@@ -48,6 +61,7 @@ const unitBaseOptions = [
 
 export function AddEditForm() {
   const dispatch = useDispatch();
+  const themeMode = useSelector(({ general }: RootState) => general.themeMode);
   const dayEntry = useSelector((state: RootState) => state.diary.dayEntry);
   const input = useSelector((state: RootState) => state.searchModal.input);
   const product = useSelector((state: RootState) => state.searchModal.product);
@@ -126,25 +140,23 @@ export function AddEditForm() {
   };
 
   return (
-    <Content>
-      <Box
+    <Box>
+      <Typography
+        fontSize={20}
+        sx={{ height: "50px", width: "100%", display: "flex", justifyContent: "center" }}
+      >
+        {product?.name}
+      </Typography>
+      <Scrollable
         sx={{
-          height: "470px",
+          height: "520px",
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
           flexDirection: "column",
+          // boxShadow: "0px 0px 5px black",
         }}
       >
-        <Typography>{product?.name}</Typography>
-        <Box
-          sx={{
-            display: "flex",
-            gap: "20px",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <AddEntryFormBox themeMode={themeMode}>
           <TextField
             error={amountInputError !== " "}
             helperText={amountInputError}
@@ -174,17 +186,21 @@ export function AddEditForm() {
               </MenuItem>
             ))}
           </TextField>
-        </Box>
+        </AddEntryFormBox>
         {/* <Scrollable> */}
-
-        <NutritionDataTable />
+        <AddEntryFormBox themeMode={themeMode}>
+          <NutritionDataTable />
+        </AddEntryFormBox>
+        <AddEntryFormBox themeMode={themeMode}>
+          <NutritionDataTable />
+        </AddEntryFormBox>
 
         {/* </Scrollable> */}
-      </Box>
+      </Scrollable>
 
       <Button onClick={onSaveClick} sx={{ width: "100%", marginTop: "5px" }}>
         ADD TO DIARY
       </Button>
-    </Content>
+    </Box>
   );
 }

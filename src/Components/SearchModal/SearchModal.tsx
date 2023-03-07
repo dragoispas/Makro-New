@@ -22,7 +22,7 @@ import { SearchResults } from "./SearchModalComponents/SearchResults";
 const InputContainer = styled(Paper)<{ isActive: boolean }>`
   position: absolute;
   width: 600px;
-  height: 600px;
+  height: 700px;
   border-radius: 10px;
   padding-top: 5px;
   transition: 0.25s;
