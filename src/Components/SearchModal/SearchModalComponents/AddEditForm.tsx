@@ -24,7 +24,7 @@ const AddEntryFormBox = styled(Box)<{ themeMode: string }>`
   alignitems: center;
   justify-content: center;
   background: ${(props) =>
-    props.themeMode === "dark" ? "rgba(238, 91, 70, 0.7)" : "rgba(238, 91, 70, 0.5)"};
+    props.themeMode === "dark" ? "rgba(238, 91, 70, 0.7)" : "rgba(238, 91, 70, 0.0)"};
   width: 100%;
   padding: 10px 0px;
   margin: 10px 0;
