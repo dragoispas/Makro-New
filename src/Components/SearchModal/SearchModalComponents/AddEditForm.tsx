@@ -14,7 +14,6 @@ import { useSnackbar } from "notistack";
 import { createFoodEntry } from "../../../Api/food-entries/api";
 import { createProduct } from "../../../Api/products/api";
 import { RootState } from "../../../app/store";
-import { setAmount, setUnit } from "../../../modules/search/searchModalSlice";
 import { NutritionDataTable } from "./AddEntryFormComponents/NutritionDataTable";
 import { NumberFormatCustom } from "../../Helpers/Formatter";
 
@@ -68,9 +67,9 @@ export function AddEditForm() {
   const input = useSelector((state: RootState) => state.searchModal.input);
   const product = useSelector((state: RootState) => state.searchModal.product);
 
-  const amount = useSelector((state: RootState) => state.searchModal.amount);
+  const [amount, setAmount] = useState<number>(0);
+  const [unit, setUnit] = useState<string>("g");
   const [amountInputError, setAmountInputError] = useState<string>(" ");
-  const unit = useSelector((state: RootState) => state.searchModal.unit);
 
   const calories = useSelector((state: RootState) => state.searchModal.calories);
   const fat = useSelector((state: RootState) => state.searchModal.fat);
@@ -171,7 +170,7 @@ export function AddEditForm() {
             variant="standard"
             size="medium"
             value={amount}
-            onChange={(e) => dispatch(setAmount(parseFloat(e.target.value)))}
+            onChange={(e) => setAmount(parseFloat(e.target.value))}
           />
           <TextField
             select
@@ -180,7 +179,7 @@ export function AddEditForm() {
             helperText=" "
             variant="standard"
             value={unit}
-            onChange={(e) => dispatch(setUnit(e.target.value))}
+            onChange={(e) => setUnit(e.target.value)}
             SelectProps={{ MenuProps: { disablePortal: true, style: { cursor: "default" } } }}
           >
             {unitBaseOptions.map((option) => (

@@ -12,7 +12,7 @@ import {
   ToggleButton,
   tableClasses,
 } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../app/store";
 import { setNutritionValue } from "../../../../modules/search/searchModalSlice";
@@ -50,20 +50,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export function NutritionDataTable() {
   const dispatch = useDispatch();
-  const amount = useSelector((state: RootState) => state.searchModal.amount);
-  const unit = useSelector((state: RootState) => state.searchModal.unit);
+  const [amount, setAmount] = useState();
+  const [unit, setUnit] = useState();
   const product = useSelector((state: RootState) => state.searchModal.product);
   const themeMode = useSelector(({ general }: RootState) => general.themeMode);
 
-  const calories = useSelector((state: RootState) => state.searchModal.calories);
-  const fat = useSelector((state: RootState) => state.searchModal.fat);
-  const satFat = useSelector((state: RootState) => state.searchModal.satFat);
-  const carbs = useSelector((state: RootState) => state.searchModal.carbs);
-  const fiber = useSelector((state: RootState) => state.searchModal.fiber);
-  const sugar = useSelector((state: RootState) => state.searchModal.sugar);
-  const protein = useSelector((state: RootState) => state.searchModal.protein);
-  const sodium = useSelector((state: RootState) => state.searchModal.sodium);
-  const potassium = useSelector((state: RootState) => state.searchModal.potassium);
   const nutritionValues = useSelector((state: RootState) => state.searchModal);
 
   const amountInGrams = () => {

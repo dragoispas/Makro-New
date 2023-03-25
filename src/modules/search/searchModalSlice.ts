@@ -9,9 +9,6 @@ export interface SearchModalState {
   input: string | undefined;
   searchTab: number;
 
-  amount: number | undefined;
-  unit: string;
-
   calories: number | undefined;
   fat: number | undefined;
   satFat?: number;
@@ -21,16 +18,6 @@ export interface SearchModalState {
   protein: number | undefined;
   sodium: number | undefined;
   potassium: number | undefined;
-
-  calculatedCalories: number | undefined;
-  calculatedFat: number | undefined;
-  calculatedSatFat?: number;
-  calculatedCarbs: number | undefined;
-  calculatedFiber: number | undefined;
-  calculatedSugar: number | undefined;
-  calculatedProtein: number | undefined;
-  calculatedSodium: number | undefined;
-  calculatedPotassium: number | undefined;
 }
 
 const initialState: SearchModalState = {
@@ -39,9 +26,6 @@ const initialState: SearchModalState = {
   active: false,
   input: undefined,
   searchTab: 0,
-
-  amount: undefined,
-  unit: "g",
 
   calories: undefined,
   fat: undefined,
@@ -52,16 +36,6 @@ const initialState: SearchModalState = {
   protein: undefined,
   sodium: undefined,
   potassium: undefined,
-
-  calculatedCalories: undefined,
-  calculatedFat: undefined,
-  calculatedSatFat: undefined,
-  calculatedCarbs: undefined,
-  calculatedFiber: undefined,
-  calculatedSugar: undefined,
-  calculatedProtein: undefined,
-  calculatedSodium: undefined,
-  calculatedPotassium: undefined,
 };
 
 export const generalSlice = createSlice({
@@ -92,9 +66,6 @@ export const generalSlice = createSlice({
       state.active = false;
       state.searchTab = 0;
 
-      state.amount = undefined;
-      state.unit = "g";
-
       state.calories = undefined;
       state.fat = undefined;
       state.satFat = undefined;
@@ -104,12 +75,6 @@ export const generalSlice = createSlice({
       state.protein = undefined;
       state.sodium = undefined;
       state.potassium = undefined;
-    },
-    setAmount: (state, action: PayloadAction<number | undefined>) => {
-      state.amount = action.payload;
-    },
-    setUnit: (state, action: PayloadAction<string>) => {
-      state.unit = action.payload;
     },
     setNutritionValue: (state, action: PayloadAction<{ name: string; value: number | string }>) => {
       const { name, value } = action.payload;
@@ -156,8 +121,6 @@ export const {
   setSearchTab,
   openSearchModal,
   closeSearchModal,
-  setAmount,
-  setUnit,
   setCalories,
   setFat,
   setSatFat,

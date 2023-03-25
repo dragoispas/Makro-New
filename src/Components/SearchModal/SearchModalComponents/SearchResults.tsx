@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { emptyProduct, ProductMap } from "../../../Api/products/types";
 import { RootState } from "../../../app/store";
 import {
-  setAmount,
   setContent,
   setInput,
   setProduct,
@@ -52,7 +51,6 @@ export function SearchResults() {
               dispatch(setInput(prod.name));
               dispatch(setProduct(prod));
               dispatch(setContent("addEditForm"));
-              dispatch(setAmount(undefined));
             }}
           >
             <SearchListItem name={prod.name} calories={prod.calories} />
@@ -114,7 +112,6 @@ export function SearchResults() {
       <Button
         onClick={() => {
           dispatch(setContent("addEditForm"));
-          dispatch(setAmount(undefined));
         }}
         sx={{ width: "100%", marginTop: "5px" }}
       >
