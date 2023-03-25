@@ -2,7 +2,7 @@ import axios from "axios";
 import { FoodEntry } from "./types";
 
 export async function findOne(id: number | string): Promise<FoodEntry> {
-  const response = await axios.get(`/api/food-entry/${id}`);
+  const response = await axios.get(`/api/v1/food-entry/${id}`);
 
   if (!response || !response.data) {
     throw new Error("Unexpected response");
@@ -12,7 +12,7 @@ export async function findOne(id: number | string): Promise<FoodEntry> {
 }
 
 export async function createFoodEntry(data: Partial<FoodEntry>) {
-  const response = await axios.post("/api/food-entry", data);
+  const response = await axios.post("/api/v1/food-entry", data);
 
   if (!response || !response.data) {
     throw new Error("Unexpected response");
@@ -22,7 +22,7 @@ export async function createFoodEntry(data: Partial<FoodEntry>) {
 }
 
 export async function update(id: number | string, data: Partial<FoodEntry>) {
-  const response = await axios.put(`/api/food-entry/${id}`, data);
+  const response = await axios.put(`/api/v1/food-entry/${id}`, data);
 
   if (!response || !response.data) {
     throw new Error("Unexpected response");
@@ -32,7 +32,7 @@ export async function update(id: number | string, data: Partial<FoodEntry>) {
 }
 
 export async function remove(id: number | string) {
-  const response = await axios.delete(`/api/food-entry/${id}`);
+  const response = await axios.delete(`/api/v1/food-entry/${id}`);
 
   if (!response || !response.data) {
     throw new Error("Unexpected response");

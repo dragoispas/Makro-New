@@ -51,12 +51,12 @@ export function LoginPage() {
   const [logInOpacity, setLogInOpacity] = useState<number>(1);
   const [signUpOpacity, setSignUnOpacity] = useState<number>(0);
 
-  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
 
-  const [usernameError, setUsernameError] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [nameError, setNameError] = useState<string>("");
 
@@ -65,16 +65,16 @@ export function LoginPage() {
   const dispatch = useDispatch();
 
   const onLoginClick = async () => {
-    const response = await axios.post("/api/auth/login", {
-      username,
+    const response = await axios.post("/api/v1/auth/login", {
+      email,
       password,
     });
     dispatch(setUser(response.data.user));
   };
 
   const onCreateAccountClick = async () => {
-    const response = await axios.post("/api/auth/register", {
-      username,
+    const response = await axios.post("/api/v1/auth/register", {
+      email,
       password,
       name,
     });
@@ -83,12 +83,8 @@ export function LoginPage() {
 
   const resetPassword = () => {
     // todo: throttle on entire function
-    if (
-      username === "" ||
-      username.includes(" ") ||
-      !(username.includes("@") && username.includes("."))
-    ) {
-      setUsernameError("Invalid email!");
+    if (email === "" || email.includes(" ") || !(email.includes("@") && email.includes("."))) {
+      setEmailError("Invalid email!");
     } else {
       setIsAlertVisible(true);
       setTimeout(() => {
@@ -140,18 +136,18 @@ export function LoginPage() {
           </Typography>
           <Box sx={{ height: "1px", background: "lightGrey", width: "140px" }} />
         </Stack>
-        <FormControl sx={{ height: "70px" }} error={usernameError !== ""} variant="standard">
+        <FormControl sx={{ height: "70px" }} error={emailError !== ""} variant="standard">
           <InputLabel htmlFor="component-error">Email</InputLabel>
           <Input
             id="component-error"
-            value={username}
+            value={email}
             onChange={(e) => {
-              setUsername(e.target.value);
-              setUsernameError("");
+              setEmail(e.target.value);
+              setEmailError("");
             }}
             aria-describedby="component-error-text"
           />
-          <FormHelperText id="component-error-text">{usernameError}</FormHelperText>
+          <FormHelperText id="component-error-text">{emailError}</FormHelperText>
         </FormControl>
         <FormControl sx={{ height: "70px" }} error={passwordError !== ""} variant="standard">
           <InputLabel htmlFor="component-error">Password</InputLabel>
@@ -221,10 +217,10 @@ export function LoginPage() {
                 setSignUnOpacity(1);
                 setShowPassword(false);
               }, 250);
-              setUsername("");
+              setEmail("");
               setPassword("");
               setName("");
-              setUsernameError("");
+              setEmailError("");
             }}
           >
             Sign up for free!
@@ -256,10 +252,10 @@ export function LoginPage() {
                 setSignUnOpacity(0);
                 setShowPassword(false);
               }, 250);
-              setUsername("");
+              setEmail("");
               setPassword("");
               setName("");
-              setUsernameError("");
+              setEmailError("");
             }}
           >
             Log in!
@@ -277,20 +273,20 @@ export function LoginPage() {
             }}
             aria-describedby="component-error-text"
           />
-          <FormHelperText id="component-error-text">{usernameError}</FormHelperText>
+          <FormHelperText id="component-error-text">{emailError}</FormHelperText>
         </FormControl>
-        <FormControl sx={{ height: "70px" }} error={usernameError !== ""} variant="standard">
+        <FormControl sx={{ height: "70px" }} error={emailError !== ""} variant="standard">
           <InputLabel htmlFor="component-error">Email</InputLabel>
           <Input
             id="component-error"
-            value={username}
+            value={email}
             onChange={(e) => {
-              setUsername(e.target.value);
-              setUsernameError("");
+              setEmail(e.target.value);
+              setEmailError("");
             }}
             aria-describedby="component-error-text"
           />
-          <FormHelperText id="component-error-text">{usernameError}</FormHelperText>
+          <FormHelperText id="component-error-text">{emailError}</FormHelperText>
         </FormControl>
         <FormControl sx={{ height: "70px" }} error={passwordError !== ""} variant="standard">
           <InputLabel htmlFor="component-error">Password</InputLabel>

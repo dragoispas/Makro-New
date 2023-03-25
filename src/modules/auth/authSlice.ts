@@ -27,14 +27,14 @@ export const authSlice = createSlice({
 export const { setUser } = authSlice.actions;
 
 export const logout = () => async (dispatch: AppDispatch) => {
-  await axios.post("/api/auth/logout");
+  await axios.post("/api/v1/auth/logout");
   dispatch(setUser(null));
 };
 
 export const retrieveCurrentUser = () => async (dispatch: AppDispatch) => {
   dispatch(setLoading(true));
   try {
-    const response = await axios.get("/api/auth/profile");
+    const response = await axios.get("/api/v1/auth/profile");
     dispatch(setUser(response.data));
   } catch (e) {
     if ((e as AxiosError)?.response?.status !== 401) {

@@ -3,7 +3,7 @@ import moment from "moment";
 import { DayEntry } from "./types";
 
 export async function findOne(id: number): Promise<DayEntry> {
-  const response = await axios.get(`/api/day-entry/${id}`);
+  const response = await axios.get(`/api/v1/day-entry/${id}`);
 
   if (!response || !response.data) {
     throw new Error("Unexpected response");
@@ -14,7 +14,7 @@ export async function findOne(id: number): Promise<DayEntry> {
 
 export async function getDayEntryByDate(date: Date): Promise<DayEntry> {
   const formattedDate = moment(date).format("YYYY-MM-DD");
-  const response = await axios.get(`/api/day-entry/date/${formattedDate}`);
+  const response = await axios.get(`/api/v1/day-entry/date/${formattedDate}`);
 
   if (!response || !response.data) {
     throw new Error("Unexpected response");
@@ -24,7 +24,7 @@ export async function getDayEntryByDate(date: Date): Promise<DayEntry> {
 }
 
 export async function create(data: Partial<DayEntry>): Promise<DayEntry> {
-  const response = await axios.post("/api/day-entry", data);
+  const response = await axios.post("/api/v1/day-entry", data);
 
   if (!response || !response.data) {
     throw new Error("Unexpected response");
@@ -34,7 +34,7 @@ export async function create(data: Partial<DayEntry>): Promise<DayEntry> {
 }
 
 export async function updateDateEntry(id: number, data: Partial<DayEntry>): Promise<DayEntry> {
-  const response = await axios.put(`/api/day-entry/${id}`, data);
+  const response = await axios.put(`/api/v1/day-entry/${id}`, data);
 
   if (!response || !response.data) {
     throw new Error("Unexpected response");
