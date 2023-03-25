@@ -10,7 +10,6 @@ import {
   setFat,
   setFiber,
   setPotassium,
-  setProduct,
   setProtein,
   setSatFat,
   setSodium,
@@ -18,6 +17,7 @@ import {
 } from "../../modules/search/searchModalSlice";
 import { AddEditForm } from "./SearchModalComponents/AddEditForm";
 import { SearchResults } from "./SearchModalComponents/SearchResults";
+import { useProduct } from "../../Hooks/useProduct";
 
 const InputContainer = styled(Paper)<{ isActive: boolean }>`
   position: absolute;
@@ -51,11 +51,11 @@ export function SearchModal() {
   const dispatch = useDispatch();
   const active = useSelector((state: RootState) => state.searchModal.active);
   const content = useSelector((state: RootState) => state.searchModal.content);
-  const product = useSelector((state: RootState) => state.searchModal.product);
+  const [product, setProduct] = useProduct();
 
   useEffect(() => {
     if (content !== "addEditForm") {
-      dispatch(setProduct(null));
+      setProduct(null);
     }
   }, [content]);
 
