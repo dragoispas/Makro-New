@@ -1,49 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Button,
-  Box,
-  FormControl,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-  styled,
-} from "@mui/material";
+import { Button, Box, MenuItem, TextField, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { createFoodEntry } from "../../../Api/food-entries/api";
-import { createProduct } from "../../../Api/products/api";
-import { RootState } from "../../../app/store";
-import { NutritionDataTable } from "./AddEntryFormComponents/NutritionDataTable";
-import { NumberFormatCustom } from "../../Helpers/Formatter";
-
-const AddEntryFormBox = styled(Box)<{ themeMode: string }>`
-  display: flex;
-  gap: 20px;
-  alignitems: center;
-  justify-content: center;
-  background: ${(props) =>
-    props.themeMode === "dark" ? "rgba(238, 91, 70, 0.7)" : "rgba(238, 91, 70, 0.0)"};
-  width: 100%;
-  padding: 10px 0px;
-  margin: 10px 0;
-  border-radius: 10px;
-  box-shadow: 0 0 10px black;
-  margin: px;
-`;
-
-const Scrollable = styled(Box)`
-  overflow: auto;
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const Content = styled(Box)`
-  width: 600px;
-  height: 520px;
-`;
+import { createFoodEntry } from "../../../../Api/food-entries/api";
+import { createProduct } from "../../../../Api/products/api";
+import { RootState } from "../../../../app/store";
+import { NutritionDataTable } from "../AddEntryFormComponents/NutritionDataTable";
+import { NumberFormatCustom } from "../../../Helpers/Formatter";
+import { useCurrent } from "../../../../Hooks/useCurrent";
+import { Product } from "../../../../Api/products/types";
+import { Scrollable, AddEntryFormBox } from "./AddEditFormStyle";
 
 const unitBaseOptions = [
   {
@@ -60,26 +26,19 @@ const unitBaseOptions = [
   },
 ];
 
-export function AddEditForm() {
+interface Props {
+  product: Product;
+}
+
+export function AddEditForm({ product }: Props) {
   const dispatch = useDispatch();
   const themeMode = useSelector(({ general }: RootState) => general.themeMode);
   const dayEntry = useSelector((state: RootState) => state.diary.dayEntry);
-  const input = useSelector((state: RootState) => state.searchModal.input);
-  const product = useSelector((state: RootState) => state.searchModal.product);
 
+  const [foodName, setFoodName] = useState<string>(""); // @TODO: way to edit this na dautomatically set if product is not new
   const [amount, setAmount] = useState<number>(0);
   const [unit, setUnit] = useState<string>("g");
   const [amountInputError, setAmountInputError] = useState<string>(" ");
-
-  const calories = useSelector((state: RootState) => state.searchModal.calories);
-  const fat = useSelector((state: RootState) => state.searchModal.fat);
-  const satFat = useSelector((state: RootState) => state.searchModal.satFat);
-  const carbs = useSelector((state: RootState) => state.searchModal.carbs);
-  const fiber = useSelector((state: RootState) => state.searchModal.fiber);
-  const sugar = useSelector((state: RootState) => state.searchModal.sugar);
-  const protein = useSelector((state: RootState) => state.searchModal.protein);
-  const sodium = useSelector((state: RootState) => state.searchModal.sodium);
-  const potassium = useSelector((state: RootState) => state.searchModal.potassium);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -99,39 +58,40 @@ export function AddEditForm() {
 
     let newProduct;
 
-    if (!product) {
+    if (product.isNew) {
       newProduct = await createProduct({
-        name: input,
-        calories: calories,
-        carbs: carbs,
-        fat: fat,
-        protein: protein,
+        name: foodName,
+        calories: product.calories,
+        carbs: product.carbs,
+        fat: product.fat,
+        protein: product.protein,
 
-        fiber: fiber,
-        satFat: satFat,
-        sugar: sugar,
-        sodium: sodium,
-        potassium: potassium,
+        fiber: product.fiber,
+        satFat: product.satFat,
+        sugar: product.sugar,
+        sodium: product.sodium,
+        potassium: product.potassium,
       });
     }
 
     try {
       await createFoodEntry({
         dayEntryId: dayEntry.id,
-        name: input,
+        name: foodName,
         productId: product?.id ?? newProduct?.id,
         servingSize: unit,
         quantity: amount,
 
-        calories: calories,
-        carbs: carbs,
-        fat: fat,
-        protein: protein,
-        fiber: fiber,
-        satFat: satFat,
-        sugar: sugar,
-        sodium: sodium,
-        potassium: potassium,
+        // Calculated values here
+        calories: product.calories * 1,
+        carbs: product.carbs,
+        fat: product.fat,
+        protein: product.protein,
+        fiber: product.fiber,
+        satFat: product.satFat,
+        sugar: product.sugar,
+        sodium: product.sodium,
+        potassium: product.potassium,
       });
       enqueueSnackbar("Dumnezeu este cu tine", { variant: "success" });
     } catch (error) {

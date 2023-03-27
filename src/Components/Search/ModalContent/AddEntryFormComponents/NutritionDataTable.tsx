@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../app/store";
-import { setNutritionValue } from "../../../../modules/search/searchModalSlice";
+import { setValue } from "../../../../modules/search/currentSlice";
 import { NumberFormatCustom } from "../../../Helpers/Formatter";
 import { tableCellClasses } from "@mui/material/TableCell";
 
@@ -52,10 +52,10 @@ export function NutritionDataTable() {
   const dispatch = useDispatch();
   const [amount, setAmount] = useState();
   const [unit, setUnit] = useState();
-  const product = useSelector((state: RootState) => state.searchModal.product);
+  const product = useSelector((state: RootState) => state.search.product);
   const themeMode = useSelector(({ general }: RootState) => general.themeMode);
 
-  const nutritionValues = useSelector((state: RootState) => state.searchModal);
+  const nutritionValues = useSelector((state: RootState) => state.search);
 
   const amountInGrams = () => {
     if (amount) {
@@ -194,7 +194,7 @@ export function NutritionDataTable() {
                     key={field.name}
                     value={fieldValue ?? 0}
                     onChange={(e) =>
-                      dispatch(setNutritionValue({ name: field.name, value: e.target.value }))
+                      dispatch(setValue({ name: field.name, value: e.target.value }))
                     }
                     placeholder="0"
                     size="small"

@@ -3,12 +3,12 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CustomCalendar from "../Components/CustomCalendar";
 import { DiaryChart } from "../Components/DiaryChart";
-import { SearchModal } from "../Components/SearchModal/SearchModal";
 import { FoodEntryList } from "../Components/FoodEntryList";
 import { getDayEntryByDate } from "../Api/day-entries/api";
 import { setDayEntry } from "../modules/diary/diarySlice";
 import DayEntryDetails from "../Components/DayEntryDetails";
 import { RootState } from "../app/store";
+import { SearchModal } from "../Components/Search/SearchModal/SearchModal";
 
 export default function DiaryPage() {
   const dispatch = useDispatch();

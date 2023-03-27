@@ -1,16 +1,10 @@
 import { Button, Box, List, ListSubheader, Tab, Tabs, styled } from "@mui/material";
 import React, { useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { emptyProduct, ProductMap } from "../../../Api/products/types";
-import { RootState } from "../../../app/store";
-import {
-  setContent,
-  setInput,
-  setProduct,
-  setSearchTab,
-} from "../../../modules/search/searchModalSlice";
-import { SearchListItem } from "../../SearchListItem";
-import { TabPanel } from "../../TabPanel";
+import { bananaProduct, emptyProduct, ProductMap } from "../../../../Api/products/types";
+import { useProduct } from "../../../../Hooks/useProduct";
+import { useSearch } from "../../../../Hooks/useSearch";
+import { SearchListItem } from "../../../SearchListItem";
+import { TabPanel } from "../../../TabPanel";
 
 const Content = styled(Box)`
   width: 600px;
@@ -28,31 +22,24 @@ const listSx = {
 };
 
 export function SearchResults() {
-  const dispatch = useDispatch();
-
-  const searchTab = useSelector((state: RootState) => state.searchModal.searchTab);
+  const { tab, tabHandler: setTab } = useSearch();
+  const [product, setProduct] = useProduct();
 
   const [products] = useState<ProductMap>({
-    test1: emptyProduct,
-    test2: emptyProduct,
-    test3: emptyProduct,
+    test1: bananaProduct,
+    test2: bananaProduct,
+    test3: bananaProduct,
   });
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    dispatch(setSearchTab(newValue));
+    setTab(newValue);
   };
 
   const getSearchListItems = useMemo(
     () =>
       Object.values(products).map((prod) => (
         <React.Fragment key={prod.id}>
-          <Box
-            onClick={() => {
-              dispatch(setInput(prod.name));
-              dispatch(setProduct(prod));
-              dispatch(setContent("addEditForm"));
-            }}
-          >
+          <Box onClick={() => setProduct(prod)}>
             <SearchListItem name={prod.name} calories={prod.calories} />
           </Box>
         </React.Fragment>
@@ -65,7 +52,7 @@ export function SearchResults() {
       <Box sx={{ height: "570px" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider", padding: "0px 20px" }}>
           <Tabs
-            value={searchTab}
+            value={tab}
             onChange={handleTabChange}
             variant="scrollable"
             scrollButtons={false}
@@ -77,7 +64,7 @@ export function SearchResults() {
             <Tab label="Branded" />
           </Tabs>
         </Box>
-        <TabPanel value={searchTab} index={0}>
+        <TabPanel value={tab} index={0}>
           <List sx={listSx} subheader={<li />}>
             <li key="section-1">
               <ul>
@@ -93,28 +80,23 @@ export function SearchResults() {
             </li>
           </List>
         </TabPanel>
-        <TabPanel value={searchTab} index={1}>
+        <TabPanel value={tab} index={1}>
           <List sx={listSx} subheader={<li />}>
             {getSearchListItems}
           </List>
         </TabPanel>
-        <TabPanel value={searchTab} index={2}>
+        <TabPanel value={tab} index={2}>
           <List sx={listSx} subheader={<li />}>
             {getSearchListItems}
           </List>
         </TabPanel>
-        <TabPanel value={searchTab} index={3}>
+        <TabPanel value={tab} index={3}>
           <List sx={listSx} subheader={<li />}>
             {getSearchListItems}
           </List>
         </TabPanel>
       </Box>
-      <Button
-        onClick={() => {
-          dispatch(setContent("addEditForm"));
-        }}
-        sx={{ width: "100%", marginTop: "5px" }}
-      >
+      <Button onClick={() => setProduct(emptyProduct)} sx={{ width: "100%", marginTop: "5px" }}>
         CREATE NEW FOOD
       </Button>
     </Content>
