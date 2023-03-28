@@ -9,7 +9,7 @@ import { NutritionDataTable } from "../AddEntryFormComponents/NutritionDataTable
 import { NumberFormatCustom } from "../../../Helpers/Formatter";
 import { useCurrent } from "../../../../Hooks/useCurrent";
 import { Product } from "../../../../Api/products/types";
-import { Scrollable, AddEntryFormBox, ScrollableStyled } from "./AddEditFormStyle";
+import { ScrollableBox, ModuleWrapper, ModulesContainer, Wrapper } from "./AddEditFormStyle";
 import { AmountAndUnit } from "../AddEntryFormComponents/AmountAndUnit/AmountAndUnit";
 
 interface Props {
@@ -75,23 +75,23 @@ export function AddEditForm({ product }: Props) {
   };
 
   return (
-    <div>
+    <Wrapper>
       <Typography
         fontSize={20}
         sx={{ height: "50px", width: "100%", display: "flex", justifyContent: "center" }}
       >
         {product?.name}
       </Typography>
-      <ScrollableStyled>
+      <ModulesContainer>
         {/* Components that will be in the AddEditForm @TODO: add visible and enable*/}
         <AmountAndUnit />
         <NutritionDataTable />
         <NutritionDataTable />
-      </ScrollableStyled>
+      </ModulesContainer>
 
       <Button onClick={onSaveClick} sx={{ width: "100%", marginTop: "5px" }}>
         ADD TO DIARY
       </Button>
-    </div>
+    </Wrapper>
   );
 }

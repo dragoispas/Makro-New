@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../app/store";
 import { NumberFormatCustom } from "../../../../Helpers/Formatter";
-import { AddEntryFormBox } from "../../AddEditForm/AddEditFormStyle";
+import { ModuleWrapper } from "../../AddEditForm/AddEditFormStyle";
 
 const unitBaseOptions = [
   {
@@ -26,7 +26,7 @@ export const AmountAndUnit = () => {
   const [amount, setAmount] = useState<number>(0);
   const [unit, setUnit] = useState<string>("g");
   return (
-    <AddEntryFormBox themeMode={themeMode}>
+    <ModuleWrapper themeMode={themeMode}>
       <TextField
         error={amountInputError !== " "}
         helperText={amountInputError}
@@ -56,6 +56,6 @@ export const AmountAndUnit = () => {
           </MenuItem>
         ))}
       </TextField>
-    </AddEntryFormBox>
+    </ModuleWrapper>
   );
 };

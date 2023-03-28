@@ -1,22 +1,16 @@
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
 
-export const AddEntryFormBox = styled.div<{ themeMode: string }>`
-  display: flex;
-  gap: 20px;
-  alignitems: center;
-  justify-content: center;
+export const ModuleWrapper = styled.div<{ themeMode: string }>`
   background: ${(props) =>
     props.themeMode === "dark" ? "rgba(238, 91, 70, 0.7)" : "rgba(238, 91, 70, 0.0)"};
   width: 100%;
-  padding: 10px 0px;
-  margin: 10px 0;
   border-radius: 10px;
   box-shadow: 0 0 10px black;
   margin: px;
 `;
 
-export const Scrollable = styled(Box)`
+export const ScrollableBox = styled(Box)`
   overflow: auto;
 
   ::-webkit-scrollbar {
@@ -24,16 +18,20 @@ export const Scrollable = styled(Box)`
   }
 `;
 
-export const ScrollableStyled = styled(Scrollable)`
-  height: 520px;
-  width: 100%;
+export const ModulesContainer = styled(ScrollableBox)`
+  height: 500px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 0px 10px;
+  padding: 10px 10px;
+  gap: 20px;
 `;
 
 export const Content = styled(Box)`
   width: 600px;
   height: 520px;
+`;
+
+export const Wrapper = styled.div`
+  width: 80%;
 `;

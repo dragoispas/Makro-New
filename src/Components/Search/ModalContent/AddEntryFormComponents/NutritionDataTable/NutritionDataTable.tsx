@@ -18,11 +18,11 @@ import { tableCellClasses } from "@mui/material/TableCell";
 import { RootState } from "../../../../../app/store";
 import { setValue } from "../../../../../modules/search/currentSlice";
 import { NumberFormatCustom } from "../../../../Helpers/Formatter";
-import { AddEntryFormBox } from "../../AddEditForm/AddEditFormStyle";
+import { ModuleWrapper } from "../../AddEditForm/AddEditFormStyle";
 import { useProduct } from "../../../../../Hooks/useProduct";
 import { useCurrent } from "../../../../../Hooks/useCurrent";
 
-const Scrollable = styled(TableContainer)`
+const ScrollableBox = styled(TableContainer)`
   overflow: auto;
   ::-webkit-scrollbar {
     display: none;
@@ -150,7 +150,7 @@ export function NutritionDataTable() {
 
   return (
     // <Box>
-    <AddEntryFormBox themeMode={themeMode}>
+    <ModuleWrapper themeMode={themeMode}>
       <Table aria-label="sticky table" size="small">
         <TableHead>
           <TableRow>
@@ -208,6 +208,6 @@ export function NutritionDataTable() {
       >
         Toggle
       </Box> */}
-    </AddEntryFormBox>
+    </ModuleWrapper>
   );
 }
