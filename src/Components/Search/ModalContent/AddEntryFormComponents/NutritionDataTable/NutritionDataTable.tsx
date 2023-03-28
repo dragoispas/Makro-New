@@ -14,10 +14,13 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../app/store";
-import { setValue } from "../../../../modules/search/currentSlice";
-import { NumberFormatCustom } from "../../../Helpers/Formatter";
 import { tableCellClasses } from "@mui/material/TableCell";
+import { RootState } from "../../../../../app/store";
+import { setValue } from "../../../../../modules/search/currentSlice";
+import { NumberFormatCustom } from "../../../../Helpers/Formatter";
+import { AddEntryFormBox } from "../../AddEditForm/AddEditFormStyle";
+import { useProduct } from "../../../../../Hooks/useProduct";
+import { useCurrent } from "../../../../../Hooks/useCurrent";
 
 const Scrollable = styled(TableContainer)`
   overflow: auto;
@@ -52,7 +55,8 @@ export function NutritionDataTable() {
   const dispatch = useDispatch();
   const [amount, setAmount] = useState();
   const [unit, setUnit] = useState();
-  const product = useSelector((state: RootState) => state.search.product);
+  const [product] = useProduct();
+  const [current, setCurrent] = useCurrent();
   const themeMode = useSelector(({ general }: RootState) => general.themeMode);
 
   const nutritionValues = useSelector((state: RootState) => state.search);
@@ -146,28 +150,13 @@ export function NutritionDataTable() {
 
   return (
     // <Box>
-    <Box>
+    <AddEntryFormBox themeMode={themeMode}>
       <Table aria-label="sticky table" size="small">
         <TableHead>
           <TableRow>
             <StyledTableCell padding="none" sx={{ paddingLeft: "12px" }}></StyledTableCell>
             <StyledTableCell align="right">
               <Typography align="center">100 g</Typography>
-            </StyledTableCell>
-            <StyledTableCell align="right">
-              {/* <InputBase
-                    key="amount"
-                    value={amount}
-                    // onChange={(e) => dispatch(setCalories(e.target.value))}
-                    placeholder="0"
-                    size="small"
-                    sx={{ fontSize: "0.875rem", fontWeight: "500" }}
-                    inputProps={{ style: { textAlign: "center" } }}
-                    inputComponent={NumberFormatCustom as any}
-                  /> */}
-              <Typography align="center" sx={{ textAlign: "center" }}>
-                {getTableAmount()}
-              </Typography>
             </StyledTableCell>
           </TableRow>
         </TableHead>
@@ -203,18 +192,6 @@ export function NutritionDataTable() {
                     inputComponent={NumberFormatCustom as any}
                   />
                 </StyledTableCell>
-                <StyledTableCell align="right">
-                  <InputBase
-                    key={field.name}
-                    value={field.calculated}
-                    placeholder="0"
-                    size="small"
-                    sx={{ fontSize: "0.875rem" }}
-                    inputProps={{ style: { textAlign: "center" } }}
-                    inputComponent={NumberFormatCustom as any}
-                  />
-                  {/* <Typography align="center">{calculatedFieldValue ?? 0}</Typography> */}
-                </StyledTableCell>
               </StyledTableRow>
             );
           })}
@@ -231,6 +208,6 @@ export function NutritionDataTable() {
       >
         Toggle
       </Box> */}
-    </Box>
+    </AddEntryFormBox>
   );
 }

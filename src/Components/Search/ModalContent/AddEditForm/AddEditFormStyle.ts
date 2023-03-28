@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
 
-export const AddEntryFormBox = styled(Box)<{ themeMode: string }>`
+export const AddEntryFormBox = styled.div<{ themeMode: string }>`
   display: flex;
   gap: 20px;
   alignitems: center;
@@ -22,6 +22,15 @@ export const Scrollable = styled(Box)`
   ::-webkit-scrollbar {
     display: none;
   }
+`;
+
+export const ScrollableStyled = styled(Scrollable)`
+  height: 520px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 0px 10px;
 `;
 
 export const Content = styled(Box)`
