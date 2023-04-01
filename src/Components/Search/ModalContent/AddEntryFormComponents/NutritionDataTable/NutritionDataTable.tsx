@@ -53,11 +53,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export function NutritionDataTable() {
   const dispatch = useDispatch();
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState<number>(100);
   const [unit, setUnit] = useState();
   const [product] = useProduct();
   const [current, setCurrent] = useCurrent();
   const themeMode = useSelector(({ general }: RootState) => general.themeMode);
+  const [advanced, setAdvanced] = useState(true);
 
   const nutritionValues = useSelector((state: RootState) => state.search);
 
@@ -82,7 +83,6 @@ export function NutritionDataTable() {
 
   type NutritionField = {
     name: string;
-    calculated: number;
     label: string;
     mandatory?: boolean;
     unit?: string;
@@ -91,58 +91,49 @@ export function NutritionDataTable() {
   const nutritionFields: NutritionField[] = [
     {
       name: "calories",
-      calculated: 0,
       label: "Calories",
       mandatory: true,
     },
     {
       name: "fat",
-      calculated: 0,
       label: "Total Fat",
       mandatory: true,
       unit: "g",
     },
     {
       name: "satFat",
-      calculated: 0,
       label: "Sat Fat",
       unit: "g",
     },
     {
       name: "carbs",
-      calculated: 0,
       label: "Carbs",
       mandatory: true,
       unit: "g",
     },
     {
       name: "fiber",
-      calculated: 0,
       label: "Fiber",
       unit: "g",
     },
     {
       name: "sugar",
-      calculated: 0,
       label: "Sugar",
       unit: "g",
     },
     {
       name: "protein",
-      calculated: 0,
       label: "Protein",
       mandatory: true,
       unit: "g",
     },
     {
       name: "sodium",
-      calculated: 0,
       label: "Sodium",
       unit: "mg",
     },
     {
       name: "potassium",
-      calculated: 0,
       label: "Potassium",
       unit: "mg",
     },
@@ -150,13 +141,21 @@ export function NutritionDataTable() {
 
   return (
     // <Box>
-    <ModuleWrapper themeMode={themeMode}>
+    <>
       <Table aria-label="sticky table" size="small">
         <TableHead>
           <TableRow>
             <StyledTableCell padding="none" sx={{ paddingLeft: "12px" }}></StyledTableCell>
             <StyledTableCell align="right">
-              <Typography align="center">100 g</Typography>
+              <InputBase
+                value={amount}
+                onChange={(e) => setAmount(parseFloat(e.target.value))}
+                placeholder="0"
+                size="small"
+                sx={{ fontSize: "0.875rem" }}
+                inputProps={{ style: { textAlign: "center" } }}
+                inputComponent={NumberFormatCustom as any}
+              />
             </StyledTableCell>
           </TableRow>
         </TableHead>
@@ -164,6 +163,9 @@ export function NutritionDataTable() {
           {nutritionFields.map((field) => {
             const fieldValue = nutritionValues[field.name as keyof typeof nutritionValues];
 
+            if (!advanced && !field.mandatory) {
+              return;
+            }
             return (
               <StyledTableRow
                 key={field.name}
@@ -208,6 +210,6 @@ export function NutritionDataTable() {
       >
         Toggle
       </Box> */}
-    </ModuleWrapper>
+    </>
   );
 }

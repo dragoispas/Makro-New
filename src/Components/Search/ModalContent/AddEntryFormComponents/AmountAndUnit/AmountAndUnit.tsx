@@ -26,7 +26,7 @@ export const AmountAndUnit = () => {
   const [amount, setAmount] = useState<number>(0);
   const [unit, setUnit] = useState<string>("g");
   return (
-    <ModuleWrapper themeMode={themeMode}>
+    <>
       <TextField
         error={amountInputError !== " "}
         helperText={amountInputError}
@@ -56,6 +56,6 @@ export const AmountAndUnit = () => {
           </MenuItem>
         ))}
       </TextField>
-    </ModuleWrapper>
+    </>
   );
 };

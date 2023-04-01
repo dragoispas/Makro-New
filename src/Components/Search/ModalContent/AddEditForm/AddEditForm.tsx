@@ -84,9 +84,16 @@ export function AddEditForm({ product }: Props) {
       </Typography>
       <ModulesContainer>
         {/* Components that will be in the AddEditForm @TODO: add visible and enable*/}
-        <AmountAndUnit />
-        <NutritionDataTable />
-        <NutritionDataTable />
+        <ModuleWrapper themeMode={themeMode}>
+          <AmountAndUnit />
+        </ModuleWrapper>
+        <ModuleWrapper themeMode={themeMode}>
+          <NutritionDataTable />
+        </ModuleWrapper>
+
+        <ModuleWrapper themeMode={themeMode}>
+          <NutritionDataTable />
+        </ModuleWrapper>
       </ModulesContainer>
 
       <Button onClick={onSaveClick} sx={{ width: "100%", marginTop: "5px" }}>
