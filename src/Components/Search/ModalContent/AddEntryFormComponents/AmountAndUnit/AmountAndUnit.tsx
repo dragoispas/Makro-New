@@ -1,9 +1,9 @@
-import { TextField, MenuItem } from "@mui/material";
+import { TextField, MenuItem, Typography, Stack } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../app/store";
 import { NumberFormatCustom } from "../../../../Helpers/Formatter";
-import { ModuleWrapper } from "../../AddEditForm/AddEditFormStyle";
+import { ModuleHeader, ModuleTitleStyle, ModuleWrapper } from "../../AddEditForm/AddEditFormStyle";
 
 const unitBaseOptions = [
   {
@@ -26,36 +26,44 @@ export const AmountAndUnit = () => {
   const [amount, setAmount] = useState<number>(0);
   const [unit, setUnit] = useState<string>("g");
   return (
-    <>
-      <TextField
-        error={amountInputError !== " "}
-        helperText={amountInputError}
-        InputProps={{
-          inputComponent: NumberFormatCustom as never,
-        }}
-        id="standard-basic"
-        label="Amount"
-        variant="standard"
-        size="medium"
-        value={amount}
-        onChange={(e) => setAmount(parseFloat(e.target.value))}
-      />
-      <TextField
-        select
-        label="Unit"
-        defaultValue="EUR"
-        helperText=" "
-        variant="standard"
-        value={unit}
-        onChange={(e) => setUnit(e.target.value)}
-        SelectProps={{ MenuProps: { disablePortal: true, style: { cursor: "default" } } }}
-      >
-        {unitBaseOptions.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-    </>
+    <ModuleWrapper themeMode={themeMode}>
+      <ModuleHeader>
+        <Typography sx={ModuleTitleStyle} color={"primary"}>
+          Add to diary
+        </Typography>
+      </ModuleHeader>
+      <div style={{ padding: "10px", display: "flex", justifyContent: "space-between" }}>
+        <Typography>Amount</Typography>
+        <div>
+          <TextField
+            error={amountInputError !== " "}
+            InputProps={{
+              inputComponent: NumberFormatCustom as never,
+            }}
+            id="standard-basic"
+            variant="standard"
+            size="small"
+            value={amount}
+            onChange={(e) => setAmount(parseFloat(e.target.value))}
+          />
+          <TextField
+            sx={{ width: "100px" }}
+            select
+            defaultValue="EUR"
+            variant="standard"
+            size="small"
+            value={unit}
+            onChange={(e) => setUnit(e.target.value)}
+            SelectProps={{ MenuProps: { disablePortal: true, style: { cursor: "default" } } }}
+          >
+            {unitBaseOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </div>
+      </div>
+    </ModuleWrapper>
   );
 };

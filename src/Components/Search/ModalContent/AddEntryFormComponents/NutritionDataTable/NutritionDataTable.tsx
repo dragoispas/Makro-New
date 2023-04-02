@@ -11,6 +11,7 @@ import {
   styled,
   ToggleButton,
   tableClasses,
+  ToggleButtonGroup,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,30 +19,14 @@ import { tableCellClasses } from "@mui/material/TableCell";
 import { RootState } from "../../../../../app/store";
 import { setValue } from "../../../../../modules/search/currentSlice";
 import { NumberFormatCustom } from "../../../../Helpers/Formatter";
-import { ModuleWrapper } from "../../AddEditForm/AddEditFormStyle";
+import { ModuleHeader, ModuleTitleStyle, ModuleWrapper } from "../../AddEditForm/AddEditFormStyle";
 import { useProduct } from "../../../../../Hooks/useProduct";
 import { useCurrent } from "../../../../../Hooks/useCurrent";
+import { StyledTableCell } from "./NutritionDataTableStyle";
+import ManageSearchOutlinedIcon from "@mui/icons-material/ManageSearchOutlined";
 
-const ScrollableBox = styled(TableContainer)`
-  overflow: auto;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  height: 300px;
-`;
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "none",
-    // backgroundColor: theme.palette.primary.main,
-    // color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
+// why can't this be in a separate file?
+export const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
@@ -58,7 +43,7 @@ export function NutritionDataTable() {
   const [product] = useProduct();
   const [current, setCurrent] = useCurrent();
   const themeMode = useSelector(({ general }: RootState) => general.themeMode);
-  const [advanced, setAdvanced] = useState(true);
+  const [advanced, setAdvanced] = useState(false);
 
   const nutritionValues = useSelector((state: RootState) => state.search);
 
@@ -139,9 +124,42 @@ export function NutritionDataTable() {
     },
   ];
 
+  const AdvancedModeToggle = () => {
+    return (
+      <div style={{ height: "21.59px", transform: "translate(0px, -2px)" }}>
+        <ToggleButtonGroup exclusive>
+          <ToggleButton
+            sx={{ height: "21.59px" }}
+            size="small"
+            value="check"
+            selected={!advanced}
+            onClick={(event: React.MouseEvent<HTMLElement>, newMode: boolean) => setAdvanced(false)}
+          >
+            <Typography sx={{ fontSize: "0.55rem" }}>Basic</Typography>
+          </ToggleButton>
+          <ToggleButton
+            sx={{ height: "21.59px" }}
+            size="small"
+            value="check"
+            selected={advanced}
+            onClick={(event: React.MouseEvent<HTMLElement>, newMode: boolean) => setAdvanced(true)}
+          >
+            <Typography sx={{ fontSize: "0.55rem" }}>Advanced</Typography>
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </div>
+    );
+  };
+
   return (
     // <Box>
-    <>
+    <ModuleWrapper themeMode={themeMode}>
+      <ModuleHeader>
+        <Typography sx={ModuleTitleStyle} color={"primary"}>
+          Nutrition Data
+        </Typography>
+        <AdvancedModeToggle />
+      </ModuleHeader>
       <Table aria-label="sticky table" size="small">
         <TableHead>
           <TableRow>
@@ -177,8 +195,10 @@ export function NutritionDataTable() {
                   component="th"
                   scope="row"
                 >
-                  {field.label}
-                  {field.unit && `(${field.unit})`}
+                  <Typography>
+                    {field.label}
+                    {field.unit && `(${field.unit})`}
+                  </Typography>
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   <InputBase
@@ -210,6 +230,6 @@ export function NutritionDataTable() {
       >
         Toggle
       </Box> */}
-    </>
+    </ModuleWrapper>
   );
 }

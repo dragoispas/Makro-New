@@ -6,7 +6,7 @@ export const ModuleWrapper = styled.div<{ themeMode: string }>`
     props.themeMode === "dark" ? "rgba(238, 91, 70, 0.7)" : "rgba(238, 91, 70, 0.0)"};
   width: 100%;
   border-radius: 10px;
-  box-shadow: 0 0 10px black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   margin: px;
 `;
 
@@ -35,3 +35,16 @@ export const Content = styled(Box)`
 export const Wrapper = styled.div`
   width: 80%;
 `;
+
+export const ModuleHeader = styled.div`
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ModuleTitleStyle = {
+  fontWeight: "bold",
+  fontSize: "0.9rem",
+};

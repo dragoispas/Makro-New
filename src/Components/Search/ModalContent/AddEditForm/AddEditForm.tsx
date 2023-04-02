@@ -9,7 +9,13 @@ import { NutritionDataTable } from "../AddEntryFormComponents/NutritionDataTable
 import { NumberFormatCustom } from "../../../Helpers/Formatter";
 import { useCurrent } from "../../../../Hooks/useCurrent";
 import { Product } from "../../../../Api/products/types";
-import { ScrollableBox, ModuleWrapper, ModulesContainer, Wrapper } from "./AddEditFormStyle";
+import {
+  ScrollableBox,
+  ModuleWrapper,
+  ModulesContainer,
+  Wrapper,
+  ModuleTitleStyle,
+} from "./AddEditFormStyle";
 import { AmountAndUnit } from "../AddEntryFormComponents/AmountAndUnit/AmountAndUnit";
 
 interface Props {
@@ -84,16 +90,10 @@ export function AddEditForm({ product }: Props) {
       </Typography>
       <ModulesContainer>
         {/* Components that will be in the AddEditForm @TODO: add visible and enable*/}
-        <ModuleWrapper themeMode={themeMode}>
-          <AmountAndUnit />
-        </ModuleWrapper>
-        <ModuleWrapper themeMode={themeMode}>
-          <NutritionDataTable />
-        </ModuleWrapper>
 
-        <ModuleWrapper themeMode={themeMode}>
-          <NutritionDataTable />
-        </ModuleWrapper>
+        <AmountAndUnit />
+
+        <NutritionDataTable />
       </ModulesContainer>
 
       <Button onClick={onSaveClick} sx={{ width: "100%", marginTop: "5px" }}>
