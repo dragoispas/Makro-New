@@ -5,7 +5,7 @@ import { useSnackbar } from "notistack";
 import { createFoodEntry } from "../../../../Api/food-entries/api";
 import { createProduct } from "../../../../Api/products/api";
 import { RootState } from "../../../../app/store";
-import { NutritionDataTable } from "../AddEntryFormComponents/NutritionDataTable/NutritionDataTable";
+import { NutritionDataTable } from "../AddEntryFormModules/NutritionDataTable/NutritionDataTable";
 import { NumberFormatCustom } from "../../../Helpers/Formatter";
 import { useCurrent } from "../../../../Hooks/useCurrent";
 import { Product } from "../../../../Api/products/types";
@@ -16,7 +16,7 @@ import {
   Wrapper,
   ModuleTitleStyle,
 } from "./AddEditFormStyle";
-import { AmountAndUnit } from "../AddEntryFormComponents/AmountAndUnit/AmountAndUnit";
+import { AmountAndUnit } from "../AddEntryFormModules/AmountAndUnit/AmountAndUnit";
 
 interface Props {
   product: Product;

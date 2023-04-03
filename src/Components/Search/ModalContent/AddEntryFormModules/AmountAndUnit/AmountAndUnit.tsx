@@ -64,6 +64,16 @@ export const AmountAndUnit = () => {
           </TextField>
         </div>
       </div>
+      <div style={{ padding: "10px", display: "flex", justifyContent: "space-between" }}>
+        <Typography>Timestamp</Typography>
+        <div>
+          <TextField
+            variant="standard"
+            select
+            SelectProps={{ MenuProps: { disablePortal: true, style: { cursor: "default" } } }}
+          ></TextField>
+        </div>
+      </div>
     </ModuleWrapper>
   );
 };
