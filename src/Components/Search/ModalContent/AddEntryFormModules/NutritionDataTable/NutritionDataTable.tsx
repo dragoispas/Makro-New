@@ -24,6 +24,7 @@ import { useProduct } from "../../../../../Hooks/useProduct";
 import { useCurrent } from "../../../../../Hooks/useCurrent";
 import { StyledTableCell } from "./NutritionDataTableStyle";
 import ManageSearchOutlinedIcon from "@mui/icons-material/ManageSearchOutlined";
+import TwoStateToggleButton from "./TwoStateToggleButton";
 
 // why can't this be in a separate file?
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -43,7 +44,11 @@ export function NutritionDataTable() {
   const [product] = useProduct();
   const [current, setCurrent] = useCurrent();
   const themeMode = useSelector(({ general }: RootState) => general.themeMode);
-  const [advanced, setAdvanced] = useState(false);
+  const [mode, setMode] = useState("basic");
+
+  const handleModeChange = (newMode: string) => {
+    setMode(newMode);
+  };
 
   const nutritionValues = useSelector((state: RootState) => state.search);
 
@@ -124,32 +129,9 @@ export function NutritionDataTable() {
     },
   ];
 
-  const AdvancedModeToggle = () => {
-    return (
-      <div style={{ height: "21.59px", transform: "translate(0px, -2px)" }}>
-        <ToggleButtonGroup exclusive>
-          <ToggleButton
-            sx={{ height: "21.59px" }}
-            size="small"
-            value="check"
-            selected={!advanced}
-            onClick={(event: React.MouseEvent<HTMLElement>, newMode: boolean) => setAdvanced(false)}
-          >
-            <Typography sx={{ fontSize: "0.55rem" }}>Basic</Typography>
-          </ToggleButton>
-          <ToggleButton
-            sx={{ height: "21.59px" }}
-            size="small"
-            value="check"
-            selected={advanced}
-            onClick={(event: React.MouseEvent<HTMLElement>, newMode: boolean) => setAdvanced(true)}
-          >
-            <Typography sx={{ fontSize: "0.55rem" }}>Advanced</Typography>
-          </ToggleButton>
-        </ToggleButtonGroup>
-      </div>
-    );
-  };
+  useEffect(() => {
+    console.log(mode);
+  }, [mode]);
 
   return (
     // <Box>
@@ -158,7 +140,14 @@ export function NutritionDataTable() {
         <Typography sx={ModuleTitleStyle} color={"primary"}>
           Nutrition Data
         </Typography>
-        <AdvancedModeToggle />
+        <TwoStateToggleButton
+          value={mode}
+          onChange={handleModeChange}
+          options={[
+            { value: "basic", label: "Basic" },
+            { value: "advanced", label: "Advanced" },
+          ]}
+        />
       </ModuleHeader>
       <Table aria-label="sticky table" size="small">
         <TableHead>
@@ -181,7 +170,7 @@ export function NutritionDataTable() {
           {nutritionFields.map((field) => {
             const fieldValue = nutritionValues[field.name as keyof typeof nutritionValues];
 
-            if (!advanced && !field.mandatory) {
+            if (mode == "basic" && !field.mandatory) {
               return;
             }
             return (

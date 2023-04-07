@@ -7,6 +7,7 @@ export const ModuleWrapper = styled.div<{ themeMode: string }>`
   width: 100%;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  // border: 1px solid rgba(0, 0, 0, 0.2);
   margin: px;
 `;
 
@@ -19,7 +20,7 @@ export const ScrollableBox = styled(Box)`
 `;
 
 export const ModulesContainer = styled(ScrollableBox)`
-  height: 500px;
+  height: 550px;
   display: flex;
   align-items: center;
   flex-direction: column;

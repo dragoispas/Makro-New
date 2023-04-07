@@ -17,6 +17,7 @@ import {
   ModuleTitleStyle,
 } from "./AddEditFormStyle";
 import { AmountAndUnit } from "../AddEntryFormModules/AmountAndUnit/AmountAndUnit";
+import { FoodOverview } from "../AddEntryFormModules/Overview/FoodOverview";
 
 interface Props {
   product: Product;
@@ -82,22 +83,16 @@ export function AddEditForm({ product }: Props) {
 
   return (
     <Wrapper>
-      <Typography
-        fontSize={20}
-        sx={{ height: "50px", width: "100%", display: "flex", justifyContent: "center" }}
-      >
-        {product?.name}
-      </Typography>
       <ModulesContainer>
         {/* Components that will be in the AddEditForm @TODO: add visible and enable*/}
-
+        <FoodOverview />
         <AmountAndUnit />
 
         <NutritionDataTable />
       </ModulesContainer>
 
       <Button onClick={onSaveClick} sx={{ width: "100%", marginTop: "5px" }}>
-        ADD TO DIARY
+        + ADD TO DIARY
       </Button>
     </Wrapper>
   );
