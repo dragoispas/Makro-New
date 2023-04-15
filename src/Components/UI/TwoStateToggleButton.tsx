@@ -13,12 +13,12 @@ interface TwoStateToggleButtonProps {
   size?: "small" | "medium" | "large";
 }
 
-const TwoStateToggleButton = ({
+export function TwoStateToggleButton({
   value,
   onChange,
   options,
   size = "small",
-}: TwoStateToggleButtonProps) => {
+}: TwoStateToggleButtonProps) {
   const handleToggle = (event: React.MouseEvent<HTMLElement>, newValue: string | null) => {
     if (newValue !== null) {
       onChange(newValue === value ? "" : newValue);
@@ -53,6 +53,4 @@ const TwoStateToggleButton = ({
       ))}
     </ToggleButtonGroup>
   );
-};
-
-export default TwoStateToggleButton;
+}

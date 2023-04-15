@@ -1,21 +1,14 @@
 import {
   InputBase,
+  styled,
   Table,
   TableBody,
-  Box,
-  TableCell,
-  TableContainer,
   TableHead,
   TableRow,
   Typography,
-  styled,
-  ToggleButton,
-  tableClasses,
-  ToggleButtonGroup,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { tableCellClasses } from "@mui/material/TableCell";
 import { RootState } from "../../../../../app/store";
 import { setValue } from "../../../../../modules/search/currentSlice";
 import { NumberFormatCustom } from "../../../../Helpers/Formatter";
@@ -23,8 +16,7 @@ import { ModuleHeader, ModuleTitleStyle, ModuleWrapper } from "../../AddEditForm
 import { useProduct } from "../../../../../Hooks/useProduct";
 import { useCurrent } from "../../../../../Hooks/useCurrent";
 import { StyledTableCell } from "./NutritionDataTableStyle";
-import ManageSearchOutlinedIcon from "@mui/icons-material/ManageSearchOutlined";
-import TwoStateToggleButton from "./TwoStateToggleButton";
+import { TwoStateToggleButton } from "../../../../UI/TwoStateToggleButton";
 
 // why can't this be in a separate file?
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({
