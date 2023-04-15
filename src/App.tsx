@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "./App.css";
 import { Box, CircularProgress, Stack, styled, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";

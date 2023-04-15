@@ -26,7 +26,7 @@
   "eslint.probe": ["javascript", "javascriptreact"],
   "editor.formatOnSave": false,
   // Runs Prettier, then ESLint
-  "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"],
+  "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"]
   // ...
 }
 ```
