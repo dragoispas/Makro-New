@@ -1,14 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box, CircularProgress, Stack, styled, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import { darkTheme, lightTheme } from "./app/themes";
 import { RootState } from "./app/store";
-import { retrieveCurrentUser } from "./modules/auth/authSlice";
 import AppRouter from "./app/router";
 import { CustomizedTabs } from "./Components/CustomTabs";
-import { useAppDispatch } from "./core/hooks/useAppDispatch";
+import { useUserQuery } from "./app/api";
 
 const AppContainer = styled(Box, {
   shouldForwardProp: (prop) => prop !== "themeMode",
@@ -23,13 +22,9 @@ const AppContainer = styled(Box, {
 `;
 
 function App() {
-  const { isLoading, themeMode } = useSelector((state: RootState) => state.general);
+  const { themeMode } = useSelector((state: RootState) => state.general);
 
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(retrieveCurrentUser());
-  }, []);
+  const { isLoading } = useUserQuery();
 
   return (
     <AppContainer themeMode={themeMode}>

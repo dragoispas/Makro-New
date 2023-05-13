@@ -1,15 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 import React from "react";
-import { useSelector } from "react-redux";
 import DiaryPage from "../Pages/DiaryPage";
 import { SettingsPage } from "../Pages/SettingsPage";
 import TrendsPage from "../Pages/TrendsPage";
 import { LoginPage } from "../Pages/LoginPage";
 import { ErrorPage } from "../Pages/ErrorPage";
-import { RootState } from "./store";
+import { useCurrentUser } from "../Hooks/useCurrentUser";
 
 export default function AppRouter() {
-  const user = useSelector(({ auth }: RootState) => auth.user);
+  const user = useCurrentUser();
 
   if (user) {
     return (

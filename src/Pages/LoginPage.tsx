@@ -10,14 +10,12 @@ import {
   InputLabel,
   Paper,
   Stack,
-  Typography,
   styled,
+  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { setUser } from "../modules/auth/authSlice";
+import { useLoginMutation, useRegisterMutation } from "../app/api";
 
 const AuthPaper = styled(Paper)<{ side: string }>`
   margin: 30px auto;
@@ -62,23 +60,15 @@ export function LoginPage() {
 
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
 
-  const dispatch = useDispatch();
+  const [login] = useLoginMutation();
+  const [register] = useRegisterMutation();
 
   const onLoginClick = async () => {
-    const response = await axios.post("/api/v1/auth/login", {
-      email,
-      password,
-    });
-    dispatch(setUser(response.data.user));
+    login({ email, password });
   };
 
   const onCreateAccountClick = async () => {
-    const response = await axios.post("/api/v1/auth/register", {
-      email,
-      password,
-      name,
-    });
-    dispatch(setUser(response.data.user));
+    register({ email, password, name });
   };
 
   const resetPassword = () => {

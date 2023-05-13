@@ -11,8 +11,9 @@ import { useSelector } from "react-redux";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { RootState } from "../app/store";
 import { setThemeMode } from "../modules/general/generalSlice";
-import { logout } from "../modules/auth/authSlice";
 import { useAppDispatch } from "../core/hooks/useAppDispatch";
+import { useLogoutMutation } from "../app/api";
+import { useCurrentUser } from "../Hooks/useCurrentUser";
 
 const ThemeSwitch = styled(Paper, {
   shouldForwardProp: (prop) => prop !== "themeMode",
@@ -78,9 +79,11 @@ const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props
 export function CustomizedTabs() {
   const [value, setValue] = React.useState(0);
   const themeMode = useSelector(({ general }: RootState) => general.themeMode);
-  const user = useSelector(({ auth }: RootState) => auth.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const user = useCurrentUser();
+  const [logout] = useLogoutMutation();
 
   const handleChange = useCallback(
     (event: React.SyntheticEvent, newValue: number) => {
@@ -120,7 +123,7 @@ export function CustomizedTabs() {
           </StyledTabs>
         ) : null}
         <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
-          <Button color="inherit" onClick={() => dispatch(logout())}>
+          <Button color="inherit" onClick={() => logout()}>
             Logout
           </Button>
           <ThemeSwitch
