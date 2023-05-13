@@ -2,7 +2,7 @@ import { Avatar, IconButton, ListItem, ListItemAvatar, ListItemText, Stack } fro
 import DeleteIcon from "@mui/icons-material/Delete";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import { useState } from "react";
-import { FoodEntry } from "../Api/food-entries/types";
+import { FoodEntry } from "../../../../Api/food-entries/types";
 
 interface FoodEntryItemProps {
   foodEntry: FoodEntry;

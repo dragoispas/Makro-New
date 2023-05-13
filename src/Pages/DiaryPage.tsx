@@ -1,14 +1,14 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import { Box, Stack, Paper, Typography } from "@mui/material";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CustomCalendar from "../Components/CustomCalendar";
-import { DiaryChart } from "../Components/DiaryChart";
-import { FoodEntryList } from "../Components/FoodEntryList";
 import { getDayEntryByDate } from "../Api/day-entries/api";
-import { setDayEntry } from "../modules/diary/diarySlice";
-import DayEntryDetails from "../Components/DayEntryDetails";
+import CustomCalendar from "../Components/Dashboard/Calendar/CustomCalendar";
+import DayEntryDetails from "../Components/Dashboard/DayEntryDetails";
+import { FoodEntryList } from "../Components/Dashboard/Diary/FoodEntries/FoodEntryList";
+import { SearchModal } from "../Components/Dashboard/Search/SearchModal/SearchModal";
 import { RootState } from "../app/store";
-import { SearchModal } from "../Components/Search/SearchModal/SearchModal";
+import { setDayEntry } from "../modules/diary/diarySlice";
+import { DiaryChart } from "../Components/Dashboard/Diary/Charts/DiaryChart";
 
 export default function DiaryPage() {
   const dispatch = useDispatch();
@@ -40,11 +40,10 @@ export default function DiaryPage() {
       </Stack>
 
       <Paper sx={{ height: "785px", width: "600px", padding: "24px" }}>
-        <Typography sx={{ fontSize: "0.75rem", opacity: 0.6, marginTop: "10px" }}>
-          LOG FOODS
-        </Typography>
+        <Typography sx={{ fontSize: "0.75rem", opacity: 0.6, marginTop: "10px" }}>DIARY</Typography>
         <Stack sx={{ alignItems: "center", paddingTop: "20px" }}>
           <SearchModal />
+          <Box height={"130px"}></Box>
           <DiaryChart
             targetCalories={dayEntry ? dayEntry.caloriesTarget : 2000}
             totalCalories={1500}

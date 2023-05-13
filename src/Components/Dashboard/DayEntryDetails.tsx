@@ -2,8 +2,8 @@ import { Box, Button, MenuItem, Paper, Stack, TextField, Typography } from "@mui
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
-import { RootState } from "../app/store";
-import { updateDateEntry } from "../Api/day-entries/api";
+import { RootState } from "../../app/store";
+import { updateDateEntry } from "../../Api/day-entries/api";
 
 export default function DayEntryDetails() {
   const [weight, setWeight] = useState<string>("");

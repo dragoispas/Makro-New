@@ -2,8 +2,8 @@ import { List } from "@mui/material";
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { FoodEntryItem } from "./FoodEntryItem";
-import { RootState } from "../app/store";
-import { remove } from "../Api/food-entries/api";
+import { RootState } from "../../../../app/store";
+import { remove } from "../../../../Api/food-entries/api";
 
 export function FoodEntryList() {
   const dayEntry = useSelector((state: RootState) => state.diary.dayEntry);

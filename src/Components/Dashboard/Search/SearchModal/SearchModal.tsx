@@ -3,8 +3,8 @@ import { Box, ClickAwayListener, Paper, styled } from "@mui/material";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { AddEditForm } from "../ModalContent/AddEditForm/AddEditForm";
 import { SearchResults } from "../ModalContent/SearchResults/SearchResults";
-import { useProduct } from "../../../Hooks/useProduct";
 import { InputContainer, Overlay } from "./SearchModalStyle";
+import { useProduct } from "../../../../Hooks/useProduct";
 
 export function SearchModal() {
   const [active, setActive] = useState<boolean>(false);

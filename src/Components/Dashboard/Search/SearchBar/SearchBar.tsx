@@ -1,8 +1,8 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Box } from "@mui/material";
 import { BackButton, CustomInput, ClearButton } from "./SearchBarStyle";
-import { useProduct } from "../../../Hooks/useProduct";
-import { useSearch } from "../../../Hooks/useSearch";
+import { useProduct } from "../../../../Hooks/useProduct";
+import { useSearch } from "../../../../Hooks/useSearch";
 
 interface Props {
   focus: () => void;

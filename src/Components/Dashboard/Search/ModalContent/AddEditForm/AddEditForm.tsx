@@ -1,14 +1,3 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Button, Box, MenuItem, TextField, Typography } from "@mui/material";
-import { useSnackbar } from "notistack";
-import { createFoodEntry } from "../../../../Api/food-entries/api";
-import { createProduct } from "../../../../Api/products/api";
-import { RootState } from "../../../../app/store";
-import { NutritionDataTable } from "../AddEntryFormModules/NutritionDataTable/NutritionDataTable";
-import { NumberFormatCustom } from "../../../Helpers/Formatter";
-import { useCurrent } from "../../../../Hooks/useCurrent";
-import { Product } from "../../../../Api/products/types";
 import {
   ScrollableBox,
   ModuleWrapper,
@@ -18,6 +7,16 @@ import {
 } from "./AddEditFormStyle";
 import { AmountAndUnit } from "../AddEntryFormModules/AmountAndUnit/AmountAndUnit";
 import { FoodOverview } from "../AddEntryFormModules/Overview/FoodOverview";
+import { Button } from "@mui/material";
+import { useSnackbar } from "notistack";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { createFoodEntry } from "../../../../../Api/food-entries/api";
+import { createProduct } from "../../../../../Api/products/api";
+import { Product } from "../../../../../Api/products/types";
+import { useCurrent } from "../../../../../Hooks/useCurrent";
+import { RootState } from "../../../../../app/store";
+import { NutritionDataTable } from "../AddEntryFormModules/NutritionDataTable/NutritionDataTable";
 
 interface Props {
   product: Product;

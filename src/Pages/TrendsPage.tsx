@@ -9,7 +9,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import CreateChartModal from "../Components/CreateChartModal";
+import CreateChartModal from "../Components/Trends/CreateChartModal";
 
 const data = [
   {

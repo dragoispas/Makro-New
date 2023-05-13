@@ -16,15 +16,15 @@ import {
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { tableCellClasses } from "@mui/material/TableCell";
-import { RootState } from "../../../../../app/store";
-import { setValue } from "../../../../../modules/search/currentSlice";
-import { NumberFormatCustom } from "../../../../Helpers/Formatter";
 import { ModuleHeader, ModuleTitleStyle, ModuleWrapper } from "../../AddEditForm/AddEditFormStyle";
-import { useProduct } from "../../../../../Hooks/useProduct";
-import { useCurrent } from "../../../../../Hooks/useCurrent";
 import { StyledTableCell } from "./NutritionDataTableStyle";
 import ManageSearchOutlinedIcon from "@mui/icons-material/ManageSearchOutlined";
-import TwoStateToggleButton from "./TwoStateToggleButton";
+import { useCurrent } from "../../../../../../Hooks/useCurrent";
+import { useProduct } from "../../../../../../Hooks/useProduct";
+import { RootState } from "../../../../../../app/store";
+import { setValue } from "../../../../../../modules/search/currentSlice";
+import { NumberFormatCustom } from "../../../../../Helpers/Formatter";
+import TwoStateToggleButton from "../../../../../UI/TwoStateToggleButton";
 
 // why can't this be in a separate file?
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -193,9 +193,7 @@ export function NutritionDataTable() {
                   <InputBase
                     key={field.name}
                     value={fieldValue ?? 0}
-                    onChange={(e) =>
-                      dispatch(setValue({ name: field.name, value: e.target.value }))
-                    }
+                    onChange={(e) => setValue({ name: field.name, value: e.target.value })}
                     placeholder="0"
                     size="small"
                     sx={{ fontSize: "0.875rem" }}

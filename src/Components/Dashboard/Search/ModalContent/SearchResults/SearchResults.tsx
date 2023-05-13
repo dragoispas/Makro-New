@@ -1,10 +1,10 @@
 import { Button, Box, List, ListSubheader, Tab, Tabs, styled } from "@mui/material";
 import React, { useMemo, useState } from "react";
-import { bananaProduct, emptyProduct, ProductMap } from "../../../../Api/products/types";
-import { useProduct } from "../../../../Hooks/useProduct";
-import { useSearch } from "../../../../Hooks/useSearch";
-import { SearchListItem } from "../../../SearchListItem";
-import { TabPanel } from "../../../TabPanel";
+import { useProduct } from "../../../../../Hooks/useProduct";
+import { ProductMap, bananaProduct, emptyProduct } from "../../../../../Api/products/types";
+import { useSearch } from "../../../../../Hooks/useSearch";
+import { SearchListItem } from "./SearchListItem";
+import { TabPanel } from "./TabPanel";
 
 const Content = styled(Box)`
   width: 600px;

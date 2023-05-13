@@ -4,9 +4,9 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import type { RootState } from "../app/store";
-import { getDayEntryByDate } from "../Api/day-entries/api";
-import { setDayEntry } from "../modules/diary/diarySlice";
+import type { RootState } from "../../../app/store";
+import { getDayEntryByDate } from "../../../Api/day-entries/api";
+import { setDayEntry } from "../../../modules/diary/diarySlice";
 
 export default function CustomCalendar() {
   const dispatch = useDispatch();
