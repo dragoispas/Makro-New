@@ -22,13 +22,13 @@ export const FlexBox = styled(Box)<{
   ${(props) => {
     if (!props.centered) return "";
     if (props.centered === "xAxis") {
-      if (props.centered === "xAxis") {
+      if (props.direction === "column") {
         return "justify-content: center;";
       }
       return "align-items: center;";
     }
     if (props.centered === "yAxis") {
-      if (props.centered === "yAxis") {
+      if (props.direction === "column") {
         return "align-items: center;";
       }
       return "justify-content: center;";
