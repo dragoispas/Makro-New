@@ -22,17 +22,17 @@ export function MakroLineChart({ value, label }: Props) {
       <Typography
         style={{ zIndex: "1" }}
         fontWeight={"bold"}
-        fontSize={"0.8rem"}
+        fontSize={"0.75rem"}
       >{`${value}g ${label}`}</Typography>
       <LinearProgress
         color={getColor()}
-        sx={{ width: "200px" }}
+        sx={{ width: "160px" }}
         variant="determinate"
         value={value}
       ></LinearProgress>
       <LinearProgress
         color={getColor()}
-        sx={{ width: "200px" }}
+        sx={{ width: "160px" }}
         variant="determinate"
         value={value}
       ></LinearProgress>

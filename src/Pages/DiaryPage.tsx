@@ -43,7 +43,7 @@ export default function DiaryPage() {
         <Typography sx={{ fontSize: "0.75rem", opacity: 0.6, marginTop: "10px" }}>DIARY</Typography>
         <Stack sx={{ alignItems: "center", paddingTop: "20px" }}>
           <SearchModal />
-          <Box height={"130px"}></Box>
+          <Box height={"40px"}></Box>
           <DiaryChart
             targetCalories={dayEntry ? dayEntry.caloriesTarget : 2000}
             totalCalories={1500}
