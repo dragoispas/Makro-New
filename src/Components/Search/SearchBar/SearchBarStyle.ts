@@ -12,7 +12,9 @@ export const CustomInput = styled(Input)`
   padding-left: 50px;
 `;
 
-export const ClearButton = styled(ClearIcon)<{ visible: boolean }>`
+export const ClearButton = styled(ClearIcon, {
+  shouldForwardProp: (props) => props !== "visible",
+})<{ visible: boolean }>`
   border: none;
   outline: none;
   font-weight: bold;

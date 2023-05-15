@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { TableContainer, TableCell, tableCellClasses, TableRow } from "@mui/material";
+import { TableCell, tableCellClasses, TableContainer } from "@mui/material";
 
 export const ScrollableBox = styled(TableContainer)`
   overflow: auto;

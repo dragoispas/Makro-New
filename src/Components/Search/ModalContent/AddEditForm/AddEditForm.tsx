@@ -1,83 +1,55 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Button, Box, MenuItem, TextField, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { createFoodEntry } from "../../../../Api/food-entries/api";
-import { createProduct } from "../../../../Api/products/api";
-import { RootState } from "../../../../app/store";
 import { NutritionDataTable } from "../AddEntryFormModules/NutritionDataTable/NutritionDataTable";
-import { NumberFormatCustom } from "../../../Helpers/Formatter";
-import { useCurrent } from "../../../../Hooks/useCurrent";
-import { Product } from "../../../../Api/products/types";
-import {
-  ScrollableBox,
-  ModuleWrapper,
-  ModulesContainer,
-  Wrapper,
-  ModuleTitleStyle,
-} from "./AddEditFormStyle";
+import { ModulesContainer, Wrapper } from "./AddEditFormStyle";
 import { AmountAndUnit } from "../AddEntryFormModules/AmountAndUnit/AmountAndUnit";
 import { FoodOverview } from "../AddEntryFormModules/Overview/FoodOverview";
+import { useCurrentDayEntry } from "../../../../Hooks/useCurrentDayEntry";
+import { useCreateFoodEntryMutation, useCreateProductMutation } from "../../../../app/api/api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../app/store/store";
+import { stringsToNumbers } from "../../../../app/helpers";
+import { Product } from "../../../../app/api/types";
 
-interface Props {
-  product: Product;
-}
+export function AddEditForm() {
+  const dayEntry = useCurrentDayEntry();
+  const selectedProduct = useSelector((state: RootState) => state.search.selectedProduct);
+  const diaryForm = useSelector((state: RootState) => state.search.diaryForm);
 
-export function AddEditForm({ product }: Props) {
-  const themeMode = useSelector(({ general }: RootState) => general.themeMode);
-  const dayEntry = useSelector((state: RootState) => state.diary.dayEntry);
-
-  const [foodName, setFoodName] = useState<string>(""); // @TODO: way to edit this na dautomatically set if product is not new
-  const [current, setCurrent] = useCurrent();
+  const [createProduct] = useCreateProductMutation();
+  const [createFoodEntry] = useCreateFoodEntryMutation();
 
   const { enqueueSnackbar } = useSnackbar();
+
+  const createProductFromDiaryForm = (): Promise<Product> => {
+    return createProduct({
+      name: diaryForm.name,
+      macroNutrients: stringsToNumbers(diaryForm.macroNutrients),
+    }).unwrap();
+  };
 
   const onSaveClick = async () => {
     if (!dayEntry) {
       return;
     }
 
-    let newProduct;
-
-    if (product.isNew) {
-      newProduct = await createProduct({
-        name: foodName,
-        calories: current.calories,
-        carbs: current.carbs,
-        fat: current.fat,
-        protein: current.protein,
-
-        fiber: current.fiber,
-        satFat: current.satFat,
-        sugar: current.sugar,
-        sodium: current.sodium,
-        potassium: current.potassium,
-      });
-    }
+    const associatedProduct: Product = selectedProduct ?? (await createProductFromDiaryForm());
 
     try {
       await createFoodEntry({
         dayEntryId: dayEntry.id,
-        name: foodName,
-        productId: product?.id ?? newProduct?.id,
+        name: diaryForm.name,
+        productId: associatedProduct.id,
         servingSize: "g", // @TODO: pass actual data here
         quantity: 0,
 
         // Calculated values here
-        calories: current.calories,
-        carbs: current.carbs,
-        fat: current.fat,
-        protein: current.protein,
-        fiber: current.fiber,
-        satFat: current.satFat,
-        sugar: current.sugar,
-        sodium: current.sodium,
-        potassium: current.potassium,
+        macroNutrients: stringsToNumbers(diaryForm.macroNutrients),
       });
-      enqueueSnackbar("Dumnezeu este cu tine", { variant: "success" });
+      enqueueSnackbar("Food entry saved!", { variant: "success" });
     } catch (error) {
-      console.log(error);
-      enqueueSnackbar("Dumnezeu nu e cu tine", { variant: "error" });
+      console.error("Failed to create food entry", error);
+      enqueueSnackbar("Failed to save food entry", { variant: "error" });
     }
   };
 

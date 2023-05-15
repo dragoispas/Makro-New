@@ -2,49 +2,50 @@ import { Avatar, IconButton, ListItem, ListItemAvatar, ListItemText, Stack } fro
 import DeleteIcon from "@mui/icons-material/Delete";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import { useState } from "react";
-import { FoodEntry } from "../Api/food-entries/types";
+import { FoodEntry } from "../app/api/types";
+import { useRemoveFoodEntryMutation } from "../app/api/api";
 
 interface FoodEntryItemProps {
   foodEntry: FoodEntry;
-  onDelete: (id: number | string) => void;
 }
 
-export function FoodEntryItem({ foodEntry, onDelete }: FoodEntryItemProps) {
+export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
+  const [removeFoodEntry] = useRemoveFoodEntryMutation();
   const [makrosOpacity, setMakrosOpacity] = useState<number>(0);
 
   const getProtein = () => {
     if (foodEntry.servingSize === "g") {
-      return foodEntry.protein;
+      return foodEntry.macroNutrients.protein;
     }
     if (foodEntry.servingSize === "oz") {
-      return Math.round(foodEntry.protein * foodEntry.quantity * 28.3495);
+      return Math.round(foodEntry.macroNutrients.protein * foodEntry.quantity * 28.3495);
     }
     if (foodEntry.servingSize === "lb") {
-      return Math.round(foodEntry.protein * foodEntry.quantity * 453.592);
+      return Math.round(foodEntry.macroNutrients.protein * foodEntry.quantity * 453.592);
     }
     return -1;
   };
   const getCarbs = () => {
     if (foodEntry.servingSize === "g") {
-      return foodEntry.carbs;
+      return foodEntry.macroNutrients.carbs;
     }
     if (foodEntry.servingSize === "oz") {
-      return Math.round(foodEntry.carbs * foodEntry.quantity * 28.3495);
+      return Math.round(foodEntry.macroNutrients.carbs * foodEntry.quantity * 28.3495);
     }
     if (foodEntry.servingSize === "lb") {
-      return Math.round(foodEntry.carbs * foodEntry.quantity * 453.592);
+      return Math.round(foodEntry.macroNutrients.carbs * foodEntry.quantity * 453.592);
     }
     return -1;
   };
   const getFat = () => {
     if (foodEntry.servingSize === "g") {
-      return foodEntry.fat;
+      return foodEntry.macroNutrients.fat;
     }
     if (foodEntry.servingSize === "oz") {
-      return Math.round(foodEntry.fat * foodEntry.quantity * 28.3495);
+      return Math.round(foodEntry.macroNutrients.fat * foodEntry.quantity * 28.3495);
     }
     if (foodEntry.servingSize === "lb") {
-      return Math.round(foodEntry.fat * foodEntry.quantity * 453.592);
+      return Math.round(foodEntry.macroNutrients.fat * foodEntry.quantity * 453.592);
     }
     return -1;
   };
@@ -61,8 +62,8 @@ export function FoodEntryItem({ foodEntry, onDelete }: FoodEntryItemProps) {
         alignItems: "center",
       }}
       secondaryAction={
-        <IconButton edge="end" aria-label="delete">
-          <DeleteIcon onClick={() => onDelete(foodEntry.id)} />
+        <IconButton edge="end" aria-label="delete" onClick={() => removeFoodEntry(foodEntry)}>
+          <DeleteIcon />
         </IconButton>
       }
     >
@@ -75,7 +76,11 @@ export function FoodEntryItem({ foodEntry, onDelete }: FoodEntryItemProps) {
         primary={foodEntry.name}
         secondary={`${foodEntry.quantity} ${foodEntry.servingSize}`}
       />
-      <ListItemText sx={{ textAlign: "end" }} primary={foodEntry.calories} secondary="cal" />
+      <ListItemText
+        sx={{ textAlign: "end" }}
+        primary={foodEntry.macroNutrients.calories}
+        secondary="cal"
+      />
       <Stack
         direction="row"
         justifyContent="center"

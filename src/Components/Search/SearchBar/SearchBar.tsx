@@ -1,16 +1,21 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Box } from "@mui/material";
-import { BackButton, CustomInput, ClearButton } from "./SearchBarStyle";
-import { useProduct } from "../../../Hooks/useProduct";
+import { BackButton, ClearButton, CustomInput } from "./SearchBarStyle";
+import { useSelectedProduct } from "../../../Hooks/useSelectedProduct";
 import { useSearch } from "../../../Hooks/useSearch";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../app/store/store";
+import { useAppDispatch } from "../../../Hooks/useAppDispatch";
+import { setDiaryFormActive } from "../../../app/store/slices/searchSlice";
 
 interface Props {
   focus: () => void;
 }
 
 export function SearchBar({ focus }: Props) {
-  const { input, inputHandler: setInput } = useSearch();
-  const [product, setProduct] = useProduct();
+  const { searchTerm, searchTermHandler: setSearchTerm } = useSearch();
+  const isDiaryFormActive = useSelector((state: RootState) => state.search.isDiaryFormActive);
+  const dispatch = useAppDispatch();
 
   return (
     <Box
@@ -22,9 +27,9 @@ export function SearchBar({ focus }: Props) {
         marginBottom: "20px",
       }}
     >
-      {product ? (
+      {isDiaryFormActive ? (
         <BackButton
-          onClick={() => setProduct(null)}
+          onClick={() => dispatch(setDiaryFormActive(false))}
           sx={{
             transform: "translate(-248px, 1px)",
             position: "absolute",
@@ -35,17 +40,17 @@ export function SearchBar({ focus }: Props) {
         <SearchIcon sx={{ transform: "translate(-248px, 0px)", position: "absolute" }} />
       )}
       <CustomInput
-        value={product ? "Back to search" : input}
+        value={isDiaryFormActive ? "Back to search" : searchTerm}
         onMouseDown={() => focus()}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => setSearchTerm(e.target.value)}
         placeholder={"Search food"}
-        disabled={!!product}
+        disabled={!!isDiaryFormActive}
       />
       <ClearButton
         sx={{ transform: "translate(248px, 0px)", position: "absolute" }}
         color="inherit"
-        visible={!product && !!input}
-        onClick={() => setInput("")}
+        visible={!isDiaryFormActive && !!searchTerm}
+        onClick={() => setSearchTerm("")}
       />
     </Box>
   );

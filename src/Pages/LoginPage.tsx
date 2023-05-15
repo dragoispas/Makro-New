@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useLoginMutation, useRegisterMutation } from "../app/api";
+import { useLoginMutation, useRegisterMutation } from "../app/api/api";
 
 const AuthPaper = styled(Paper)<{ side: string }>`
   margin: 30px auto;
@@ -100,7 +100,6 @@ export function LoginPage() {
         </Alert>
       );
     }
-    return null;
   };
 
   return (

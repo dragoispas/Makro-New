@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
-import { Paper, Box } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 
-export const InputContainer = styled(Paper)<{ isActive: boolean }>`
+export const InputContainer = styled(Paper, {
+  shouldForwardProp: (props) => props !== "isActive",
+})<{ isActive: boolean }>`
   position: absolute;
   width: 600px;
   height: 700px;
@@ -17,9 +19,11 @@ export const InputContainer = styled(Paper)<{ isActive: boolean }>`
   flex-direction: column;
 `;
 
-export const Overlay = styled(Box)<{ isActive: boolean }>`
+export const Overlay = styled(Box, {
+  shouldForwardProp: (props) => props !== "isActive",
+})<{ isActive: boolean }>`
   transition: 0.25s;
-  background: ${(props) => (props.isActive ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0)")};
+  background: ${(props) => (props.isActive ? "rgba(0, 0, 0, 0.3)" : "rgba(0, 0, 0, 0)")};
   pointer-events: ${(props) => (props.isActive ? "" : "none")};
   position: fixed;
   top: 0;

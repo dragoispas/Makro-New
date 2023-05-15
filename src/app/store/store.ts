@@ -1,9 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import generalReducer from "../modules/general/generalSlice";
-import diaryReducer from "../modules/diary/diarySlice";
-import currentReducer from "../modules/search/currentSlice";
-import searchReducer from "../modules/search/searchSlice";
-import { api } from "./api";
+import generalReducer from "./slices/generalSlice";
+import diaryReducer from "./slices/diarySlice";
+import searchReducer from "./slices/searchSlice";
+import { api } from "../api/api";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { rtkQueryErrorMiddleware } from "./rtkQueryErrorMiddleware";
 
@@ -11,7 +10,6 @@ export const store = configureStore({
   reducer: {
     general: generalReducer,
     diary: diaryReducer,
-    current: currentReducer,
     search: searchReducer,
 
     // Automatically generated reducers via RTK Query.

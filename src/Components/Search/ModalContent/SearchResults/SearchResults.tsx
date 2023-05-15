@@ -1,10 +1,16 @@
-import { Button, Box, List, ListSubheader, Tab, Tabs, styled } from "@mui/material";
-import React, { useMemo, useState } from "react";
-import { bananaProduct, emptyProduct, ProductMap } from "../../../../Api/products/types";
-import { useProduct } from "../../../../Hooks/useProduct";
+import { Box, Button, List, ListSubheader, styled, Tab, Tabs } from "@mui/material";
+import React, { useMemo } from "react";
 import { useSearch } from "../../../../Hooks/useSearch";
 import { SearchListItem } from "../../../SearchListItem";
 import { TabPanel } from "../../../TabPanel";
+import { useSearchProductsByUsageQuery } from "../../../../app/api/api";
+import {
+  clearSelectedProduct,
+  setDiaryFormActive,
+  setDiaryFormName,
+  setSelectedProduct,
+} from "../../../../app/store/slices/searchSlice";
+import { useAppDispatch } from "../../../../Hooks/useAppDispatch";
 
 const Content = styled(Box)`
   width: 600px;
@@ -22,25 +28,27 @@ const listSx = {
 };
 
 export function SearchResults() {
-  const { tab, tabHandler: setTab } = useSearch();
-  const [product, setProduct] = useProduct();
-
-  const [products] = useState<ProductMap>({
-    test1: bananaProduct,
-    test2: bananaProduct,
-    test3: bananaProduct,
-  });
+  const dispatch = useAppDispatch();
+  const { searchTerm, tab, tabHandler: setTab } = useSearch();
+  const { data: products } = useSearchProductsByUsageQuery(searchTerm);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
   };
 
-  const getSearchListItems = useMemo(
+  const onCreateNewFoodClick = () => {
+    dispatch(clearSelectedProduct());
+    dispatch(setDiaryFormName(searchTerm ?? ""));
+    dispatch(setDiaryFormActive(true));
+  };
+
+  const searchListItems = useMemo(
     () =>
-      Object.values(products).map((prod) => (
-        <React.Fragment key={prod.id}>
-          <Box onClick={() => setProduct(prod)}>
-            <SearchListItem name={prod.name} calories={prod.calories} />
+      products &&
+      products.map((product) => (
+        <React.Fragment key={product.id}>
+          <Box onClick={() => dispatch(setSelectedProduct(product))}>
+            <SearchListItem name={product.name} calories={product.macroNutrients.calories} />
           </Box>
         </React.Fragment>
       )),
@@ -51,13 +59,7 @@ export function SearchResults() {
     <Content>
       <Box sx={{ height: "570px" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider", padding: "0px 20px" }}>
-          <Tabs
-            value={tab}
-            onChange={handleTabChange}
-            variant="scrollable"
-            scrollButtons={false}
-            aria-label="scrollable prevent tabs example"
-          >
+          <Tabs value={tab} onChange={handleTabChange} variant="scrollable" scrollButtons={false}>
             <Tab label="All" />
             <Tab label="Custom" />
             <Tab label="Common" />
@@ -66,37 +68,24 @@ export function SearchResults() {
         </Box>
         <TabPanel value={tab} index={0}>
           <List sx={listSx} subheader={<li />}>
-            <li key="section-1">
-              <ul>
-                <ListSubheader>RECENT</ListSubheader>
-                {getSearchListItems}
-                <ListSubheader>CUSTOM</ListSubheader>
-                {getSearchListItems}
-                <ListSubheader>COMMON</ListSubheader>
-                {getSearchListItems}
-                <ListSubheader>BRANDED</ListSubheader>
-                {getSearchListItems}
-              </ul>
-            </li>
+            <ListSubheader>RECENT</ListSubheader>
+            {searchListItems}
+            <ListSubheader>CUSTOM</ListSubheader>
+            <ListSubheader>COMMON</ListSubheader>
+            <ListSubheader>BRANDED</ListSubheader>
           </List>
         </TabPanel>
         <TabPanel value={tab} index={1}>
-          <List sx={listSx} subheader={<li />}>
-            {getSearchListItems}
-          </List>
+          <List sx={listSx} subheader={<li />}></List>
         </TabPanel>
         <TabPanel value={tab} index={2}>
-          <List sx={listSx} subheader={<li />}>
-            {getSearchListItems}
-          </List>
+          <List sx={listSx} subheader={<li />}></List>
         </TabPanel>
         <TabPanel value={tab} index={3}>
-          <List sx={listSx} subheader={<li />}>
-            {getSearchListItems}
-          </List>
+          <List sx={listSx} subheader={<li />}></List>
         </TabPanel>
       </Box>
-      <Button onClick={() => setProduct(emptyProduct)} sx={{ width: "100%", marginTop: "5px" }}>
+      <Button onClick={onCreateNewFoodClick} sx={{ width: "100%", marginTop: "5px" }}>
         CREATE NEW FOOD
       </Button>
     </Content>

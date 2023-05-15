@@ -7,16 +7,15 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../../app/store";
-import { setValue } from "../../../../../modules/search/currentSlice";
+import { RootState } from "../../../../../app/store/store";
 import { NumberFormatCustom } from "../../../../Helpers/Formatter";
 import { ModuleHeader, ModuleTitleStyle, ModuleWrapper } from "../../AddEditForm/AddEditFormStyle";
-import { useProduct } from "../../../../../Hooks/useProduct";
-import { useCurrent } from "../../../../../Hooks/useCurrent";
 import { StyledTableCell } from "./NutritionDataTableStyle";
 import { TwoStateToggleButton } from "../../../../UI/TwoStateToggleButton";
+import { setDiaryFormMacro } from "../../../../../app/store/slices/searchSlice";
+import { MacroNutrientType } from "../../../../../app/api/types";
 
 // why can't this be in a separate file?
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -33,16 +32,13 @@ export function NutritionDataTable() {
   const dispatch = useDispatch();
   const [amount, setAmount] = useState<number>(100);
   const [unit, setUnit] = useState();
-  const [product] = useProduct();
-  const [current, setCurrent] = useCurrent();
   const themeMode = useSelector(({ general }: RootState) => general.themeMode);
   const [mode, setMode] = useState("basic");
+  const diaryForm = useSelector((state: RootState) => state.search.diaryForm);
 
   const handleModeChange = (newMode: string) => {
     setMode(newMode);
   };
-
-  const nutritionValues = useSelector((state: RootState) => state.search);
 
   const amountInGrams = () => {
     if (amount) {
@@ -64,7 +60,7 @@ export function NutritionDataTable() {
   };
 
   type NutritionField = {
-    name: string;
+    name: MacroNutrientType;
     label: string;
     mandatory?: boolean;
     unit?: string;
@@ -83,7 +79,7 @@ export function NutritionDataTable() {
       unit: "g",
     },
     {
-      name: "satFat",
+      name: "saturatedFat",
       label: "Sat Fat",
       unit: "g",
     },
@@ -121,10 +117,6 @@ export function NutritionDataTable() {
     },
   ];
 
-  useEffect(() => {
-    console.log(mode);
-  }, [mode]);
-
   return (
     // <Box>
     <ModuleWrapper themeMode={themeMode}>
@@ -160,7 +152,7 @@ export function NutritionDataTable() {
         </TableHead>
         <TableBody>
           {nutritionFields.map((field) => {
-            const fieldValue = nutritionValues[field.name as keyof typeof nutritionValues];
+            const fieldValue = diaryForm.macroNutrients[field.name];
 
             if (mode == "basic" && !field.mandatory) {
               return;
@@ -186,7 +178,9 @@ export function NutritionDataTable() {
                     key={field.name}
                     value={fieldValue ?? 0}
                     onChange={(e) =>
-                      dispatch(setValue({ name: field.name, value: e.target.value }))
+                      dispatch(
+                        setDiaryFormMacro({ macroNutrient: field.name, value: e.target.value })
+                      )
                     }
                     placeholder="0"
                     size="small"
@@ -200,17 +194,6 @@ export function NutritionDataTable() {
           })}
         </TableBody>
       </Table>
-
-      {/* <Box
-        sx={{
-          background: "#ee5b46",
-          color: "White",
-          borderRadius: "0px 0px 10px 10px",
-          padding: "5px",
-        }}
-      >
-        Toggle
-      </Box> */}
     </ModuleWrapper>
   );
 }

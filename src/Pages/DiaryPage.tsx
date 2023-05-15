@@ -1,29 +1,21 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import CustomCalendar from "../Components/CustomCalendar";
 import { DiaryChart } from "../Components/DiaryChart";
 import { FoodEntryList } from "../Components/FoodEntryList";
-import { getDayEntryByDate } from "../Api/day-entries/api";
-import { setDayEntry } from "../modules/diary/diarySlice";
 import DayEntryDetails from "../Components/DayEntryDetails";
-import { RootState } from "../app/store";
 import { SearchModal } from "../Components/Search/SearchModal/SearchModal";
+import { RootState } from "../app/store/store";
+import { useSelector } from "react-redux";
+import { setSelectedDate } from "../app/store/slices/diarySlice";
+import { useAppDispatch } from "../Hooks/useAppDispatch";
+import { useCurrentDayEntry } from "../Hooks/useCurrentDayEntry";
+import moment from "moment";
 
 export default function DiaryPage() {
-  const dispatch = useDispatch();
-  const dayEntry = useSelector((state: RootState) => state.diary.dayEntry);
-
-  useEffect(() => {
-    getDayEntryByDate(new Date()).then((dayEntryy) => {
-      dispatch(setDayEntry(dayEntryy));
-    });
-  }, []);
-
-  useEffect(() => {
-    console.log(dayEntry);
-    console.log(dayEntry?.foodEntries);
-  }, [dayEntry]);
+  const dispatch = useAppDispatch();
+  const selectedDate = useSelector((state: RootState) => state.diary.selectedDate);
+  const dayEntry = useCurrentDayEntry();
 
   return (
     <Box
@@ -35,7 +27,14 @@ export default function DiaryPage() {
       }}
     >
       <Stack gap="30px">
-        <CustomCalendar />
+        <CustomCalendar
+          date={moment(selectedDate, "YYYY-MM-DD").toDate()}
+          onChange={(newDate: Date | null) => {
+            if (newDate) {
+              dispatch(setSelectedDate(moment(newDate).format("YYYY-MM-DD")));
+            }
+          }}
+        />
         <DayEntryDetails />
       </Stack>
 

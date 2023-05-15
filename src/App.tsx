@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import { darkTheme, lightTheme } from "./app/themes";
-import { RootState } from "./app/store";
+import { RootState } from "./app/store/store";
 import AppRouter from "./app/router";
 import { CustomizedTabs } from "./Components/CustomTabs";
-import { useUserQuery } from "./app/api";
+import { useUserQuery } from "./app/api/api";
 
 const AppContainer = styled(Box, {
   shouldForwardProp: (prop) => prop !== "themeMode",

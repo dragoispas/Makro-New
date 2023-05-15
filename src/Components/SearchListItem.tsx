@@ -3,8 +3,8 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Typography,
   styled,
+  Typography,
 } from "@mui/material";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 

@@ -1,5 +1,5 @@
+import type { Middleware, MiddlewareAPI } from "@reduxjs/toolkit";
 import { isRejectedWithValue } from "@reduxjs/toolkit";
-import type { MiddlewareAPI, Middleware } from "@reduxjs/toolkit";
 import { enqueueSnackbar } from "notistack";
 
 export const rtkQueryErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => (action) => {
@@ -11,6 +11,10 @@ export const rtkQueryErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next
       message = action.payload?.data;
     } else {
       message = action.payload?.data?.message ?? "An error has occurred.";
+    }
+
+    if (Array.isArray(message)) {
+      message = message[0];
     }
 
     enqueueSnackbar(message, {

@@ -1,10 +1,14 @@
 import { TextField, Typography } from "@mui/material";
-import { useCurrent } from "../../../../../Hooks/useCurrent";
-import { NumberFormatCustom } from "../../../../Helpers/Formatter";
 import { ModuleHeader, ModuleTitleStyle, ModuleWrapper } from "../../AddEditForm/AddEditFormStyle";
+import { RootState } from "../../../../../app/store/store";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../../../../Hooks/useAppDispatch";
+import { setDiaryFormName } from "../../../../../app/store/slices/searchSlice";
 
 export const FoodOverview = () => {
-  const [current, setCurrent] = useCurrent();
+  const diaryFormName = useSelector((state: RootState) => state.search.diaryForm.name);
+  const dispatch = useAppDispatch();
+
   return (
     <ModuleWrapper themeMode={""}>
       <ModuleHeader>
@@ -21,8 +25,8 @@ export const FoodOverview = () => {
             id="standard-basic"
             variant="standard"
             size="small"
-            value={current.name}
-            onChange={(e) => setCurrent("name", e.target.value)}
+            value={diaryFormName}
+            onChange={(e) => dispatch(setDiaryFormName(e.target.value))}
           />
         </div>
       </div>

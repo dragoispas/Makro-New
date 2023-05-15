@@ -1,4 +1,4 @@
-import { ToggleButtonGroup, ToggleButton, Typography } from "@mui/material";
+import { ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import React from "react";
 
 interface ToggleButtonOption {

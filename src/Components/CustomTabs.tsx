@@ -9,10 +9,10 @@ import { Button, Paper, Stack } from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useSelector } from "react-redux";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import { RootState } from "../app/store";
-import { setThemeMode } from "../modules/general/generalSlice";
-import { useAppDispatch } from "../core/hooks/useAppDispatch";
-import { useLogoutMutation } from "../app/api";
+import { RootState } from "../app/store/store";
+import { setThemeMode } from "../app/store/slices/generalSlice";
+import { useAppDispatch } from "../Hooks/useAppDispatch";
+import { useLogoutMutation } from "../app/api/api";
 import { useCurrentUser } from "../Hooks/useCurrentUser";
 
 const ThemeSwitch = styled(Paper, {

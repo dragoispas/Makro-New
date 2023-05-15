@@ -28,11 +28,6 @@ export const ModulesContainer = styled(ScrollableBox)`
   gap: 20px;
 `;
 
-export const Content = styled(Box)`
-  width: 600px;
-  height: 520px;
-`;
-
 export const Wrapper = styled.div`
   width: 80%;
 `;

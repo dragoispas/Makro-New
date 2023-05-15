@@ -1,7 +1,7 @@
-import { TextField, MenuItem, Typography, Stack } from "@mui/material";
+import { MenuItem, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../app/store";
+import { RootState } from "../../../../../app/store/store";
 import { NumberFormatCustom } from "../../../../Helpers/Formatter";
 import { ModuleHeader, ModuleTitleStyle, ModuleWrapper } from "../../AddEditForm/AddEditFormStyle";
 
@@ -62,16 +62,6 @@ export const AmountAndUnit = () => {
               </MenuItem>
             ))}
           </TextField>
-        </div>
-      </div>
-      <div style={{ padding: "10px", display: "flex", justifyContent: "space-between" }}>
-        <Typography>Timestamp</Typography>
-        <div>
-          <TextField
-            variant="standard"
-            select
-            SelectProps={{ MenuProps: { disablePortal: true, style: { cursor: "default" } } }}
-          ></TextField>
         </div>
       </div>
     </ModuleWrapper>
