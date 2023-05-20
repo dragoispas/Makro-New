@@ -47,7 +47,12 @@ export function SearchResults() {
       products &&
       products.map((product) => (
         <React.Fragment key={product.id}>
-          <Box onClick={() => dispatch(setSelectedProduct(product))}>
+          <Box
+            onClick={() => {
+              dispatch(setSelectedProduct(product));
+              dispatch(setDiaryFormActive(true));
+            }}
+          >
             <SearchListItem name={product.name} calories={product.macroNutrients.calories} />
           </Box>
         </React.Fragment>
