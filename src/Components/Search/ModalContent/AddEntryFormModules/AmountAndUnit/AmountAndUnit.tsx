@@ -8,7 +8,7 @@ import { unitsForQuantity, UnitType } from "../../../../../app/units";
 
 export const AmountAndUnit = () => {
   const themeMode = useSelector(({ general }: RootState) => general.themeMode);
-  const [amountInputError, setAmountInputError] = useState<string>(" ");
+  const [amountInputError] = useState<string>(" ");
   const [amount, setAmount] = useState<number>(0);
   const [unit, setUnit] = useState<UnitType>(UnitType.Gram);
   return (

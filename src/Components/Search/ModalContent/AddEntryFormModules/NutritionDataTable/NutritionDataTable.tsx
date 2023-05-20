@@ -127,7 +127,7 @@ export function NutritionDataTable() {
                 size="small"
                 sx={{ fontSize: "0.875rem" }}
                 inputProps={{ style: { textAlign: "center" } }}
-                inputComponent={NumberFormatCustom as any}
+                inputComponent={NumberFormatCustom as never}
               />
             </StyledTableCell>
           </TableRow>
@@ -168,7 +168,7 @@ export function NutritionDataTable() {
                     size="small"
                     sx={{ fontSize: "0.875rem" }}
                     inputProps={{ style: { textAlign: "center" } }}
-                    inputComponent={NumberFormatCustom as any}
+                    inputComponent={NumberFormatCustom as never}
                   />
                 </StyledTableCell>
               </StyledTableRow>

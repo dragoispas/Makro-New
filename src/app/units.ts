@@ -1,4 +1,4 @@
-import { DayEntry, FoodEntry, Product } from "./api/types";
+import { DayEntry, FoodEntry } from "./api/types";
 
 export enum UnitType {
   Gram = "g",
