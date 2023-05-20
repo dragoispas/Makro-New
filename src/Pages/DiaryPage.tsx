@@ -9,6 +9,7 @@ import { SearchModal } from "../Components/Dashboard/Search/SearchModal/SearchMo
 import { RootState } from "../app/store";
 import { setDayEntry } from "../modules/diary/diarySlice";
 import { DiaryChart } from "../Components/Dashboard/Diary/Charts/DiaryChart";
+import { FlexBox } from "../Components/UI/GeneralStyledComponents";
 
 export default function DiaryPage() {
   const dispatch = useDispatch();
@@ -43,14 +44,17 @@ export default function DiaryPage() {
         <Typography sx={{ fontSize: "0.75rem", opacity: 0.6, marginTop: "10px" }}>DIARY</Typography>
         <Stack sx={{ alignItems: "center", paddingTop: "20px" }}>
           <SearchModal />
-          <Box height={"40px"}></Box>
-          <DiaryChart
-            targetCalories={dayEntry ? dayEntry.caloriesTarget : 2000}
-            totalCalories={1500}
-            totalCarbs={200}
-            totalFat={34}
-            totalProtein={178}
-          />
+          <Box height={"20px"}></Box>
+          <FlexBox centered="allAxis" zIndex={1} p={2}>
+            <DiaryChart
+              targetCalories={dayEntry ? dayEntry.caloriesTarget : 2000}
+              totalCalories={1500}
+              totalCarbs={200}
+              totalFat={34}
+              totalProtein={178}
+            />
+          </FlexBox>
+          <Box height={"20px"}></Box>
           <Box sx={{ width: "100%" }}>
             <FoodEntryList />
           </Box>
