@@ -3,28 +3,36 @@ import React, { useEffect, useState } from "react";
 import { useCurrentDayEntry } from "../Hooks/useCurrentDayEntry";
 import { useUpdateDayEntryMutation } from "../app/api/api";
 import { enqueueSnackbar } from "notistack";
+import { convertUnit, getDayEntryWeight, unitsForWeight, UnitType } from "../app/units";
 
 export default function DayEntryDetails() {
   const [weight, setWeight] = useState<string>("");
-  const [weightUnit, setWeightUnit] = useState<string>("");
+  const [weightUnit, setWeightUnit] = useState<UnitType>(UnitType.Kilogram);
   const [caloriesTarget, setCaloriesTarget] = useState<string>("");
   const dayEntry = useCurrentDayEntry();
   const [updateDayEntry, { isSuccess }] = useUpdateDayEntryMutation();
 
   useEffect(() => {
     if (dayEntry) {
-      setWeight(dayEntry.weight?.toString() ?? "");
-      setWeightUnit(dayEntry.weightUnit ?? "");
+      setWeight(getDayEntryWeight(dayEntry)?.toString() ?? "");
+      setWeightUnit(dayEntry.weightUnit ?? UnitType.Kilogram);
       setCaloriesTarget(dayEntry.caloriesTarget?.toString() ?? "");
     }
   }, [dayEntry]);
 
   const onSaveClick = async () => {
     if (dayEntry) {
+      let newWeight: number | null = null;
+      if (weight && weightUnit) {
+        newWeight = convertUnit(parseInt(weight), weightUnit, UnitType.Kilogram);
+      } else if (weight) {
+        newWeight = parseInt(weight);
+      }
+
       updateDayEntry({
         id: dayEntry.id,
         data: {
-          weight: weight ? parseInt(weight) : null,
+          weight: newWeight,
           weightUnit: weightUnit || null,
           caloriesTarget: parseInt(caloriesTarget),
         },
@@ -68,14 +76,13 @@ export default function DayEntryDetails() {
             variant="outlined"
             sx={{ width: "100px" }}
             value={weightUnit}
-            onChange={(e) => setWeightUnit(e.target.value)}
+            onChange={(e) => setWeightUnit(e.target.value as UnitType)}
           >
-            <MenuItem key="KG" value="KG">
-              KG
-            </MenuItem>
-            <MenuItem key="LBS" value="LBS">
-              LBS
-            </MenuItem>
+            {unitsForWeight.map((unit) => (
+              <MenuItem key={unit.type} value={unit.type}>
+                {unit.type}
+              </MenuItem>
+            ))}
           </TextField>
         </Stack>
       </Stack>

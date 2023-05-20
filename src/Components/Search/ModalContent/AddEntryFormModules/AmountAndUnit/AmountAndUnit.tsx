@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../../app/store/store";
 import { NumberFormatCustom } from "../../../../Helpers/Formatter";
 import { ModuleHeader, ModuleTitleStyle, ModuleWrapper } from "../../AddEditForm/AddEditFormStyle";
-import { quantityUnits, UnitType } from "../../../../../app/units";
+import { unitsForQuantity, UnitType } from "../../../../../app/units";
 
 export const AmountAndUnit = () => {
   const themeMode = useSelector(({ general }: RootState) => general.themeMode);
@@ -42,7 +42,7 @@ export const AmountAndUnit = () => {
             onChange={(e) => setUnit(e.target.value as UnitType)}
             SelectProps={{ MenuProps: { disablePortal: true, style: { cursor: "default" } } }}
           >
-            {quantityUnits.map((unit) => (
+            {unitsForQuantity.map((unit) => (
               <MenuItem key={unit.type} value={unit.type}>
                 {unit.name}s
               </MenuItem>

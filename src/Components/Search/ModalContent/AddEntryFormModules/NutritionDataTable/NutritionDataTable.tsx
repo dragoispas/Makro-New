@@ -14,8 +14,11 @@ import { NumberFormatCustom } from "../../../../Helpers/Formatter";
 import { ModuleHeader, ModuleTitleStyle, ModuleWrapper } from "../../AddEditForm/AddEditFormStyle";
 import { StyledTableCell } from "./NutritionDataTableStyle";
 import { TwoStateToggleButton } from "../../../../UI/TwoStateToggleButton";
-import { setDiaryFormMacro } from "../../../../../app/store/slices/searchSlice";
-import { MacroNutrientType } from "../../../../../app/api/types";
+import {
+  setDiaryFormMacro,
+  setDiaryFormReferenceAmount,
+} from "../../../../../app/store/slices/searchSlice";
+import { MacroNutrientType } from "../../../../../app/macroNutrients";
 
 // why can't this be in a separate file?
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -30,8 +33,6 @@ export const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export function NutritionDataTable() {
   const dispatch = useDispatch();
-  const [amount, setAmount] = useState<number>(100);
-  const [unit, setUnit] = useState();
   const themeMode = useSelector(({ general }: RootState) => general.themeMode);
   const [mode, setMode] = useState("basic");
   const diaryForm = useSelector((state: RootState) => state.search.diaryForm);
@@ -120,8 +121,8 @@ export function NutritionDataTable() {
             <StyledTableCell padding="none" sx={{ paddingLeft: "12px" }}></StyledTableCell>
             <StyledTableCell align="right">
               <InputBase
-                value={amount}
-                onChange={(e) => setAmount(parseFloat(e.target.value))}
+                value={diaryForm.referenceAmount}
+                onChange={(e) => dispatch(setDiaryFormReferenceAmount(e.target.value))}
                 placeholder="0"
                 size="small"
                 sx={{ fontSize: "0.875rem" }}

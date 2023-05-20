@@ -1,4 +1,4 @@
-import { FoodEntry, Product } from "./api/types";
+import { DayEntry, FoodEntry, Product } from "./api/types";
 
 export enum UnitType {
   Gram = "g",
@@ -52,7 +52,8 @@ export const Units: Record<UnitType, Unit> = {
   [UnitType.Ounce]: Ounce,
 };
 
-export const quantityUnits: Unit[] = [Gram, Ounce, Pound];
+export const unitsForQuantity: Unit[] = [Gram, Ounce, Pound];
+export const unitsForWeight: Unit[] = [Kilogram, Pound];
 
 export function convertUnit(value: number, fromUnit: UnitType, toUnit: UnitType): number {
   const sourceUnit = Units[fromUnit];
@@ -62,5 +63,31 @@ export function convertUnit(value: number, fromUnit: UnitType, toUnit: UnitType)
 }
 
 export function getFoodEntryQuantity(foodEntry: FoodEntry): number {
-  return convertUnit(foodEntry.quantity, UnitType.Gram, foodEntry.quantityUnit);
+  try {
+    return convertUnit(foodEntry.quantity, UnitType.Gram, foodEntry.quantityUnit);
+  } catch (e) {
+    console.warn(
+      `Could not convert food entry quantity from grams to ${foodEntry.quantityUnit} (${foodEntry.quantity}).`
+    );
+    return foodEntry.quantity;
+  }
+}
+
+export function getDayEntryWeight(dayEntry: DayEntry): number | null {
+  if (typeof dayEntry.weight !== "number") {
+    return null;
+  }
+
+  if (!dayEntry.weightUnit) {
+    return dayEntry.weight;
+  }
+
+  try {
+    return convertUnit(dayEntry.weight, UnitType.Kilogram, dayEntry.weightUnit);
+  } catch (e) {
+    console.warn(
+      `Could not convert day entry weight from kilograms to ${dayEntry.weightUnit} (${dayEntry.weight}).`
+    );
+    return dayEntry.weight;
+  }
 }

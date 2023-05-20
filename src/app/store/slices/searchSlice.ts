@@ -1,15 +1,9 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { MacroNutrients, MacroNutrientType, Product } from "../../api/types";
+import { Product } from "../../api/types";
 import { ConvertTypes, numbersToStrings } from "../../helpers";
-
-export type DiaryForm = {
-  name: string;
-  quantity: string;
-  quantityUnit: string;
-  macroNutrients: ConvertTypes<MacroNutrients, number, string>;
-  referenceAmount: string;
-};
+import { UnitType } from "../../units";
+import { MacroNutrients, MacroNutrientType } from "../../macroNutrients";
 
 export interface SearchModalSlice {
   tab: number;
@@ -19,6 +13,14 @@ export interface SearchModalSlice {
   diaryForm: DiaryForm;
 }
 
+export type DiaryForm = {
+  name: string;
+  quantity: string;
+  quantityUnit: UnitType;
+  macroNutrients: ConvertTypes<MacroNutrients, number, string>;
+  referenceAmount: string;
+};
+
 const initialState: SearchModalSlice = {
   tab: 0,
   selectedProduct: null,
@@ -27,7 +29,7 @@ const initialState: SearchModalSlice = {
   diaryForm: {
     name: "",
     quantity: "",
-    quantityUnit: "",
+    quantityUnit: UnitType.Gram,
     macroNutrients: {
       calories: "",
       carbs: "",
@@ -71,6 +73,9 @@ export const searchSlice = createSlice({
     setDiaryFormName: (state, action: PayloadAction<string>) => {
       state.diaryForm.name = action.payload;
     },
+    setDiaryFormReferenceAmount: (state, action: PayloadAction<string>) => {
+      state.diaryForm.referenceAmount = action.payload;
+    },
     setDiaryFormMacro: (
       state,
       action: PayloadAction<{ macroNutrient: MacroNutrientType; value: string }>
@@ -89,6 +94,7 @@ export const {
   setDiaryFormName,
   setDiaryFormMacro,
   setDiaryFormActive,
+  setDiaryFormReferenceAmount,
 } = searchSlice.actions;
 
 export default searchSlice.reducer;

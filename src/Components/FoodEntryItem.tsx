@@ -4,6 +4,7 @@ import RestaurantIcon from "@mui/icons-material/Restaurant";
 import { useState } from "react";
 import { FoodEntry } from "../app/api/types";
 import { useRemoveFoodEntryMutation } from "../app/api/api";
+import { getFoodEntryQuantity } from "../app/units";
 
 interface FoodEntryItemProps {
   foodEntry: FoodEntry;
@@ -12,43 +13,6 @@ interface FoodEntryItemProps {
 export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
   const [removeFoodEntry] = useRemoveFoodEntryMutation();
   const [makrosOpacity, setMakrosOpacity] = useState<number>(0);
-
-  const getProtein = () => {
-    if (foodEntry.quantityUnit === "g") {
-      return foodEntry.macroNutrients.protein;
-    }
-    if (foodEntry.quantityUnit === "oz") {
-      return Math.round(foodEntry.macroNutrients.protein * foodEntry.quantity * 28.3495);
-    }
-    if (foodEntry.quantityUnit === "lbs") {
-      return Math.round(foodEntry.macroNutrients.protein * foodEntry.quantity * 453.592);
-    }
-    return -1;
-  };
-  const getCarbs = () => {
-    if (foodEntry.quantityUnit === "g") {
-      return foodEntry.macroNutrients.carbs;
-    }
-    if (foodEntry.quantityUnit === "oz") {
-      return Math.round(foodEntry.macroNutrients.carbs * foodEntry.quantity * 28.3495);
-    }
-    if (foodEntry.quantityUnit === "lbs") {
-      return Math.round(foodEntry.macroNutrients.carbs * foodEntry.quantity * 453.592);
-    }
-    return -1;
-  };
-  const getFat = () => {
-    if (foodEntry.quantityUnit === "g") {
-      return foodEntry.macroNutrients.fat;
-    }
-    if (foodEntry.quantityUnit === "oz") {
-      return Math.round(foodEntry.macroNutrients.fat * foodEntry.quantity * 28.3495);
-    }
-    if (foodEntry.quantityUnit === "lbs") {
-      return Math.round(foodEntry.macroNutrients.fat * foodEntry.quantity * 453.592);
-    }
-    return -1;
-  };
 
   return (
     <ListItem
@@ -74,7 +38,7 @@ export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
       </ListItemAvatar>
       <ListItemText
         primary={foodEntry.name}
-        secondary={`${foodEntry.quantity} ${foodEntry.quantityUnit}`}
+        secondary={`${getFoodEntryQuantity(foodEntry)} ${foodEntry.quantityUnit}`}
       />
       <ListItemText
         sx={{ textAlign: "end" }}
@@ -99,21 +63,21 @@ export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
           sx={{ textAlign: "center", userSelect: "none" }}
           primaryTypographyProps={{ sx: { color: "#83b28d" } }}
           secondaryTypographyProps={{ sx: { color: "#83b28d" } }}
-          primary={getProtein()}
+          primary={foodEntry.macroNutrients.protein}
           secondary="protein"
         />
         <ListItemText
           sx={{ textAlign: "center", userSelect: "none" }}
           primaryTypographyProps={{ sx: { color: "#EF4444" } }}
           secondaryTypographyProps={{ sx: { color: "#EF4444" } }}
-          primary={getFat()}
+          primary={foodEntry.macroNutrients.fat}
           secondary="fat"
         />
         <ListItemText
           sx={{ textAlign: "center", userSelect: "none" }}
           primaryTypographyProps={{ sx: { color: "#ef9a44" } }}
           secondaryTypographyProps={{ sx: { color: "#ef9a44" } }}
-          primary={getCarbs()}
+          primary={foodEntry.macroNutrients.carbs}
           secondary="carbs"
         />
       </Stack>

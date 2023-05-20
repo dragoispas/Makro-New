@@ -1,4 +1,5 @@
 import { UnitType } from "../units";
+import { MacroNutrients } from "../macroNutrients";
 
 export type User = {
   id: number;
@@ -13,7 +14,7 @@ export type DayEntry = {
   date: string;
   caloriesTarget: number;
   weight: number | null;
-  weightUnit: string | null;
+  weightUnit: UnitType | null;
   foodEntries: FoodEntry[];
 };
 
@@ -45,32 +46,3 @@ export type ProductWithUsage = Product & {
   usageCount: number;
   lastUsedAt: Date;
 };
-
-export type MacroNutrients = {
-  calories: number;
-  fat: number;
-  carbs: number;
-  protein: number;
-
-  fiber?: number;
-  saturatedFat?: number;
-  sugar?: number;
-  sodium?: number;
-  potassium?: number;
-};
-
-export type MacroNutrientType = keyof MacroNutrients;
-
-export const macroNutrientTypes: MacroNutrientType[] = [
-  "calories",
-  "fat",
-  "carbs",
-  "protein",
-  "fiber",
-  "saturatedFat",
-  "sugar",
-  "sodium",
-  "potassium",
-];
-
-export const primaryMacroNutrientTypes: MacroNutrientType[] = ["fat", "carbs", "protein"];
