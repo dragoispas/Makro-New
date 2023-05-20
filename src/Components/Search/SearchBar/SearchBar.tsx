@@ -1,7 +1,6 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Box } from "@mui/material";
 import { BackButton, ClearButton, CustomInput } from "./SearchBarStyle";
-import { useSelectedProduct } from "../../../Hooks/useSelectedProduct";
 import { useSearch } from "../../../Hooks/useSearch";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store/store";

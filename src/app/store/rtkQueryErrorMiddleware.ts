@@ -1,8 +1,8 @@
-import type { Middleware, MiddlewareAPI } from "@reduxjs/toolkit";
+import type { Middleware } from "@reduxjs/toolkit";
 import { isRejectedWithValue } from "@reduxjs/toolkit";
 import { enqueueSnackbar } from "notistack";
 
-export const rtkQueryErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => (action) => {
+export const rtkQueryErrorMiddleware: Middleware = () => (next) => (action) => {
   if (isRejectedWithValue(action) && action.payload?.status !== 401) {
     console.warn(action);
     let message: string;

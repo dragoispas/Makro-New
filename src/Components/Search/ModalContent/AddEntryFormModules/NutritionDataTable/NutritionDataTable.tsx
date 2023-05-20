@@ -40,25 +40,6 @@ export function NutritionDataTable() {
     setMode(newMode);
   };
 
-  const amountInGrams = () => {
-    if (amount) {
-      if (unit === "oz") {
-        return amount * 28.3495;
-      }
-      if (unit === "lbs") {
-        return amount * 453.592;
-      }
-    }
-    return amount ? amount : 0;
-  };
-
-  const getTableAmount = () => {
-    if (unit !== "g") {
-      return `${amount ? amount : 0} ${unit} (${amountInGrams()} g)`;
-    }
-    return `${amount ? amount : 0} g`;
-  };
-
   type NutritionField = {
     name: MacroNutrientType;
     label: string;

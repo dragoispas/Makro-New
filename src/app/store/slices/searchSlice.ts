@@ -5,7 +5,10 @@ import { ConvertTypes, numbersToStrings } from "../../helpers";
 
 export type DiaryForm = {
   name: string;
+  quantity: string;
+  quantityUnit: string;
   macroNutrients: ConvertTypes<MacroNutrients, number, string>;
+  referenceAmount: string;
 };
 
 export interface SearchModalSlice {
@@ -23,6 +26,8 @@ const initialState: SearchModalSlice = {
   isDiaryFormActive: false,
   diaryForm: {
     name: "",
+    quantity: "",
+    quantityUnit: "",
     macroNutrients: {
       calories: "",
       carbs: "",
@@ -34,6 +39,7 @@ const initialState: SearchModalSlice = {
       sodium: "",
       potassium: "",
     },
+    referenceAmount: "100",
   },
 };
 
@@ -50,6 +56,7 @@ export const searchSlice = createSlice({
     setSelectedProduct: (state, action: PayloadAction<Product>) => {
       state.selectedProduct = action.payload;
       state.diaryForm = {
+        ...state.diaryForm,
         name: state.selectedProduct.name,
         macroNutrients: numbersToStrings(state.selectedProduct.macroNutrients),
       };

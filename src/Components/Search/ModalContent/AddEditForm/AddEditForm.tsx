@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../app/store/store";
 import { stringsToNumbers } from "../../../../app/helpers";
 import { Product } from "../../../../app/api/types";
+import { UnitType } from "../../../../app/units";
 
 export function AddEditForm() {
   const dayEntry = useCurrentDayEntry();
@@ -40,8 +41,8 @@ export function AddEditForm() {
         dayEntryId: dayEntry.id,
         name: diaryForm.name,
         productId: associatedProduct.id,
-        servingSize: "g", // @TODO: pass actual data here
         quantity: 0,
+        quantityUnit: UnitType.Gram, // @TODO: pass actual data here
 
         // Calculated values here
         macroNutrients: stringsToNumbers(diaryForm.macroNutrients),

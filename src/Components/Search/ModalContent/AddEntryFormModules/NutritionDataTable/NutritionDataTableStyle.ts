@@ -1,15 +1,7 @@
 import styled from "@emotion/styled";
-import { TableCell, tableCellClasses, TableContainer } from "@mui/material";
+import { TableCell, tableCellClasses } from "@mui/material";
 
-export const ScrollableBox = styled(TableContainer)`
-  overflow: auto;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  height: 300px;
-`;
-
-export const StyledTableCell = styled(TableCell)(({ theme }) => ({
+export const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "none",
     // backgroundColor: theme.palette.primary.main,

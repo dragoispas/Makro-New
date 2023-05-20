@@ -4,27 +4,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../../app/store/store";
 import { NumberFormatCustom } from "../../../../Helpers/Formatter";
 import { ModuleHeader, ModuleTitleStyle, ModuleWrapper } from "../../AddEditForm/AddEditFormStyle";
-
-const unitBaseOptions = [
-  {
-    value: "g",
-    label: "grams",
-  },
-  {
-    value: "oz",
-    label: "ounces",
-  },
-  {
-    value: "lbs",
-    label: "pounds",
-  },
-];
+import { quantityUnits, UnitType } from "../../../../../app/units";
 
 export const AmountAndUnit = () => {
   const themeMode = useSelector(({ general }: RootState) => general.themeMode);
   const [amountInputError, setAmountInputError] = useState<string>(" ");
   const [amount, setAmount] = useState<number>(0);
-  const [unit, setUnit] = useState<string>("g");
+  const [unit, setUnit] = useState<UnitType>(UnitType.Gram);
   return (
     <ModuleWrapper themeMode={themeMode}>
       <ModuleHeader>
@@ -53,12 +39,12 @@ export const AmountAndUnit = () => {
             variant="standard"
             size="small"
             value={unit}
-            onChange={(e) => setUnit(e.target.value)}
+            onChange={(e) => setUnit(e.target.value as UnitType)}
             SelectProps={{ MenuProps: { disablePortal: true, style: { cursor: "default" } } }}
           >
-            {unitBaseOptions.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
+            {quantityUnits.map((unit) => (
+              <MenuItem key={unit.type} value={unit.type}>
+                {unit.name}s
               </MenuItem>
             ))}
           </TextField>

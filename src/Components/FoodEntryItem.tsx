@@ -14,37 +14,37 @@ export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
   const [makrosOpacity, setMakrosOpacity] = useState<number>(0);
 
   const getProtein = () => {
-    if (foodEntry.servingSize === "g") {
+    if (foodEntry.quantityUnit === "g") {
       return foodEntry.macroNutrients.protein;
     }
-    if (foodEntry.servingSize === "oz") {
+    if (foodEntry.quantityUnit === "oz") {
       return Math.round(foodEntry.macroNutrients.protein * foodEntry.quantity * 28.3495);
     }
-    if (foodEntry.servingSize === "lb") {
+    if (foodEntry.quantityUnit === "lbs") {
       return Math.round(foodEntry.macroNutrients.protein * foodEntry.quantity * 453.592);
     }
     return -1;
   };
   const getCarbs = () => {
-    if (foodEntry.servingSize === "g") {
+    if (foodEntry.quantityUnit === "g") {
       return foodEntry.macroNutrients.carbs;
     }
-    if (foodEntry.servingSize === "oz") {
+    if (foodEntry.quantityUnit === "oz") {
       return Math.round(foodEntry.macroNutrients.carbs * foodEntry.quantity * 28.3495);
     }
-    if (foodEntry.servingSize === "lb") {
+    if (foodEntry.quantityUnit === "lbs") {
       return Math.round(foodEntry.macroNutrients.carbs * foodEntry.quantity * 453.592);
     }
     return -1;
   };
   const getFat = () => {
-    if (foodEntry.servingSize === "g") {
+    if (foodEntry.quantityUnit === "g") {
       return foodEntry.macroNutrients.fat;
     }
-    if (foodEntry.servingSize === "oz") {
+    if (foodEntry.quantityUnit === "oz") {
       return Math.round(foodEntry.macroNutrients.fat * foodEntry.quantity * 28.3495);
     }
-    if (foodEntry.servingSize === "lb") {
+    if (foodEntry.quantityUnit === "lbs") {
       return Math.round(foodEntry.macroNutrients.fat * foodEntry.quantity * 453.592);
     }
     return -1;
@@ -74,7 +74,7 @@ export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
       </ListItemAvatar>
       <ListItemText
         primary={foodEntry.name}
-        secondary={`${foodEntry.quantity} ${foodEntry.servingSize}`}
+        secondary={`${foodEntry.quantity} ${foodEntry.quantityUnit}`}
       />
       <ListItemText
         sx={{ textAlign: "end" }}

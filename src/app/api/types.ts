@@ -1,3 +1,5 @@
+import { UnitType } from "../units";
+
 export type User = {
   id: number;
   name: string;
@@ -21,7 +23,7 @@ export type FoodEntry = {
   productId?: number | null;
   name: string;
   quantity: number;
-  servingSize: string;
+  quantityUnit: UnitType;
   macroNutrients: MacroNutrients;
   product: Product;
 };
