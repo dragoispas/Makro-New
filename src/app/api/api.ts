@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { DayEntry, FoodEntry, Product, ProductWithUsage, User } from "./types";
+import { DayEntry, FoodEntry, Product, ProductType, ProductWithUsage, User } from "./types";
 import { providesList } from "./api-helpers";
 
 export const api = createApi({
@@ -57,7 +57,7 @@ export const api = createApi({
       query: (id: number) => `/food-entry/${id}`,
       providesTags: (result) => [{ type: "FoodEntry", id: result?.id }],
     }),
-    createFoodEntry: builder.mutation<FoodEntry, Omit<FoodEntry, "id" | "image" | "product">>({
+    createFoodEntry: builder.mutation<FoodEntry, Omit<FoodEntry, "id" | "product">>({
       query: (createData) => ({
         url: `/food-entry`,
         method: "POST",
@@ -84,8 +84,17 @@ export const api = createApi({
     }),
 
     /** PRODUCTS **/
-    searchProductsByUsage: builder.query<ProductWithUsage[], string | null | void>({
-      query: (searchTerm: string | null) => `/food-entry/by-product/search/${searchTerm ?? ""}`,
+    searchProductsByUsage: builder.query<
+      ProductWithUsage[],
+      { searchTerm?: string; type?: ProductType }
+    >({
+      query: ({ searchTerm, type }) => {
+        const params = new URLSearchParams({
+          ...(searchTerm && searchTerm.length > 0 && { term: searchTerm }),
+          ...(type && { type }),
+        });
+        return `/food-entry/by-product/search?${params.toString()}`;
+      },
       providesTags: (result) => providesList(result, "ProductWithUsage"),
     }),
     product: builder.query<Product, number>({

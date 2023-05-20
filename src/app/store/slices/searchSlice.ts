@@ -17,7 +17,7 @@ export interface SearchModalSlice {
 }
 
 const initialState: SearchModalSlice = {
-  tab: 1,
+  tab: 0,
   selectedProduct: null,
   searchTerm: "",
   isDiaryFormActive: false,

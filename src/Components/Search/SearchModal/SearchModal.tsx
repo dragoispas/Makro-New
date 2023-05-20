@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, ClickAwayListener } from "@mui/material";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { AddEditForm } from "../ModalContent/AddEditForm/AddEditForm";
-import { SearchResults } from "../ModalContent/SearchResults/SearchResults";
+import { SearchResultsContainer } from "../ModalContent/SearchResults/SearchResultsContainer";
 import { InputContainer, Overlay } from "./SearchModalStyle";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store/store";
@@ -30,7 +30,7 @@ export function SearchModal() {
       <ClickAwayListener onClickAway={closeSearch}>
         <InputContainer isActive={active}>
           <SearchBar focus={() => setActive(true)} />
-          {active ? isDiaryFormActive ? <AddEditForm /> : <SearchResults /> : null}
+          {active ? isDiaryFormActive ? <AddEditForm /> : <SearchResultsContainer /> : null}
         </InputContainer>
       </ClickAwayListener>
     </>

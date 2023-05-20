@@ -22,11 +22,7 @@ export type FoodEntry = {
   name: string;
   quantity: number;
   servingSize: string;
-
   macroNutrients: MacroNutrients;
-
-  image?: string;
-
   product: Product;
 };
 
@@ -34,8 +30,14 @@ export type Product = {
   id: number;
   name: string;
   macroNutrients: MacroNutrients;
-  isNew?: boolean;
+  type: ProductType;
 };
+
+export enum ProductType {
+  CUSTOM = "custom",
+  COMMON = "common",
+  BRANDED = "branded",
+}
 
 export type ProductWithUsage = Product & {
   usageCount: number;

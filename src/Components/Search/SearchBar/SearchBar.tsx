@@ -49,7 +49,7 @@ export function SearchBar({ focus }: Props) {
       <ClearButton
         sx={{ transform: "translate(248px, 0px)", position: "absolute" }}
         color="inherit"
-        visible={!isDiaryFormActive && !!searchTerm}
+        visible={!isDiaryFormActive && searchTerm.length > 0}
         onClick={() => setSearchTerm("")}
       />
     </Box>
