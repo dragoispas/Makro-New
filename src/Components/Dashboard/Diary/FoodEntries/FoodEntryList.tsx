@@ -24,6 +24,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { FoodEntry } from "../../../../app/api/types";
 import { FlexBox } from "../../../UI/GeneralStyledComponents";
 import { useCurrentDayEntry } from "../../../../Hooks/useCurrentDayEntry";
+import { useRemoveFoodEntryMutation } from "../../../../app/api/api";
 
 // const Accordion = styled((props: AccordionProps) => (
 //   <Accordion disableGutters elevation={0} square {...props} />
@@ -39,9 +40,10 @@ import { useCurrentDayEntry } from "../../../../Hooks/useCurrentDayEntry";
 
 export function FoodEntryList() {
   const dayEntry = useCurrentDayEntry();
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [expanded, setExpanded] = React.useState<number | false>(false);
+  const [removeFoodEntry] = useRemoveFoodEntryMutation();
 
-  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+  const handleChange = (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
 
@@ -54,8 +56,8 @@ export function FoodEntryList() {
           key={foodEntry.id}
           disableGutters
           square
-          expanded={expanded === foodEntry.name}
-          onChange={handleChange(foodEntry.name)}
+          expanded={expanded === foodEntry.id}
+          onChange={handleChange(foodEntry.id)}
         >
           <AccordionSummary
             expandIcon={
@@ -89,7 +91,7 @@ export function FoodEntryList() {
                 <FlexBox>asd</FlexBox>
                 <FlexBox centered="xAxis">
                   <Button>EDIT</Button>
-                  <Button>DELETE</Button>
+                  <Button onClick={() => removeFoodEntry(foodEntry)}>DELETE</Button>
                 </FlexBox>
               </FlexBox>
             </Stack>

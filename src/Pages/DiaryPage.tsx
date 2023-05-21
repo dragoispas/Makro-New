@@ -1,7 +1,6 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 import CustomCalendar from "../Components/CustomCalendar";
-import { FoodEntryList } from "../Components/FoodEntryList";
 import DayEntryDetails from "../Components/DayEntryDetails";
 import { SearchModal } from "../Components/Search/SearchModal/SearchModal";
 import { RootState } from "../app/store/store";
@@ -12,6 +11,7 @@ import { useCurrentDayEntry } from "../Hooks/useCurrentDayEntry";
 import moment from "moment";
 import { DiaryChart } from "../Components/Dashboard/Diary/Charts/DiaryChart";
 import { FlexBox } from "../Components/UI/GeneralStyledComponents";
+import { FoodEntryList } from "../Components/Dashboard/Diary/FoodEntries/FoodEntryList";
 
 export default function DiaryPage() {
   const dispatch = useAppDispatch();
