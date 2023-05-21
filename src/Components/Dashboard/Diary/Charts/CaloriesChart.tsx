@@ -1,4 +1,4 @@
-import { CircularProgress, Stack, Typography } from "@mui/material";
+import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { textAlign } from "@mui/system";
 
 interface Props {
@@ -36,14 +36,18 @@ export function CaloriesChart({ value }: Props) {
           value={value - 100}
         ></CircularProgress>
       )}
-      <Stack style={{ position: "absolute" }}>
+      {/* <Stack style={{ position: "absolute" }}>
         <Typography textAlign={"center"} fontWeight={"bold"} fontSize={"0.9rem"}>
           1234
         </Typography>
         <Typography textAlign={"center"} fontWeight={"bold"} fontSize={"0.8rem"}>
           cal
         </Typography>
-      </Stack>
+      </Stack> */}
+      <Box textAlign="center" style={{ position: "absolute" }}>
+        <Typography variant="subtitle1">Calories</Typography>
+        <Typography variant="h6">1500</Typography>
+      </Box>
     </div>
   );
 }

@@ -73,6 +73,9 @@ export const searchSlice = createSlice({
     setDiaryFormName: (state, action: PayloadAction<string>) => {
       state.diaryForm.name = action.payload;
     },
+    setDiaryFormQuantity: (state, action: PayloadAction<string>) => {
+      state.diaryForm.quantity = action.payload;
+    },
     setDiaryFormReferenceAmount: (state, action: PayloadAction<string>) => {
       state.diaryForm.referenceAmount = action.payload;
     },
@@ -95,6 +98,7 @@ export const {
   setDiaryFormMacro,
   setDiaryFormActive,
   setDiaryFormReferenceAmount,
+  setDiaryFormQuantity,
 } = searchSlice.actions;
 
 export default searchSlice.reducer;

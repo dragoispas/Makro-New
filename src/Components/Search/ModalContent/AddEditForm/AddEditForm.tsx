@@ -133,6 +133,7 @@ export function AddEditForm() {
     const associatedProduct: Product =
       selectedProduct ?? (await createProductFromDiaryForm(macroNutrients));
 
+    console.log(diaryForm.quantity);
     try {
       await createFoodEntry({
         dayEntryId: dayEntry.id,

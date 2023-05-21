@@ -2,8 +2,14 @@ import { Stack, TextField, MenuItem } from "@mui/material";
 import { unitsForQuantity } from "../../../../app/units";
 import { NumberFormatCustom } from "../../../Helpers/Formatter";
 import { FlexBox } from "../../../UI/GeneralStyledComponents";
+import { useAppDispatch } from "../../../../Hooks/useAppDispatch";
+import { RootState } from "../../../../app/store/store";
+import { useSelector } from "react-redux";
+import { setDiaryFormQuantity } from "../../../../app/store/slices/searchSlice";
 
 export function AddForm() {
+  const dispatch = useAppDispatch();
+  const diaryForm = useSelector((state: RootState) => state.search.diaryForm);
   return (
     <form>
       <Stack gap={3} marginY={2}>
@@ -16,6 +22,8 @@ export function AddForm() {
             id="standard-basic"
             variant="outlined"
             sx={{ width: "68%" }}
+            value={diaryForm.quantity}
+            onChange={(e) => dispatch(setDiaryFormQuantity(e.target.value))}
           />
           <TextField
             label="Unit"
