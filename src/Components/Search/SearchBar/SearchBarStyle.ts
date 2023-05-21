@@ -1,9 +1,18 @@
 import styled from "@emotion/styled";
-import { Input } from "@mui/material";
+import { Input, InputBase, Typography } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 export const CustomInput = styled(Input)`
+  width: 550px;
+  height: 60px;
+  border: none;
+  background: rgba(0, 0, 0, 0);
+  font-size: 20px;
+  padding-left: 50px;
+`;
+
+export const CustomInputBase = styled(InputBase)`
   width: 550px;
   height: 60px;
   border: none;

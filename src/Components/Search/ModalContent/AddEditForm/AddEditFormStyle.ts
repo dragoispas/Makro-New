@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 export const ModuleWrapper = styled.div<{ themeMode: string }>`
   background: ${(props) =>
@@ -29,7 +29,7 @@ export const ModulesContainer = styled(ScrollableBox)`
 `;
 
 export const Wrapper = styled.div`
-  width: 80%;
+  width: 100%;
 `;
 
 export const ModuleHeader = styled.div`
@@ -44,3 +44,16 @@ export const ModuleTitleStyle = {
   fontWeight: "bold",
   fontSize: "0.9rem",
 };
+
+export const FoodName = styled(Typography)`
+  font-weight: 400;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  text-align: center;
+`;
+
+export const SubTitle = styled(Typography)`
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5;
+`;

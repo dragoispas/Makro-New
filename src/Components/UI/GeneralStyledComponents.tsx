@@ -40,7 +40,8 @@ export const FlexBox = styled(Box)<{
   }}
 `;
 
-// type DividerDirectionOptions = "horizontal" | "vertical";
-// export const Divider = styled(Box)<{direction:DividerDirectionOptions}>`
-
-// `
+type DividerDirectionOptions = "horizontal" | "vertical";
+export const CustomDivider = styled(Box)<{ direction: DividerDirectionOptions }>`
+  ${(props) => (props.direction === "vertical" ? "width: 1px" : "")};
+  ${(props) => (props.direction === "horizontal" ? "height: 1px" : "")};
+`;
