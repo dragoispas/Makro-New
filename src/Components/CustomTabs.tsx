@@ -117,7 +117,7 @@ export function CustomizedTabs() {
       >
         {user ? (
           <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example">
-            <StyledTab label="Diary" />
+            <StyledTab label="Dashboard" />
             <StyledTab label="Trends" />
             <StyledTab label="Settings" />
           </StyledTabs>

@@ -39,3 +39,8 @@ export const FlexBox = styled(Box)<{
     return "";
   }}
 `;
+
+// type DividerDirectionOptions = "horizontal" | "vertical";
+// export const Divider = styled(Box)<{direction:DividerDirectionOptions}>`
+
+// `

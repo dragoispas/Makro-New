@@ -10,8 +10,8 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import { useState } from "react";
-import { FoodEntry } from "../../../../Api/food-entries/types";
-import { FlexBox } from "../../../UI/GeneralStyledComponents.tsx";
+import { FoodEntry } from "../../../../app/api/types";
+import { FlexBox } from "../../../UI/GeneralStyledComponents";
 
 interface FoodEntryItemProps {
   foodEntry: FoodEntry;
@@ -36,9 +36,13 @@ export function FoodEntryItem({ foodEntry, onDelete }: FoodEntryItemProps) {
         </Avatar>
       </ListItemAvatar>
       <Typography>
-        {foodEntry.name} - {foodEntry.quantity} {foodEntry.servingSize}
+        {foodEntry.name} - {foodEntry.quantity} {foodEntry.quantityUnit}
       </Typography>
-      <ListItemText sx={{ textAlign: "end" }} primary={foodEntry.calories} secondary="cal" />
+      <ListItemText
+        sx={{ textAlign: "end" }}
+        primary={foodEntry.macroNutrients.calories}
+        secondary="cal"
+      />
       <FlexBox centered="allAxis">
         <IconButton edge="end" aria-label="delete">
           <DeleteIcon onClick={() => onDelete(foodEntry.id)} />

@@ -1,8 +1,7 @@
 import { Box, CircularProgress, Stack, styled } from "@mui/material";
-import { MakroLineChart } from "./Charts/MakroLineChart";
-import { FlexBox } from "../../../UI/GeneralStyledComponents.tsx";
-import { CaloriesChart } from "./Charts/CaloriesChart";
-
+import { MakroLineChart } from "./MakroLineChart";
+import { FlexBox } from "../../../UI/GeneralStyledComponents";
+import { CaloriesChart } from "./CaloriesChart";
 const macroColors = {
   totalProtein: "#83b28d",
   totalFat: "#EF4444",
