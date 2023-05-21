@@ -34,6 +34,7 @@ import {
   clearSelectedProduct,
   setDiaryFormActive,
   setDiaryFormMacro,
+  setDiaryFormName,
 } from "../../../../app/store/slices/searchSlice";
 import { useAppDispatch } from "../../../../Hooks/useAppDispatch";
 import { lineHeight, width } from "@mui/system";
@@ -162,7 +163,12 @@ export function AddEditForm() {
     <Wrapper>
       <Box padding={"0px 35px"} height={"570px"}>
         <FlexBox justifyContent={"space-between"}>
-          <FoodName>Banana</FoodName>
+          <FoodName
+            value={diaryForm.name}
+            onChange={(e) => {
+              dispatch(setDiaryFormName(e.target.value));
+            }}
+          ></FoodName>
           <IconButton>
             <EditIcon></EditIcon>
           </IconButton>

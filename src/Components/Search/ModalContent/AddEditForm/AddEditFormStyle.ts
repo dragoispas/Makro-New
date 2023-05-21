@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Box, Typography } from "@mui/material";
+import { Box, InputBase, Typography } from "@mui/material";
 
 export const ModuleWrapper = styled.div<{ themeMode: string }>`
   background: ${(props) =>
@@ -45,7 +45,7 @@ export const ModuleTitleStyle = {
   fontSize: "0.9rem",
 };
 
-export const FoodName = styled(Typography)`
+export const FoodName = styled(InputBase)`
   font-weight: 400;
   font-size: 2.125rem;
   line-height: 1.235;

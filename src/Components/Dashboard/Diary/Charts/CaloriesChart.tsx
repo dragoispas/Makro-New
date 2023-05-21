@@ -1,11 +1,29 @@
 import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { textAlign } from "@mui/system";
+import { useDayEntryByDateQuery } from "../../../../app/api/api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../app/store/store";
+import { useCurrentDayEntry } from "../../../../Hooks/useCurrentDayEntry";
 
 interface Props {
   value: number;
 }
 
 export function CaloriesChart({ value }: Props) {
+  const dayEntry = useCurrentDayEntry();
+
+  const getTotalCalories = () => {
+    let totalCalories = 0;
+    dayEntry?.foodEntries.map((entry) => {
+      totalCalories = totalCalories + entry.macroNutrients.calories;
+    });
+    return totalCalories;
+  };
+
+  const getTotalCaloriesPercentage = () => {
+    return dayEntry ? (getTotalCalories() / dayEntry?.caloriesTarget) * 100 : 0;
+  };
+
   return (
     <div
       style={{
@@ -25,15 +43,15 @@ export function CaloriesChart({ value }: Props) {
         style={{ position: "absolute" }}
         size={"10rem"}
         variant="determinate"
-        value={value}
+        value={getTotalCaloriesPercentage()}
       ></CircularProgress>
-      {value > 100 && (
+      {getTotalCaloriesPercentage() > 100 && (
         <CircularProgress
           style={{ position: "absolute" }}
           size={"10rem"}
           color={"error"}
           variant="determinate"
-          value={value - 100}
+          value={getTotalCaloriesPercentage() - 100}
         ></CircularProgress>
       )}
       {/* <Stack style={{ position: "absolute" }}>
@@ -46,7 +64,7 @@ export function CaloriesChart({ value }: Props) {
       </Stack> */}
       <Box textAlign="center" style={{ position: "absolute" }}>
         <Typography variant="subtitle1">Calories</Typography>
-        <Typography variant="h6">1500</Typography>
+        <Typography variant="h6">{getTotalCalories()}</Typography>
       </Box>
     </div>
   );
