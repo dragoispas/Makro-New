@@ -25,10 +25,10 @@ export function DiaryChart({
   return (
     <FlexBox centered="allAxis" style={{ width: "400px" }} gap={"40px"}>
       <CaloriesChart value={50}></CaloriesChart>
-      <Stack gap={"20px"}>
-        <MakroLineChart label="protein" value={50}></MakroLineChart>
-        <MakroLineChart label="fat" value={50}></MakroLineChart>
-        <MakroLineChart label="carbs" value={50}></MakroLineChart>
+      <Stack gap={"10px"}>
+        <MakroLineChart label="Protein" value={50}></MakroLineChart>
+        <MakroLineChart label="Fat" value={50}></MakroLineChart>
+        <MakroLineChart label="Carbs" value={50}></MakroLineChart>
       </Stack>
     </FlexBox>
   );
