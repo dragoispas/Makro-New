@@ -22,6 +22,7 @@ import { FoodEntry } from "../../../../app/api/types";
 import { useRemoveFoodEntryMutation, useUpdateFoodEntryMutation } from "../../../../app/api/api";
 import { UnitType, getFoodEntryQuantity, unitsForQuantity } from "../../../../app/units";
 import { FlexBox } from "../../../UI/GeneralStyledComponents";
+import { useSnackbar } from "notistack";
 
 const style = {
   position: "absolute",
@@ -63,6 +64,7 @@ export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
         macroNutrients: foodEntry.macroNutrients,
       },
     });
+    setOpen(false);
   };
   const handleClose = () => setOpen(false);
 
@@ -157,9 +159,19 @@ export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
                   }}
                 />
               </Stack>
-              <FlexBox justifyContent={"flex-end"} m={"20px 10px"}>
-                <Button sx={{ color: "custom.neutral", opacity: 0.5 }}>CANCEL</Button>
-                <Button onClick={submitChanges}>SAVE</Button>
+              <FlexBox justifyContent={"space-between"} m={"20px 9px 20px 15px"}>
+                <Button onClick={() => removeFoodEntry(foodEntry)} color="error">
+                  DELETE
+                </Button>
+                <FlexBox>
+                  <Button
+                    onClick={() => setOpen(false)}
+                    sx={{ color: "custom.neutral", opacity: 0.5 }}
+                  >
+                    CANCEL
+                  </Button>
+                  <Button onClick={submitChanges}>SAVE</Button>
+                </FlexBox>
               </FlexBox>
             </Box>
           </Fade>

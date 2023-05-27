@@ -26,6 +26,7 @@ import { stringsToNumbers } from "../../../../app/helpers";
 import { Product } from "../../../../app/api/types";
 import {
   adjustMacrosFromReferenceAmount,
+  adjustMacrosToQuantity,
   MacroNutrients,
   MacroNutrientType,
 } from "../../../../app/macroNutrients";
@@ -130,6 +131,11 @@ export function AddEditForm() {
       parseInt(diaryForm.referenceAmount)
     );
 
+    const updatedMacroNutrients = adjustMacrosToQuantity(
+      macroNutrients,
+      parseInt(diaryForm.quantity)
+    );
+
     const associatedProduct: Product =
       selectedProduct ?? (await createProductFromDiaryForm(macroNutrients));
 
@@ -145,7 +151,7 @@ export function AddEditForm() {
           UnitType.Gram
         ),
         quantityUnit: diaryForm.quantityUnit,
-        macroNutrients,
+        macroNutrients: updatedMacroNutrients,
       });
 
       enqueueSnackbar("Food entry saved!", { variant: "success" });
