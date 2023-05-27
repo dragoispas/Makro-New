@@ -39,7 +39,6 @@ import {
 import { useAppDispatch } from "../../../../Hooks/useAppDispatch";
 import { lineHeight, width } from "@mui/system";
 import { CustomDivider, FlexBox } from "../../../UI/GeneralStyledComponents";
-import { NumberFormatCustom } from "../../../Helpers/Formatter";
 import EditIcon from "@mui/icons-material/Edit";
 import { DiaryFormMacro } from "./DiaryFormMacro";
 import { ReferenceAmount } from "./ReferenceAmount";

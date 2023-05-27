@@ -1,5 +1,13 @@
 import { createTheme } from "@mui/material/styles";
 
+declare module "@mui/material/styles" {
+  interface PaletteOptions {
+    custom?: {
+      neutral?: string;
+    };
+  }
+}
+
 export const lightTheme = createTheme({
   palette: {
     mode: "light",
@@ -8,6 +16,9 @@ export const lightTheme = createTheme({
     },
     secondary: {
       main: "#033631",
+    },
+    custom: {
+      neutral: "black",
     },
   },
   typography: {
@@ -91,6 +102,9 @@ export const darkTheme = createTheme({
     },
     secondary: {
       main: "#39bd79",
+    },
+    custom: {
+      neutral: "white",
     },
   },
   transitions: {},

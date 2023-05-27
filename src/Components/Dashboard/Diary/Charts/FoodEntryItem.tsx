@@ -9,16 +9,19 @@ import {
   ListItemAvatar,
   ListItemButton,
   ListItemText,
+  MenuItem,
   Modal,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import { useState } from "react";
 import { FoodEntry } from "../../../../app/api/types";
-import { useRemoveFoodEntryMutation } from "../../../../app/api/api";
-import { getFoodEntryQuantity } from "../../../../app/units";
+import { useRemoveFoodEntryMutation, useUpdateFoodEntryMutation } from "../../../../app/api/api";
+import { UnitType, getFoodEntryQuantity, unitsForQuantity } from "../../../../app/units";
+import { FlexBox } from "../../../UI/GeneralStyledComponents";
 
 const style = {
   position: "absolute",
@@ -30,7 +33,6 @@ const style = {
   // border: "2px solid #000",
   borderRadius: "10px",
   boxShadow: 24,
-  p: 4,
 };
 
 interface FoodEntryItemProps {
@@ -40,8 +42,28 @@ interface FoodEntryItemProps {
 export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
   const [removeFoodEntry] = useRemoveFoodEntryMutation();
 
+  const [quantity, setQuantity] = useState<number>();
+  const [quantityUnit, setQuantityUnit] = useState<UnitType>();
+
+  const [updateFoodEntry] = useUpdateFoodEntryMutation();
+
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setQuantity(foodEntry.quantity);
+    setQuantityUnit(foodEntry.quantityUnit);
+    setOpen(true);
+  };
+
+  const submitChanges = () => {
+    updateFoodEntry({
+      id: foodEntry.id,
+      data: {
+        quantity: quantity,
+        quantityUnit: quantityUnit,
+        macroNutrients: foodEntry.macroNutrients,
+      },
+    });
+  };
   const handleClose = () => setOpen(false);
 
   return (
@@ -93,17 +115,52 @@ export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
         >
           <Fade in={open}>
             <Box sx={style}>
-              <Typography
-                color={"text.primary"}
-                id="transition-modal-title"
-                variant="h6"
-                component="h2"
-              >
-                {foodEntry.name}
-              </Typography>
-              <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-              </Typography>
+              <Stack gap={2} m={3}>
+                <Typography color={"text.primary"} variant="h6">
+                  {foodEntry.name}
+                </Typography>
+                <Typography fontWeight={500} color={"text.primary"}>
+                  Update Item
+                </Typography>
+                <FlexBox gap={2}>
+                  <TextField
+                    value={quantity}
+                    onChange={(e) => setQuantity(parseInt(e.target.value))}
+                    sx={{ width: "68%" }}
+                    label="Amount"
+                  ></TextField>
+                  <TextField
+                    value={quantityUnit}
+                    onChange={(e) => setQuantityUnit(e.target.value as UnitType)}
+                    label="Unit"
+                    select
+                    variant="outlined"
+                    sx={{ width: "28%" }}
+                  >
+                    {unitsForQuantity.map((unit) => (
+                      <MenuItem key={unit.type} value={unit.type}>
+                        {unit.name}s
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </FlexBox>
+                <TextField
+                  label="Time"
+                  type="time"
+                  variant="outlined"
+                  fullWidth
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  inputProps={{
+                    step: 300, // 5 min
+                  }}
+                />
+              </Stack>
+              <FlexBox justifyContent={"flex-end"} m={"20px 10px"}>
+                <Button sx={{ color: "custom.neutral", opacity: 0.5 }}>CANCEL</Button>
+                <Button onClick={submitChanges}>SAVE</Button>
+              </FlexBox>
             </Box>
           </Fade>
         </Modal>

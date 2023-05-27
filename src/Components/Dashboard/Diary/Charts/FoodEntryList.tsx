@@ -1,5 +1,4 @@
 import { List, Typography } from "@mui/material";
-import React from "react";
 import { FoodEntryItem } from "./FoodEntryItem";
 import { useCurrentDayEntry } from "../../../../Hooks/useCurrentDayEntry";
 
