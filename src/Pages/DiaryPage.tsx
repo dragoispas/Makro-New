@@ -11,7 +11,7 @@ import { useCurrentDayEntry } from "../Hooks/useCurrentDayEntry";
 import moment from "moment";
 import { DiaryChart } from "../Components/Dashboard/Diary/Charts/DiaryChart";
 import { FlexBox } from "../Components/UI/GeneralStyledComponents";
-import { FoodEntryList } from "../Components/Dashboard/Diary/FoodEntries/FoodEntryList";
+import { FoodEntryList } from "../Components/Dashboard/Diary/Charts/FoodEntryList";
 
 export default function DiaryPage() {
   const dispatch = useAppDispatch();

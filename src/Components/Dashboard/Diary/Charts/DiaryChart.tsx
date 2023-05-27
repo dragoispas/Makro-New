@@ -24,6 +24,7 @@ export function DiaryChart({
 }: Props) {
   return (
     <FlexBox centered="allAxis" style={{ width: "400px" }} gap={"40px"}>
+      <Box sx={{ width: "53.07px" }}></Box>
       <CaloriesChart value={50}></CaloriesChart>
       <Stack gap={"10px"}>
         <MakroLineChart label="Protein" value={50}></MakroLineChart>
