@@ -14,7 +14,9 @@ import {
   Modal,
   Stack,
   TextField,
+  Theme,
   Typography,
+  makeStyles,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
@@ -61,7 +63,7 @@ export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
 
   const [updateFoodEntry] = useUpdateFoodEntryMutation();
 
-  const handleQuantity = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setQuantity(e.target.value);
 
     const updatedMacroNutrients = adjustMacrosToQuantity(
@@ -128,7 +130,9 @@ export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
         />
         <ListItemText
           sx={{ textAlign: "end" }}
-          primary={<Typography sx={{ height: "20px" }}>{macroNutrients.calories}</Typography>}
+          primary={
+            <Typography sx={{ height: "20px" }}>{foodEntry.macroNutrients.calories}</Typography>
+          }
           secondary={<Typography>kcal</Typography>}
         />
       </ListItemButton>
@@ -142,11 +146,12 @@ export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
           slots={{ backdrop: Backdrop }}
           slotProps={{
             backdrop: {
-              timeout: 500,
+              timeout: 300,
+              sx: { background: "rgba(0,0,0,0.2)" },
             },
           }}
         >
-          <Fade in={open}>
+          <Fade in={open} style={{ transitionDuration: "300ms" }}>
             <Box sx={style}>
               <Stack gap={2} m={3}>
                 <Typography color={"text.primary"} variant="h6">
@@ -166,7 +171,7 @@ export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
                 <FlexBox gap={2}>
                   <TextField
                     value={quantity}
-                    onChange={handleQuantity}
+                    onChange={handleQuantityChange}
                     sx={{ width: "68%" }}
                     label="Amount"
                     InputProps={{

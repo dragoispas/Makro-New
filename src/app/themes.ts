@@ -64,33 +64,6 @@ export const lightTheme = createTheme({
         },
       },
     },
-    MuiAccordion: {
-      styleOverrides: {
-        root: {
-          boxShadow: "0px 3px 10px rgba(0,0,0,0.2)",
-          // border: "1px solid lightgrey",
-          // borderRadius: "0px",
-          "&::before": {
-            display: "none",
-          },
-        },
-      },
-    },
-    MuiAccordionSummary: {
-      styleOverrides: {
-        root: {
-          // background: "rgba(0,0,0,0.05)",
-        },
-      },
-    },
-    MuiAccordionDetails: {
-      styleOverrides: {
-        root: {
-          // background: "rgba(0,0,0,0.01)",
-          borderTop: "1px solid rgba(0, 0, 0, .125)",
-        },
-      },
-    },
   },
 });
 
