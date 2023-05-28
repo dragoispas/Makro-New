@@ -163,40 +163,40 @@ export function AddEditForm() {
       enqueueSnackbar("Failed to save food entry", { variant: "error" });
     }
   };
-
+  // TODO: change the color of the backround when editing something (to primary when editing, then to green when clicked on checkmark button, also provide undo button)
   return (
     <Wrapper>
       <Box padding={"0px 35px"} height={"570px"}>
-        <FlexBox justifyContent={"space-between"}>
-          <FoodName
-            value={diaryForm.name}
-            onChange={(e) => {
-              dispatch(setDiaryFormName(e.target.value));
-            }}
-          ></FoodName>
-          <IconButton>
-            <EditIcon></EditIcon>
-          </IconButton>
-        </FlexBox>
-        <FlexBox gap={3} marginY={2}>
-          {nutritionFields.map((field) => {
-            const fieldValue = diaryForm.macroNutrients[field.name];
+        <Box sx={{ backgroundColor: "#f5f5f5", padding: "1rem" }}>
+          <FlexBox justifyContent={"space-between"}>
+            <FoodName
+              placeholder="Food name"
+              value={diaryForm.name}
+              onChange={(e) => {
+                dispatch(setDiaryFormName(e.target.value));
+              }}
+            ></FoodName>
+          </FlexBox>
+          <FlexBox gap={3} marginY={2}>
+            {nutritionFields.map((field) => {
+              const fieldValue = diaryForm.macroNutrients[field.name];
 
-            if (!field.mandatory) {
-              return;
-            }
-            return (
-              <DiaryFormMacro
-                key={field.label}
-                label={field.name}
-                value={fieldValue}
-              ></DiaryFormMacro>
-            );
-          })}
+              if (!field.mandatory) {
+                return;
+              }
+              return (
+                <DiaryFormMacro
+                  key={field.label}
+                  label={field.name}
+                  value={fieldValue}
+                ></DiaryFormMacro>
+              );
+            })}
 
-          <CustomDivider bgcolor={"divider"} direction="vertical"></CustomDivider>
-          <ReferenceAmount></ReferenceAmount>
-        </FlexBox>
+            <CustomDivider bgcolor={"divider"} direction="vertical"></CustomDivider>
+            <ReferenceAmount></ReferenceAmount>
+          </FlexBox>
+        </Box>
 
         <Box height={"30px"}></Box>
         <SubTitle>Add to Diary</SubTitle>

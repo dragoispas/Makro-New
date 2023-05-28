@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Fade,
+  Grid,
   IconButton,
   ListItem,
   ListItemAvatar,
@@ -17,12 +18,23 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FoodEntry } from "../../../../app/api/types";
-import { useRemoveFoodEntryMutation, useUpdateFoodEntryMutation } from "../../../../app/api/api";
+import {
+  useProductQuery,
+  useRemoveFoodEntryMutation,
+  useUpdateFoodEntryMutation,
+} from "../../../../app/api/api";
 import { UnitType, getFoodEntryQuantity, unitsForQuantity } from "../../../../app/units";
 import { FlexBox } from "../../../UI/GeneralStyledComponents";
 import { useSnackbar } from "notistack";
+import { stringsToNumbers } from "../../../../app/helpers";
+import {
+  MacroNutrients,
+  adjustMacrosFromReferenceAmount,
+  adjustMacrosToQuantity,
+} from "../../../../app/macroNutrients";
+import { NumberFormatCustom } from "../../../Helpers/Formatter";
 
 const style = {
   position: "absolute",
@@ -43,14 +55,35 @@ interface FoodEntryItemProps {
 export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
   const [removeFoodEntry] = useRemoveFoodEntryMutation();
 
-  const [quantity, setQuantity] = useState<number>();
+  const [quantity, setQuantity] = useState<string>();
   const [quantityUnit, setQuantityUnit] = useState<UnitType>();
+  const [macroNutrients, setMacroNutrients] = useState<MacroNutrients>(foodEntry.macroNutrients);
 
   const [updateFoodEntry] = useUpdateFoodEntryMutation();
 
+  const handleQuantity = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setQuantity(e.target.value);
+
+    const updatedMacroNutrients = adjustMacrosToQuantity(
+      foodEntry.product.macroNutrients,
+      parseFloat(e.target.value)
+    );
+    setMacroNutrients(updatedMacroNutrients);
+  };
+
+  // useEffect(() => {
+  //   const updatedMacroNutrients = adjustMacrosToQuantity(
+  //     foodEntry.product.macroNutrients,
+  //     foodEntry.quantity
+  //   );
+  //   setMacroNutrients(updatedMacroNutrients);
+  // }, [quantity]);
+
+  // TODO: add the selected food in state in order to recalculate the macronutrients
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
-    setQuantity(foodEntry.quantity);
+    setQuantity(foodEntry.quantity.toString());
     setQuantityUnit(foodEntry.quantityUnit);
     setOpen(true);
   };
@@ -59,9 +92,9 @@ export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
     updateFoodEntry({
       id: foodEntry.id,
       data: {
-        quantity: quantity,
+        quantity: parseFloat(quantity ?? "0"),
         quantityUnit: quantityUnit,
-        macroNutrients: foodEntry.macroNutrients,
+        macroNutrients: macroNutrients, // TODO: parse the updated macronutrients
       },
     });
     setOpen(false);
@@ -95,9 +128,7 @@ export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
         />
         <ListItemText
           sx={{ textAlign: "end" }}
-          primary={
-            <Typography sx={{ height: "20px" }}>{foodEntry.macroNutrients.calories}</Typography>
-          }
+          primary={<Typography sx={{ height: "20px" }}>{macroNutrients.calories}</Typography>}
           secondary={<Typography>kcal</Typography>}
         />
       </ListItemButton>
@@ -121,15 +152,26 @@ export function FoodEntryItem({ foodEntry }: FoodEntryItemProps) {
                 <Typography color={"text.primary"} variant="h6">
                   {foodEntry.name}
                 </Typography>
+                <Box sx={{ backgroundColor: "#f5f5f5", padding: "1rem", borderRadius: "4px" }}>
+                  <Stack>
+                    <Typography>{macroNutrients.calories} kcal</Typography>
+                    <Typography>{macroNutrients.protein} protein</Typography>
+                    <Typography>{macroNutrients.fat} fat</Typography>
+                    <Typography>{macroNutrients.carbs} carbs</Typography>
+                  </Stack>
+                </Box>
                 <Typography fontWeight={500} color={"text.primary"}>
                   Update Item
                 </Typography>
                 <FlexBox gap={2}>
                   <TextField
                     value={quantity}
-                    onChange={(e) => setQuantity(parseInt(e.target.value))}
+                    onChange={handleQuantity}
                     sx={{ width: "68%" }}
                     label="Amount"
+                    InputProps={{
+                      inputComponent: NumberFormatCustom as never,
+                    }}
                   ></TextField>
                   <TextField
                     value={quantityUnit}

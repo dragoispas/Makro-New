@@ -56,16 +56,11 @@ export function adjustMacrosToQuantity(
   macroNutrients: MacroNutrients,
   quantity: number
 ): MacroNutrients {
-  macroNutrients.calories = (macroNutrients.calories * quantity) / 100;
-  macroNutrients.protein = (macroNutrients.protein * quantity) / 100;
-  macroNutrients.fat = (macroNutrients.fat * quantity) / 100;
-  macroNutrients.carbs = (macroNutrients.carbs * quantity) / 100;
-  if (macroNutrients.sugar) macroNutrients.sugar = (macroNutrients.sugar * quantity) / 100;
-  if (macroNutrients.saturatedFat)
-    macroNutrients.saturatedFat = (macroNutrients.saturatedFat * quantity) / 100;
-  if (macroNutrients.potassium)
-    macroNutrients.potassium = (macroNutrients.potassium * quantity) / 100;
-  if (macroNutrients.sodium) macroNutrients.sodium = (macroNutrients.sodium * quantity) / 100;
-
-  return macroNutrients;
+  return Object.entries(macroNutrients).reduce(
+    (adjustedMacroNutrients, [macroKey, macroValue]) => ({
+      ...adjustedMacroNutrients,
+      [macroKey]: (macroValue * quantity) / 100,
+    }),
+    macroNutrients
+  );
 }

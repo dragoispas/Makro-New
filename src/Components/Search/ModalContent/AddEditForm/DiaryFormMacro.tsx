@@ -3,6 +3,7 @@ import React from "react";
 import { setDiaryFormMacro } from "../../../../app/store/slices/searchSlice";
 import { MacroNutrientType } from "../../../../app/macroNutrients";
 import { useAppDispatch } from "../../../../Hooks/useAppDispatch";
+import { NumberFormatCustom } from "../../../Helpers/Formatter";
 
 interface Props {
   label: MacroNutrientType;
@@ -26,6 +27,7 @@ export function DiaryFormMacro({ label, value }: Props) {
         placeholder="0"
         inputProps={{ style: { textAlign: "center" } }}
         sx={{ width: "50px", fontWeight: "500", fontSize: "1.15rem" }}
+        inputComponent={NumberFormatCustom as never}
       />
     </Box>
   );
