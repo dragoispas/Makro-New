@@ -4,12 +4,17 @@ import { FlexBox } from "../../../UI/GeneralStyledComponents";
 import { useAppDispatch } from "../../../../Hooks/useAppDispatch";
 import { RootState } from "../../../../app/store/store";
 import { useSelector } from "react-redux";
-import { setDiaryFormQuantity } from "../../../../app/store/slices/searchSlice";
+import { setDiaryFormQuantity, setDiaryFormTime } from "../../../../app/store/slices/searchSlice";
 import { NumberFormatCustom } from "../../../Helpers/Formatter";
+import { useEffect } from "react";
 
 export function AddForm() {
   const dispatch = useAppDispatch();
   const diaryForm = useSelector((state: RootState) => state.search.diaryForm);
+
+  useEffect(() => {
+    console.log(diaryForm.time);
+  }, [diaryForm.time]);
   return (
     <form>
       <Stack gap={3} marginY={2}>
@@ -40,6 +45,8 @@ export function AddForm() {
           </TextField>
         </FlexBox>
         <TextField
+          value={diaryForm.time}
+          onChange={(e) => dispatch(setDiaryFormTime(e.target.value))}
           label="Time"
           type="time"
           variant="outlined"

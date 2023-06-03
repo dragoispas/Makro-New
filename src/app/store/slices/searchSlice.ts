@@ -17,6 +17,7 @@ export type DiaryForm = {
   name: string;
   quantity: string;
   quantityUnit: UnitType;
+  time: string;
   macroNutrients: ConvertTypes<MacroNutrients, number, string>;
   referenceAmount: string;
 };
@@ -30,6 +31,7 @@ const initialState: SearchModalSlice = {
     name: "",
     quantity: "",
     quantityUnit: UnitType.Gram,
+    time: "",
     macroNutrients: {
       calories: "",
       carbs: "",
@@ -76,6 +78,9 @@ export const searchSlice = createSlice({
     setDiaryFormQuantity: (state, action: PayloadAction<string>) => {
       state.diaryForm.quantity = action.payload;
     },
+    setDiaryFormTime: (state, action: PayloadAction<string>) => {
+      state.diaryForm.time = action.payload;
+    },
     setDiaryFormReferenceAmount: (state, action: PayloadAction<string>) => {
       state.diaryForm.referenceAmount = action.payload;
     },
@@ -99,6 +104,7 @@ export const {
   setDiaryFormActive,
   setDiaryFormReferenceAmount,
   setDiaryFormQuantity,
+  setDiaryFormTime,
 } = searchSlice.actions;
 
 export default searchSlice.reducer;
