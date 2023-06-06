@@ -186,7 +186,6 @@ export function AddEditForm() {
   };
 
   const backgroundColor = isFoodDirty ? "customBackground.success" : "customBackground.neutral";
-
   // TODO: change the color of the backround when editing something (to primary when editing, then to green when clicked on checkmark button, also provide undo button)
   return (
     <Wrapper>
@@ -226,34 +225,12 @@ export function AddEditForm() {
               <CustomDivider bgcolor={"divider"} direction="vertical"></CustomDivider>
               <ReferenceAmount></ReferenceAmount>
             </FlexBox>
-            {/* <FlexBox gap={3} marginY={2}>
-              {nutritionFields.map((field) => {
-                const fieldValue = diaryForm.macroNutrients[field.name];
-
-                if (field.mandatory) {
-                  return;
-                }
-                return (
-                  <DiaryFormMacro
-                    key={field.label}
-                    label={field.name}
-                    value={fieldValue}
-                    onFieldDirtyChange={handleFoodFieldDirtyChange}
-                  ></DiaryFormMacro>
-                );
-              })}
-            </FlexBox> */}
-            {/* <Stack alignItems={"flex-start"}>
-              <FormControlLabel disabled label="Create new food" control={<Checkbox checked />} />
-              <FormControlLabel disabled label="Update this food" control={<Checkbox checked />} />
-            </Stack> */}
           </Box>
           <Box height={"30px"}></Box>
           <SubTitle>Add to Diary</SubTitle>
           <AddForm></AddForm>
         </Box>
 
-        {/* ADD CHECKMARKS INSTEAD OF ADDITIONAL BUTTONS */}
         <Box marginBottom={"4px"}>
           <Button onClick={onSaveClick} sx={{ width: "100%" }}>
             ADD TO DIARY
