@@ -44,6 +44,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { DiaryFormMacro } from "./DiaryFormMacro";
 import { ReferenceAmount } from "./ReferenceAmount";
 import { AddForm } from "./AddForm";
+import { useState } from "react";
 
 type NutritionField = {
   name: MacroNutrientType;
@@ -109,6 +110,8 @@ export function AddEditForm() {
   const selectedProduct = useSelector((state: RootState) => state.search.selectedProduct);
   const diaryForm = useSelector((state: RootState) => state.search.diaryForm);
 
+  const [isFoodDirty, setIsFoodDirty] = useState(false);
+
   const [createProduct] = useCreateProductMutation();
   const [createFoodEntry] = useCreateFoodEntryMutation();
 
@@ -163,18 +166,35 @@ export function AddEditForm() {
       enqueueSnackbar("Failed to save food entry", { variant: "error" });
     }
   };
+
+  const handleFoodNameChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    dispatch(setDiaryFormName(e.target.value));
+    console.log(selectedProduct?.name);
+    console.log(e.target.value);
+    if (selectedProduct?.name !== e.target.value) {
+      setIsFoodDirty(true);
+    } else {
+      setIsFoodDirty(false);
+    }
+  };
+
+  const handleFieldDirtyChange = (isDirty: boolean) => {
+    // Use the isDirty value in the parent component
+    setIsFoodDirty(isDirty);
+  };
+
+  const backgroundColor = isFoodDirty ? "customBackground.success" : "customBackground.neutral";
+
   // TODO: change the color of the backround when editing something (to primary when editing, then to green when clicked on checkmark button, also provide undo button)
   return (
     <Wrapper>
       <Box padding={"0px 35px"} height={"570px"}>
-        <Box sx={{ backgroundColor: "customBackground.neutral", padding: "1rem" }}>
+        <Box sx={{ backgroundColor: backgroundColor, padding: "1rem" }}>
           <FlexBox justifyContent={"space-between"}>
             <FoodName
               placeholder="Food name"
               value={diaryForm.name}
-              onChange={(e) => {
-                dispatch(setDiaryFormName(e.target.value));
-              }}
+              onChange={handleFoodNameChange}
             ></FoodName>
           </FlexBox>
           <FlexBox gap={3} marginY={2}>
@@ -189,6 +209,7 @@ export function AddEditForm() {
                   key={field.label}
                   label={field.name}
                   value={fieldValue}
+                  onFieldDirtyChange={handleFieldDirtyChange}
                 ></DiaryFormMacro>
               );
             })}
@@ -204,7 +225,7 @@ export function AddEditForm() {
       </Box>
 
       <Button onClick={onSaveClick} sx={{ width: "100%", marginTop: "5px" }}>
-        + ADD TO DIARY
+        CREATE AND ADD TO DIARY
       </Button>
     </Wrapper>
   );
