@@ -55,7 +55,7 @@ export function SearchResultsContainer() {
         </TabPanel>
       </Box>
       <Button onClick={onCreateNewFoodClick} sx={{ width: "100%", marginTop: "5px" }}>
-        CREATE NEW FOOD
+        NEW FOOD
       </Button>
     </Content>
   );

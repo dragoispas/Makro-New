@@ -178,7 +178,7 @@ export function AddEditForm() {
     }
   };
 
-  const handleFieldDirtyChange = (isDirty: boolean) => {
+  const handleFoodFieldDirtyChange = (isDirty: boolean) => {
     // Use the isDirty value in the parent component
     setIsFoodDirty(isDirty);
   };
@@ -188,45 +188,65 @@ export function AddEditForm() {
   // TODO: change the color of the backround when editing something (to primary when editing, then to green when clicked on checkmark button, also provide undo button)
   return (
     <Wrapper>
-      <Box padding={"0px 35px"} height={"570px"}>
-        <Box sx={{ backgroundColor: backgroundColor, padding: "1rem" }}>
-          <FlexBox justifyContent={"space-between"}>
-            <FoodName
-              placeholder="Food name"
-              value={diaryForm.name}
-              onChange={handleFoodNameChange}
-            ></FoodName>
-          </FlexBox>
-          <FlexBox gap={3} marginY={2}>
-            {nutritionFields.map((field) => {
-              const fieldValue = diaryForm.macroNutrients[field.name];
+      <Stack justifyContent={"space-between"} height={"615px"}>
+        <Box padding={"0px 35px"}>
+          <Box
+            sx={{
+              backgroundColor: backgroundColor,
+              padding: "1rem",
+              transition: "background-color 0.2s ease",
+            }}
+          >
+            <FlexBox justifyContent={"space-between"}>
+              <FoodName
+                placeholder="Food name"
+                value={diaryForm.name}
+                onChange={handleFoodNameChange}
+              ></FoodName>
+            </FlexBox>
+            <FlexBox gap={3} marginY={2}>
+              {nutritionFields.map((field) => {
+                const fieldValue = diaryForm.macroNutrients[field.name];
 
-              if (!field.mandatory) {
-                return;
-              }
-              return (
-                <DiaryFormMacro
-                  key={field.label}
-                  label={field.name}
-                  value={fieldValue}
-                  onFieldDirtyChange={handleFieldDirtyChange}
-                ></DiaryFormMacro>
-              );
-            })}
+                if (!field.mandatory) {
+                  return;
+                }
+                return (
+                  <DiaryFormMacro
+                    key={field.label}
+                    label={field.name}
+                    value={fieldValue}
+                    onFieldDirtyChange={handleFoodFieldDirtyChange}
+                  ></DiaryFormMacro>
+                );
+              })}
 
-            <CustomDivider bgcolor={"divider"} direction="vertical"></CustomDivider>
-            <ReferenceAmount></ReferenceAmount>
-          </FlexBox>
+              <CustomDivider bgcolor={"divider"} direction="vertical"></CustomDivider>
+              <ReferenceAmount></ReferenceAmount>
+            </FlexBox>
+          </Box>
+
+          <Box height={"30px"}></Box>
+          <SubTitle>Add to Diary</SubTitle>
+          <AddForm></AddForm>
         </Box>
 
-        <Box height={"30px"}></Box>
-        <SubTitle>Add to Diary</SubTitle>
-        <AddForm></AddForm>
-      </Box>
+        <Box marginBottom={"4px"}>
+          {selectedProduct && (
+            <Button disabled={!isFoodDirty} onClick={onSaveClick} sx={{ width: "100%" }}>
+              UPDATE FOOD AND ADD
+            </Button>
+          )}
 
-      <Button onClick={onSaveClick} sx={{ width: "100%", marginTop: "5px" }}>
-        CREATE AND ADD TO DIARY
-      </Button>
+          <Button disabled={!isFoodDirty} onClick={onSaveClick} sx={{ width: "100%" }}>
+            CREATE NEW FOOD AND ADD
+          </Button>
+
+          <Button onClick={onSaveClick} sx={{ width: "100%" }}>
+            ADD TO DIARY
+          </Button>
+        </Box>
+      </Stack>
     </Wrapper>
   );
 }
