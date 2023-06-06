@@ -2,8 +2,10 @@ import {
   Box,
   Button,
   ButtonBase,
+  Checkbox,
   Container,
   Divider,
+  FormControlLabel,
   Grid,
   IconButton,
   InputBase,
@@ -204,7 +206,7 @@ export function AddEditForm() {
                 onChange={handleFoodNameChange}
               ></FoodName>
             </FlexBox>
-            <FlexBox gap={3} marginY={2}>
+            <FlexBox gap={3} marginY={2} justifyContent={"space-between"} width={"100%"}>
               {nutritionFields.map((field) => {
                 const fieldValue = diaryForm.macroNutrients[field.name];
 
@@ -224,24 +226,35 @@ export function AddEditForm() {
               <CustomDivider bgcolor={"divider"} direction="vertical"></CustomDivider>
               <ReferenceAmount></ReferenceAmount>
             </FlexBox>
-          </Box>
+            {/* <FlexBox gap={3} marginY={2}>
+              {nutritionFields.map((field) => {
+                const fieldValue = diaryForm.macroNutrients[field.name];
 
+                if (field.mandatory) {
+                  return;
+                }
+                return (
+                  <DiaryFormMacro
+                    key={field.label}
+                    label={field.name}
+                    value={fieldValue}
+                    onFieldDirtyChange={handleFoodFieldDirtyChange}
+                  ></DiaryFormMacro>
+                );
+              })}
+            </FlexBox> */}
+            {/* <Stack alignItems={"flex-start"}>
+              <FormControlLabel disabled label="Create new food" control={<Checkbox checked />} />
+              <FormControlLabel disabled label="Update this food" control={<Checkbox checked />} />
+            </Stack> */}
+          </Box>
           <Box height={"30px"}></Box>
           <SubTitle>Add to Diary</SubTitle>
           <AddForm></AddForm>
         </Box>
 
+        {/* ADD CHECKMARKS INSTEAD OF ADDITIONAL BUTTONS */}
         <Box marginBottom={"4px"}>
-          {selectedProduct && (
-            <Button disabled={!isFoodDirty} onClick={onSaveClick} sx={{ width: "100%" }}>
-              UPDATE FOOD AND ADD
-            </Button>
-          )}
-
-          <Button disabled={!isFoodDirty} onClick={onSaveClick} sx={{ width: "100%" }}>
-            CREATE NEW FOOD AND ADD
-          </Button>
-
           <Button onClick={onSaveClick} sx={{ width: "100%" }}>
             ADD TO DIARY
           </Button>
