@@ -167,7 +167,7 @@ export function AddEditForm() {
   return (
     <Wrapper>
       <Box padding={"0px 35px"} height={"570px"}>
-        <Box sx={{ backgroundColor: "#f5f5f5", padding: "1rem" }}>
+        <Box sx={{ backgroundColor: "customBackground.neutral", padding: "1rem" }}>
           <FlexBox justifyContent={"space-between"}>
             <FoodName
               placeholder="Food name"

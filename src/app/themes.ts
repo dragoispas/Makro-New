@@ -5,6 +5,11 @@ declare module "@mui/material/styles" {
     custom?: {
       neutral?: string;
     };
+    customBackground?: {
+      primary?: string;
+      neutral?: string;
+      success?: string;
+    };
   }
 }
 
@@ -19,6 +24,11 @@ export const lightTheme = createTheme({
     },
     custom: {
       neutral: "black",
+    },
+    customBackground: {
+      primary: "rgba(238, 91, 70, 0.1)",
+      neutral: "#f5f5f5",
+      success: "rgba(76, 175, 80, 0.2)",
     },
   },
   typography: {
@@ -78,6 +88,11 @@ export const darkTheme = createTheme({
     },
     custom: {
       neutral: "white",
+    },
+    customBackground: {
+      primary: "rgba(238, 91, 70, 0.2)",
+      neutral: "rgba(250,250,250,0.1)",
+      success: "rgba(76, 175, 80, 0.2)",
     },
   },
   transitions: {},
