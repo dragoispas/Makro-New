@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useUserQuery } from "../app/api/api";
+import { useLogoutMutation, useUserQuery } from "../app/api/api";
 import ChangePasswordModal from "../Components/Settings/ChangePasswordModal";
 import ContactSupportModal from "../Components/Settings/ContactSupportModal";
 import { setThemeMode } from "../app/store/slices/generalSlice";
@@ -22,6 +22,7 @@ import { useSelector } from "react-redux";
 
 export function SettingsPage() {
   const user = useUserQuery();
+  const [logout] = useLogoutMutation();
   const [changePasswordModalVisible, setChangePasswordModalVisible] = useState<boolean>(false);
   const [contactSupportModalVisible, setContactSupportdModalVisible] = useState<boolean>(false);
   const { themeMode } = useSelector((state: RootState) => state.general);
@@ -30,7 +31,7 @@ export function SettingsPage() {
   return (
     <Box
       sx={{
-        marginTop: "30px",
+        marginTop: "15px",
         display: "flex",
         justifyContent: "center",
         gap: "40px",
@@ -86,7 +87,7 @@ export function SettingsPage() {
             <Button onClick={() => setChangePasswordModalVisible(true)} color="inherit">
               Change password
             </Button>
-            <Button color="error" sx={{ justifySelf: "flex-end" }}>
+            <Button onClick={() => logout()} color="error" sx={{ justifySelf: "flex-end" }}>
               Log out
             </Button>
           </Stack>

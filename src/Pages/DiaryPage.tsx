@@ -21,7 +21,7 @@ export default function DiaryPage() {
   return (
     <Box
       sx={{
-        marginTop: "30px",
+        marginTop: "15px",
         display: "flex",
         justifyContent: "center",
         gap: "40px",

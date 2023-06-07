@@ -5,36 +5,12 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
-import { Button, Paper, Stack } from "@mui/material";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useSelector } from "react-redux";
-import LightModeIcon from "@mui/icons-material/LightMode";
 import { RootState } from "../app/store/store";
-import { setThemeMode } from "../app/store/slices/generalSlice";
 import { useAppDispatch } from "../Hooks/useAppDispatch";
-import { useLogoutMutation } from "../app/api/api";
+import { useLogoutMutation, useUserQuery } from "../app/api/api";
 import { useCurrentUser } from "../Hooks/useCurrentUser";
-
-const ThemeSwitch = styled(Paper, {
-  shouldForwardProp: (prop) => prop !== "themeMode",
-})<{
-  themeMode: string;
-}>`
-  height: 40px;
-  width: 40px;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: 0.3s;
-  background-color: inherit;
-  ${(props) =>
-    props.themeMode === "dark"
-      ? "box-shadow: 0px 0px 10px rgba(0,0,0,0.5)"
-      : "box-shadow: 0px 0px 10px rgba(255,255,255,0.5)"};
-  opacity: 0.8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+import { FlexBox } from "./UI/GeneralStyledComponents";
 
 interface StyledTabsProps {
   children?: React.ReactNode;
@@ -45,10 +21,9 @@ interface StyledTabsProps {
 export const StyledTabs = styled((props: StyledTabsProps) => (
   <Tabs {...props} TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }} />
 ))({
+  marginTop: 10,
   "& .MuiTabs-indicator": {
-    display: "flex",
-    justifyContent: "center",
-    backgroundColor: "transparent",
+    display: "none", // Remove the underline indicator
   },
   "& .MuiTabs-indicatorSpan": {
     width: "100%",
@@ -64,26 +39,19 @@ const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props
   ({ theme }) => ({
     textTransform: "none",
     fontWeight: theme.typography.fontWeightRegular,
-    fontSize: "18px",
+    fontSize: "1.25rem",
     marginRight: theme.spacing(1),
     color: "text.primary",
     "&.Mui-selected": {
       color: "primary",
-    },
-    "&.Mui-focusVisible": {
-      backgroundColor: "rgba(100, 95, 228, 0.32)",
     },
   })
 );
 
 export function CustomizedTabs() {
   const [value, setValue] = React.useState(0);
-  const themeMode = useSelector(({ general }: RootState) => general.themeMode);
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
   const user = useCurrentUser();
-  const [logout] = useLogoutMutation();
 
   const handleChange = useCallback(
     (event: React.SyntheticEvent, newValue: number) => {
@@ -107,46 +75,20 @@ export function CustomizedTabs() {
   );
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Stack
-        direction="row"
-        justifyContent={user ? "space-between" : "flex-end"}
-        alignItems="center"
-        spacing={2}
-        sx={{ margin: "0 50px", height: "70px" }}
-      >
-        {user ? (
-          <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example">
-            <StyledTab label="Dashboard" />
-            <StyledTab label="Trends" />
-            <StyledTab label="Settings" />
-          </StyledTabs>
-        ) : null}
-        <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
-          <Button color="inherit" onClick={() => logout()}>
-            Logout
-          </Button>
-          <ThemeSwitch
-            themeMode={themeMode === "light" ? "dark" : "light"}
-            onClick={() => dispatch(setThemeMode(themeMode === "light" ? "dark" : "light"))}
-          >
-            <DarkModeIcon
-              sx={{
-                position: "absolute",
-                transition: "0.1s",
-                opacity: themeMode === "light" ? 1 : 0,
-              }}
-            />
-            <LightModeIcon
-              sx={{
-                position: "absolute",
-                transition: "0.1s",
-                opacity: themeMode === "light" ? 0 : 1,
-              }}
-            />
-          </ThemeSwitch>
-        </Stack>
-      </Stack>
-    </Box>
+    <>
+      {user ? (
+        <FlexBox sx={{ width: "100%" }}>
+          <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+            <Box></Box>
+            <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example">
+              <StyledTab label="Dashboard" />
+              <StyledTab label="Trends" />
+              <StyledTab label="Settings" />
+            </StyledTabs>
+            <Box></Box>
+          </Box>
+        </FlexBox>
+      ) : null}
+    </>
   );
 }
