@@ -51,7 +51,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { DiaryFormMacro } from "./DiaryFormMacro";
 import { ReferenceAmount } from "./ReferenceAmount";
 import { AddForm } from "./AddForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { FoodMenu } from "./FoodMenu";
 
@@ -188,6 +188,12 @@ export function AddEditForm() {
     }
   };
 
+  useEffect(() => {
+    if (!selectedProduct) {
+      setIsFoodDirty(true);
+    }
+  }, [selectedProduct]);
+
   const handleFoodFieldDirtyChange = (isDirty: boolean) => {
     // Use the isDirty value in the parent component
     setIsFoodDirty(isDirty);
@@ -230,7 +236,7 @@ export function AddEditForm() {
                 value={diaryForm.name}
                 onChange={handleFoodNameChange}
               ></FoodName>
-              <FoodMenu onItemClick={handleMenuItemClick}></FoodMenu>
+              {selectedProduct && <FoodMenu onItemClick={handleMenuItemClick}></FoodMenu>}
             </FlexBox>
             <FlexBox gap={3} marginY={2} justifyContent={"space-between"} width={"100%"}>
               {nutritionFields.map((field) => {
