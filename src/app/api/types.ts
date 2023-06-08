@@ -46,3 +46,8 @@ export type ProductWithUsage = Product & {
   usageCount: number;
   lastUsedAt: Date;
 };
+
+export enum FoodMenuAction {
+  Copy = "copy",
+  Delete = "delete",
+}

@@ -9,6 +9,7 @@ import {
   Grid,
   IconButton,
   InputBase,
+  Menu,
   MenuItem,
   Select,
   Stack,
@@ -21,11 +22,15 @@ import { FoodName, ModulesContainer, SubTitle, Wrapper } from "./AddEditFormStyl
 import { AmountAndUnit } from "../AddEntryFormModules/AmountAndUnit/AmountAndUnit";
 import { FoodOverview } from "../AddEntryFormModules/Overview/FoodOverview";
 import { useCurrentDayEntry } from "../../../../Hooks/useCurrentDayEntry";
-import { useCreateFoodEntryMutation, useCreateProductMutation } from "../../../../app/api/api";
+import {
+  useCreateFoodEntryMutation,
+  useCreateProductMutation,
+  useRemoveProductMutation,
+} from "../../../../app/api/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../app/store/store";
 import { stringsToNumbers } from "../../../../app/helpers";
-import { Product } from "../../../../app/api/types";
+import { FoodMenuAction, Product } from "../../../../app/api/types";
 import {
   adjustMacrosFromReferenceAmount,
   adjustMacrosToQuantity,
@@ -47,6 +52,8 @@ import { DiaryFormMacro } from "./DiaryFormMacro";
 import { ReferenceAmount } from "./ReferenceAmount";
 import { AddForm } from "./AddForm";
 import { useState } from "react";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { FoodMenu } from "./FoodMenu";
 
 type NutritionField = {
   name: MacroNutrientType;
@@ -111,6 +118,7 @@ export function AddEditForm() {
   const dayEntry = useCurrentDayEntry();
   const selectedProduct = useSelector((state: RootState) => state.search.selectedProduct);
   const diaryForm = useSelector((state: RootState) => state.search.diaryForm);
+  const [removeProduct] = useRemoveProductMutation();
 
   const [isFoodDirty, setIsFoodDirty] = useState(false);
 
@@ -118,7 +126,7 @@ export function AddEditForm() {
   const [createFoodEntry] = useCreateFoodEntryMutation();
 
   const { enqueueSnackbar } = useSnackbar();
-
+  // TODO: ADD MUTATION FOR PRODUCT AND ABILITY TO UPDATE IT
   const createProductFromDiaryForm = (macroNutrients: MacroNutrients): Promise<Product> => {
     return createProduct({
       name: diaryForm.name,
@@ -185,6 +193,24 @@ export function AddEditForm() {
     setIsFoodDirty(isDirty);
   };
 
+  const removeSelectedProduct = () => {
+    if (selectedProduct) removeProduct(selectedProduct?.id);
+  };
+
+  const handleMenuItemClick = (item: FoodMenuAction) => {
+    if (item === FoodMenuAction.Copy) {
+      dispatch(clearSelectedProduct());
+      dispatch(setDiaryFormName(diaryForm.name + " (custom)"));
+      console.log("copy");
+    }
+    if (item === FoodMenuAction.Delete) {
+      removeSelectedProduct();
+      dispatch(setDiaryFormActive(false));
+      dispatch(clearSelectedProduct());
+      console.log("delete");
+    }
+  };
+
   const backgroundColor = isFoodDirty ? "customBackground.success" : "customBackground.neutral";
   // TODO: change the color of the backround when editing something (to primary when editing, then to green when clicked on checkmark button, also provide undo button)
   return (
@@ -198,12 +224,13 @@ export function AddEditForm() {
               transition: "background-color 0.2s ease",
             }}
           >
-            <FlexBox justifyContent={"space-between"}>
+            <FlexBox justifyContent={"space-between"} centered="xAxis">
               <FoodName
                 placeholder="Food name"
                 value={diaryForm.name}
                 onChange={handleFoodNameChange}
               ></FoodName>
+              <FoodMenu onItemClick={handleMenuItemClick}></FoodMenu>
             </FlexBox>
             <FlexBox gap={3} marginY={2} justifyContent={"space-between"} width={"100%"}>
               {nutritionFields.map((field) => {
