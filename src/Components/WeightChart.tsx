@@ -70,6 +70,15 @@ const weightChartData = [
   },
 ];
 
+const chartTitleStyle = {
+  textAlign: "center",
+  width: "100%",
+  marginBottom: 3,
+  paddingTop: 1,
+  fontWeight: 450,
+  fontSize: "1rem",
+};
+
 interface ChartData {
   name: string;
   Weight: number;
@@ -90,17 +99,8 @@ const WeightChart: React.FC = () => {
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <FlexBox width={"100%"} centered="xAxis" justifyContent={"space-between"}>
           <Box sx={{ width: "50px" }} />
-          <Typography
-            sx={{
-              textAlign: "center",
-              width: "100%",
-              marginBottom: 3,
-              paddingTop: 1,
-              fontWeight: 450,
-              fontSize: "1.1rem",
-            }}
-          >
-            Weight
+          <Typography sx={chartTitleStyle}>
+            Weight progression from <strong>4 May</strong> to <strong>14 May</strong>
           </Typography>
           <Box sx={{ width: "50px" }}>
             <IconButton onClick={handleOpenEdit}>

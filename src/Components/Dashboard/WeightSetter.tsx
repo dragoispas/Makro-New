@@ -91,6 +91,7 @@ export function WeightSetter() {
         title={dayEntry && dayEntry.weight ? "Click to edit weight" : "Click to set weight"}
         placement="left-end"
         TransitionComponent={Zoom}
+        enterDelay={200}
       >
         <ButtonBase disableRipple onClick={handleOpen}>
           <Typography
