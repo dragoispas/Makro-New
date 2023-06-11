@@ -26,6 +26,7 @@ import {
   useCreateFoodEntryMutation,
   useCreateProductMutation,
   useRemoveProductMutation,
+  useUpdateProductMutation,
 } from "../../../../app/api/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../app/store/store";
@@ -54,6 +55,8 @@ import { AddForm } from "./AddForm";
 import { useEffect, useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { FoodMenu } from "./FoodMenu";
+import { SerializedError } from "@reduxjs/toolkit";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 
 type NutritionField = {
   name: MacroNutrientType;
@@ -119,6 +122,7 @@ export function AddEditForm() {
   const selectedProduct = useSelector((state: RootState) => state.search.selectedProduct);
   const diaryForm = useSelector((state: RootState) => state.search.diaryForm);
   const [removeProduct] = useRemoveProductMutation();
+  const [updateProduct] = useUpdateProductMutation();
 
   const [isFoodDirty, setIsFoodDirty] = useState(false);
 
