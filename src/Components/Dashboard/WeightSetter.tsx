@@ -1,4 +1,12 @@
-import { Menu, InputBase, InputAdornment, Typography, ButtonBase, Tooltip } from "@mui/material";
+import {
+  Menu,
+  InputBase,
+  InputAdornment,
+  Typography,
+  ButtonBase,
+  Tooltip,
+  Zoom,
+} from "@mui/material";
 import { FlexBox } from "../UI/GeneralStyledComponents";
 import { useEffect, useState } from "react";
 import { useCurrentDayEntry } from "../../Hooks/useCurrentDayEntry";
@@ -82,6 +90,7 @@ export function WeightSetter() {
       <Tooltip
         title={dayEntry && dayEntry.weight ? "Click to edit weight" : "Click to set weight"}
         placement="left-end"
+        TransitionComponent={Zoom}
       >
         <ButtonBase disableRipple onClick={handleOpen}>
           <Typography
