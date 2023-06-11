@@ -1,4 +1,13 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  InputAdornment,
+  InputBase,
+  Menu,
+  MenuItem,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import CustomCalendar from "../Components/CustomCalendar";
 import DayEntryDetails from "../Components/DayEntryDetails";
@@ -12,6 +21,7 @@ import moment from "moment";
 import { DiaryChart } from "../Components/Dashboard/Diary/Charts/DiaryChart";
 import { FlexBox } from "../Components/UI/GeneralStyledComponents";
 import { FoodEntryList } from "../Components/Dashboard/Diary/Charts/FoodEntryList";
+import { WeightSetter } from "../Components/Dashboard/WeightSetter";
 
 export default function DiaryPage() {
   const dispatch = useAppDispatch();
@@ -40,7 +50,20 @@ export default function DiaryPage() {
       </Stack>
 
       <Paper sx={{ height: "785px", width: "600px", padding: "24px" }}>
-        <Typography sx={{ fontSize: "0.75rem", opacity: 0.6, marginTop: "10px" }}>DIARY</Typography>
+        <FlexBox justifyContent={"space-between"}>
+          <Typography
+            sx={{
+              fontSize: "0.75rem",
+              fontWeight: 400,
+              opacity: 0.6,
+              color: "custom.neutral",
+              marginTop: "10px",
+            }}
+          >
+            DIARY
+          </Typography>
+          <WeightSetter></WeightSetter>
+        </FlexBox>
         <Stack sx={{ alignItems: "center", paddingTop: "20px" }}>
           <SearchModal />
           <Box height={"20px"}></Box>

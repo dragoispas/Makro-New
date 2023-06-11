@@ -1,4 +1,4 @@
-import { Divider, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
+import { ButtonBase, Divider, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { FoodMenuAction } from "../../../../app/api/types";
@@ -27,12 +27,9 @@ export function FoodMenu({ onItemClick }: Props) {
 
   return (
     <div>
-      <button
-        onClick={handleOpenMenu}
-        style={{ background: "none", border: "none", cursor: "pointer" }}
-      >
+      <ButtonBase disableRipple onClick={handleOpenMenu}>
         <MoreVertIcon />
-      </button>
+      </ButtonBase>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
