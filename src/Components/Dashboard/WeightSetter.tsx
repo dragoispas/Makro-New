@@ -1,4 +1,4 @@
-import { Menu, InputBase, InputAdornment, Typography, ButtonBase } from "@mui/material";
+import { Menu, InputBase, InputAdornment, Typography, ButtonBase, Tooltip } from "@mui/material";
 import { FlexBox } from "../UI/GeneralStyledComponents";
 import { useEffect, useState } from "react";
 import { useCurrentDayEntry } from "../../Hooks/useCurrentDayEntry";
@@ -79,35 +79,40 @@ export function WeightSetter() {
 
   return (
     <>
-      <ButtonBase disableRipple onClick={handleOpen}>
-        <Typography
-          sx={{
-            fontWeight: 400,
-            opacity: 0.6,
-            marginTop: "10px",
-            fontSize: "0.75rem",
-          }}
-          color={dayEntry && dayEntry.weight ? "custom.neutral" : "primary"}
-          fontWeight="bold"
-        >
-          {dayEntry && dayEntry.weight
-            ? `${dayEntry.weight} ${dayEntry.weightUnit?.toUpperCase()}`
-            : "WEIGHT"}
-        </Typography>
-      </ButtonBase>
+      <Tooltip
+        title={dayEntry && dayEntry.weight ? "Click to edit weight" : "Click to set weight"}
+        placement="left-end"
+      >
+        <ButtonBase disableRipple onClick={handleOpen}>
+          <Typography
+            sx={{
+              fontWeight: 400,
+              opacity: 0.6,
+              marginTop: "10px",
+              fontSize: "0.75rem",
+            }}
+            color={dayEntry && dayEntry.weight ? "custom.neutral" : "primary"}
+            fontWeight="bold"
+          >
+            {dayEntry && dayEntry.weight
+              ? `${dayEntry.weight} ${dayEntry.weightUnit?.toUpperCase()}`
+              : "WEIGHT"}
+          </Typography>
+        </ButtonBase>
+      </Tooltip>
       <Menu
         onClose={handleClose}
         open={open}
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "left",
+          horizontal: "right",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "right",
+          horizontal: "left",
         }}
-        sx={{ transform: "translate(-10px, -35px)" }}
+        sx={{ transform: "translate(30px, -35px)" }}
       >
         <FlexBox centered="allAxis">
           <InputBase

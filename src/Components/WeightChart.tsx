@@ -100,7 +100,7 @@ const WeightChart: React.FC = () => {
               fontSize: "1.1rem",
             }}
           >
-            Weight over the last 11 days
+            Weight
           </Typography>
           <Box sx={{ width: "50px" }}>
             <IconButton onClick={handleOpenEdit}>
