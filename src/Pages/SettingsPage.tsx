@@ -15,7 +15,7 @@ import React, { useState } from "react";
 import { useLogoutMutation, useUserQuery } from "../app/api/api";
 import ChangePasswordModal from "../Components/Settings/ChangePasswordModal";
 import ContactSupportModal from "../Components/Settings/ContactSupportModal";
-import { setThemeMode } from "../app/store/slices/generalSlice";
+import { setMeasuringSystem, setThemeMode } from "../app/store/slices/generalSlice";
 import { useAppDispatch } from "../Hooks/useAppDispatch";
 import { RootState } from "../app/store/store";
 import { useSelector } from "react-redux";
@@ -25,7 +25,7 @@ export function SettingsPage() {
   const [logout] = useLogoutMutation();
   const [changePasswordModalVisible, setChangePasswordModalVisible] = useState<boolean>(false);
   const [contactSupportModalVisible, setContactSupportdModalVisible] = useState<boolean>(false);
-  const { themeMode } = useSelector((state: RootState) => state.general);
+  const { themeMode, measuringSystem } = useSelector((state: RootState) => state.general);
   const dispatch = useAppDispatch();
   const [email] = useState<string>("");
   return (
@@ -43,6 +43,25 @@ export function SettingsPage() {
             <Typography variant="h6" sx={{ borderBottom: 1, borderColor: "divider" }}>
               Preferences
             </Typography>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Typography sx={{ opacity: 0.5 }}>{"Measuring System: "}</Typography>
+
+              <Select
+                onChange={(e) => {
+                  dispatch(setMeasuringSystem(e.target.value as PaletteMode));
+                  console.log(e.target.value);
+                }}
+                value={measuringSystem}
+                input={<InputBase inputProps={{ style: { textAlign: "center" } }}></InputBase>}
+              >
+                <MenuItem key={"metric"} value={"metric"}>
+                  metric
+                </MenuItem>
+                <MenuItem key={"imperial"} value={"imperial"}>
+                  imperial
+                </MenuItem>
+              </Select>
+            </Box>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Typography sx={{ opacity: 0.5 }}>{"Theme: "}</Typography>
 
