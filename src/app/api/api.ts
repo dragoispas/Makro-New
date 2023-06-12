@@ -1,11 +1,19 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { DayEntry, FoodEntry, Product, ProductType, ProductWithUsage, User } from "./types";
+import {
+  DayEntry,
+  FoodEntry,
+  FoodEntryDailyStats,
+  Product,
+  ProductType,
+  ProductWithUsage,
+  User,
+} from "./types";
 import { providesList } from "./api-helpers";
 
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: "/api/v1" }),
-  tagTypes: ["User", "DayEntry", "FoodEntry", "Product", "ProductWithUsage"],
+  tagTypes: ["User", "DayEntry", "FoodEntry", "Product", "ProductWithUsage", "FoodEntryDailyStats"],
   endpoints: (builder) => ({
     /** AUTH **/
     user: builder.query<User, void>({
@@ -56,6 +64,14 @@ export const api = createApi({
     foodEntry: builder.query<FoodEntry, number>({
       query: (id: number) => `/food-entry/${id}`,
       providesTags: (result) => [{ type: "FoodEntry", id: result?.id }],
+    }),
+    foodEntryDailyStats: builder.query<
+      FoodEntryDailyStats[],
+      { startDate: string; endDate: string }
+    >({
+      query: ({ startDate, endDate }) =>
+        `/food-entry/daily-stats?start_date=${startDate}&end_date=${endDate}`,
+      providesTags: (result) => [{ type: "FoodEntryDailyStats", id: "LIST" }],
     }),
     createFoodEntry: builder.mutation<FoodEntry, Omit<FoodEntry, "id" | "product">>({
       query: (createData) => ({
@@ -134,6 +150,7 @@ export const {
   useDayEntryByDateQuery,
   useUpdateDayEntryMutation,
   useFoodEntryQuery,
+  useFoodEntryDailyStatsQuery,
   useCreateFoodEntryMutation,
   useUpdateFoodEntryMutation,
   useRemoveFoodEntryMutation,

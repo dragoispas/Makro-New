@@ -51,3 +51,8 @@ export enum FoodMenuAction {
   Copy = "copy",
   Delete = "delete",
 }
+
+export type FoodEntryDailyStats = {
+  date: string;
+  totalIngestedCalories: number;
+};

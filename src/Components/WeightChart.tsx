@@ -12,6 +12,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import EditChartModal from "./EditChartModal";
 import { FlexBox } from "./UI/GeneralStyledComponents";
+import { useFoodEntryDailyStatsQuery } from "../app/api/api";
 const weightChartData = [
   {
     date: "4 May",
@@ -86,6 +87,11 @@ interface ChartData {
 }
 
 const WeightChart: React.FC = () => {
+  const { data: dailyStats } = useFoodEntryDailyStatsQuery({
+    startDate: "2023-01-01",
+    endDate: "2023-08-01",
+  });
+
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const handleOnCloseEdit = () => {
@@ -115,7 +121,7 @@ const WeightChart: React.FC = () => {
           style={{ transform: "translate(-15px, 10px)" }}
           width={500}
           height={300}
-          data={weightChartData}
+          data={dailyStats}
           margin={{
             top: 5,
             right: 30,
@@ -137,7 +143,7 @@ const WeightChart: React.FC = () => {
           <Line
             connectNulls
             type="monotone"
-            dataKey="weight"
+            dataKey="totalIngestedCalories"
             stroke="#ee5b46"
             activeDot={{ r: 6 }}
             strokeWidth={2}
