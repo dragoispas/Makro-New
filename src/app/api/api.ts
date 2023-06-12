@@ -21,12 +21,12 @@ export const api = createApi({
       transformResponse: (response: { user: User }) => response.user,
       invalidatesTags: (result) => (result ? ["User"] : []),
     }),
-    logout: builder.mutation<User, void>({
+    logout: builder.mutation<void, void>({
       query: () => ({
         url: "/auth/logout",
         method: "POST",
       }),
-      invalidatesTags: (result) => (result ? ["User"] : []),
+      invalidatesTags: ["User"],
     }),
     register: builder.mutation<User, { email: string; password: string; name: string }>({
       query: ({ email, password, name }) => ({

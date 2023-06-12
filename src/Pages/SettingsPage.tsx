@@ -1,9 +1,7 @@
 import {
   Box,
   Button,
-  FormControl,
   InputBase,
-  InputLabel,
   MenuItem,
   PaletteMode,
   Paper,
@@ -12,22 +10,32 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useLogoutMutation, useUserQuery } from "../app/api/api";
+import { useLogoutMutation } from "../app/api/api";
 import ChangePasswordModal from "../Components/Settings/ChangePasswordModal";
 import ContactSupportModal from "../Components/Settings/ContactSupportModal";
 import { setMeasuringSystem, setThemeMode } from "../app/store/slices/generalSlice";
 import { useAppDispatch } from "../Hooks/useAppDispatch";
 import { RootState } from "../app/store/store";
 import { useSelector } from "react-redux";
+import { useCurrentUser } from "../Hooks/useCurrentUser";
+import { useNavigate } from "react-router-dom";
 
 export function SettingsPage() {
-  const user = useUserQuery();
+  const user = useCurrentUser();
   const [logout] = useLogoutMutation();
   const [changePasswordModalVisible, setChangePasswordModalVisible] = useState<boolean>(false);
-  const [contactSupportModalVisible, setContactSupportdModalVisible] = useState<boolean>(false);
+  const [contactSupportModalVisible, setContactSupportModalVisible] = useState<boolean>(false);
   const { themeMode, measuringSystem } = useSelector((state: RootState) => state.general);
   const dispatch = useAppDispatch();
-  const [email] = useState<string>("");
+  const navigate = useNavigate();
+
+  const onLogoutClick = async () => {
+    await logout();
+    setTimeout(() => {
+      navigate("/", { replace: true });
+    }, 1000);
+  };
+
   return (
     <Box
       sx={{
@@ -49,7 +57,6 @@ export function SettingsPage() {
               <Select
                 onChange={(e) => {
                   dispatch(setMeasuringSystem(e.target.value as PaletteMode));
-                  console.log(e.target.value);
                 }}
                 value={measuringSystem}
                 input={<InputBase inputProps={{ style: { textAlign: "center" } }}></InputBase>}
@@ -68,7 +75,6 @@ export function SettingsPage() {
               <Select
                 onChange={(e) => {
                   dispatch(setThemeMode(e.target.value as PaletteMode));
-                  console.log(e.target.value);
                 }}
                 value={themeMode}
                 input={<InputBase inputProps={{ style: { textAlign: "center" } }}></InputBase>}
@@ -91,7 +97,7 @@ export function SettingsPage() {
                 "Need help or have a question? We're here for you! Send us a message, your feedback is valuable to us!"
               }
             </Typography>
-            <Button onClick={() => setContactSupportdModalVisible(true)} color="inherit">
+            <Button onClick={() => setContactSupportModalVisible(true)} color="inherit">
               Contact Support
             </Button>
           </Stack>
@@ -101,12 +107,12 @@ export function SettingsPage() {
             </Typography>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Typography sx={{ opacity: 0.5 }}>{"Email: "}</Typography>
-              <Typography sx={{ fontWeight: "bold" }}>{user.data?.email}</Typography>
+              <Typography sx={{ fontWeight: "bold" }}>{user?.email}</Typography>
             </Box>
             <Button onClick={() => setChangePasswordModalVisible(true)} color="inherit">
               Change password
             </Button>
-            <Button onClick={() => logout()} color="error" sx={{ justifySelf: "flex-end" }}>
+            <Button onClick={onLogoutClick} color="error" sx={{ justifySelf: "flex-end" }}>
               Log out
             </Button>
           </Stack>
@@ -118,7 +124,7 @@ export function SettingsPage() {
       ></ChangePasswordModal>
       <ContactSupportModal
         open={contactSupportModalVisible}
-        onClose={() => setContactSupportdModalVisible(false)}
+        onClose={() => setContactSupportModalVisible(false)}
       ></ContactSupportModal>
     </Box>
   );
