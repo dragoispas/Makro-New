@@ -144,6 +144,7 @@ const WeightChart: React.FC = () => {
             connectNulls
             type="monotone"
             dataKey="totalIngestedCalories"
+            name="Calories"
             stroke="#ee5b46"
             activeDot={{ r: 6 }}
             strokeWidth={2}
