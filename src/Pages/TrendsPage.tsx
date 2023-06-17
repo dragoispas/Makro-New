@@ -1,17 +1,5 @@
 import React from "react";
-import { Box, Paper, Stack, Typography } from "@mui/material";
-import {
-  CartesianGrid,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
-import CreateChartModal from "../Components/CreateChartModal";
 import { FlexBox } from "../Components/UI/GeneralStyledComponents";
-import WeightChart from "../Components/WeightChart";
 import TrendsChart, { ChartType, DataItem } from "../Components/TrendsChart";
 import { useFoodEntryDailyStatsQuery } from "../app/api/api";
 
@@ -33,7 +21,7 @@ export default function TrendsPage() {
       <TrendsChart
         name="Calories"
         type={ChartType.Line}
-        data={dailyStats as DataItem[]}
+        data={dailyStats}
         startDate="2023-01-01"
         endDate="2023-08-01"
         options={{ yAxis: { label: "Calories" } }}

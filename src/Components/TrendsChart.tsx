@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { Paper, Typography, Box, IconButton } from "@mui/material";
+import React from "react";
+import { Box, Paper, Typography } from "@mui/material";
 import {
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
   Bar,
   BarChart,
+  CartesianGrid,
   Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from "recharts";
 import { FlexBox } from "./UI/GeneralStyledComponents";
 
@@ -36,7 +36,7 @@ export enum ChartType {
 interface Props {
   name: string;
   type: ChartType;
-  data: DataItem[];
+  data?: DataItem[];
   startDate: string;
   endDate: string;
   options?: {
@@ -57,13 +57,16 @@ function TrendsChart({ name, type, data, startDate, endDate, options }: Props) {
     fontSize: "1rem",
   };
 
-  const formattedData = data.map((item) => {
-    const formattedDate = formatDate(item.date);
-    return {
-      ...item,
-      date: formattedDate,
-    };
-  });
+  const formattedData =
+    data?.map((item) => {
+      const formattedDate = formatDate(item.date);
+      return {
+        ...item,
+        date: formattedDate,
+      };
+    }) ?? [];
+
+  const firstItem = data ? data[0] : {};
 
   const renderChart = () => {
     if (type === ChartType.Line) {
@@ -96,7 +99,7 @@ function TrendsChart({ name, type, data, startDate, endDate, options }: Props) {
             formatter={(value) => `${value} kg`}
           />
           {/* Render lines dynamically */}
-          {Object.keys(data[0]).map((key) => {
+          {Object.keys(firstItem).map((key) => {
             if (key !== "date") {
               return (
                 <Line
@@ -141,7 +144,7 @@ function TrendsChart({ name, type, data, startDate, endDate, options }: Props) {
             formatter={(value) => `${value} kg`}
           />
           {/* Render bars dynamically */}
-          {Object.keys(data[0]).map((key) => {
+          {Object.keys(firstItem).map((key) => {
             if (key !== "date") {
               return (
                 <Bar
